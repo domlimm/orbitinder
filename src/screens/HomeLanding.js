@@ -20,9 +20,7 @@ export const HomeLandingScreen = ({ navigation }) => {
       <Layout style={{ flex: 1 }}>
         <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
         <Text style={styles.textContent}>
-          Finding your Orbital teammate
-          {'\n'}
-          has never been easier.
+          {'Finding your Orbital teammate\nhas never been easier.'}
         </Text>
         <Layout
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
