@@ -3,11 +3,11 @@ import { Image, StyleSheet, View } from 'react-native';
 import { TopNavigation } from '@ui-kitten/components';
 
 export default function landingHeader() {
-  const renderTitle = props => (
+  const renderTitle = () => (
     <View style={styles.titleContainer}>
       <Image
         style={styles.logo}
-        source={require('../assets/images/orbital-brand.png')}
+        source={require('../../assets/images/orbital-brand.png')}
       />
     </View>
   );

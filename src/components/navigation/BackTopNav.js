@@ -21,7 +21,7 @@ export default function AuthHeader({ navigation }) {
     <View style={styles.titleContainer}>
       <Image
         style={styles.logo}
-        source={require('../assets/images/orbital-brand.png')}
+        source={require('../../assets/images/orbital-brand.png')}
       />
     </View>
   );
