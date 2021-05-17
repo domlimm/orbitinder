@@ -2,19 +2,17 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TopNavigation } from '@ui-kitten/components';
 
-export default function landingHeader() {
+export default function ProfileHeader() {
   const renderTitle = () => (
-    <View style={styles.titleContainer}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/images/orbital-brand.png')}
-      />
-    </View>
+    <Image
+      style={styles.logo}
+      source={require('../../assets/images/orbital-logo.png')}
+    />
   );
   return (
     <TopNavigation
-      style={styles.topNav}
-      title={renderTitle}
+      style={{ marginVertical: 8 }}
+      accessoryRight={renderTitle}
       alignment='center'
     />
   );
@@ -27,12 +25,9 @@ const styles = StyleSheet.create({
     marginVertical: 50
   },
   logo: {
-    flex: 1,
     width: 40,
     height: 40,
-    resizeMode: 'contain'
-  },
-  topNav: {
-    marginVertical: 8
+    resizeMode: 'contain',
+    marginLeft: '5%'
   }
 });
