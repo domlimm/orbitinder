@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Layout, Input } from '@ui-kitten/components';
+import { LandingHeader, LandingImage } from '../components/navigation/index';
 import AuthHeader from '../components/navigation/BackTopNav';
 
 const LoginScreen = ({ navigation }) => {
@@ -11,15 +12,12 @@ const LoginScreen = ({ navigation }) => {
   const [value, setValue] = React.useState('');
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.parentContainer}>
       <AuthHeader navigation={navigation} />
-      <Layout style={{ height: '50%' }}>
-        <Image
-          style={styles.landingImage}
-          source={require('../assets/images/login-image.png')}
-        />
+      <Layout style={styles.landingImageContainer}>
+        <LandingImage imgSrc={require('../assets/images/high-five-pana.png')} />
       </Layout>
-      <Layout style={{ height: '50%', alignItems: 'center' }}>
+      <Layout style={styles.inputContainer}>
         <Input
           label='Email'
           style={styles.textInput}
@@ -39,22 +37,25 @@ const LoginScreen = ({ navigation }) => {
           Log In
         </Button>
       </Layout>
-      <StatusBar style='auto' />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'white',
-    paddingTop: 20
+  parentContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  landingImageContainer: {
+    height: '50%'
+  },
+  inputContainer: {
+    height: '50%',
+    alignItems: 'center'
   },
   textInput: {
     width: '70%',
-    marginBottom: 20
+    marginBottom: 15
   },
   loginBtn: {
     width: '70%',

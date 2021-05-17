@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
-import LandingHeader from '../components/navigation/LandingHeader';
+import { LandingHeader, LandingImage } from '../components/navigation/index';
 
 const HomeLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
@@ -9,38 +9,33 @@ const HomeLandingScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.parentContainer}>
       <LandingHeader />
-      <Layout style={{ flex: 1 }}>
-        <Image
-          style={styles.landingImage}
-          source={require('../assets/images/high-five-pana.png')}
-        />
+      <Layout style={styles.flexContainer}>
+        <LandingImage imgSrc={require('../assets/images/high-five-pana.png')} />
       </Layout>
-      <Layout style={{ flex: 1 }}>
+      <Layout style={styles.flexContainer}>
         <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
         <Text style={styles.textContent}>
           {'Finding your Orbital teammate\nhas never been easier.'}
         </Text>
-        <Layout
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <Layout style={styles.btnContainer}>
           <Button onPress={navigateLoginLanding} style={styles.btn}>
             Get Started
           </Button>
         </Layout>
       </Layout>
-      <StatusBar style='auto' />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain',
+  parentContainer: {
+    flex: 1,
     backgroundColor: 'white'
+  },
+  flexContainer: {
+    flex: 1
   },
   landingTitle: {
     textAlign: 'center',
@@ -51,6 +46,11 @@ const styles = StyleSheet.create({
   textContent: {
     textAlign: 'center',
     fontSize: 17
+  },
+  btnContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   btn: {
     backgroundColor: '#407BFF',
