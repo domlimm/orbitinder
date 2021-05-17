@@ -14,7 +14,7 @@ export const LoginLanding = ({ navigation }) => {
       <Layout style={{ height: '50%' }}>
         <Image
           style={styles.landingImage}
-          source={require('../../assets/High-five-pana.png')}
+          source={require('../assets/images/high-five-pana.png')}
         />
       </Layout>
       <Layout style={{ height: '50%', alignItems: 'center' }}>

@@ -14,7 +14,7 @@ export const HomeLandingScreen = ({ navigation }) => {
       <Layout style={{ flex: 1 }}>
         <Image
           style={styles.landingImage}
-          source={require('../../assets/High-five-pana.png')}
+          source={require('../assets/images/high-five-pana.png')}
         />
       </Layout>
       <Layout style={{ flex: 1 }}>
