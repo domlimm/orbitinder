@@ -4,29 +4,29 @@ import { Button, Layout } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
 
 export const LoginLanding = ({ navigation }) => {
-  const navigateDetails = () => {
-    console.log('btn pressed');
+  const navigateLoginScreen = () => {
+    navigation.navigate('LoginScreen');
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <LandingHeader />
-      <Layout style={{ height: '50%' }}>
+      <Layout style={styles.layoutContainerTop}>
         <Image
           style={styles.landingImage}
           source={require('../assets/images/high-five-pana.png')}
         />
       </Layout>
-      <Layout style={{ height: '50%', alignItems: 'center' }}>
+      <Layout style={styles.layoutContainerBottom}>
         <Button
-          onPress={navigateDetails}
-          style={{ width: '80%', marginBottom: 20 }}
+          onPress={() => console.log('sign up btn pressed')}
+          style={styles.signUpBtn}
         >
           Sign Up
         </Button>
         <Button
-          onPress={navigateDetails}
-          style={{ width: '80%' }}
+          onPress={navigateLoginScreen}
+          style={styles.logInBtn}
           status='basic'
         >
           Log In
@@ -45,14 +45,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: 20
   },
-  landingTitle: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 30,
-    paddingBottom: 10
+  layoutContainerTop: {
+    height: '50%'
+  },
+  layoutContainerBottom: {
+    height: '50%',
+    alignItems: 'center'
   },
   textContent: {
     textAlign: 'center',
     fontSize: 17
+  },
+  signUpBtn: {
+    width: '70%',
+    margin: 15,
+    backgroundColor: '#407BFF'
+  },
+  logInBtn: {
+    width: '70%',
+    margin: 15
   }
 });

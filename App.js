@@ -1,13 +1,17 @@
 import React from 'react';
-import { ApplicationProvider } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { LandingNavigator } from './src/navigation/LandingNavigator';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const App = () => {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <LandingNavigator />
-    </ApplicationProvider>
+    <React.Fragment>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <LandingNavigator />
+      </ApplicationProvider>
+    </React.Fragment>
   );
 };
 
