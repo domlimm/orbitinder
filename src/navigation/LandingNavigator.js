@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeLandingScreen } from '../screens/HomeLanding';
 import { LoginLanding } from '../screens/LoginLanding';
+import { LoginScreen } from '../screens/LoginScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -11,6 +12,7 @@ export const LandingNavigator = () => (
     <Navigator headerMode='none'>
       <Screen name='Home' component={HomeLandingScreen} />
       <Screen name='LoginLanding' component={LoginLanding} />
+      <Screen name='LoginScreen' component={LoginScreen} />
     </Navigator>
   </NavigationContainer>
 );
