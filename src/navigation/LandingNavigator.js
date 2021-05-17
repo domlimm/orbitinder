@@ -5,6 +5,7 @@ import HomeLandingScreen from '../screens/HomeLandingScreen';
 import LoginLandingScreen from '../screens/LoginLandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import ProfileLandingScreen from '../screens/ProfileLandingScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -15,6 +16,7 @@ const LandingNavigator = () => (
       <Screen name='LoginLanding' component={LoginLandingScreen} />
       <Screen name='Login' component={LoginScreen} />
       <Screen name='Signup' component={SignupScreen} />
+      <Screen name='ProfileLanding' component={ProfileLandingScreen} />
     </Navigator>
   </NavigationContainer>
 );

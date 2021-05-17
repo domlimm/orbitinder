@@ -13,7 +13,8 @@ import AuthHeader from '../components/navigation/BackTopNav';
 
 const SignupScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    console.log('btn pressed');
+    // console.log('btn pressed');
+    navigation.navigate('ProfileLanding');
   };
 
   const [value, setValue] = React.useState('');
@@ -61,10 +62,7 @@ const SignupScreen = ({ navigation }) => {
         />
       </Layout>
       <Layout style={{ flex: 1, alignItems: 'center' }}>
-        <Button
-          onPress={() => console.log('Signup Btn Pressed')}
-          style={styles.signupBtn}
-        >
+        <Button onPress={navigateDetails} style={styles.signupBtn}>
           Sign Up
         </Button>
       </Layout>
