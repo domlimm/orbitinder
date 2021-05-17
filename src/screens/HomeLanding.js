@@ -27,7 +27,9 @@ export const HomeLandingScreen = ({ navigation }) => {
         <Layout
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <Button onPress={navigateLoginLanding}>Get Started</Button>
+          <Button onPress={navigateLoginLanding} style={styles.btn}>
+            Get Started
+          </Button>
         </Layout>
       </Layout>
       <StatusBar style='auto' />
@@ -51,5 +53,9 @@ const styles = StyleSheet.create({
   textContent: {
     textAlign: 'center',
     fontSize: 17
+  },
+  btn: {
+    backgroundColor: '#407BFF',
+    width: '50%'
   }
 });
