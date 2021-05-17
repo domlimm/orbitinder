@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
-import LandingHeader from '../components/navigation/LandingHeader';
+import { LandingHeader, LandingImage } from '../components/navigation/index';
 
 const HomeLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
@@ -12,10 +12,7 @@ const HomeLandingScreen = ({ navigation }) => {
     <SafeAreaView style={styles.parentContainer}>
       <LandingHeader />
       <Layout style={styles.flexContainer}>
-        <Image
-          style={styles.landingImage}
-          source={require('../assets/images/high-five-pana.png')}
-        />
+        <LandingImage imgSrc={require('../assets/images/high-five-pana.png')} />
       </Layout>
       <Layout style={styles.flexContainer}>
         <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
@@ -39,11 +36,6 @@ const styles = StyleSheet.create({
   },
   flexContainer: {
     flex: 1
-  },
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain'
   },
   landingTitle: {
     textAlign: 'center',

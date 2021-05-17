@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Layout, Input } from '@ui-kitten/components';
-import LandingHeader from '../components/navigation/LandingHeader';
+import { LandingHeader, LandingImage } from '../components/navigation/index';
 import AuthHeader from '../components/navigation/BackTopNav';
 
 const LoginScreen = ({ navigation }) => {
@@ -15,10 +15,7 @@ const LoginScreen = ({ navigation }) => {
     <SafeAreaView style={styles.parentContainer}>
       <AuthHeader navigation={navigation} />
       <Layout style={styles.landingImageContainer}>
-        <Image
-          style={styles.landingImage}
-          source={require('../assets/images/login-image.png')}
-        />
+        <LandingImage imgSrc={require('../assets/images/high-five-pana.png')} />
       </Layout>
       <Layout style={styles.inputContainer}>
         <Input
@@ -52,18 +49,13 @@ const styles = StyleSheet.create({
   landingImageContainer: {
     height: '50%'
   },
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain'
-  },
   inputContainer: {
     height: '50%',
     alignItems: 'center'
   },
   textInput: {
     width: '70%',
-    marginBottom: 20
+    marginBottom: 15
   },
   loginBtn: {
     width: '70%',
