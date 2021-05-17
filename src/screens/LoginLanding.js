@@ -3,32 +3,34 @@ import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
 
-export const HomeLandingScreen = ({ navigation }) => {
-  const navigateLoginLanding = () => {
-    navigation.navigate('LoginLanding');
+export const LoginLanding = ({ navigation }) => {
+  const navigateDetails = () => {
+    console.log('btn pressed');
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <LandingHeader />
-      <Layout style={{ flex: 1 }}>
+      <Layout style={{ height: '50%' }}>
         <Image
           style={styles.landingImage}
           source={require('../../assets/High-five-pana.png')}
         />
       </Layout>
-      <Layout style={{ flex: 1 }}>
-        <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
-        <Text style={styles.textContent}>
-          Finding your Orbital teammate
-          {'\n'}
-          has never been easier.
-        </Text>
-        <Layout
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      <Layout style={{ height: '50%', alignItems: 'center' }}>
+        <Button
+          onPress={navigateDetails}
+          style={{ width: '80%', marginBottom: 20 }}
         >
-          <Button onPress={navigateLoginLanding}>Get Started</Button>
-        </Layout>
+          Sign Up
+        </Button>
+        <Button
+          onPress={navigateDetails}
+          style={{ width: '80%' }}
+          status='basic'
+        >
+          Log In
+        </Button>
       </Layout>
       <StatusBar style='auto' />
     </SafeAreaView>
@@ -40,7 +42,8 @@ const styles = StyleSheet.create({
     maxHeight: '100%',
     maxWidth: '100%',
     resizeMode: 'contain',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    paddingTop: 20
   },
   landingTitle: {
     textAlign: 'center',
