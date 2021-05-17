@@ -1,9 +1,7 @@
 <p align="center">
   <a>
-    <img width="200" src="https://user-images.githubusercontent.com/46486515/118396103-7500fc00-b680-11eb-9147-ab9ed7097d3f.png">
+    <img width="60%" height="140px" src="https://user-images.githubusercontent.com/46486515/118454908-73d8d900-b72b-11eb-814d-8fdd5dfd70a2.png">
   </a>
 </p>
-
-<h1 align="center">OrbiTinder</h1>
 
 <div align="center">
