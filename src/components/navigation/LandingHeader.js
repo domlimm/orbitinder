@@ -13,7 +13,7 @@ export default function landingHeader() {
   );
   return (
     <TopNavigation
-      style={{ marginVertical: 8 }}
+      style={styles.topNav}
       title={renderTitle}
       alignment='center'
     />
@@ -31,5 +31,8 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: 'contain'
+  },
+  topNav: {
+    marginVertical: 8
   }
 });

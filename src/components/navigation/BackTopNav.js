@@ -28,7 +28,7 @@ export default function AuthHeader({ navigation }) {
 
   return (
     <TopNavigation
-      style={{ marginVertical: 8 }}
+      style={styles.topNav}
       accessoryLeft={BackAction}
       title={renderTitle}
       alignment='center'
@@ -47,5 +47,8 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: 'contain'
+  },
+  topNav: {
+    marginVertical: 8
   }
 });

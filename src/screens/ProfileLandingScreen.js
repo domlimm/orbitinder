@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
-import ProfileHeader from '../components/navigation/ProfileHeader';
+import { ProfileHeader, LandingImage } from '../components/navigation/index';
 
 const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
@@ -10,18 +10,15 @@ const ProfileLandingScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.container}>
       <ProfileHeader />
       <Text style={styles.landingTitle}>Its time to create your profile!</Text>
-      <Layout style={{ flex: 2 }}>
-        <Image
-          style={styles.landingImage}
-          source={require('../assets/images/profile-interface.png')}
+      <Layout style={styles.imgContainer}>
+        <LandingImage
+          imgSrc={require('../assets/images/profile-interface.png')}
         />
       </Layout>
-      <Layout
-        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-      >
+      <Layout style={styles.btnContainer}>
         <Button onPress={navigateLoginLanding} style={styles.btn}>
           Let's Go!
         </Button>
@@ -32,6 +29,10 @@ const ProfileLandingScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
   landingImage: {
     maxHeight: '100%',
     maxWidth: '100%',
@@ -44,6 +45,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginVertical: 20,
     color: '#407BFF'
+  },
+  imgContainer: {
+    flex: 2
+  },
+  btnContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   btn: {
     backgroundColor: '#407BFF',
