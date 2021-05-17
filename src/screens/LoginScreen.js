@@ -4,7 +4,7 @@ import { Button, Layout, Input } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
 import AuthHeader from '../components/BackTopNav';
 
-export const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const navigateDetails = () => {
     console.log('btn pressed');
   };
@@ -31,7 +31,7 @@ export const LoginScreen = ({ navigation }) => {
         <Input
           label='Password'
           style={styles.textInput}
-          placeholder='*******'
+          placeholder='********'
         />
         <Button
           onPress={() => console.log('Login Btn Pressed')}
@@ -63,3 +63,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF'
   }
 });
+
+export default LoginScreen;
