@@ -8,6 +8,10 @@ const LoginLandingScreen = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
+  const navigateSignup = () => {
+    navigation.navigate('Signup');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <LandingHeader />
@@ -18,10 +22,7 @@ const LoginLandingScreen = ({ navigation }) => {
         />
       </Layout>
       <Layout style={styles.layoutContainerBottom}>
-        <Button
-          onPress={() => console.log('sign up btn pressed')}
-          style={styles.signUpBtn}
-        >
+        <Button onPress={navigateSignup} style={styles.signUpBtn}>
           Sign Up
         </Button>
         <Button onPress={navigateLogin} style={styles.logInBtn} status='basic'>

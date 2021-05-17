@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import { Button, Layout, Input } from '@ui-kitten/components';
-import LandingHeader from '../components/navigation/LandingHeader';
 import AuthHeader from '../components/navigation/BackTopNav';
 
 const LoginScreen = ({ navigation }) => {
