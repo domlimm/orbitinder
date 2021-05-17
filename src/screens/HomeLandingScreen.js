@@ -9,22 +9,20 @@ const HomeLandingScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.parentContainer}>
       <LandingHeader />
-      <Layout style={{ flex: 1 }}>
+      <Layout style={styles.flexContainer}>
         <Image
           style={styles.landingImage}
           source={require('../assets/images/high-five-pana.png')}
         />
       </Layout>
-      <Layout style={{ flex: 1 }}>
+      <Layout style={styles.flexContainer}>
         <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
         <Text style={styles.textContent}>
           {'Finding your Orbital teammate\nhas never been easier.'}
         </Text>
-        <Layout
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+        <Layout style={styles.btnContainer}>
           <Button onPress={navigateLoginLanding} style={styles.btn}>
             Get Started
           </Button>
@@ -35,11 +33,17 @@ const HomeLandingScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  flexContainer: {
+    flex: 1
+  },
   landingImage: {
     maxHeight: '100%',
     maxWidth: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'white'
+    resizeMode: 'contain'
   },
   landingTitle: {
     textAlign: 'center',
@@ -50,6 +54,11 @@ const styles = StyleSheet.create({
   textContent: {
     textAlign: 'center',
     fontSize: 17
+  },
+  btnContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   btn: {
     backgroundColor: '#407BFF',

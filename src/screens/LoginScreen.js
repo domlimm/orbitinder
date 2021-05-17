@@ -12,15 +12,15 @@ const LoginScreen = ({ navigation }) => {
   const [value, setValue] = React.useState('');
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.parentContainer}>
       <AuthHeader navigation={navigation} />
-      <Layout style={{ height: '50%' }}>
+      <Layout style={styles.landingImageContainer}>
         <Image
           style={styles.landingImage}
           source={require('../assets/images/login-image.png')}
         />
       </Layout>
-      <Layout style={{ height: '50%', alignItems: 'center' }}>
+      <Layout style={styles.inputContainer}>
         <Input
           label='Email'
           style={styles.textInput}
@@ -45,12 +45,21 @@ const LoginScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  landingImageContainer: {
+    height: '50%'
+  },
   landingImage: {
     maxHeight: '100%',
     maxWidth: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'white',
-    paddingTop: 20
+    resizeMode: 'contain'
+  },
+  inputContainer: {
+    height: '50%',
+    alignItems: 'center'
   },
   textInput: {
     width: '70%',

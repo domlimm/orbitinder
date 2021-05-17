@@ -9,7 +9,7 @@ const LoginLandingScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.parentContainer}>
       <LandingHeader />
       <Layout style={styles.layoutContainerTop}>
         <Image
@@ -33,12 +33,14 @@ const LoginLandingScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
   landingImage: {
     maxHeight: '100%',
     maxWidth: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'white',
-    paddingTop: 20
+    resizeMode: 'contain'
   },
   layoutContainerTop: {
     height: '50%'
@@ -53,12 +55,11 @@ const styles = StyleSheet.create({
   },
   signUpBtn: {
     width: '70%',
-    margin: 15,
+    marginVertical: 15,
     backgroundColor: '#407BFF'
   },
   logInBtn: {
-    width: '70%',
-    margin: 15
+    width: '70%'
   }
 });
 
