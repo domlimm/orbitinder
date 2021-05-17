@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 import LandingHeader from '../components/navigation/LandingHeader';
 
