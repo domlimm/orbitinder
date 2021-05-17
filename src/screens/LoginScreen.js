@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import { Button, Layout, Input } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
-import AuthHeader from '../components/backTopNav';
+import AuthHeader from '../components/BackTopNav';
 
 export const LoginScreen = ({ navigation }) => {
   const navigateDetails = () => {
