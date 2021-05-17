@@ -30,7 +30,6 @@ const HomeLandingScreen = ({ navigation }) => {
           </Button>
         </Layout>
       </Layout>
-      <StatusBar style='auto' />
     </SafeAreaView>
   );
 };

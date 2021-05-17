@@ -40,7 +40,6 @@ const LoginScreen = ({ navigation }) => {
           Log In
         </Button>
       </Layout>
-      <StatusBar style='auto' />
     </SafeAreaView>
   );
 };
