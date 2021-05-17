@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeLandingScreen } from '../screens/HomeLanding';
-import { LoginLanding } from '../screens/LoginLanding';
+import { HomeLandingScreen } from '../screens/HomeLandingScreen';
+import { LoginLandingScreen } from '../screens/LoginLandingScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -11,7 +11,7 @@ export const LandingNavigator = () => (
   <NavigationContainer>
     <Navigator headerMode='none'>
       <Screen name='Home' component={HomeLandingScreen} />
-      <Screen name='LoginLanding' component={LoginLanding} />
+      <Screen name='LoginLanding' component={LoginLandingScreen} />
       <Screen name='LoginScreen' component={LoginScreen} />
     </Navigator>
   </NavigationContainer>

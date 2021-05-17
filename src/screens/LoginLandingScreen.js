@@ -3,7 +3,7 @@ import { Image, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
 
-export const LoginLanding = ({ navigation }) => {
+export const LoginLandingScreen = ({ navigation }) => {
   const navigateLoginScreen = () => {
     navigation.navigate('LoginScreen');
   };
