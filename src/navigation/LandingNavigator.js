@@ -12,7 +12,7 @@ export const LandingNavigator = () => (
     <Navigator headerMode='none'>
       <Screen name='Home' component={HomeLandingScreen} />
       <Screen name='LoginLanding' component={LoginLandingScreen} />
-      <Screen name='LoginScreen' component={LoginScreen} />
+      <Screen name='Login' component={LoginScreen} />
     </Navigator>
   </NavigationContainer>
 );

@@ -4,8 +4,8 @@ import { Button, Layout } from '@ui-kitten/components';
 import LandingHeader from '../components/LandingHeader';
 
 export const LoginLandingScreen = ({ navigation }) => {
-  const navigateLoginScreen = () => {
-    navigation.navigate('LoginScreen');
+  const navigateLogin = () => {
+    navigation.navigate('Login');
   };
 
   return (
@@ -24,11 +24,7 @@ export const LoginLandingScreen = ({ navigation }) => {
         >
           Sign Up
         </Button>
-        <Button
-          onPress={navigateLoginScreen}
-          style={styles.logInBtn}
-          status='basic'
-        >
+        <Button onPress={navigateLogin} style={styles.logInBtn} status='basic'>
           Log In
         </Button>
       </Layout>
