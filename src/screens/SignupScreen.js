@@ -9,30 +9,23 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import AuthHeader from '../components/navigation/BackTopNav';
+import { BackTopNav } from '../components/navigation/index';
 
 const SignupScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    // console.log('btn pressed');
     navigation.navigate('ProfileLanding');
   };
 
-  const [value, setValue] = React.useState('');
+  const [emailValue, setValue] = React.useState('');
 
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
   const genderData = ['Male', 'Female'];
   const displayValue = genderData[selectedIndex.row];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <AuthHeader navigation={navigation} />
-      <Layout
-        style={{
-          flex: 3,
-          alignItems: 'center',
-          justifyContent: 'space-evenly'
-        }}
-      >
+    <SafeAreaView style={styles.container}>
+      <BackTopNav navigation={navigation} />
+      <Layout style={styles.inputContainer}>
         {/* <Text style={styles.screenTitle}>Sign Up</Text> */}
         <Input label='First Name' style={styles.textInput} placeholder='John' />
         <Input label='Last Name' style={styles.textInput} placeholder='Doe' />
@@ -52,7 +45,7 @@ const SignupScreen = ({ navigation }) => {
           label='Email'
           style={styles.textInput}
           placeholder='example@mail.com'
-          value={value}
+          value={emailValue}
           onChangeText={nextValue => setValue(nextValue)}
         />
         <Input
@@ -61,7 +54,7 @@ const SignupScreen = ({ navigation }) => {
           placeholder='********'
         />
       </Layout>
-      <Layout style={{ flex: 1, alignItems: 'center' }}>
+      <Layout style={styles.btnContainer}>
         <Button onPress={navigateDetails} style={styles.signupBtn}>
           Sign Up
         </Button>
@@ -72,12 +65,18 @@ const SignupScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'white',
-    paddingTop: 20
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  btnContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  inputContainer: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
   },
   textInput: {
     width: '70%',
