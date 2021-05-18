@@ -8,6 +8,13 @@ import {
   Text
 } from '@ui-kitten/components';
 import { ProfileHeader } from '../components/navigation/index';
+import {
+  gameDevData,
+  webDevData,
+  mobileDevData,
+  dbData,
+  mlData
+} from '../constants/profleCreationData';
 
 const InputBackgroundScreen3 = ({ navigation }) => {
   const navigateDetails = () => {
@@ -15,84 +22,25 @@ const InputBackgroundScreen3 = ({ navigation }) => {
   };
 
   const [selectedIndex, setSelectedIndex] = React.useState([]);
-  const gameDevData = [
-    'Unity',
-    'Gamemaker',
-    'pygame',
-    'Unreal Engine',
-    'CryEngine',
-    'Amazon Lumberyard',
-    'Phaser'
-  ];
   const displayGameDev = selectedIndex.map(index => {
     return gameDevData[index.row];
   });
-  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
-  const webDevData = [
-    'React',
-    'Angular',
-    'Ember.js',
-    'Vue.js',
-    'Metero',
-    'Express.js',
-    'Django',
-    'Flask',
-    'Rails',
-    'Laravel',
-    'Spring',
-    'ASP .NET',
-    'GraphQL',
-    'Telegram Bot',
-    'Browser Extension'
-  ];
 
+  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
   const displayWebDev = selectedWebIndex.map(index => {
     return webDevData[index.row];
   });
 
-  const mobileDevData = [
-    'Xcode',
-    'Android Studio',
-    'Flutter',
-    'React Native',
-    'NativeScripts',
-    'Ionic',
-    'Xamarin',
-    'Corona',
-    'Cordova'
-  ];
   const [selectedMobileIndex, setselectedMobileIndex] = React.useState([]);
   const displaymobileDev = selectedMobileIndex.map(index => {
     return mobileDevData[index.row];
   });
 
-  const dbData = [
-    'Oracle',
-    'MySQL',
-    'PostgreSQL',
-    'MongoDB',
-    'IBM Db2',
-    'Firebase',
-    'SQLite',
-    'Cassandra',
-    'MariaDB'
-  ];
   const [selectedDbIndex, setselectedDbIndex] = React.useState([]);
   const displayDb = selectedDbIndex.map(index => {
     return dbData[index.row];
   });
 
-  const mlData = [
-    'TensorFlow',
-    'PyTorch',
-    'Keras',
-    'scikit-learn',
-    'RapidMiner',
-    'Caffe2',
-    'NLTK',
-    'Google Cloud AutoML',
-    'Amazon ML'
-  ];
   const [selectedMlIndex, setselectedMlIndex] = React.useState([]);
   const displayMl = selectedMlIndex.map(index => {
     return mlData[index.row];
@@ -122,8 +70,8 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           placeholder='Select'
           value={displayGameDev.join(', ')}
         >
-          {gameDevData.map((prop, key) => (
-            <SelectItem key={key} title={prop} />
+          {gameDevData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
 
@@ -136,8 +84,8 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           placeholder='Select'
           value={displayWebDev.join(', ')}
         >
-          {webDevData.map((prop, key) => (
-            <SelectItem key={key} title={prop} />
+          {webDevData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
 
@@ -150,8 +98,8 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           placeholder='Select'
           value={displaymobileDev.join(', ')}
         >
-          {mobileDevData.map((prop, key) => (
-            <SelectItem key={key} title={prop} />
+          {mobileDevData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
 
@@ -159,13 +107,13 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           label='Database'
           style={styles.selectInput}
           multiSelect={true}
-          selectedIndex={selectedMlIndex}
+          selectedIndex={selectedDbIndex}
           onSelect={index => setselectedDbIndex(index)}
           placeholder='Select'
-          value={displayMl.join(', ')}
+          value={displayDb.join(', ')}
         >
-          {dbData.map((prop, key) => (
-            <SelectItem key={key} title={prop} />
+          {dbData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
 
@@ -178,8 +126,8 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           placeholder='Select'
           value={displayMl.join(', ')}
         >
-          {mlData.map((prop, key) => (
-            <SelectItem key={key} title={prop} />
+          {mlData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
       </Layout>
