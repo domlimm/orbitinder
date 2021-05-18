@@ -1,13 +1,17 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView
+} from 'react-native';
 import {
   Button,
   Layout,
   Input,
   Select,
   SelectItem,
-  IndexPath,
-  Text
+  IndexPath
 } from '@ui-kitten/components';
 import { BackTopNav } from '../components/navigation/index';
 
@@ -24,42 +28,53 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BackTopNav navigation={navigation} />
-      <Layout style={styles.inputContainer}>
-        {/* <Text style={styles.screenTitle}>Sign Up</Text> */}
-        <Input label='First Name' style={styles.textInput} placeholder='John' />
-        <Input label='Last Name' style={styles.textInput} placeholder='Doe' />
+      <KeyboardAvoidingView style={styles.formContainer}>
+        <ScrollView>
+          <BackTopNav navigation={navigation} />
+          <Layout style={styles.inputContainer}>
+            <Input
+              label='First Name'
+              style={styles.textInput}
+              placeholder='John'
+            />
+            <Input
+              label='Last Name'
+              style={styles.textInput}
+              placeholder='Doe'
+            />
 
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedIndex}
-          value={displayValue}
-          onSelect={index => setSelectedIndex(index)}
-          label='Gender'
-        >
-          <SelectItem title='Female' />
-          <SelectItem title='Male' />
-        </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedIndex}
+              value={displayValue}
+              onSelect={index => setSelectedIndex(index)}
+              label='Gender'
+            >
+              {genderData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
 
-        <Input
-          label='Email'
-          style={styles.textInput}
-          placeholder='example@mail.com'
-          value={emailValue}
-          onChangeText={nextValue => setValue(nextValue)}
-        />
-        <Input
-          label='Password'
-          style={styles.textInput}
-          placeholder='********'
-        />
-      </Layout>
-      <Layout style={styles.btnContainer}>
-        <Button onPress={navigateDetails} style={styles.signupBtn}>
-          Sign Up
-        </Button>
-      </Layout>
-      <StatusBar style='auto' />
+            <Input
+              label='Email'
+              style={styles.textInput}
+              placeholder='example@mail.com'
+              value={emailValue}
+              onChangeText={nextValue => setValue(nextValue)}
+            />
+            <Input
+              label='Password'
+              style={styles.textInput}
+              placeholder='********'
+            />
+          </Layout>
+          <Layout style={styles.btnContainer}>
+            <Button onPress={navigateDetails} style={styles.signupBtn}>
+              Sign Up
+            </Button>
+          </Layout>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -68,6 +83,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white'
+  },
+  formContainer: {
+    flex: 1
   },
   btnContainer: {
     flex: 1,
