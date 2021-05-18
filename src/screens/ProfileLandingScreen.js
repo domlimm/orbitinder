@@ -5,13 +5,18 @@ import { ProfileHeader, LandingImage } from '../components/navigation/index';
 
 const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    // navigation.navigate('LoginLanding');
-    console.log('btn works');
+    navigation.navigate('InputBackgroundScreen1');
+    // console.log('btn works');
+  };
+
+  let navProps = {
+    navigation: navigation,
+    needBackNav: false
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader />
+      <ProfileHeader {...navProps} />
       <Text style={styles.landingTitle}>Its time to create your profile!</Text>
       <Layout style={styles.imgContainer}>
         <LandingImage
