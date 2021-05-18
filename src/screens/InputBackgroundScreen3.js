@@ -27,7 +27,7 @@ const InputBackgroundScreen3 = ({ navigation }) => {
   const displayGameDev = selectedIndex.map(index => {
     return gameDevData[index.row];
   });
-
+  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
   const webDevData = [
     'React',
     'Angular',
@@ -45,9 +45,57 @@ const InputBackgroundScreen3 = ({ navigation }) => {
     'Telegram Bot',
     'Browser Extension'
   ];
-  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
+
   const displayWebDev = selectedWebIndex.map(index => {
     return webDevData[index.row];
+  });
+
+  const mobileDevData = [
+    'Xcode',
+    'Android Studio',
+    'Flutter',
+    'React Native',
+    'NativeScripts',
+    'Ionic',
+    'Xamarin',
+    'Corona',
+    'Cordova'
+  ];
+  const [selectedMobileIndex, setselectedMobileIndex] = React.useState([]);
+  const displaymobileDev = selectedMobileIndex.map(index => {
+    return mobileDevData[index.row];
+  });
+
+  const dbData = [
+    'Oracle',
+    'MySQL',
+    'PostgreSQL',
+    'MongoDB',
+    'IBM Db2',
+    'Firebase',
+    'SQLite',
+    'Cassandra',
+    'MariaDB'
+  ];
+  const [selectedDbIndex, setselectedDbIndex] = React.useState([]);
+  const displayDb = selectedDbIndex.map(index => {
+    return dbData[index.row];
+  });
+
+  const mlData = [
+    'TensorFlow',
+    'PyTorch',
+    'Keras',
+    'scikit-learn',
+    'RapidMiner',
+    'Caffe2',
+    'NLTK',
+    'Google Cloud AutoML',
+    'Amazon ML'
+  ];
+  const [selectedMlIndex, setselectedMlIndex] = React.useState([]);
+  const displayMl = selectedMlIndex.map(index => {
+    return mlData[index.row];
   });
 
   let navProps = {
@@ -92,6 +140,48 @@ const InputBackgroundScreen3 = ({ navigation }) => {
             <SelectItem key={key} title={prop} />
           ))}
         </Select>
+
+        <Select
+          label='Mobile Development'
+          style={styles.selectInput}
+          multiSelect={true}
+          selectedIndex={selectedMobileIndex}
+          onSelect={index => setselectedMobileIndex(index)}
+          placeholder='Select'
+          value={displaymobileDev.join(', ')}
+        >
+          {mobileDevData.map((prop, key) => (
+            <SelectItem key={key} title={prop} />
+          ))}
+        </Select>
+
+        <Select
+          label='Database'
+          style={styles.selectInput}
+          multiSelect={true}
+          selectedIndex={selectedMlIndex}
+          onSelect={index => setselectedDbIndex(index)}
+          placeholder='Select'
+          value={displayMl.join(', ')}
+        >
+          {dbData.map((prop, key) => (
+            <SelectItem key={key} title={prop} />
+          ))}
+        </Select>
+
+        <Select
+          label='Machine Learning'
+          style={styles.selectInput}
+          multiSelect={true}
+          selectedIndex={selectedMlIndex}
+          onSelect={index => setselectedMlIndex(index)}
+          placeholder='Select'
+          value={displayMl.join(', ')}
+        >
+          {mlData.map((prop, key) => (
+            <SelectItem key={key} title={prop} />
+          ))}
+        </Select>
       </Layout>
       <Layout style={styles.btnContainer}>
         <Button onPress={navigateDetails} style={styles.signupBtn}>
@@ -118,7 +208,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   textContainer: {
-    marginVertical: 20,
+    marginVertical: 5,
     alignItems: 'center'
   },
   textInput: {
