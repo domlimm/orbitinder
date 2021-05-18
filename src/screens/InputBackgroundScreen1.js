@@ -13,8 +13,8 @@ import { BackTopNav } from '../components/navigation/index';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
   const navigateDetails = () => {
-    // navigation.navigate('ProfileLanding');
-    console.log('btn pressed');
+    navigation.navigate('InputBackgroundScreen2');
+    // console.log('btn pressed');
   };
 
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
@@ -41,8 +41,13 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <BackTopNav navigation={navigation} />
+      <Layout style={styles.textContainer}>
+        <Text style={styles.screenTitle}>Personal Background </Text>
+        <Text style={styles.screenCaption}>
+          Let others find out more about you!
+        </Text>
+      </Layout>
       <Layout style={styles.inputContainer}>
-        <Text style={styles.screenTitle}>Input </Text>
         <Select
           style={styles.selectInput}
           selectedIndex={selectedYearIndex}
@@ -102,10 +107,11 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 3,
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'flex-start'
   },
   textInput: {
-    width: '70%'
+    width: '70%',
+    marginVertical: 10
   },
   signupBtn: {
     width: '70%',
@@ -113,11 +119,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF'
   },
   selectInput: {
-    width: '70%'
+    width: '70%',
+    marginVertical: 10
   },
   screenTitle: {
     color: '#407BFF',
     fontSize: 30,
+    fontWeight: 'bold',
+    width: '70%'
+  },
+  textContainer: {
+    marginVertical: 20,
+    alignItems: 'center'
+  },
+  screenTitle: {
+    color: '#407BFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+    width: '70%'
+  },
+  screenCaption: {
+    color: '#8cb0ff',
+    fontSize: 12,
     fontWeight: 'bold',
     width: '70%'
   }
