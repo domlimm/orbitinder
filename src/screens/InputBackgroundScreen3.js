@@ -25,9 +25,31 @@ const InputBackgroundScreen3 = ({ navigation }) => {
     'Phaser'
   ];
   const displayGameDev = selectedIndex.map(index => {
-    console.log(index.row);
     return gameDevData[index.row];
   });
+
+  const webDevData = [
+    'React',
+    'Angular',
+    'Ember.js',
+    'Vue.js',
+    'Metero',
+    'Express.js',
+    'Django',
+    'Flask',
+    'Rails',
+    'Laravel',
+    'Spring',
+    'ASP .NET',
+    'GraphQL',
+    'Telegram Bot',
+    'Browser Extension'
+  ];
+  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
+  const displayWebDev = selectedWebIndex.map(index => {
+    return webDevData[index.row];
+  });
+
   let navProps = {
     navigation: navigation,
     needBackNav: true
@@ -53,6 +75,20 @@ const InputBackgroundScreen3 = ({ navigation }) => {
           value={displayGameDev.join(', ')}
         >
           {gameDevData.map((prop, key) => (
+            <SelectItem key={key} title={prop} />
+          ))}
+        </Select>
+
+        <Select
+          label='Web Development'
+          style={styles.selectInput}
+          multiSelect={true}
+          selectedIndex={selectedWebIndex}
+          onSelect={index => setselectedWebIndex(index)}
+          placeholder='Select'
+          value={displayWebDev.join(', ')}
+        >
+          {webDevData.map((prop, key) => (
             <SelectItem key={key} title={prop} />
           ))}
         </Select>
