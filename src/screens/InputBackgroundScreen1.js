@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     width: '70%'
   },
   textContainer: {
-    marginVertical: 20,
+    marginVertical: 5,
     alignItems: 'center'
   },
   screenTitle: {

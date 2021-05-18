@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   textContainer: {
-    marginVertical: 20,
+    marginVertical: 5,
     alignItems: 'center'
   },
   textInput: {

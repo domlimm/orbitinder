@@ -46,7 +46,7 @@ export default function ProfileHeader(navProps) {
 
 const styles = StyleSheet.create({
   topNav: {
-    marginVertical: 8
+    marginVertical: 5
   },
   logo: {
     width: 40,
