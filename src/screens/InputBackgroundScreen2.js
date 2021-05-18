@@ -13,8 +13,7 @@ import { BackTopNav, ProfileHeader } from '../components/navigation/index';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    // navigation.navigate('ProfileLanding');
-    console.log('btn pressed');
+    navigation.navigate('InputBackgroundScreen3');
   };
 
   const [selectedIdeaIndex, setSelectedIdeaIndex] = React.useState(
