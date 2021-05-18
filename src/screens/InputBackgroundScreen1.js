@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import {
   Button,
   Layout,
@@ -9,7 +9,7 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { BackTopNav, ProfileHeader } from '../components/navigation/index';
+import { ProfileHeader } from '../components/navigation/index';
 
 import {
   yearData,
@@ -58,8 +58,8 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedYearIndex(index)}
           label='Year of Study'
         >
-          {yearData.map(value => (
-            <SelectItem title={value} />
+          {yearData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
         <Input label='Degree' style={styles.textInput} />
@@ -70,8 +70,8 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedCommitmentIndex(index)}
           label='Commitment to Orbital'
         >
-          {commitmentData.map(value => (
-            <SelectItem title={value} />
+          {commitmentData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
         <Select
@@ -81,8 +81,8 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedAchievementIndex(index)}
           label='Orbital Achievement Level'
         >
-          {achievementData.map(value => (
-            <SelectItem title={value} />
+          {achievementData.map((value, key) => (
+            <SelectItem key={key} title={value} />
           ))}
         </Select>
       </Layout>
