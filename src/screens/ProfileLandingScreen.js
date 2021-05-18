@@ -5,8 +5,8 @@ import { ProfileHeader, LandingImage } from '../components/navigation/index';
 
 const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    // navigation.navigate('LoginLanding');
-    console.log('btn works');
+    navigation.navigate('InputBackgroundScreen1');
+    // console.log('btn works');
   };
 
   return (
