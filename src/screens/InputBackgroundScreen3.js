@@ -216,7 +216,8 @@ const styles = StyleSheet.create({
   },
   signupBtn: {
     width: '70%',
-    marginVertical: 30
+    marginVertical: 30,
+    backgroundColor: '#407BFF'
   },
   selectInput: {
     width: '70%',
