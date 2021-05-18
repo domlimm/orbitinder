@@ -9,12 +9,11 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { BackTopNav } from '../components/navigation/index';
+import { BackTopNav, ProfileHeader } from '../components/navigation/index';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
   const navigateDetails = () => {
     navigation.navigate('InputBackgroundScreen2');
-    // console.log('btn pressed');
   };
 
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
@@ -38,9 +37,14 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
   const displayAchievement = achievementData[selectedAchievementIndex.row];
 
+  let navProps = {
+    navigation: navigation,
+    needBackNav: true
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <BackTopNav navigation={navigation} />
+      <ProfileHeader {...navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Personal Background </Text>
         <Text style={styles.screenCaption}>

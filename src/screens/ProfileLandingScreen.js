@@ -9,9 +9,14 @@ const ProfileLandingScreen = ({ navigation }) => {
     // console.log('btn works');
   };
 
+  let navProps = {
+    navigation: navigation,
+    needBackNav: false
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader />
+      <ProfileHeader {...navProps} />
       <Text style={styles.landingTitle}>Its time to create your profile!</Text>
       <Layout style={styles.imgContainer}>
         <LandingImage

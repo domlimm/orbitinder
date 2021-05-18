@@ -9,7 +9,7 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { BackTopNav } from '../components/navigation/index';
+import { BackTopNav, ProfileHeader } from '../components/navigation/index';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
@@ -34,9 +34,14 @@ const InputBackgroundScreen2 = ({ navigation }) => {
     return { bio, onChangeText: setBio };
   };
 
+  let navProps = {
+    navigation: navigation,
+    needBackNav: true
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <BackTopNav navigation={navigation} />
+      <ProfileHeader {...navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Personal Background </Text>
         <Text style={styles.screenCaption}>
@@ -133,8 +138,8 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   bioText: {
-    minHeight: 64,
-    maxHeight: 100,
+    minHeight: '40%',
+    maxHeight: '70%',
     textAlignVertical: 'top'
   }
 });

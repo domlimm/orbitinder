@@ -1,28 +1,52 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { TopNavigation } from '@ui-kitten/components';
+import {
+  Icon,
+  TopNavigation,
+  TopNavigationAction
+} from '@ui-kitten/components';
 
-export default function ProfileHeader() {
+export default function ProfileHeader(navProps) {
+  const BackIcon = props => <Icon {...props} name='arrow-back' />;
+
+  const navigateBack = () => {
+    navProps.navigation.goBack();
+  };
+
+  const BackAction = () => (
+    <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
+  );
+
   const renderTitle = () => (
     <Image
       style={styles.logo}
       source={require('../../assets/images/orbital-logo.png')}
     />
   );
-  return (
-    <TopNavigation
-      style={{ marginVertical: 8 }}
-      accessoryRight={renderTitle}
-      alignment='center'
-    />
-  );
+
+  if (navProps.needBackNav) {
+    return (
+      <TopNavigation
+        accessoryLeft={BackAction}
+        alignment='center'
+        style={styles.topNav}
+        accessoryRight={renderTitle}
+      />
+    );
+  } else {
+    return (
+      <TopNavigation
+        style={styles.topNav}
+        accessoryRight={renderTitle}
+        alignment='center'
+      />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 50
+  topNav: {
+    marginVertical: 8
   },
   logo: {
     width: 40,
