@@ -11,6 +11,12 @@ import {
 } from '@ui-kitten/components';
 import { BackTopNav, ProfileHeader } from '../components/navigation/index';
 
+import {
+  yearData,
+  commitmentData,
+  achievementData
+} from '../constants/profleCreationData';
+
 const InputBackgroundScreen1 = ({ navigation }) => {
   const navigateDetails = () => {
     navigation.navigate('InputBackgroundScreen2');
@@ -19,22 +25,15 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
     new IndexPath(0)
   );
-  const yearData = ['Year 1', 'Year 2', 'Year 3', 'Year 4'];
   const displayYear = yearData[selectedYearIndex.row];
 
   const [selectedCommitmentIndex, setSelectedCommitmentIndex] = React.useState(
     new IndexPath(0)
   );
-  const commitmentData = [
-    'High Commitment',
-    'Medium Commitment',
-    'Low Commitment'
-  ];
   const displayCommitment = commitmentData[selectedCommitmentIndex.row];
 
   const [selectedAchievementIndex, setSelectedAchievementIndex] =
     React.useState(new IndexPath(0));
-  const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
   const displayAchievement = achievementData[selectedAchievementIndex.row];
 
   let navProps = {
@@ -59,10 +58,9 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedYearIndex(index)}
           label='Year of Study'
         >
-          <SelectItem title='Year 1' />
-          <SelectItem title='Year 2' />
-          <SelectItem title='Year 3' />
-          <SelectItem title='Year 4' />
+          {yearData.map(value => (
+            <SelectItem title={value} />
+          ))}
         </Select>
         <Input label='Degree' style={styles.textInput} />
         <Select
@@ -72,9 +70,9 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedCommitmentIndex(index)}
           label='Commitment to Orbital'
         >
-          <SelectItem title='High Commitment' />
-          <SelectItem title='Medium Commitment' />
-          <SelectItem title='Low Commitment' />
+          {commitmentData.map(value => (
+            <SelectItem title={value} />
+          ))}
         </Select>
         <Select
           style={styles.selectInput}
@@ -83,10 +81,9 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           onSelect={index => setSelectedAchievementIndex(index)}
           label='Orbital Achievement Level'
         >
-          <SelectItem title='Artemis' />
-          <SelectItem title='Apollo' />
-          <SelectItem title='Gemini' />
-          <SelectItem title='Vostok' />
+          {achievementData.map(value => (
+            <SelectItem title={value} />
+          ))}
         </Select>
       </Layout>
       <Layout style={styles.btnContainer}>
