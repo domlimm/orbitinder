@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btn: {
-    backgroundColor: '#407BFF',
     width: '50%'
   }
 });

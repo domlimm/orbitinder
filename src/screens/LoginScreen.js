@@ -59,8 +59,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '70%',
-    marginTop: 10,
-    backgroundColor: '#407BFF'
+    marginTop: 10
   }
 });
 

@@ -84,8 +84,7 @@ const styles = StyleSheet.create({
   },
   signupBtn: {
     width: '70%',
-    marginVertical: 30,
-    backgroundColor: '#407BFF'
+    marginVertical: 30
   },
   selectInput: {
     width: '70%'
