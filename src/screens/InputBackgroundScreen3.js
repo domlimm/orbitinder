@@ -1,21 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import {
-  Button,
-  Layout,
-  Select,
-  SelectItem,
-  Text
-} from '@ui-kitten/components';
+import { Button, Layout, Text } from '@ui-kitten/components';
 import { ProfileHeader } from '../components/navigation/index';
 import { InputBackgroundSelect } from '../components/Inputs/index';
-import {
-  gameDevData,
-  webDevData,
-  mobileDevData,
-  dbData,
-  mlData
-} from '../constants/profleCreationData';
 
 const InputBackgroundScreen3 = ({ navigation }) => {
   const navigateDetails = () => {
