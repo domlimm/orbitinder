@@ -1,23 +1,36 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-  ### Data Models
-  # User data
-  type User {
-    id: ID!
-    email: String!
-    name: String!
-  }
-
-  # Queries
   type Query {
     info: String!
     getUser(id: ID!): User
   }
 
-  # Mutation
   type Mutation {
-    createUser(email: String!, name: String!): User!
+    signUp(input: SignUpInput): AuthenticatedUser!
+    logIn(input: LogInInput): AuthenticatedUser!
+  }
+
+  input SignUpInput {
+    email: String!
+    password: String!
+    name: String!
+  }
+
+  input LogInInput {
+    email: String!
+    password: String!
+  }
+
+  type AuthenticatedUser {
+    user: User!
+    token: String!
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
   }
 `;
 
