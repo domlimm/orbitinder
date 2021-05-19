@@ -2,11 +2,11 @@ import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { ProfileHeader } from '../components/navigation/index';
-import { InputBackgroundSelect } from '../components/Inputs/index';
+import PrefBackgroundSelect from '../components/Inputs/PrefBackgroundSelect';
 
-const InputBackgroundScreen3 = ({ navigation }) => {
+const PrefInputScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('PreferencesLandingScreen');
+    console.log('at PreferedScreen2');
   };
 
   let navProps = {
@@ -18,12 +18,12 @@ const InputBackgroundScreen3 = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ProfileHeader {...navProps} />
       <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Technology Experience</Text>
+        <Text style={styles.screenTitle}>Partner Preferences</Text>
         <Text style={styles.screenCaption}>
-          Let others know what you're great at!
+          {'Which technologies should your \n partner have experience in?'}
         </Text>
       </Layout>
-      <InputBackgroundSelect />
+      <PrefBackgroundSelect />
       <Layout style={styles.btnContainer}>
         <Button onPress={navigateDetails} style={styles.signupBtn}>
           Next
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InputBackgroundScreen3;
+export default PrefInputScreen2;
