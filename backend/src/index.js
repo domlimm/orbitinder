@@ -1,10 +1,11 @@
 const { ApolloServer } = require('apollo-server');
 const { MongoClient } = require('mongodb');
+const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const typeDefs = require('./graphql/schema');
-const resolvers = require('./graphql/resolvers');
+const { resolvers, getUserUsingToken } = require('./graphql/resolvers');
 
 const { DB_URI, DB_NAME } = process.env;
 
@@ -17,13 +18,12 @@ const start = async () => {
 
   const db = client.db(DB_NAME);
 
-  const context = { db };
-
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-      return context;
+      const user = await getUserUsingToken(req.headers.authorization, db);
+      return { db, user };
     }
   });
 
