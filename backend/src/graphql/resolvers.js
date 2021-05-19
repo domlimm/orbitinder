@@ -24,7 +24,17 @@ const resolvers = {
         token: 'tempToken'
       };
     },
-    logIn: async (_, data) => {}
+    logIn: async (_, { input }, { db }) => {
+      const user = await db.collection('Users').findOne({ email: input.email });
+      const passwordCorrect =
+        user && bcrypt.compareSync(input.password, user.password);
+
+      if (!user || !passwordCorrect) {
+        throw new Error('Invalid Credentials!');
+      }
+
+      return { user, token: 'tempToken' };
+    }
   },
   User: {
     // root is the value of User, comes from db
