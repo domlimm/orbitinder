@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { ProfileHeader } from '../components/navigation/index';
 import PrefBackgroundSelect from '../components/Inputs/PrefBackgroundSelect';

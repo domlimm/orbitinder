@@ -3,11 +3,11 @@ import {
   Dimensions,
   Image,
   KeyboardAvoidingView,
-  SafeAreaView,
   ScrollView,
   StyleSheet
 } from 'react-native';
 import { Button, Layout, Input, Text } from '@ui-kitten/components';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UserProfileScreen = ({ navigation }) => {
   // const navigateDetails = () => {
