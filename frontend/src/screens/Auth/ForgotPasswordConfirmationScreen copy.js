@@ -17,9 +17,9 @@ import {
 import { LandingImage } from '../../components/navigation/index';
 import AuthHeader from '../../components/navigation/AuthHeader';
 
-const ForgotPasswordScreen = ({ navigation }) => {
+const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('ForgotPasswordConfirmationScreen');
+    navigation.navigate('Login');
   };
 
   const [value, setValue] = React.useState('');
@@ -31,25 +31,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage
-              imgSrc={require('../../assets/images/forgot-password-img.png')}
+              imgSrc={require('../../assets/images/email-img.png')}
             />
           </Layout>
           <Layout style={styles.textContainer}>
-            <Text style={styles.textTitle}>Forgot your password?</Text>
-            <Text style={styles.textCaption}>
-              {'Enter your registered email to \nreceive further instructions'}
-            </Text>
+            <Text style={styles.textTitle}>Email has been send</Text>
+            <Text style={styles.textCaption}>{'Please check your inbox'}</Text>
           </Layout>
           <Layout style={styles.inputContainer}>
-            <Input
-              label='Email'
-              style={styles.textInput}
-              placeholder='example@mail.com'
-              value={value}
-              onChangeText={nextValue => setValue(nextValue)}
-            />
             <Button onPress={navigateDetails} style={styles.loginBtn}>
-              Send Email
+              Log In
             </Button>
           </Layout>
         </ScrollView>
@@ -79,7 +70,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   textContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 100
   },
   textTitle: {
     color: '#407BFF',
@@ -95,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ForgotPasswordScreen;
+export default ForgotPasswordConfirmationScreen;

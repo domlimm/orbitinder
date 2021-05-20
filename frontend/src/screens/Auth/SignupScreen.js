@@ -108,6 +108,10 @@ const styles = StyleSheet.create({
     color: '#407BFF',
     fontSize: 30,
     fontWeight: 'bold'
+  },
+  forgotPassText: {
+    marginVertical: 20,
+    color: '#407BFF'
   }
 });
 
