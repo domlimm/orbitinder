@@ -3,8 +3,7 @@ import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { ProfileHeader } from '../../components/Navigation/index';
-import { InputBackgroundSelect } from '../../components/Inputs/index';
+import { InputBackgroundSelect, ProfileHeader } from '../../components/index';
 
 const InputBackgroundScreen3 = ({ navigation }) => {
   const navigateDetails = () => {

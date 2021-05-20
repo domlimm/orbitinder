@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { LandingHeader, LandingImage } from '../../components/Navigation/index';
+import { LandingHeader, LandingImage } from '../../components/index';
 
 const LoginLandingScreen = ({ navigation }) => {
   const navigateLogin = () => {
