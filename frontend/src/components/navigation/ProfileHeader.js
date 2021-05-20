@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import {
   Icon,
   TopNavigation,
   TopNavigationAction
 } from '@ui-kitten/components';
 
-export default function ProfileHeader(navProps) {
+const ProfileHeader = ({ props, navProps }) => {
   const BackIcon = props => <Icon {...props} name='arrow-back' />;
 
   const navigateBack = () => {
@@ -42,7 +42,7 @@ export default function ProfileHeader(navProps) {
       />
     );
   }
-}
+};
 
 const styles = StyleSheet.create({
   topNav: {
@@ -55,3 +55,5 @@ const styles = StyleSheet.create({
     marginLeft: '5%'
   }
 });
+
+export default ProfileHeader;

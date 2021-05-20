@@ -3,9 +3,9 @@ import { StatusBar } from 'react-native';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import LandingNavigator from './src/navigation/LandingNavigator';
 
 import { default as customTheme } from './src/constants/custom-theme.json';
+import LandingNavigator from './src/navigation/LandingNavigator';
 
 const App = () => {
   return (
