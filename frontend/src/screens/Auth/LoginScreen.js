@@ -28,9 +28,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <AuthHeader navigation={navigation} />
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
+      <KeyboardAvoidingView>
         <ScrollView>
+          <AuthHeader navigation={navigation} />
+
           <Layout style={styles.landingImageContainer}>
             <LandingImage
               imgSrc={require('../../assets/images/high-five-pana.png')}
