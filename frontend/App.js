@@ -6,6 +6,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 import { default as customTheme } from './src/constants/custom-theme.json';
 import LandingNavigator from './src/navigation/LandingNavigator';
+import { Loading } from './src/components/Navigation';
 
 const App = () => {
   return (
