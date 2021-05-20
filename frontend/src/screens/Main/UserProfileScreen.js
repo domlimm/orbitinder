@@ -1,30 +1,12 @@
 import React from 'react';
-import {
-  Dimensions,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image
-} from 'react-native';
-import {
-  Button,
-  Layout,
-  Input,
-  Text,
-  Avatar,
-  Card,
-  StyleService
-} from '@ui-kitten/components';
-import { Foundation } from '@expo/vector-icons';
+import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
+import { Button, Layout, Text, Card } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
 
 const UserProfileScreen = ({ navigation }) => {
   // const navigateDetails = () => {
   //   navigation.navigate('ActivityFeedScreen');
   // };
-
-  const [value, setValue] = React.useState('');
 
   return (
     <SafeAreaView style={styles.parentContainer}>
