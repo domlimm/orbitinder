@@ -6,12 +6,11 @@ import {
   ListItem,
   Avatar,
   Divider,
-  Card,
   Text
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
-import AuthHeader from '../../components/navigation/AuthHeader';
+import { AuthHeader } from '../../components/Navigation/index';
 
 function wait(timeout) {
   return new Promise(resolve => {

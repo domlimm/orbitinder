@@ -9,8 +9,8 @@ import {
   SelectItem,
   Text
 } from '@ui-kitten/components';
-import { ProfileHeader } from '../../components/navigation/index';
-
+// To separate for local imports rather than installed dependencies: add below onwards
+import { ProfileHeader } from '../../components/Navigation/index';
 import {
   yearData,
   commitmentData,

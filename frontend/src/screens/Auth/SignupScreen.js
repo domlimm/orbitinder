@@ -10,7 +10,7 @@ import {
   IndexPath
 } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { AuthHeader } from '../../components/navigation/index';
+import { AuthHeader } from '../../components/Navigation/index';
 
 const SignupScreen = ({ navigation }) => {
   const navigateDetails = () => {
