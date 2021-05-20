@@ -35,7 +35,7 @@ const ActivityFeedScreen = ({ navigation }) => {
   };
 
   const [data, setData] = React.useState(
-    new Array(10).fill({
+    new Array(5).fill({
       userName: 'John Doe',
       avatar: {
         uri: 'https://i.pravatar.cc'
