@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Layout, Spinner } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 
-const Loading = () => {
+const ErrorScreen = () => {
   return (
     <Layout style={styles.container}>
-      <Spinner size='giant' />
+      <Text>Temporary Error page</Text>
     </Layout>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Loading;
+export default ErrorScreen;
