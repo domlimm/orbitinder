@@ -10,7 +10,11 @@ import {
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
+<<<<<<< HEAD
 import { AuthHeader } from '../../components/navigation/index';
+=======
+import { AuthHeader } from '../../components/index';
+>>>>>>> frontend
 
 function wait(timeout) {
   return new Promise(resolve => {
