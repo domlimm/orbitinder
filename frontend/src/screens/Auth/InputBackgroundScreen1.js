@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
@@ -43,7 +44,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader {...navProps} />
+      <ProfileHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Personal Background </Text>
         <Text style={styles.screenCaption}>

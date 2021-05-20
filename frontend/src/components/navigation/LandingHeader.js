@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { TopNavigation } from '@ui-kitten/components';
 
-export default function landingHeader() {
+const LandingHeader = () => {
   const renderTitle = () => (
     <View style={styles.titleContainer}>
       <Image
@@ -11,6 +11,7 @@ export default function landingHeader() {
       />
     </View>
   );
+
   return (
     <TopNavigation
       style={styles.topNav}
@@ -18,7 +19,7 @@ export default function landingHeader() {
       alignment='center'
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -36,3 +37,5 @@ const styles = StyleSheet.create({
     marginVertical: 8
   }
 });
+
+export default LandingHeader;

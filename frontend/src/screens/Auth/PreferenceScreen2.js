@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { ProfileHeader } from '../../components/navigation/index';
 import PrefBackgroundSelect from '../../components/Inputs/PrefBackgroundSelect';
@@ -17,7 +18,7 @@ const PrefInputScreen2 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader {...navProps} />
+      <ProfileHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Partner Preferences</Text>
         <Text style={styles.screenCaption}>

@@ -6,7 +6,7 @@ import {
   TopNavigationAction
 } from '@ui-kitten/components';
 
-export default function AuthHeader({ navigation }) {
+const AuthHeader = ({ navigation }) => {
   const BackIcon = props => <Icon {...props} name='arrow-back' />;
 
   const navigateBack = () => {
@@ -34,7 +34,7 @@ export default function AuthHeader({ navigation }) {
       alignment='center'
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     marginVertical: 8
   }
 });
+
+export default AuthHeader;

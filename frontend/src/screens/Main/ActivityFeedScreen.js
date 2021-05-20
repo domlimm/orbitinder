@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  RefreshControl,
-  ScrollView
-} from 'react-native';
+import { StyleSheet, RefreshControl, ScrollView } from 'react-native';
 import {
   Button,
   Layout,
@@ -15,6 +10,8 @@ import {
   Card,
   Text
 } from '@ui-kitten/components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+// To separate for local imports rather than installed dependencies: add below onwards
 import AuthHeader from '../../components/navigation/BackTopNav';
 
 function wait(timeout) {

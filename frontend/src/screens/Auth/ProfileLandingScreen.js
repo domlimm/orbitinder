@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { Image, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { ProfileHeader, LandingImage } from '../../components/navigation/index';
 
@@ -13,10 +14,10 @@ const ProfileLandingScreen = ({ navigation }) => {
     navigation: navigation,
     needBackNav: false
   };
-
+  // console.log(navProps);
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader {...navProps} />
+      <ProfileHeader navProps={navProps} />
       <Text style={styles.landingTitle}>Its time to create your profile!</Text>
       <Layout style={styles.imgContainer}>
         <LandingImage

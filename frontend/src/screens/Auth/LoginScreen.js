@@ -3,10 +3,10 @@ import {
   Dimensions,
   Image,
   KeyboardAvoidingView,
-  SafeAreaView,
   ScrollView,
   StyleSheet
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input } from '@ui-kitten/components';
 import { LandingHeader, LandingImage } from '../../components/navigation/index';
 import AuthHeader from '../../components/navigation/BackTopNav';

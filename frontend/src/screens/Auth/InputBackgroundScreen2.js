@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { Image, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
@@ -9,7 +10,7 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { BackTopNav, ProfileHeader } from '../../components/navigation/index';
+import { ProfileHeader } from '../../components/navigation/index';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
@@ -40,7 +41,7 @@ const InputBackgroundScreen2 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader {...navProps} />
+      <ProfileHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Personal Background </Text>
         <Text style={styles.screenCaption}>
