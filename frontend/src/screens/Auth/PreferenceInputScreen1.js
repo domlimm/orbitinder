@@ -8,14 +8,14 @@ import {
   SelectItem,
   Text
 } from '@ui-kitten/components';
-import { ProfileHeader } from '../components/navigation/index';
+import { ProfileHeader } from '../../components/navigation/index';
 
 import {
   yearData,
   commitmentData,
   genderData,
   sweExperience
-} from '../constants/prefCreationData';
+} from '../../constants/prefCreationData';
 
 const PrefInputScreen1 = ({ navigation }) => {
   const navigateDetails = () => {

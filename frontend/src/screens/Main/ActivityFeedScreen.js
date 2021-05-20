@@ -45,61 +45,7 @@ const ActivityFeedScreen = ({ navigation }) => {
     })
   );
 
-  const renderItem = ({ item }) => (
-    <Card style={{ margin: 0 }} status='basic'>
-      <Layout
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}
-      >
-        <Layout
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Avatar source={{ uri: 'https://i.pravatar.cc/159' }} />
-          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 16 }}>
-            {item.userName}
-          </Text>
-        </Layout>
-
-        <Text>{item.timeAgo}</Text>
-      </Layout>
-      <Layout>
-        <Text style={{ color: 'grey', fontSize: 12, marginTop: 10 }}>
-          Has sent a request.
-        </Text>
-      </Layout>
-    </Card>
-  );
-
-  const renderItem2 = ({ item }) => (
-    // <ListItem
-    //   title={item.userName}
-    //   description={item.content}
-    //   accessoryLeft={renderItemIcon}
-    // />
-    <Card style={{ margin: 0 }} status='basic'>
-      <Layout style={{ flexDirection: 'row' }}>
-        <Avatar shape='rounded' source={item.avatar} />
-
-        <Layout style={{ marginLeft: 10 }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-            {item.userName}
-          </Text>
-
-          <Text style={{ color: 'grey', fontSize: 14 }}>{item.timeAgo}</Text>
-          <Text style={{ marginTop: 10, fontSize: 14 }}>{item.content}</Text>
-        </Layout>
-      </Layout>
-    </Card>
-  );
-
-  const renderItem3 = ({ item }) => (
+  const renderItems = ({ item }) => (
     <ListItem onPress={navigateDetails}>
       <Layout
         style={{
@@ -145,7 +91,7 @@ const ActivityFeedScreen = ({ navigation }) => {
         }
         data={data}
         ItemSeparatorComponent={Divider}
-        renderItem={renderItem3}
+        renderItem={renderItems}
       />
     </SafeAreaView>
   );

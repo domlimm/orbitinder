@@ -1,16 +1,16 @@
 // Sign In, Sign Up & Change Password
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginLandingScreen from '../screens/LoginLandingScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignupScreen from '../screens/SignupScreen';
-import ProfileLandingScreen from '../screens/ProfileLandingScreen';
-import InputBackgroundScreen1 from '../screens/InputBackgroundScreen1';
-import InputBackgroundScreen2 from '../screens/InputBackgroundScreen2';
-import InputBackgroundScreen3 from '../screens/InputBackgroundScreen3';
-import PreferencesLandingScreen from '../screens/PreferencesLandingScreen';
-import PrefInputScreen1 from '../screens/PreferenceInputScreen1';
-import PrefInputScreen2 from '../screens/PreferenceScreen2';
+import LoginLandingScreen from '../screens/Auth/LoginLandingScreen';
+import LoginScreen from '../screens/Auth/LoginScreen';
+import SignupScreen from '../screens/Auth/SignupScreen';
+import ProfileLandingScreen from '../screens/Auth/ProfileLandingScreen';
+import InputBackgroundScreen1 from '../screens/Auth/InputBackgroundScreen1';
+import InputBackgroundScreen2 from '../screens/Auth/InputBackgroundScreen2';
+import InputBackgroundScreen3 from '../screens/Auth/InputBackgroundScreen3';
+import PreferencesLandingScreen from '../screens/Auth/PreferencesLandingScreen';
+import PrefInputScreen1 from '../screens/Auth/PreferenceInputScreen1';
+import PrefInputScreen2 from '../screens/Auth/PreferenceScreen2';
 
 const { Navigator, Screen } = createStackNavigator();
 

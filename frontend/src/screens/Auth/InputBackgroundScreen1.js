@@ -9,13 +9,13 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { ProfileHeader } from '../components/navigation/index';
+import { ProfileHeader } from '../../components/navigation/index';
 
 import {
   yearData,
   commitmentData,
   achievementData
-} from '../constants/profleCreationData';
+} from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
   const navigateDetails = () => {

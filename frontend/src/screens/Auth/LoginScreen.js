@@ -8,12 +8,12 @@ import {
   StyleSheet
 } from 'react-native';
 import { Button, Layout, Input } from '@ui-kitten/components';
-import { LandingHeader, LandingImage } from '../components/navigation/index';
-import AuthHeader from '../components/navigation/BackTopNav';
+import { LandingHeader, LandingImage } from '../../components/navigation/index';
+import AuthHeader from '../../components/navigation/BackTopNav';
 
 const LoginScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('ActivityFeedScreen');
+    navigation.navigate('MainNavigator');
   };
 
   const [value, setValue] = React.useState('');
@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage
-              imgSrc={require('../assets/images/high-five-pana.png')}
+              imgSrc={require('../../assets/images/high-five-pana.png')}
             />
           </Layout>
           <Layout style={styles.inputContainer}>

@@ -9,7 +9,7 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-import { BackTopNav, ProfileHeader } from '../components/navigation/index';
+import { BackTopNav, ProfileHeader } from '../../components/navigation/index';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
