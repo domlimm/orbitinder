@@ -8,6 +8,6 @@ export { default as LoginLandingScreen } from './LoginLandingScreen';
 export { default as ProfileLandingScreen } from './ProfileLandingScreen';
 export { default as PreferencesLandingScreen } from './PreferencesLandingScreen';
 export { default as PrefInputScreen1 } from './PreferenceInputScreen1';
-export { default as PrefInputScreen2 } from './PreferenceInputScreen2';
+export { default as PrefInputScreen2 } from './PreferenceScreen2';
 export { default as ActivityFeedScreen } from './ActivityFeedScreen';
 export { default as UserProfileScreen } from './Main/UserProfileScreen';
