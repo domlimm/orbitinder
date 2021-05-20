@@ -1,11 +1,12 @@
 import React from 'react';
 import { Image, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
-import { ProfileHeader, LandingImage } from '../components/navigation/index';
+import { ProfileHeader, LandingImage } from '../../components/navigation/index';
 
-const PreferencesLandingScreen = ({ navigation }) => {
+const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    navigation.navigate('PrefInputScreen1');
+    navigation.navigate('InputBackgroundScreen1');
+    // console.log('btn works');
   };
 
   let navProps = {
@@ -19,7 +20,7 @@ const PreferencesLandingScreen = ({ navigation }) => {
       <Text style={styles.landingTitle}>Its time to create your profile!</Text>
       <Layout style={styles.imgContainer}>
         <LandingImage
-          imgSrc={require('../assets/images/pref-landing-img.png')}
+          imgSrc={require('../../assets/images/profile-interface.png')}
         />
       </Layout>
       <Layout style={styles.btnContainer}>
@@ -63,4 +64,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PreferencesLandingScreen;
+export default ProfileLandingScreen;

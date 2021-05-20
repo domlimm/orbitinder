@@ -13,7 +13,7 @@ import {
   SelectItem,
   IndexPath
 } from '@ui-kitten/components';
-import { BackTopNav } from '../components/navigation/index';
+import { BackTopNav } from '../../components/navigation/index';
 
 const SignupScreen = ({ navigation }) => {
   const navigateDetails = () => {
