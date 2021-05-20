@@ -12,6 +12,8 @@ import InputBackgroundScreen3 from '../screens/InputBackgroundScreen3';
 import PreferencesLandingScreen from '../screens/PreferencesLandingScreen';
 import PrefInputScreen1 from '../screens/PreferenceInputScreen1';
 import PrefInputScreen2 from '../screens/PreferenceScreen2';
+import ActivityFeedScreen from '../screens/ActivityFeedScreen';
+import UserProfileScreen from '../screens/Main/UserProfileScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -41,6 +43,8 @@ const LandingNavigator = () => (
       />
       <Screen name='PrefInputScreen1' component={PrefInputScreen1} />
       <Screen name='PrefInputScreen2' component={PrefInputScreen2} />
+      <Screen name='ActivityFeedScreen' component={ActivityFeedScreen} />
+      <Screen name='UserProfileScreen' component={UserProfileScreen} />
     </Navigator>
   </NavigationContainer>
 );

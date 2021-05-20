@@ -13,7 +13,7 @@ import AuthHeader from '../components/navigation/BackTopNav';
 
 const LoginScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    console.log('btn pressed');
+    navigation.navigate('ActivityFeedScreen');
   };
 
   const [value, setValue] = React.useState('');
@@ -41,10 +41,7 @@ const LoginScreen = ({ navigation }) => {
               style={styles.textInput}
               placeholder='********'
             />
-            <Button
-              onPress={() => console.log('Login Btn Pressed')}
-              style={styles.loginBtn}
-            >
+            <Button onPress={navigateDetails} style={styles.loginBtn}>
               Log In
             </Button>
           </Layout>
