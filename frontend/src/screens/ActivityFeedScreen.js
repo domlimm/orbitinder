@@ -11,6 +11,7 @@ import {
   Text
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
+// To separate for local imports rather than installed dependencies: add below onwards
 import AuthHeader from '../components/navigation/BackTopNav';
 
 function wait(timeout) {

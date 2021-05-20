@@ -9,6 +9,7 @@ import {
   SelectItem,
   IndexPath
 } from '@ui-kitten/components';
+// To separate for local imports rather than installed dependencies: add below onwards
 import { BackTopNav } from '../components/navigation/index';
 
 const SignupScreen = ({ navigation }) => {
