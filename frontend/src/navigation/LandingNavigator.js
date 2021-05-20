@@ -1,19 +1,22 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeLandingScreen from '../screens/HomeLandingScreen';
-import LoginLandingScreen from '../screens/LoginLandingScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignupScreen from '../screens/SignupScreen';
-import ProfileLandingScreen from '../screens/ProfileLandingScreen';
-import InputBackgroundScreen1 from '../screens/InputBackgroundScreen1';
-import InputBackgroundScreen2 from '../screens/InputBackgroundScreen2';
-import InputBackgroundScreen3 from '../screens/InputBackgroundScreen3';
-import PreferencesLandingScreen from '../screens/PreferencesLandingScreen';
-import PrefInputScreen1 from '../screens/PreferenceInputScreen1';
-import PrefInputScreen2 from '../screens/PreferenceScreen2';
-import ActivityFeedScreen from '../screens/ActivityFeedScreen';
-import UserProfileScreen from '../screens/Main/UserProfileScreen';
+
+import {
+  HomeLandingScreen,
+  LoginLandingScreen,
+  LoginScreen,
+  SignupScreen,
+  ProfileLandingScreen,
+  InputBackgroundScreen1,
+  InputBackgroundScreen2,
+  InputBackgroundScreen3,
+  PreferencesLandingScreen,
+  PrefInputScreen1,
+  PrefInputScreen2,
+  ActivityFeedScreen,
+  UserProfileScreen
+} from '../screens/index';
 
 const { Navigator, Screen } = createStackNavigator();
 
