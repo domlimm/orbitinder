@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -17,10 +22,12 @@ import { AuthHeader } from '../../components/index';
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
   const [lName, setLName] = React.useState('');
-  const [email, setEmail] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
   const genderData = ['Male', 'Female'];
-  const displayValue = genderData[selectedIndex.row];
+  const genderValue = genderData[selectedIndex.row];
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const navigateDetails = () => {
     navigation.navigate('ProfileLanding');
@@ -28,7 +35,15 @@ const SignupScreen = ({ navigation }) => {
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;
   const EmailIcon = props => <Icon {...props} name='email-outline' />;
-  const PasswordIcon = props => <Icon {...props} name='lock-outline' />;
+  const PasswordIcon = props => (
+    <TouchableWithoutFeedback onPress={showPasswordHandler}>
+      <Icon {...props} name={showPassword ? 'eye' : 'eye-off'} />
+    </TouchableWithoutFeedback>
+  );
+
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
+  };
 
   const Title = ({ title }) => (
     <Layout style={styles.titleContainer}>
@@ -58,7 +73,7 @@ const SignupScreen = ({ navigation }) => {
             <Select
               style={styles.selectInput}
               selectedIndex={selectedIndex}
-              value={displayValue}
+              value={genderValue}
               onSelect={index => setSelectedIndex(index)}
               label='Gender'
             >
@@ -81,6 +96,10 @@ const SignupScreen = ({ navigation }) => {
               style={styles.textInput}
               placeholder='********'
               accessoryRight={PasswordIcon}
+              value={password}
+              onChangeText={input => setPassword(input)}
+              accessoryRight={PasswordIcon}
+              secureTextEntry={showPassword}
             />
           </Layout>
           <Layout style={styles.btnContainer}>
