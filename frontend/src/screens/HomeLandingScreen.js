@@ -5,7 +5,7 @@ import { LandingHeader, LandingImage } from '../components/navigation/index';
 
 const HomeLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    navigation.navigate('LoginLanding');
+    navigation.navigate('AuthNavigator');
   };
 
   return (

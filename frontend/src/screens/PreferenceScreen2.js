@@ -6,7 +6,8 @@ import PrefBackgroundSelect from '../components/Inputs/PrefBackgroundSelect';
 
 const PrefInputScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    console.log('at PreferedScreen2');
+    console.log(navigation);
+    navigation.navigate('LoginLanding');
   };
 
   let navProps = {

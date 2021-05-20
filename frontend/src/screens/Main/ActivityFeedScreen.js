@@ -15,7 +15,7 @@ import {
   Card,
   Text
 } from '@ui-kitten/components';
-import AuthHeader from '../components/navigation/BackTopNav';
+import AuthHeader from '../../components/navigation/BackTopNav';
 
 function wait(timeout) {
   return new Promise(resolve => {
