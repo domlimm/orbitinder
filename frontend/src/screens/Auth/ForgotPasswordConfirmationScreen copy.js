@@ -7,17 +7,19 @@ import {
   StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Layout, Input, Text } from '@ui-kitten/components';
-import { LandingHeader, LandingImage } from '../../components/navigation/index';
+import {
+  Button,
+  Layout,
+  Input,
+  Text,
+  StyleService
+} from '@ui-kitten/components';
+import { LandingImage } from '../../components/navigation/index';
 import AuthHeader from '../../components/navigation/AuthHeader';
 
-const LoginScreen = ({ navigation }) => {
+const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('MainNavigator');
-  };
-
-  const navigatePasswordScreen = () => {
-    navigation.navigate('ForgotPasswordScreen');
+    navigation.navigate('Login');
   };
 
   const [value, setValue] = React.useState('');
@@ -29,31 +31,17 @@ const LoginScreen = ({ navigation }) => {
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage
-              imgSrc={require('../../assets/images/high-five-pana.png')}
+              imgSrc={require('../../assets/images/email-img.png')}
             />
           </Layout>
+          <Layout style={styles.textContainer}>
+            <Text style={styles.textTitle}>Email has been send</Text>
+            <Text style={styles.textCaption}>{'Please check your inbox'}</Text>
+          </Layout>
           <Layout style={styles.inputContainer}>
-            <Input
-              label='Email'
-              style={styles.textInput}
-              placeholder='example@mail.com'
-              value={value}
-              onChangeText={nextValue => setValue(nextValue)}
-            />
-            <Input
-              label='Password'
-              style={styles.textInput}
-              placeholder='********'
-            />
             <Button onPress={navigateDetails} style={styles.loginBtn}>
               Log In
             </Button>
-            <Text
-              style={styles.forgotPassText}
-              onPress={navigatePasswordScreen}
-            >
-              Forgot Password?
-            </Text>
           </Layout>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -81,10 +69,22 @@ const styles = StyleSheet.create({
     width: '70%',
     marginTop: 10
   },
-  forgotPassText: {
-    marginVertical: 20,
-    color: '#407BFF'
+  textContainer: {
+    alignItems: 'center',
+    marginBottom: 100
+  },
+  textTitle: {
+    color: '#407BFF',
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginBottom: 10
+  },
+  textCaption: {
+    fontSize: 15,
+    color: 'rgba(64,123,255, 0.8)',
+    marginBottom: 10,
+    textAlign: 'center'
   }
 });
 
-export default LoginScreen;
+export default ForgotPasswordConfirmationScreen;
