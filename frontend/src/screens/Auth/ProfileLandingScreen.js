@@ -7,14 +7,12 @@ import { ProfileHeader, LandingImage } from '../../components/navigation/index';
 const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
     navigation.navigate('InputBackgroundScreen1');
-    // console.log('btn works');
   };
 
   let navProps = {
     navigation: navigation,
     needBackNav: false
   };
-  // console.log(navProps);
   return (
     <SafeAreaView style={styles.container}>
       <ProfileHeader navProps={navProps} />

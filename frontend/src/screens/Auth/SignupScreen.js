@@ -9,7 +9,8 @@ import {
   SelectItem,
   IndexPath
 } from '@ui-kitten/components';
-import { BackTopNav } from '../../components/navigation/index';
+// To separate for local imports rather than installed dependencies: add below onwards
+import { AuthHeader } from '../../components/navigation/index';
 
 const SignupScreen = ({ navigation }) => {
   const navigateDetails = () => {
@@ -26,7 +27,7 @@ const SignupScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.formContainer}>
         <ScrollView>
-          <BackTopNav navigation={navigation} />
+          <AuthHeader navigation={navigation} />
           <Layout style={styles.inputContainer}>
             <Input
               label='First Name'

@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input } from '@ui-kitten/components';
 import { LandingHeader, LandingImage } from '../../components/navigation/index';
-import AuthHeader from '../../components/navigation/BackTopNav';
+import AuthHeader from '../../components/navigation/AuthHeader';
 
 const LoginScreen = ({ navigation }) => {
   const navigateDetails = () => {

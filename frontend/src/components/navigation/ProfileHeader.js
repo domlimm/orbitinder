@@ -7,12 +7,10 @@ import {
 } from '@ui-kitten/components';
 
 const ProfileHeader = ({ props, navProps }) => {
-  console.log('HI');
-  console.log(navProps.needBackNav);
   const BackIcon = props => <Icon {...props} name='arrow-back' />;
 
   const navigateBack = () => {
-    navProps.navigation.goBack();
+    navigation.goBack();
   };
 
   const BackAction = () => (
@@ -25,7 +23,7 @@ const ProfileHeader = ({ props, navProps }) => {
       source={require('../../assets/images/orbital-logo.png')}
     />
   );
-  console.log(navProps);
+
   if (navProps.needBackNav) {
     return (
       <TopNavigation
