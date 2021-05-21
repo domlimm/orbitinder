@@ -7,15 +7,9 @@ import {
   StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  Button,
-  Layout,
-  Input,
-  Text,
-  StyleService
-} from '@ui-kitten/components';
-import { LandingImage } from '../../components/navigation/index';
-import AuthHeader from '../../components/navigation/AuthHeader';
+import { Button, Layout, Text } from '@ui-kitten/components';
+
+import { LandingImage, AuthHeader } from '../../components/index';
 
 const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   const navigateDetails = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout, Select, SelectItem } from '@ui-kitten/components';
+
 import {
   gameDevData,
   webDevData,
