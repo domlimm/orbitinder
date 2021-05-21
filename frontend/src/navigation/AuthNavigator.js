@@ -13,7 +13,7 @@ import PrefInputScreen1 from '../screens/Auth/PreferenceInputScreen1';
 import PrefInputScreen2 from '../screens/Auth/PreferenceScreen2';
 import ForgotPasswordScreen from '../screens/Auth/ForgotPasswordScreen';
 import { FlexStyleProps } from '@ui-kitten/components/devsupport';
-import ForgotPasswordConfirmationScreen from '../screens/Auth/ForgotPasswordConfirmationScreen copy';
+import ForgotPasswordConfirmationScreen from '../screens/Auth/ForgotPasswordConfirmationScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
