@@ -19,8 +19,6 @@ const BackIcon = ({ props, navigation }) => {
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
 
-  const IconBack = BackIcon();
-
   return <TopNavigation accessoryLeft={BackAction} style={styles.topNav} />;
 };
 

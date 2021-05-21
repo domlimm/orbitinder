@@ -2,8 +2,10 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
 import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
-
-import { BackIcon } from '../../components/index';
+import { BackIcon, ContentCard } from '../../components/index';
+import { userData } from '../../constants/userData';
+import { TechTags } from '../../components/index';
+import { InterestTags } from '../../components/index';
 
 const UserProfileScreen = ({ navigation }) => {
   // const navigateDetails = () => {
@@ -17,12 +19,6 @@ const UserProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
-        {/* <Icon
-          fill='white'
-          name='arrow-back'
-          onPress={navigateBack}
-          style={styles.icon}
-        /> */}
         <Layout style={styles.headerContainer}>
           <BackIcon navigation={navigation} />
 
@@ -53,100 +49,16 @@ const UserProfileScreen = ({ navigation }) => {
           </Layout>
         </Layout>
         <Layout style={styles.contentContainer}>
-          <Card style={styles.contentCard}>
-            <Text style={styles.cardTitle}>ABOUT ME</Text>
-            <Text>
-              Rebecca Renee Black is an American YouTuber and singer who gained
-              extensive media coverage when the music video for her 2011 single
-              "Friday" went viral on YouTube and other social media sites.
-              "Friday" was derided by many music critics and viewers, who dubbed
-              it "the worst song ever"
-            </Text>
-          </Card>
-          <Card style={styles.contentCard}>
-            <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-            <Layout style={styles.tagContainer}>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='outline'
-                status='basic'
-              >
-                Finance
-              </Button>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='outline'
-                status='basic'
-              >
-                Social
-              </Button>
-            </Layout>
-          </Card>
+          <ContentCard type={'bio'} userData={userData} />
+          <ContentCard type={'areas-of-interest'} userData={userData} />
 
           <Layout style={styles.groupContainer}>
-            <Card style={styles.cardGroup}>
-              <Text style={styles.cardTitle}>Coding Exp Level</Text>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='outline'
-                status='basic'
-              >
-                Beginner
-              </Button>
-            </Card>
-            <Card style={styles.cardGroup}>
-              <Text style={styles.cardTitle}>Commitment</Text>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='outline'
-                status='basic'
-              >
-                High
-              </Button>
-              <Text></Text>
-              <Text></Text>
-            </Card>
+            <ContentCard type={'coding-exp-level'} userData={userData} />
+            <ContentCard type={'commitment'} userData={userData} />
           </Layout>
           <Card style={styles.contentCard}>
             <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-            <Layout style={styles.tagContainer}>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='ghost'
-                status='basic'
-              >
-                Flutter
-              </Button>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='ghost'
-                status='basic'
-              >
-                React-Native
-              </Button>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='ghost'
-                status='basic'
-              >
-                React-Native
-              </Button>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='ghost'
-                status='basic'
-              >
-                React-Native
-              </Button>
-            </Layout>
+            <TechTags tagsData={userData.technologies} />
           </Card>
         </Layout>
       </ScrollView>
