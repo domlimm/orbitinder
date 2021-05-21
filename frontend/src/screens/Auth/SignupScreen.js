@@ -16,8 +16,10 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
+import { useMutation } from '@apollo/client';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { NavHeader } from '../../components/index';
+import { SIGN_UP } from '../../graphql/queries';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -28,6 +30,18 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
+  const [name, setName] = React.useState('');
+
+  React.useEffect(() => {
+    setName(`${fName + ' ' + lName}`);
+  }, [fName, lName]);
+
+  const [signUp, { data, error, loading }] = useMutation(SIGN_UP);
+  // mutation[0] : A function to trigger the mutation
+  // mutation[1] : Result object; Answer from server
+  // e.g. { data, error, loading }
+
+  const signUpHandler = () => {};
 
   const navigateDetails = () => {
     navigation.navigate('ProfileLanding');
@@ -69,12 +83,16 @@ const SignupScreen = ({ navigation }) => {
               style={styles.textInput}
               placeholder='John'
               accessoryRight={NameIcon}
+              value={fName}
+              onChangeText={input => setFName(input)}
             />
             <Input
               label='Last Name'
               style={styles.textInput}
               placeholder='Doe'
               accessoryRight={NameIcon}
+              value={lName}
+              onChangeText={input => setLName(input)}
             />
             <Select
               style={styles.selectInput}
@@ -111,6 +129,9 @@ const SignupScreen = ({ navigation }) => {
           <Layout style={styles.btnContainer}>
             <Button onPress={navigateDetails} style={styles.signupBtn}>
               Sign Up
+            </Button>
+            <Button onPress={signUpHandler} style={styles.signupBtn}>
+              Click
             </Button>
           </Layout>
         </ScrollView>
