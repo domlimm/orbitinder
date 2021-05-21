@@ -19,7 +19,7 @@ const ProfileLandingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <NavHeader navProps={navProps} />
-      <Text style={styles.landingTitle}>Its time to create your profile!</Text>
+      <Text style={styles.landingTitle}>It's time to create your profile!</Text>
       <Layout style={styles.imgContainer}>
         <LandingImage
           imgSrc={require('../../assets/images/profile-interface.png')}
