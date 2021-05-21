@@ -7,6 +7,9 @@ export const commitmentData = [
 ];
 
 export const sweExperience = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+
+export const idea = ['Yes', 'No'];
+
 export const genderData = ['Female', 'Male'];
 
 export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
