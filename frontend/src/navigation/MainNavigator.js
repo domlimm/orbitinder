@@ -10,9 +10,6 @@ const { Navigator, Screen } = createStackNavigator();
 
 const MainNavigator = () => (
   <Navigator headerMode='none'>
-    {/* <Screen name='MainAppScreen' component={MainAppScreen} />
-    <Screen name='ActivityFeedScreen' component={ActivityFeedScreen} />
-    <Screen name='UserProfileScreen' component={UserProfileScreen} /> */}
     <Screen name='DrawerNavigator' component={HomeDrawerNavigator} />
   </Navigator>
 );
