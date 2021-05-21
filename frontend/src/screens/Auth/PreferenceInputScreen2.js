@@ -7,7 +7,6 @@ import { PrefBackgroundSelect, ProfileHeader } from '../../components/index';
 
 const PrefInputScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    console.log(navigation);
     navigation.navigate('LoginLanding');
   };
 
@@ -22,7 +21,7 @@ const PrefInputScreen2 = ({ navigation }) => {
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Partner Preferences</Text>
         <Text style={styles.screenCaption}>
-          {'Which technologies should your \n partner have experience in?'}
+          {'Which technologies should your \npartner have experience in?'}
         </Text>
       </Layout>
       <PrefBackgroundSelect />

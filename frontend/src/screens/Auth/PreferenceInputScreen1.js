@@ -19,10 +19,6 @@ import {
 } from '../../constants/prefCreationData';
 
 const PrefInputScreen1 = ({ navigation }) => {
-  const navigateDetails = () => {
-    navigation.navigate('PrefInputScreen2');
-  };
-
   const [selectedIndex, setSelectedIndex] = React.useState([]);
   const displayGameDev = selectedIndex.map(index => {
     return yearData[index.row];
@@ -44,6 +40,10 @@ const PrefInputScreen1 = ({ navigation }) => {
   const displaySWE = selectedSWEIndex.map(index => {
     return sweExperience[index.row];
   });
+
+  const navigateDetails = () => {
+    navigation.navigate('PrefInputScreen2');
+  };
 
   let navProps = {
     navigation: navigation,
