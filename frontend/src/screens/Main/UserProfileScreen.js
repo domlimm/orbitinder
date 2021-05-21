@@ -17,7 +17,6 @@ const UserProfileScreen = ({ navigation }) => {
       <ScrollView>
         <Layout style={styles.headerContainer}>
           <BackIcon navigation={navigation} />
-
           <Image
             style={styles.avatarImg}
             source={{ uri: 'https://i.pravatar.cc/300' }}

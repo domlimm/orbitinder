@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Dimensions,
-  Image,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet
@@ -9,7 +8,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 
-import { LandingImage, AuthHeader } from '../../components/index';
+import { LandingImage, NavHeader } from '../../components/index';
 
 const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   const navigateDetails = () => {
@@ -18,9 +17,15 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
 
   const [value, setValue] = React.useState('');
 
+  const navProps = {
+    navigation: navigation,
+    type: 'auth',
+    backNav: false
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <AuthHeader navigation={navigation} />
+      <NavHeader navProps={navProps} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
@@ -29,8 +34,10 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.textContainer}>
-            <Text style={styles.textTitle}>Email has been send</Text>
-            <Text style={styles.textCaption}>{'Please check your inbox'}</Text>
+            <Text style={styles.textTitle}>An email has been sent!</Text>
+            <Text style={styles.textCaption}>
+              {'Please check your inbox for more details.'}
+            </Text>
           </Layout>
           <Layout style={styles.inputContainer}>
             <Button onPress={navigateDetails} style={styles.loginBtn}>

@@ -20,7 +20,7 @@ function wait(timeout) {
 
 const ActivityFeedScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('UserProfileScreen');
+    navigation.navigate('UserProfile');
   };
 
   let navProps = {
@@ -76,6 +76,12 @@ const ActivityFeedScreen = ({ navigation }) => {
       setRefreshing(false);
     });
   }, [refreshing]);
+
+  const navProps = {
+    title: 'Activity Feed',
+    navigation: navigation,
+    needBackNav: true
+  };
 
   return (
     <SafeAreaView style={styles.parentContainer}>

@@ -11,7 +11,7 @@ import {
   Text
 } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { ProfileHeader } from '../../components/index';
+import { NavHeader } from '../../components/index';
 import {
   yearData,
   commitmentData,
@@ -19,10 +19,6 @@ import {
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
-  const navigateDetails = () => {
-    navigation.navigate('InputBackgroundScreen2');
-  };
-
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
     new IndexPath(0)
   );
@@ -37,14 +33,19 @@ const InputBackgroundScreen1 = ({ navigation }) => {
     React.useState(new IndexPath(0));
   const displayAchievement = achievementData[selectedAchievementIndex.row];
 
+  const navigateDetails = () => {
+    navigation.navigate('InputBackground2');
+  };
+
   let navProps = {
     navigation: navigation,
-    needBackNav: true
+    backNav: true,
+    type: 'register'
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader navProps={navProps} />
+      <NavHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Personal Background </Text>
         <Text style={styles.screenCaption}>

@@ -1,27 +1,25 @@
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import {
-  Avatar,
   Drawer,
   DrawerItem,
   IndexPath,
   Layout,
-  StyleService,
-  Text,
-  useStyleSheet
+  Text
 } from '@ui-kitten/components';
-
-import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ActivityFeedScreen from '../screens/Main/ActivityFeedScreen';
-import UserProfileScreen from '../screens/Main/UserProfileScreen';
-import MainAppScreen from '../screens/Main/MainAppScreen';
-import { ResetPasswordScreen } from '../screens';
+
+import {
+  LoginScreen,
+  MainAppScreen,
+  ChangePasswordScreen,
+  ResetPasswordScreen
+} from '../screens/index';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
-  const styles = useStyleSheet(themedStyles);
-
   const Header = () => (
     <Layout style={styles.header}>
       <Text>Orbitinder</Text>
@@ -45,14 +43,14 @@ const DrawerContent = ({ navigation, state }) => {
 
 export const HomeDrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
-    <Screen name='MainAppScreen' component={MainAppScreen} />
-    <Screen name='ResetPasswordScreen' component={ResetPasswordScreen} />
-    <Screen name='ActivityFeedScreen' component={ActivityFeedScreen} />
-    <Screen name='UserProfileScreen' component={UserProfileScreen} />
+    <Screen name='MainApp' component={MainAppScreen} />
+    <Screen name='ResetPassword' component={ResetPasswordScreen} />
+    <Screen name='ChangePassword' component={ChangePasswordScreen} />
+    <Screen name='Login' component={LoginScreen} />
   </Navigator>
 );
 
-const themedStyles = StyleService.create({
+const styles = StyleSheet.create({
   header: {
     height: 128,
     paddingHorizontal: 16,
@@ -65,7 +63,6 @@ const themedStyles = StyleService.create({
   profileName: {
     marginHorizontal: 16
   },
-
   icon: {
     width: 22,
     height: 22,

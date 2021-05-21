@@ -17,7 +17,7 @@ import {
   Text
 } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { AuthHeader } from '../../components/index';
+import { NavHeader } from '../../components/index';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -51,10 +51,16 @@ const SignupScreen = ({ navigation }) => {
     </Layout>
   );
 
+  const navProps = {
+    navigation: navigation,
+    type: 'auth',
+    backNav: true
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.formContainer}>
-        <AuthHeader navigation={navigation} />
+        <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.inputContainer}>
             <Title title='Personal Details' />

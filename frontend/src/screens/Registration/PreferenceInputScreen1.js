@@ -10,7 +10,7 @@ import {
   Text
 } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { ProfileHeader } from '../../components/index';
+import { NavHeader } from '../../components/index';
 import {
   yearData,
   commitmentData,
@@ -19,10 +19,6 @@ import {
 } from '../../constants/prefCreationData';
 
 const PrefInputScreen1 = ({ navigation }) => {
-  const navigateDetails = () => {
-    navigation.navigate('PrefInputScreen2');
-  };
-
   const [selectedIndex, setSelectedIndex] = React.useState([]);
   const displayGameDev = selectedIndex.map(index => {
     return yearData[index.row];
@@ -45,14 +41,19 @@ const PrefInputScreen1 = ({ navigation }) => {
     return sweExperience[index.row];
   });
 
+  const navigateDetails = () => {
+    navigation.navigate('PrefInput2');
+  };
+
   let navProps = {
     navigation: navigation,
-    needBackNav: true
+    backNav: true,
+    type: 'register'
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader navProps={navProps} />
+      <NavHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
         <Text style={styles.screenTitle}>Partner Preferences </Text>
         <Text style={styles.screenCaption}>

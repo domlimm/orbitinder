@@ -1,20 +1,28 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { LandingHeader, LandingImage } from '../components/index';
+import { NavHeader, LandingImage } from '../../components/index';
 
 const HomeLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
     navigation.navigate('AuthNavigator');
   };
 
+  const navProps = {
+    navigation: navigation,
+    type: 'landing',
+    backNav: false
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <LandingHeader />
+      <NavHeader navProps={navProps} />
       <Layout style={styles.flexContainer}>
-        <LandingImage imgSrc={require('../assets/images/high-five-pana.png')} />
+        <LandingImage
+          imgSrc={require('../../assets/images/high-five-pana.png')}
+        />
       </Layout>
       <Layout style={styles.flexContainer}>
         <Text style={styles.landingTitle}>Swipe. Chat. Team Up</Text>
