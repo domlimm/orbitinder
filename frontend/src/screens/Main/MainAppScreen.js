@@ -27,18 +27,19 @@ const MainAppScreen = ({ navigation }) => {
   };
 
   const renderTitle = () => (
-    <Layout style={styles.titleContainer}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/images/orbital-brand.png')}
-      />
-    </Layout>
+    // <Layout style={styles.titleContainer}>
+    //   <Image
+    //     style={styles.logo}
+    //     source={require('../../assets/images/orbital-brand.png')}
+    //   />
+    // </Layout>
+    <Text style={styles.titleHeader}>Home</Text>
   );
 
   const SettingsIcon = props => (
     <Icon
       {...props}
-      name='settings-2-outline'
+      name='menu-outline'
       style={[props.style, { width: 32, height: 32 }]}
       animation='pulse'
       fill='#407BFF'
@@ -135,6 +136,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  titleHeader: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20
   }
 });
 

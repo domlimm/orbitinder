@@ -8,7 +8,14 @@ import {
 } from '@ui-kitten/components';
 
 const TitleHeader = ({ props, navProps }) => {
-  const BackIcon = props => <Icon {...props} name='arrow-back' />;
+  const BackIcon = props => (
+    <Icon
+      {...props}
+      name='arrow-back'
+      fill='#407bff'
+      style={[props.style, { width: 32, height: 32 }]}
+    />
+  );
 
   const navigateBack = () => {
     navProps.navigation.goBack();
@@ -22,6 +29,18 @@ const TitleHeader = ({ props, navProps }) => {
     <Text style={styles.titleHeader}>{navProps.title}</Text>
   );
 
+  const DrawerIcon = props => (
+    <Icon
+      {...props}
+      name='menu-outline'
+      style={[props.style, { width: 32, height: 32 }]}
+      animation='pulse'
+      fill='#407BFF'
+      onPress={() => navProps.navigation.openDrawer()}
+    />
+  );
+  const renderMenuIcon = () => <TopNavigationAction icon={DrawerIcon} />;
+
   if (navProps.needBackNav) {
     return (
       <TopNavigation
@@ -32,13 +51,24 @@ const TitleHeader = ({ props, navProps }) => {
       />
     );
   } else {
-    return (
-      <TopNavigation
-        style={styles.topNav}
-        title={renderTitle}
-        alignment='center'
-      />
-    );
+    if (navProps.needMenuNav) {
+      return (
+        <TopNavigation
+          style={styles.topNav}
+          title={renderTitle}
+          alignment='center'
+          accessoryLeft={renderMenuIcon}
+        />
+      );
+    } else {
+      return (
+        <TopNavigation
+          style={styles.topNav}
+          title={renderTitle}
+          alignment='center'
+        />
+      );
+    }
   }
 };
 

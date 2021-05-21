@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Layout, Card, Text } from '@ui-kitten/components';
-import { InterestTags } from '..';
+import { InterestTags } from './InterestTags';
 
 const ContentCard = ({ type, userData }) => {
   switch (type) {
@@ -23,28 +23,35 @@ const ContentCard = ({ type, userData }) => {
       break;
     case 'coding-exp-level':
       return (
+        // <Card style={styles.cardGroup}>
+        //   <Text style={styles.cardTitle}>Coding Exp Level</Text>
+        //   <InterestTags tagsData={[userData.codingExpLevel]} />
+        // </Card>
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>Coding Exp Level</Text>
-          <InterestTags tagsData={[userData.codingExpLevel]} />
+          <Button
+            style={styles.tags}
+            size='small'
+            appearance='outline'
+            status='basic'
+          >
+            {userData.codingExpLevel}
+          </Button>
         </Card>
-        /* <Card style={styles.cardGroup}>
-              <Text style={styles.cardTitle}>Coding Exp Level</Text>
-              <Button
-                style={styles.tags}
-                size='small'
-                appearance='outline'
-                status='basic'
-              >
-                Beginner
-              </Button>
-            </Card> */
       );
       break;
     case 'commitment':
       return (
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>Commitment</Text>
-          <InterestTags tagsData={[userData.commitment]} />
+          <Button
+            style={styles.tags}
+            size='small'
+            appearance='outline'
+            status='basic'
+          >
+            {userData.commitment}
+          </Button>
         </Card>
       );
       break;

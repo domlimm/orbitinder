@@ -8,10 +8,6 @@ import { TechTags } from '../../components/index';
 import { InterestTags } from '../../components/index';
 
 const UserProfileScreen = ({ navigation }) => {
-  // const navigateDetails = () => {
-  //   navigation.navigate('ActivityFeedScreen');
-  // };
-
   const navigateBack = () => {
     navigation.goBack();
   };
@@ -50,7 +46,10 @@ const UserProfileScreen = ({ navigation }) => {
         </Layout>
         <Layout style={styles.contentContainer}>
           <ContentCard type={'bio'} userData={userData} />
-          <ContentCard type={'areas-of-interest'} userData={userData} />
+          <Card style={styles.contentCard}>
+            <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
+            <InterestTags tagsData={userData.interestedAreas} />
+          </Card>
 
           <Layout style={styles.groupContainer}>
             <ContentCard type={'coding-exp-level'} userData={userData} />

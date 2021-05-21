@@ -15,6 +15,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import ActivityFeedScreen from '../screens/Main/ActivityFeedScreen';
 import UserProfileScreen from '../screens/Main/UserProfileScreen';
 import MainAppScreen from '../screens/Main/MainAppScreen';
+import { ResetPasswordScreen } from '../screens';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -45,6 +46,7 @@ const DrawerContent = ({ navigation, state }) => {
 export const HomeDrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
     <Screen name='MainAppScreen' component={MainAppScreen} />
+    <Screen name='ResetPasswordScreen' component={ResetPasswordScreen} />
     <Screen name='ActivityFeedScreen' component={ActivityFeedScreen} />
     <Screen name='UserProfileScreen' component={UserProfileScreen} />
   </Navigator>

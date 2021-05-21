@@ -26,7 +26,8 @@ const ActivityFeedScreen = ({ navigation }) => {
   let navProps = {
     title: 'Activity Feed',
     navigation: navigation,
-    needBackNav: true
+    needBackNav: true,
+    needMenuNav: false
   };
 
   const [data, setData] = React.useState(
