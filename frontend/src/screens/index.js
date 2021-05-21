@@ -14,3 +14,4 @@ export { default as UserProfileScreen } from './Main/UserProfileScreen';
 export { default as ErrorScreen } from './ErrorScreen';
 export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
 export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen';
+export { default as MainAppScreen } from './Main/MainAppScreen';

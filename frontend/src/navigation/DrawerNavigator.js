@@ -1,5 +1,5 @@
+import React from 'react';
 import {
-  Avatar,
   Drawer,
   DrawerItem,
   IndexPath,
@@ -8,13 +8,14 @@ import {
   Text,
   useStyleSheet
 } from '@ui-kitten/components';
-
-import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ActivityFeedScreen from '../screens/Main/ActivityFeedScreen';
-import UserProfileScreen from '../screens/Main/UserProfileScreen';
-import MainAppScreen from '../screens/Main/MainAppScreen';
+
+import {
+  ActivityFeedScreen,
+  UserProfileScreen,
+  MainAppScreen
+} from '../screens/index';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -63,7 +64,6 @@ const themedStyles = StyleService.create({
   profileName: {
     marginHorizontal: 16
   },
-
   icon: {
     width: 22,
     height: 22,
