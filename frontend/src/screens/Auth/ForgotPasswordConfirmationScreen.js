@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 
-import { LandingImage, AuthHeader } from '../../components/navigation/index';
+import { LandingImage, AuthHeader } from '../../components/index';
 
 const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   const navigateDetails = () => {
