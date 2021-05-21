@@ -27,8 +27,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <NavHeader navProps={navProps} />
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
+      <KeyboardAvoidingView style={styles.formContainer}>
+        <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage
@@ -50,7 +50,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
               onChangeText={nextValue => setValue(nextValue)}
               accessoryRight={EmailIcon}
             />
-            <Button onPress={navigateDetails} style={styles.loginBtn}>
+            <Button onPress={navigateDetails} style={styles.sendBtn}>
               Send
             </Button>
           </Layout>
@@ -65,20 +65,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
+  formContainer: {
+    flex: 1
+  },
   landingImageContainer: {
     height: Dimensions.get('window').height / 3 + 50
   },
   inputContainer: {
-    height: '50%',
+    flex: 1,
     alignItems: 'center'
   },
   textInput: {
     width: '70%',
     marginBottom: 10
   },
-  loginBtn: {
+  sendBtn: {
     width: '70%',
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 30
   },
   textContainer: {
     alignItems: 'center',
