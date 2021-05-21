@@ -12,3 +12,5 @@ export { default as PrefInputScreen2 } from './Auth/PreferenceScreen2';
 export { default as ActivityFeedScreen } from './Main/ActivityFeedScreen';
 export { default as UserProfileScreen } from './Main/UserProfileScreen';
 export { default as ErrorScreen } from './ErrorScreen';
+export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
+export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen copy';

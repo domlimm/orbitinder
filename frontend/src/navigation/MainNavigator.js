@@ -1,9 +1,11 @@
-// Sign In, Sign Up & Change Password
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ActivityFeedScreen from '../screens/Main/ActivityFeedScreen';
-import UserProfileScreen from '../screens/Main/UserProfileScreen';
-import MainAppScreen from '../screens/Main/MainAppScreen';
+
+import {
+  ActivityFeedScreen,
+  UserProfileScreen,
+  MainAppScreen
+} from '../screens/index';
 
 const { Navigator, Screen } = createStackNavigator();
 
