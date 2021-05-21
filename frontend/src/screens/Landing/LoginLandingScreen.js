@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { LandingHeader, LandingImage } from '../../components/index';
+import { NavHeader, LandingImage } from '../../components/index';
 
 const LoginLandingScreen = ({ navigation }) => {
   const navigateLogin = () => {
@@ -14,9 +14,15 @@ const LoginLandingScreen = ({ navigation }) => {
     navigation.navigate('Signup');
   };
 
+  const navProps = {
+    navigation: navigation,
+    type: 'landing',
+    backNav: false
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <LandingHeader />
+      <NavHeader navProps={navProps} />
       <Layout style={styles.layoutContainerTop}>
         <LandingImage
           imgSrc={require('../../assets/images/high-five-pana.png')}

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   topNav: {
-    marginVertical: 8
+    marginVertical: 6
   }
 });
 

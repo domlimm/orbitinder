@@ -8,7 +8,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, Button, Layout, Input, Text } from '@ui-kitten/components';
 
-import { LandingImage, AuthHeader } from '../../components/index';
+import { LandingImage, NavHeader } from '../../components/index';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [value, setValue] = React.useState('');
@@ -19,9 +19,15 @@ const ForgotPasswordScreen = ({ navigation }) => {
     navigation.navigate('ForgotPasswordConfirmationScreen');
   };
 
+  const navProps = {
+    navigation: navigation,
+    type: 'auth',
+    backNav: true
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <AuthHeader navigation={navigation} />
+      <NavHeader navProps={navProps} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
         <ScrollView>
           <Layout style={styles.landingImageContainer}>

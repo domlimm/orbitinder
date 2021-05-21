@@ -23,12 +23,6 @@ const ActivityFeedScreen = ({ navigation }) => {
     navigation.navigate('UserProfileScreen');
   };
 
-  let navProps = {
-    title: 'Activity Feed',
-    navigation: navigation,
-    needBackNav: true
-  };
-
   const [data, setData] = React.useState(
     new Array(5).fill({
       userName: 'John Doe',
@@ -75,6 +69,12 @@ const ActivityFeedScreen = ({ navigation }) => {
       setRefreshing(false);
     });
   }, [refreshing]);
+
+  const navProps = {
+    title: 'Activity Feed',
+    navigation: navigation,
+    needBackNav: true
+  };
 
   return (
     <SafeAreaView style={styles.parentContainer}>

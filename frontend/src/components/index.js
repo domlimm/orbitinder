@@ -7,3 +7,4 @@ export { default as LandingImage } from './Navigation/LandingImage';
 export { default as ProfileHeader } from './Navigation/ProfileHeader';
 export { default as TitleHeader } from './Navigation/TitleHeader';
 export { default as BackIcon } from './Navigation/BackIcon';
+export { default as NavHeader } from './Navigation/NavHeader';
