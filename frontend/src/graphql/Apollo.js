@@ -1,8 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-const dotenv = require('dotenv');
-dotenv.config();
-const { IP_ADDRESS, PORT } = process.env;
+const IP_ADDRESS = '192.168.1.163';
+const PORT = '4000';
 
 const URI = `http://${IP_ADDRESS}:${PORT}/`;
 
