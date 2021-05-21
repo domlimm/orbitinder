@@ -12,8 +12,7 @@ export { default as PrefInputScreen2 } from './Registration/PreferenceInputScree
 export { default as ActivityFeedScreen } from './Main/ActivityFeedScreen';
 export { default as UserProfileScreen } from './Main/UserProfileScreen';
 export { default as MainAppScreen } from './Main/MainAppScreen';
-export { default as ResetPasswordScreen } from './Main/ResetPasswordScreen';
+export { default as ChangePasswordScreen } from './Main/ChangePasswordScreen';
 export { default as ErrorScreen } from './ErrorScreen';
 export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
 export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen';
-export { default as ChangePasswordScreen } from './Auth/ChangePasswordScreen';

@@ -11,10 +11,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import {
-  LoginScreen,
-  MainAppScreen,
   ChangePasswordScreen,
-  ResetPasswordScreen
+  LoginScreen,
+  MainAppScreen
 } from '../screens/index';
 
 const { Navigator, Screen } = createDrawerNavigator();
@@ -44,7 +43,6 @@ const DrawerContent = ({ navigation, state }) => {
 export const HomeDrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
     <Screen name='MainApp' component={MainAppScreen} />
-    <Screen name='ResetPassword' component={ResetPasswordScreen} />
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
     <Screen name='Login' component={LoginScreen} />
   </Navigator>
