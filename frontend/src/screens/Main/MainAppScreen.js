@@ -93,7 +93,7 @@ const MainAppScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: '#FAFAFA'
+    backgroundColor: '#F5F5F5'
   },
   titleContainer: {
     flexDirection: 'row',
