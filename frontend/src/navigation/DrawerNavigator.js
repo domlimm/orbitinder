@@ -1,12 +1,11 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import {
   Drawer,
   DrawerItem,
   IndexPath,
   Layout,
-  StyleService,
-  Text,
-  useStyleSheet
+  Text
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -20,8 +19,6 @@ import {
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
-  const styles = useStyleSheet(themedStyles);
-
   const Header = () => (
     <Layout style={styles.header}>
       <Text>Orbitinder</Text>
@@ -51,7 +48,7 @@ export const HomeDrawerNavigator = () => (
   </Navigator>
 );
 
-const themedStyles = StyleService.create({
+const styles = StyleSheet.create({
   header: {
     height: 128,
     paddingHorizontal: 16,
