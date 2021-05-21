@@ -16,5 +16,4 @@ export { default as ResetPasswordScreen } from './Main/ResetPasswordScreen';
 export { default as ErrorScreen } from './ErrorScreen';
 export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
 export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen';
-export { default as MainAppScreen } from './Main/MainAppScreen';
 export { default as ChangePasswordScreen } from './Auth/ChangePasswordScreen';

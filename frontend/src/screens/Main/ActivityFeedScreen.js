@@ -77,12 +77,6 @@ const ActivityFeedScreen = ({ navigation }) => {
     });
   }, [refreshing]);
 
-  const navProps = {
-    title: 'Activity Feed',
-    navigation: navigation,
-    needBackNav: true
-  };
-
   return (
     <SafeAreaView style={styles.parentContainer}>
       <TitleHeader navProps={navProps} />
