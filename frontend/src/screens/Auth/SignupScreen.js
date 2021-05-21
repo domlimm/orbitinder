@@ -18,7 +18,7 @@ import {
 } from '@ui-kitten/components';
 import { useMutation } from '@apollo/client';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { NavHeader } from '../../components/index';
+import { NavHeader, LoadingIndicator } from '../../components/index';
 import { SIGN_UP } from '../../graphql/queries';
 
 const SignupScreen = ({ navigation }) => {
@@ -37,11 +37,10 @@ const SignupScreen = ({ navigation }) => {
   }, [fName, lName]);
 
   const [signUp, { data, error, loading }] = useMutation(SIGN_UP);
-  // mutation[0] : A function to trigger the mutation
-  // mutation[1] : Result object; Answer from server
-  // e.g. { data, error, loading }
 
-  const signUpHandler = () => {};
+  const signUpHandler = () => {
+    signUp({ variables: { name, email, password } });
+  };
 
   const navigateDetails = () => {
     navigation.navigate('ProfileLanding');
@@ -130,7 +129,12 @@ const SignupScreen = ({ navigation }) => {
             <Button onPress={navigateDetails} style={styles.signupBtn}>
               Sign Up
             </Button>
-            <Button onPress={signUpHandler} style={styles.signupBtn}>
+            <Button
+              onPress={signUpHandler}
+              disabled={loading}
+              style={styles.signupBtn}
+              accessoryLeft={loading ? () => <LoadingIndicator /> : null}
+            >
               Click
             </Button>
           </Layout>
