@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -11,7 +11,8 @@ import {
   Text
 } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { NavHeader, ProfileHeader } from '../../components/index';
+import { NavHeader } from '../../components/index';
+import { sweExperience, idea } from '../../constants/prefCreationData';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
@@ -21,19 +22,14 @@ const InputBackgroundScreen2 = ({ navigation }) => {
   const [selectedIdeaIndex, setSelectedIdeaIndex] = React.useState(
     new IndexPath(0)
   );
-  const ideaData = ['Yes', 'No'];
-  const displayIdea = ideaData[selectedIdeaIndex.row];
+  const displayIdea = idea[selectedIdeaIndex.row];
 
   const [selectedSWEIndex, setSelectedSWEIndex] = React.useState(
     new IndexPath(0)
   );
-  const sweData = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
-  const displaySWE = sweData[selectedSWEIndex.row];
+  const displaySWE = sweExperience[selectedSWEIndex.row];
 
-  const inputBio = (bioValue = '') => {
-    const [bio, setBio] = React.useState(bioValue);
-    return { bio, onChangeText: setBio };
-  };
+  const [bio, setBio] = React.useState('');
 
   let navProps = {
     navigation: navigation,
@@ -43,52 +39,56 @@ const InputBackgroundScreen2 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavHeader navProps={navProps} />
-      <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Personal Background </Text>
-        <Text style={styles.screenCaption}>
-          Let others find out more about you!
-        </Text>
-      </Layout>
-      <Layout style={styles.inputContainer}>
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedIdeaIndex}
-          value={displayIdea}
-          onSelect={index => setSelectedIdeaIndex(index)}
-          label='Do you already have an idea in mind?'
-        >
-          <SelectItem title='Yes' />
-          <SelectItem title='No' />
-        </Select>
-
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedSWEIndex}
-          value={displaySWE}
-          onSelect={index => setSelectedSWEIndex(index)}
-          label='Choose your SWE experience level'
-        >
-          <SelectItem title='Beginner' />
-          <SelectItem title='Intermediate' />
-          <SelectItem title='Advanced' />
-          <SelectItem title='Expert' />
-        </Select>
-        <Input
-          style={styles.bioInput}
-          multiline={true}
-          textStyle={styles.bioText}
-          placeholder='Bio'
-          label='Provide a short bio about yourself'
-          {...inputBio}
-        />
-      </Layout>
-      <Layout style={styles.btnContainer}>
-        <Button onPress={navigateDetails} style={styles.signupBtn}>
-          Next
-        </Button>
-      </Layout>
-      <StatusBar style='auto' />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <NavHeader navProps={navProps} />
+          <Layout style={styles.textContainer}>
+            <Text style={styles.screenTitle}>Personal Background </Text>
+            <Text style={styles.screenCaption}>
+              Let others find out more about you!
+            </Text>
+          </Layout>
+          <Layout style={styles.inputContainer}>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedIdeaIndex}
+              value={displayIdea}
+              onSelect={index => setSelectedIdeaIndex(index)}
+              label='Do you already have an idea in mind?'
+            >
+              {idea.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedSWEIndex}
+              value={displaySWE}
+              onSelect={index => setSelectedSWEIndex(index)}
+              label='Choose your SWE experience level'
+            >
+              {sweExperience.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Input
+              style={styles.bioInput}
+              multiline={true}
+              textStyle={styles.bioText}
+              placeholder='Bio'
+              label='Provide a short bio about yourself'
+              onChangeText={input => setBio(input)}
+              numberOfLines={6}
+              value={bio}
+            />
+          </Layout>
+          <Layout style={styles.btnContainer}>
+            <Button onPress={navigateDetails} style={styles.signupBtn}>
+              Next
+            </Button>
+          </Layout>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   bioInput: {
     width: '70%',
-    marginVertical: 10
+    marginTop: 10
   },
   bioText: {
     minHeight: '40%',

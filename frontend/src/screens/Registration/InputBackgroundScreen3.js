@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
@@ -18,20 +18,21 @@ const InputBackgroundScreen3 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavHeader navProps={navProps} />
-      <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Technology Experience</Text>
-        <Text style={styles.screenCaption}>
-          Let others know what you're great at!
-        </Text>
-      </Layout>
-      <InputBackgroundSelect />
-      <Layout style={styles.btnContainer}>
-        <Button onPress={navigateDetails} style={styles.signupBtn}>
-          Next
-        </Button>
-      </Layout>
-      <StatusBar style='auto' />
+      <ScrollView>
+        <NavHeader navProps={navProps} />
+        <Layout style={styles.textContainer}>
+          <Text style={styles.screenTitle}>Technology Experience</Text>
+          <Text style={styles.screenCaption}>
+            Let others know what you're great at!
+          </Text>
+        </Layout>
+        <InputBackgroundSelect />
+        <Layout style={styles.btnContainer}>
+          <Button onPress={navigateDetails} style={styles.signupBtn}>
+            Next
+          </Button>
+        </Layout>
+      </ScrollView>
     </SafeAreaView>
   );
 };

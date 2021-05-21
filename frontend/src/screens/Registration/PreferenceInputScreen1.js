@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -53,78 +53,81 @@ const PrefInputScreen1 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavHeader navProps={navProps} />
-      <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Partner Preferences </Text>
-        <Text style={styles.screenCaption}>
-          Who would your ideal partner be?
-        </Text>
-      </Layout>
-      <Layout style={styles.inputContainer}>
-        <Select
-          label='Year of Study'
-          style={styles.selectInput}
-          multiSelect={true}
-          selectedIndex={selectedIndex}
-          onSelect={index => setSelectedIndex(index)}
-          placeholder='Select'
-          value={displayGameDev.join(', ')}
-        >
-          {yearData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <NavHeader navProps={navProps} />
+          <Layout style={styles.textContainer}>
+            <Text style={styles.screenTitle}>Partner Preferences </Text>
+            <Text style={styles.screenCaption}>
+              Who would your ideal partner be?
+            </Text>
+          </Layout>
+          <Layout style={styles.inputContainer}>
+            <Select
+              label='Year of Study'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={selectedIndex}
+              onSelect={index => setSelectedIndex(index)}
+              placeholder='Select'
+              value={displayGameDev.join(', ')}
+            >
+              {yearData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
 
-        <Input label='Degree' style={styles.textInput} />
+            <Input label='Degree' style={styles.textInput} />
 
-        <Select
-          label='Commitment to Orbital'
-          style={styles.selectInput}
-          multiSelect={true}
-          selectedIndex={selectedCommitmentIndex}
-          onSelect={index => setSelectedCommitmentIndex(index)}
-          placeholder='Select'
-          value={displayCommitment.join(', ')}
-        >
-          {commitmentData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
+            <Select
+              label='Commitment to Orbital'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={selectedCommitmentIndex}
+              onSelect={index => setSelectedCommitmentIndex(index)}
+              placeholder='Select'
+              value={displayCommitment.join(', ')}
+            >
+              {commitmentData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
 
-        <Select
-          label='Gender'
-          style={styles.selectInput}
-          multiSelect={true}
-          selectedIndex={selectedGenderIndex}
-          onSelect={index => setSelectedGenderIndex(index)}
-          placeholder='Select'
-          value={displayGender.join(', ')}
-        >
-          {genderData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
+            <Select
+              label='Gender'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={selectedGenderIndex}
+              onSelect={index => setSelectedGenderIndex(index)}
+              placeholder='Select'
+              value={displayGender.join(', ')}
+            >
+              {genderData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
 
-        <Select
-          label='Prefered SWE experience level '
-          style={styles.selectInput}
-          multiSelect={true}
-          selectedIndex={selectedSWEIndex}
-          onSelect={index => setSelectedSWEIndex(index)}
-          placeholder='Select'
-          value={displaySWE.join(', ')}
-        >
-          {sweExperience.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
-      </Layout>
-      <Layout style={styles.btnContainer}>
-        <Button onPress={navigateDetails} style={styles.signupBtn}>
-          Next
-        </Button>
-      </Layout>
-      <StatusBar style='auto' />
+            <Select
+              label='Prefered SWE experience level '
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={selectedSWEIndex}
+              onSelect={index => setSelectedSWEIndex(index)}
+              placeholder='Select'
+              value={displaySWE.join(', ')}
+            >
+              {sweExperience.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+          </Layout>
+          <Layout style={styles.btnContainer}>
+            <Button onPress={navigateDetails} style={styles.signupBtn}>
+              Next
+            </Button>
+          </Layout>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

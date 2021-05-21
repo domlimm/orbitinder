@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -45,55 +45,58 @@ const InputBackgroundScreen1 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavHeader navProps={navProps} />
-      <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Personal Background </Text>
-        <Text style={styles.screenCaption}>
-          Let others find out more about you!
-        </Text>
-      </Layout>
-      <Layout style={styles.inputContainer}>
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedYearIndex}
-          value={displayYear}
-          onSelect={index => setSelectedYearIndex(index)}
-          label='Year of Study'
-        >
-          {yearData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
-        <Input label='Degree' style={styles.textInput} />
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedCommitmentIndex}
-          value={displayCommitment}
-          onSelect={index => setSelectedCommitmentIndex(index)}
-          label='Commitment to Orbital'
-        >
-          {commitmentData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
-        <Select
-          style={styles.selectInput}
-          selectedIndex={selectedAchievementIndex}
-          value={displayAchievement}
-          onSelect={index => setSelectedAchievementIndex(index)}
-          label='Orbital Achievement Level'
-        >
-          {achievementData.map((value, key) => (
-            <SelectItem key={key} title={value} />
-          ))}
-        </Select>
-      </Layout>
-      <Layout style={styles.btnContainer}>
-        <Button onPress={navigateDetails} style={styles.signupBtn}>
-          Next
-        </Button>
-      </Layout>
-      <StatusBar style='auto' />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <NavHeader navProps={navProps} />
+          <Layout style={styles.textContainer}>
+            <Text style={styles.screenTitle}>Personal Background </Text>
+            <Text style={styles.screenCaption}>
+              Let others find out more about you!
+            </Text>
+          </Layout>
+          <Layout style={styles.inputContainer}>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedYearIndex}
+              value={displayYear}
+              onSelect={index => setSelectedYearIndex(index)}
+              label='Year of Study'
+            >
+              {yearData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Input label='Degree' style={styles.textInput} />
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedCommitmentIndex}
+              value={displayCommitment}
+              onSelect={index => setSelectedCommitmentIndex(index)}
+              label='Commitment to Orbital'
+            >
+              {commitmentData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={selectedAchievementIndex}
+              value={displayAchievement}
+              onSelect={index => setSelectedAchievementIndex(index)}
+              label='Orbital Achievement Level'
+            >
+              {achievementData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+          </Layout>
+          <Layout style={styles.btnContainer}>
+            <Button onPress={navigateDetails} style={styles.signupBtn}>
+              Next
+            </Button>
+          </Layout>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -108,7 +111,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputContainer: {
-    flex: 3,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
