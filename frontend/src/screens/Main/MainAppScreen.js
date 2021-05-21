@@ -14,10 +14,8 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
-import { useNavigation } from '@react-navigation/native';
 
 const MainAppScreen = ({ navigation }) => {
-  // const navigation = useNavigation();
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeedScreen');
   };
@@ -35,17 +33,17 @@ const MainAppScreen = ({ navigation }) => {
     </Layout>
   );
 
-  const SettingsIcon = props => (
+  const DrawerIcon = props => (
     <Icon
       {...props}
-      name='settings-2-outline'
+      name='menu-outline'
       style={[props.style, { width: 32, height: 32 }]}
       animation='pulse'
       fill='#407BFF'
       onPress={() => navigation.openDrawer()}
     />
   );
-  const renderSettingsIcon = () => <TopNavigationAction icon={SettingsIcon} />;
+  const renderSettingsIcon = () => <TopNavigationAction icon={DrawerIcon} />;
 
   const NotificationsIcon = props => (
     <Icon
