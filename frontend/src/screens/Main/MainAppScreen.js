@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center'
-    // marginVertical: 50
   },
   logo: {
     flex: 1,

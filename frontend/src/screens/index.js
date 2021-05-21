@@ -16,3 +16,5 @@ export { default as ChangePasswordScreen } from './Main/ChangePasswordScreen';
 export { default as ErrorScreen } from './ErrorScreen';
 export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
 export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen';
+export { default as ChatOverviewScreen } from './Main/ChatOverviewScreen';
+export { default as TeamUpScreen } from './Main/TeamUpScreen';
