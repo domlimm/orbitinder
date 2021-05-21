@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
 import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
+
 import { BackIcon } from '../../components/index';
 
 const UserProfileScreen = ({ navigation }) => {
