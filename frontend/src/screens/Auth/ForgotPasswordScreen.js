@@ -1,22 +1,23 @@
 import React from 'react';
 import {
   Dimensions,
-  Image,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Layout, Input, Text } from '@ui-kitten/components';
+import { Icon, Button, Layout, Input, Text } from '@ui-kitten/components';
 
 import { LandingImage, AuthHeader } from '../../components/index';
 
 const ForgotPasswordScreen = ({ navigation }) => {
+  const [value, setValue] = React.useState('');
+
+  const EmailIcon = props => <Icon {...props} name='email-outline' />;
+
   const navigateDetails = () => {
     navigation.navigate('ForgotPasswordConfirmationScreen');
   };
-
-  const [value, setValue] = React.useState('');
 
   return (
     <SafeAreaView style={styles.parentContainer}>
@@ -29,9 +30,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.textContainer}>
-            <Text style={styles.textTitle}>Forgot your password?</Text>
+            <Text style={styles.textTitle}>Forgot password?</Text>
             <Text style={styles.textCaption}>
-              {'Enter your registered email to \nreceive further instructions'}
+              {'Enter the email address\nassociated with your account.'}
             </Text>
           </Layout>
           <Layout style={styles.inputContainer}>
@@ -41,9 +42,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
               placeholder='example@mail.com'
               value={value}
               onChangeText={nextValue => setValue(nextValue)}
+              accessoryRight={EmailIcon}
             />
             <Button onPress={navigateDetails} style={styles.loginBtn}>
-              Send Email
+              Send
             </Button>
           </Layout>
         </ScrollView>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   landingImageContainer: {
-    height: Dimensions.get('window').height / 2
+    height: Dimensions.get('window').height / 3 + 50
   },
   inputContainer: {
     height: '50%',
@@ -66,14 +68,15 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: '70%',
-    marginBottom: 15
+    marginBottom: 10
   },
   loginBtn: {
     width: '70%',
     marginTop: 10
   },
   textContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginVertical: 20
   },
   textTitle: {
     color: '#407BFF',
