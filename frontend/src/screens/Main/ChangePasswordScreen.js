@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, RefreshControl } from 'react-native';
+import {
+  StyleSheet,
+  RefreshControl,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  ScrollView
+} from 'react-native';
 import {
   Layout,
   List,
   ListItem,
-  Avatar,
-  Divider,
   Text,
-  Input
+  Input,
+  Icon,
+  Button,
+  Modal,
+  Card
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
@@ -23,12 +31,108 @@ const ResetPasswordScreen = ({ navigation }) => {
     needBackNav: false,
     needMenuNav: true
   };
+
+  const [currentPassword, setcurrentPassword] = React.useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = React.useState(false);
+
+  const CurrentPasswordIcon = props => (
+    <TouchableWithoutFeedback onPress={showPasswordHandler}>
+      <Icon {...props} name={showCurrentPassword ? 'eye' : 'eye-off'} />
+    </TouchableWithoutFeedback>
+  );
+
+  const showPasswordHandler = () => {
+    setShowCurrentPassword(!showCurrentPassword);
+  };
+
+  const [newPassword, setNewPassword] = React.useState('');
+  const [showNewPassword, setShowNewPassword] = React.useState(false);
+
+  const NewPasswordIcon = props => (
+    <TouchableWithoutFeedback onPress={showNewPasswordHandler}>
+      <Icon {...props} name={showNewPassword ? 'eye' : 'eye-off'} />
+    </TouchableWithoutFeedback>
+  );
+
+  const showNewPasswordHandler = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+  const ConfirmPasswordIcon = props => (
+    <TouchableWithoutFeedback onPress={showConfirmPasswordHandler}>
+      <Icon {...props} name={showConfirmPassword ? 'eye' : 'eye-off'} />
+    </TouchableWithoutFeedback>
+  );
+
+  const showConfirmPasswordHandler = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const [modalVisible, setModalVisible] = React.useState(false);
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <TitleHeader navProps={navProps} />
-      <Input placeholder='Place your Text' label='Current Password' />
-      <Input placeholder='Place your Text' label='New Password' />
-      <Input placeholder='Place your Text' label='Confirm New Password' />
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <TitleHeader navProps={navProps} />
+          <Layout style={styles.contentContainer}>
+            <Layout style={styles.inputContainer}>
+              <Input
+                label='Current Password'
+                style={styles.textInput}
+                placeholder='********'
+                accessoryRight={CurrentPasswordIcon}
+                value={currentPassword}
+                onChangeText={input => setcurrentPassword(input)}
+                accessoryRight={CurrentPasswordIcon}
+                secureTextEntry={showCurrentPassword}
+              />
+              <Input
+                label='New Password'
+                style={styles.textInput}
+                placeholder='********'
+                accessoryRight={NewPasswordIcon}
+                value={newPassword}
+                onChangeText={input => setNewPassword(input)}
+                accessoryRight={NewPasswordIcon}
+                secureTextEntry={showNewPassword}
+              />
+              <Input
+                label='Confirm New Password'
+                style={styles.textInput}
+                placeholder='********'
+                accessoryRight={ConfirmPasswordIcon}
+                value={confirmPassword}
+                onChangeText={input => setConfirmPassword(input)}
+                accessoryRight={ConfirmPasswordIcon}
+                secureTextEntry={showConfirmPassword}
+              />
+            </Layout>
+            <Layout style={styles.btnContainer}>
+              <Button
+                style={styles.btnInput}
+                onPress={() => setModalVisible(true)}
+              >
+                Change Password
+              </Button>
+            </Layout>
+            <Modal
+              visible={modalVisible}
+              backdropStyle={styles.backdrop}
+              onBackdropPress={() => setModalVisible(false)}
+            >
+              <Card disabled={true}>
+                <Text style={styles.modalText}>Password Changed</Text>
+                <Button size='small' onPress={() => setModalVisible(false)}>
+                  DISMISS
+                </Button>
+              </Card>
+            </Modal>
+          </Layout>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -36,33 +140,38 @@ const ResetPasswordScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#F5F5F5'
   },
-  landingImage: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    resizeMode: 'contain'
-  },
-  layoutContainerTop: {
-    height: '50%'
-  },
-  layoutContainerBottom: {
-    height: '50%',
-    alignItems: 'center'
-  },
-  textContent: {
-    textAlign: 'center',
-    fontSize: 17
-  },
-  signUpBtn: {
+  textInput: {
     width: '70%',
-    marginVertical: 15
+    marginVertical: 25
   },
-  logInBtn: {
+  inputContainer: {
+    // marginVertical: 30,
+    alignItems: 'center',
+    flex: 1
+    // height: '100%'
+  },
+  btnContainer: {
+    paddingVertical: 30,
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: 'white',
+    marginTop: 110,
+    marginBottom: 20
+    // height: '30%'
+  },
+  btnInput: {
     width: '70%'
   },
-  scrollView: {
-    // backgroundColor: '#fafafa'
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  modalText: {
+    marginVertical: 20
+  },
+  contentContainer: {
+    margin: 20
   }
 });
 
