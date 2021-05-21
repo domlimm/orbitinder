@@ -34,7 +34,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   const displayAchievement = achievementData[selectedAchievementIndex.row];
 
   const navigateDetails = () => {
-    navigation.navigate('InputBackgroundScreen2');
+    navigation.navigate('InputBackground2');
   };
 
   let navProps = {

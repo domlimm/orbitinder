@@ -7,7 +7,7 @@ import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
 const InputBackgroundScreen3 = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('PreferencesLandingScreen');
+    navigation.navigate('PreferencesLanding');
   };
 
   let navProps = {

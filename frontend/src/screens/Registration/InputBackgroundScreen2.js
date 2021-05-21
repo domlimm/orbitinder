@@ -15,7 +15,7 @@ import { NavHeader, ProfileHeader } from '../../components/index';
 
 const InputBackgroundScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('InputBackgroundScreen3');
+    navigation.navigate('InputBackground3');
   };
 
   const [selectedIdeaIndex, setSelectedIdeaIndex] = React.useState(

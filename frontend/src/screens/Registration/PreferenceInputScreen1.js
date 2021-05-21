@@ -42,7 +42,7 @@ const PrefInputScreen1 = ({ navigation }) => {
   });
 
   const navigateDetails = () => {
-    navigation.navigate('PrefInputScreen2');
+    navigation.navigate('PrefInput2');
   };
 
   let navProps = {

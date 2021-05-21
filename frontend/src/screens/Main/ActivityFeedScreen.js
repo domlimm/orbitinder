@@ -20,7 +20,7 @@ function wait(timeout) {
 
 const ActivityFeedScreen = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('UserProfileScreen');
+    navigation.navigate('UserProfile');
   };
 
   const [data, setData] = React.useState(

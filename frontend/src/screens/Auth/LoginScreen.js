@@ -32,7 +32,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const navigatePasswordScreen = () => {
-    navigation.navigate('ForgotPasswordScreen');
+    navigation.navigate('ForgotPassword');
   };
 
   const [value, setValue] = React.useState('');

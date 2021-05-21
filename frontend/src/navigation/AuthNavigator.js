@@ -13,7 +13,8 @@ import {
   PrefInputScreen1,
   PrefInputScreen2,
   ForgotPasswordScreen,
-  ForgotPasswordConfirmationScreen
+  ForgotPasswordConfirmationScreen,
+  HomeLandingScreen
 } from '../screens/index';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -22,22 +23,19 @@ const AuthNavigator = () => (
   <Navigator headerMode='none'>
     <Screen name='LoginLanding' component={LoginLandingScreen} />
     <Screen name='Login' component={LoginScreen} />
-    <Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
-    <Screen
-      name='ForgotPasswordConfirmationScreen'
-      component={ForgotPasswordConfirmationScreen}
-    />
     <Screen name='Signup' component={SignupScreen} />
     <Screen name='ProfileLanding' component={ProfileLandingScreen} />
-    <Screen name='InputBackgroundScreen1' component={InputBackgroundScreen1} />
-    <Screen name='InputBackgroundScreen2' component={InputBackgroundScreen2} />
-    <Screen name='InputBackgroundScreen3' component={InputBackgroundScreen3} />
+    <Screen name='InputBackground1' component={InputBackgroundScreen1} />
+    <Screen name='InputBackground2' component={InputBackgroundScreen2} />
+    <Screen name='InputBackground3' component={InputBackgroundScreen3} />
+    <Screen name='PreferencesLanding' component={PreferencesLandingScreen} />
+    <Screen name='PrefInput1' component={PrefInputScreen1} />
+    <Screen name='PrefInput2' component={PrefInputScreen2} />
+    <Screen name='ForgotPassword' component={ForgotPasswordScreen} />
     <Screen
-      name='PreferencesLandingScreen'
-      component={PreferencesLandingScreen}
+      name='ForgotPasswordConfirmation'
+      component={ForgotPasswordConfirmationScreen}
     />
-    <Screen name='PrefInputScreen1' component={PrefInputScreen1} />
-    <Screen name='PrefInputScreen2' component={PrefInputScreen2} />
   </Navigator>
 );
 

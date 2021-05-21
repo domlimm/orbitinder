@@ -7,7 +7,7 @@ import { NavHeader, LandingImage } from '../../components/index';
 
 const ProfileLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    navigation.navigate('InputBackgroundScreen1');
+    navigation.navigate('InputBackground1');
   };
 
   let navProps = {

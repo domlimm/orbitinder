@@ -17,11 +17,11 @@ import {
 
 const MainAppScreen = ({ navigation }) => {
   const navigateActivityFeed = () => {
-    navigation.navigate('ActivityFeedScreen');
+    navigation.navigate('ActivityFeed');
   };
 
   const navigateProfileScreen = () => {
-    navigation.navigate('UserProfileScreen');
+    navigation.navigate('UserProfile');
   };
 
   const renderTitle = () => (

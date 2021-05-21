@@ -16,7 +16,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const EmailIcon = props => <Icon {...props} name='email-outline' />;
 
   const navigateDetails = () => {
-    navigation.navigate('ForgotPasswordConfirmationScreen');
+    navigation.navigate('ForgotPasswordConfirmation');
   };
 
   const navProps = {

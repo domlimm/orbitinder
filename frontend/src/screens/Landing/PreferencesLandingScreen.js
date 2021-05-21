@@ -7,7 +7,7 @@ import { LandingImage, NavHeader } from '../../components/index';
 
 const PreferencesLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    navigation.navigate('PrefInputScreen1');
+    navigation.navigate('PrefInput1');
   };
 
   let navProps = {
