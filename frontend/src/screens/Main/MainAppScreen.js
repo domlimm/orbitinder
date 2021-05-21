@@ -1,15 +1,27 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity
+} from 'react-native';
 import {
   Layout,
   Icon,
   TopNavigationAction,
-  TopNavigation
+  TopNavigation,
+  Text,
+  Avatar
 } from '@ui-kitten/components';
 
 const MainAppScreen = ({ navigation }) => {
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeedScreen');
+  };
+
+  const navigateProfileScreen = () => {
+    navigation.navigate('UserProfileScreen');
   };
 
   const renderTitle = () => (
@@ -58,6 +70,19 @@ const MainAppScreen = ({ navigation }) => {
           accessoryLeft={renderSettingsIcon}
           accessoryRight={renderNotificationsIcon}
         />
+        <TouchableOpacity onPress={navigateProfileScreen}>
+          <Layout style={styles.introCard}>
+            <Layout>
+              <Text style={styles.greetingTitle}>Good Morning</Text>
+              <Text>Harrison Ford</Text>
+            </Layout>
+            <Avatar
+              shape='rounded'
+              size='giant'
+              source={{ uri: 'https://i.pravatar.cc/300' }}
+            />
+          </Layout>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -66,7 +91,7 @@ const MainAppScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#FAFAFA'
   },
   titleContainer: {
     flexDirection: 'row',
@@ -81,6 +106,32 @@ const styles = StyleSheet.create({
   },
   topNav: {
     marginVertical: 8
+  },
+  introCard: {
+    margin: 20,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    paddingHorizontal: 20
+  },
+  greetingTitle: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 25
+  },
+  profileAvatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 32
+  },
+  notifCard: {
+    margin: 20,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 });
 

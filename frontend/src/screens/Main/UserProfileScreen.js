@@ -1,17 +1,30 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
-import { Button, Layout, Text, Card } from '@ui-kitten/components';
+import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
+import { BackIcon } from '../../components/navigation/index';
 
 const UserProfileScreen = ({ navigation }) => {
   // const navigateDetails = () => {
   //   navigation.navigate('ActivityFeedScreen');
   // };
 
+  const navigateBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
+        {/* <Icon
+          fill='white'
+          name='arrow-back'
+          onPress={navigateBack}
+          style={styles.icon}
+        /> */}
         <Layout style={styles.headerContainer}>
+          <BackIcon navigation={navigation} />
+
           <Image
             style={styles.avatarImg}
             source={{ uri: 'https://i.pravatar.cc/300' }}
@@ -145,11 +158,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7F7F7'
   },
+  icon: {
+    width: 25,
+    height: 25,
+    justifyContent: 'flex-start',
+    backgroundColor: '#407BFF',
+    flex: 1
+  },
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 250,
-    paddingTop: 30,
+    height: 270,
     alignItems: 'center'
   },
   avatarImg: {
