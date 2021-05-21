@@ -6,11 +6,11 @@ import {
   TopNavigationAction
 } from '@ui-kitten/components';
 
-const ProfileHeader = ({ navigation, navProps }) => {
+const ProfileHeader = ({ navProps }) => {
   const BackIcon = props => <Icon {...props} name='arrow-back' />;
 
   const navigateBack = () => {
-    navigation.goBack();
+    navProps.navigation.goBack();
   };
 
   const BackAction = () => (
