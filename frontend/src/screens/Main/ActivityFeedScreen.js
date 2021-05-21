@@ -10,7 +10,7 @@ import {
 } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { AuthHeader } from '../../components/navigation/index';
+import { TitleHeader } from '../../components/navigation/index';
 
 function wait(timeout) {
   return new Promise(resolve => {
@@ -24,9 +24,9 @@ const ActivityFeedScreen = ({ navigation }) => {
   };
 
   let navProps = {
+    title: 'Activity Feed',
     navigation: navigation,
-    needBrand: false,
-    title: 'Activity Feed'
+    needBackNav: true
   };
 
   const [data, setData] = React.useState(
@@ -78,7 +78,7 @@ const ActivityFeedScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <AuthHeader navigation={navigation} />
+      <TitleHeader navProps={navProps} />
       <Divider />
       <List
         refreshControl={
