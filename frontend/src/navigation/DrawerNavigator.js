@@ -15,15 +15,18 @@ import {
   LoginScreen,
   MainAppScreen
 } from '../screens/index';
-
+import { BottomTabsNavigator } from './BottomNavigationTab';
+import { NavHeader } from '../components/index';
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
-  const Header = () => (
-    <Layout style={styles.header}>
-      <Text>Orbitinder</Text>
-    </Layout>
-  );
+  const navProps = {
+    navigation: navigation,
+    type: 'landing',
+    backNav: false
+  };
+
+  const Header = () => <NavHeader navProps={navProps} />;
 
   return (
     <SafeAreaView>
@@ -42,7 +45,7 @@ const DrawerContent = ({ navigation, state }) => {
 
 export const HomeDrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
-    <Screen name='MainApp' component={MainAppScreen} />
+    <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
     <Screen name='Login' component={LoginScreen} />
   </Navigator>
