@@ -1,21 +1,32 @@
 import React from 'react';
 import {
   Dimensions,
-  Image,
+  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Layout, Input, Text } from '@ui-kitten/components';
+import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import {
-  LandingHeader,
-  LandingImage,
-  AuthHeader
-} from '../../components/navigation/index';
+import { LandingImage, AuthHeader } from '../../components/index';
 
 const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const EmailIcon = props => <Icon {...props} name='email-outline' />;
+  const PasswordIcon = props => (
+    <TouchableWithoutFeedback onPress={showPasswordHandler}>
+      <Icon {...props} name={showPassword ? 'eye' : 'eye-off'} />
+    </TouchableWithoutFeedback>
+  );
+
+  const showPasswordHandler = () => {
+    setShowPassword(!showPassword);
+  };
+
   const navigateDetails = () => {
     navigation.navigate('MainNavigator');
   };
@@ -34,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
 
           <Layout style={styles.landingImageContainer}>
             <LandingImage
-              imgSrc={require('../../assets/images/high-five-pana.png')}
+              imgSrc={require('../../assets/images/login-image.png')}
             />
           </Layout>
           <Layout style={styles.inputContainer}>
@@ -42,13 +53,20 @@ const LoginScreen = ({ navigation }) => {
               label='Email'
               style={styles.textInput}
               placeholder='example@mail.com'
-              value={value}
-              onChangeText={nextValue => setValue(nextValue)}
+              value={email}
+              onChangeText={input => setEmail(input)}
+              accessoryRight={EmailIcon}
+              keyboardType='email-address'
             />
             <Input
               label='Password'
               style={styles.textInput}
               placeholder='********'
+              accessoryRight={PasswordIcon}
+              value={password}
+              onChangeText={input => setPassword(input)}
+              accessoryRight={PasswordIcon}
+              secureTextEntry={showPassword}
             />
             <Button onPress={navigateDetails} style={styles.loginBtn}>
               Log In
@@ -72,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   landingImageContainer: {
-    height: Dimensions.get('window').height / 2
+    height: Dimensions.get('window').height / 3 + 50
   },
   inputContainer: {
     height: '50%',
@@ -80,7 +98,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: '70%',
-    marginBottom: 15
+    marginVertical: 10
   },
   loginBtn: {
     width: '70%',
