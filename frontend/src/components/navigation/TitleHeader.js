@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   Icon,
   TopNavigation,
@@ -7,7 +7,7 @@ import {
   Text
 } from '@ui-kitten/components';
 
-const TitleHeader = ({ props, navProps }) => {
+const TitleHeader = ({ navProps }) => {
   const BackIcon = props => (
     <Icon
       {...props}

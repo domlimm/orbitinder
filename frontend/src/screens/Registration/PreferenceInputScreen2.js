@@ -3,28 +3,29 @@ import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { InputBackgroundSelect, ProfileHeader } from '../../components/index';
+import { PrefBackgroundSelect, NavHeader } from '../../components/index';
 
-const InputBackgroundScreen3 = ({ navigation }) => {
+const PrefInputScreen2 = ({ navigation }) => {
   const navigateDetails = () => {
-    navigation.navigate('PreferencesLandingScreen');
+    navigation.navigate('LoginLanding');
   };
 
   let navProps = {
     navigation: navigation,
-    needBackNav: true
+    backNav: true,
+    type: 'register'
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProfileHeader navProps={navProps} />
+      <NavHeader navProps={navProps} />
       <Layout style={styles.textContainer}>
-        <Text style={styles.screenTitle}>Technology Experience</Text>
+        <Text style={styles.screenTitle}>Partner Preferences</Text>
         <Text style={styles.screenCaption}>
-          Let others know what you're great at!
+          {'Which technologies should your \npartner have experience in?'}
         </Text>
       </Layout>
-      <InputBackgroundSelect />
+      <PrefBackgroundSelect />
       <Layout style={styles.btnContainer}>
         <Button onPress={navigateDetails} style={styles.signupBtn}>
           Next
@@ -79,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InputBackgroundScreen3;
+export default PrefInputScreen2;
