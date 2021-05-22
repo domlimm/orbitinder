@@ -76,8 +76,8 @@ const ResetPasswordScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <KeyboardAvoidingView>
+        <TitleHeader navProps={navProps} />
         <ScrollView>
-          <TitleHeader navProps={navProps} />
           <Layout style={styles.contentContainer}>
             <Layout style={styles.inputContainer}>
               <Input

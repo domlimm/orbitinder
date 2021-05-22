@@ -72,8 +72,8 @@ const LoginScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <KeyboardAvoidingView>
+        <NavHeader navProps={navProps} />
         <ScrollView>
-          <NavHeader navProps={navProps} />
           <Layout style={styles.landingImageContainer}>
             <LandingImage
               imgSrc={require('../../assets/images/login-image.png')}

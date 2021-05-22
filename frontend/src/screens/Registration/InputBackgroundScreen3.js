@@ -18,8 +18,8 @@ const InputBackgroundScreen3 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <NavHeader navProps={navProps} />
       <ScrollView>
-        <NavHeader navProps={navProps} />
         <Layout style={styles.textContainer}>
           <Text style={styles.screenTitle}>Technology Experience</Text>
           <Text style={styles.screenCaption}>
