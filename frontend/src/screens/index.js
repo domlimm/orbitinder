@@ -18,3 +18,4 @@ export { default as ForgotPasswordScreen } from './Auth/ForgotPasswordScreen';
 export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswordConfirmationScreen';
 export { default as ChatOverviewScreen } from './Main/ChatOverviewScreen';
 export { default as TeamUpScreen } from './Main/TeamUpScreen';
+export { default as EditProfileScreen } from './Main/EditProfileScreen';
