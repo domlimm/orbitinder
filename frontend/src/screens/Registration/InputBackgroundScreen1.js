@@ -66,7 +66,11 @@ const InputBackgroundScreen1 = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-            <Input label='Degree' style={styles.textInput} />
+            <Input
+              label='Degree'
+              style={styles.textInput}
+              autoCapitalize='words'
+            />
             <Select
               style={styles.selectInput}
               selectedIndex={selectedCommitmentIndex}

@@ -77,7 +77,11 @@ const PrefInputScreen1 = ({ navigation }) => {
               ))}
             </Select>
 
-            <Input label='Degree' style={styles.textInput} />
+            <Input
+              label='Degree'
+              style={styles.textInput}
+              autoCapitalize='words'
+            />
 
             <Select
               label='Commitment to Orbital'

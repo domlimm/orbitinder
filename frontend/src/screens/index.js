@@ -19,3 +19,4 @@ export { default as ForgotPasswordConfirmationScreen } from './Auth/ForgotPasswo
 export { default as ChatOverviewScreen } from './Main/ChatOverviewScreen';
 export { default as TeamUpScreen } from './Main/TeamUpScreen';
 export { default as EditProfileScreen } from './Main/EditProfileScreen';
+export { default as LoadingScreen } from './LoadingScreen';

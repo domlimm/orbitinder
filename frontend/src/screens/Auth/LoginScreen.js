@@ -39,12 +39,13 @@ const LoginScreen = ({ navigation }) => {
 
   if (data) {
     AsyncStorage.setItem('token', data.logIn.token).then(() => {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'MainNavigator' }]
-        })
-      );
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 0,
+      //     routes: [{ name: 'MainNavigator' }]
+      //   })
+      // );
+      navigation.navigate('MainNavigator');
     });
   }
 
@@ -88,6 +89,7 @@ const LoginScreen = ({ navigation }) => {
               onChangeText={input => setEmail(input)}
               accessoryRight={EmailIcon}
               keyboardType='email-address'
+              autoCapitalize='none'
             />
             <Input
               label='Password'
@@ -97,6 +99,7 @@ const LoginScreen = ({ navigation }) => {
               value={password}
               onChangeText={input => setPassword(input)}
               secureTextEntry={showPassword}
+              autoCapitalize='none'
             />
             <Button
               onPress={logInHandler}

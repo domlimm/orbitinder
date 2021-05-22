@@ -126,6 +126,7 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={input => setEmail(input)}
               accessoryRight={EmailIcon}
               keyboardType='email-address'
+              autoCapitalize='none'
             />
             <Input
               label='Password'
@@ -135,6 +136,7 @@ const SignupScreen = ({ navigation }) => {
               value={password}
               onChangeText={input => setPassword(input)}
               secureTextEntry={showPassword}
+              autoCapitalize='none'
             />
           </Layout>
           <Layout style={styles.btnContainer}>

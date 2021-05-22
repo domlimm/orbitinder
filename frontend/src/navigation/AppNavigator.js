@@ -3,29 +3,31 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { HomeLandingScreen } from '../screens/index';
+import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 
 const { Navigator, Screen } = createStackNavigator();
 
 const AppNavigator = () => {
-  // TODO: Check if first load for splash screen, to be done last.
-
-  // Do Auth here.
   const [authenticated, setAuthenticated] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     const checkAuth = async () => {
       if (await isAuthenticated()) {
         setAuthenticated(true);
+        setIsLoading(false);
       } else {
         setAuthenticated(false);
+        setIsLoading(false);
       }
     };
 
     checkAuth();
-  }, [isAuthenticated]);
+  }, []);
 
   const isAuthenticated = async () => {
     // await AsyncStorage.removeItem('token'); // To manually logout
@@ -38,10 +40,12 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Navigator headerMode='none'>
-        {authenticated ? (
+        {authenticated && !isLoading ? (
           <Screen name='MainNavigator' component={MainNavigator} />
-        ) : (
+        ) : !authenticated && !isLoading ? (
           <Screen name='AuthNavigator' component={AuthNavigator} />
+        ) : (
+          <Screen name='Loading' component={LoadingScreen} />
         )}
       </Navigator>
     </NavigationContainer>
