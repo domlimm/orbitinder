@@ -46,7 +46,7 @@ const SignupScreen = ({ navigation }) => {
 
   if (data) {
     AsyncStorage.setItem('token', data.signUp.token).then(() => {
-      return navigation.dispatch(
+      navigation.dispatch(
         CommonActions.reset({
           index: 0,
           routes: [{ name: 'MainNavigator' }]
