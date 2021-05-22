@@ -8,7 +8,7 @@ import { ActivityFeedScreen, UserProfileScreen } from '../screens';
 const { Navigator, Screen } = createStackNavigator();
 
 const MainNavigator = () => (
-  <Navigator headerMode='none' initialRouteName='MainApp'>
+  <Navigator headerMode='none'>
     <Screen name='DrawerNavigator' component={DrawerNavigator} />
     <Screen name='UserProfile' component={UserProfileScreen} />
     <Screen name='ActivityFeed' component={ActivityFeedScreen} />

@@ -39,7 +39,10 @@ const DrawerContent = ({ navigation, state }) => {
 };
 
 const DrawerNavigator = () => (
-  <Navigator drawerContent={props => <DrawerContent {...props} />}>
+  <Navigator
+    drawerContent={props => <DrawerContent {...props} />}
+    initialRouteName='Home'
+  >
     <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     {/* <Screen name='EditProfile' component={EditProfileScreen} /> */}
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
