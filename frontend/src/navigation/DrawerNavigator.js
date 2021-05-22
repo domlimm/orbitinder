@@ -1,19 +1,21 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {
-  Drawer,
-  DrawerItem,
-  IndexPath,
-  Layout,
-  Text
-} from '@ui-kitten/components';
+import { Drawer, DrawerItem, IndexPath } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StackActions, CommonActions } from '@react-navigation/native';
 
-import { ChangePasswordScreen, LoginScreen } from '../screens/index';
-import { BottomTabsNavigator } from './BottomNavigationTab';
+import { ChangePasswordScreen } from '../screens/index';
 import { NavHeader } from '../components/index';
+import BottomTabsNavigator from './BottomTabsNavigator';
+import AuthNavigator from './AuthNavigator';
+
 const { Navigator, Screen } = createDrawerNavigator();
+
+const removeToken = async () => {
+  await AsyncStorage.removeItem('token');
+};
 
 const DrawerContent = ({ navigation, state }) => {
   const navProps = {
@@ -29,7 +31,38 @@ const DrawerContent = ({ navigation, state }) => {
       <Drawer
         header={Header}
         selectedIndex={new IndexPath(state.index)}
-        onSelect={index => navigation.navigate(state.routeNames[index.row])}
+        onSelect={index => {
+          if (index.row === 2) {
+            removeToken();
+
+            return navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  { name: 'AuthNavigator', params: { screen: 'LoginLanding' } }
+                ]
+              })
+            );
+            // return navigation.navigate('AuthNavigator', {
+            //   screen: 'LoginLanding'
+            // });
+            // const pushAuth = StackActions.push('AuthNavigator', {
+            //   screen: 'LoginLanding'
+            // });
+            // navigation.dispatch(StackActions.pop());
+            // return navigation.dispatch(pushAuth);
+            // return navigation.reset({
+            //   index: 0,
+            //   routes: [{ name: 'AuthNavigator' }]
+            // });
+            // return navigation.navigate('MainNavigator', {
+            //   screen: 'AuthNavigator',
+            //   params: { screen: 'LoginLanding' }
+            // });
+          }
+
+          return navigation.navigate(state.routeNames[index.row]);
+        }}
       >
         <DrawerItem title='Home' />
         <DrawerItem title='Change Password' />
@@ -39,11 +72,14 @@ const DrawerContent = ({ navigation, state }) => {
   );
 };
 
-export const HomeDrawerNavigator = () => (
-  <Navigator drawerContent={props => <DrawerContent {...props} />}>
+const DrawerNavigator = () => (
+  <Navigator
+    drawerContent={props => <DrawerContent {...props} />}
+    initialRouteName='BottomTabsNavigator'
+  >
     <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
-    <Screen name='Login' component={LoginScreen} />
+    <Screen name='AuthNavigator' component={AuthNavigator} />
   </Navigator>
 );
 
@@ -66,3 +102,5 @@ const styles = StyleSheet.create({
     marginRight: 8
   }
 });
+
+export default DrawerNavigator;

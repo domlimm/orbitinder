@@ -46,8 +46,8 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
+        <NavHeader navProps={navProps} />
         <ScrollView>
-          <NavHeader navProps={navProps} />
           <Layout style={styles.textContainer}>
             <Text style={styles.screenTitle}>Personal Background </Text>
             <Text style={styles.screenCaption}>

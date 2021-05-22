@@ -7,7 +7,7 @@ import { NavHeader, LandingImage } from '../../components/index';
 
 const HomeLandingScreen = ({ navigation }) => {
   const navigateLoginLanding = () => {
-    navigation.navigate('AuthNavigator');
+    navigation.navigate('LoginLanding');
   };
 
   const navProps = {

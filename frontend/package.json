@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.19",
     "@eva-design/eva": "^2.1.0",
+    "@react-native-async-storage/async-storage": "^1.13.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/drawer": "^5.12.5",
@@ -21,6 +22,7 @@
     "expo-app-loading": "^1.0.3",
     "expo-asset": "~8.3.1",
     "expo-localization": "~10.1.0",
+    "expo-network": "~3.1.1",
     "expo-status-bar": "~1.0.4",
     "graphql": "^15.5.0",
     "react": "16.13.1",

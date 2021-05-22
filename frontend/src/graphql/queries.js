@@ -12,3 +12,16 @@ export const SIGN_UP = gql`
     }
   }
 `;
+
+export const LOG_IN = gql`
+  mutation logIn($email: String!, $password: String!) {
+    logIn(input: { email: $email, password: $password }) {
+      token
+      user {
+        id
+        name
+        email
+      }
+    }
+  }
+`;

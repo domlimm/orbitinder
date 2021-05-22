@@ -66,13 +66,13 @@ const MainAppScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
+      <TopNavigation
+        title={renderTitle}
+        alignment='center'
+        accessoryLeft={renderSettingsIcon}
+        accessoryRight={renderNotificationsIcon}
+      />
       <ScrollView>
-        <TopNavigation
-          title={renderTitle}
-          alignment='center'
-          accessoryLeft={renderSettingsIcon}
-          accessoryRight={renderNotificationsIcon}
-        />
         <TouchableOpacity onPress={navigateProfileScreen}>
           <Layout style={styles.introCard}>
             <Layout>
@@ -105,9 +105,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: 'contain'
-  },
-  topNav: {
-    marginVertical: 8
   },
   introCard: {
     margin: 20,

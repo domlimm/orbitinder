@@ -25,8 +25,8 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <NavHeader navProps={navProps} />
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
+      <KeyboardAvoidingView>
+        <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage

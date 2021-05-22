@@ -1,7 +1,6 @@
 import * as Localization from 'expo-localization';
 
 const greeting = () => {
-  console.log(Localization.timezone);
   const dateTimeArray = new Date()
     .toLocaleString([], { timeZone: Localization.timezone })
     .split(' ');

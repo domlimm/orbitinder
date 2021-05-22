@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import {
+  HomeLandingScreen,
   LoginLandingScreen,
   LoginScreen,
   SignupScreen,
@@ -13,14 +14,14 @@ import {
   PrefInputScreen1,
   PrefInputScreen2,
   ForgotPasswordScreen,
-  ForgotPasswordConfirmationScreen,
-  HomeLandingScreen
+  ForgotPasswordConfirmationScreen
 } from '../screens/index';
 
 const { Navigator, Screen } = createStackNavigator();
 
 const AuthNavigator = () => (
   <Navigator headerMode='none'>
+    <Screen name='HomeLanding' component={HomeLandingScreen} />
     <Screen name='LoginLanding' component={LoginLandingScreen} />
     <Screen name='Login' component={LoginScreen} />
     <Screen name='Signup' component={SignupScreen} />
