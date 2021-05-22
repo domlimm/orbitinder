@@ -18,6 +18,7 @@ import {
 } from '@ui-kitten/components';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions } from '@react-navigation/native';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import { SIGN_UP } from '../../graphql/queries';
@@ -45,7 +46,12 @@ const SignupScreen = ({ navigation }) => {
 
   if (data) {
     AsyncStorage.setItem('token', data.signUp.token).then(() => {
-      navigation.navigate('MainNavigator', { screen: 'MainApp' });
+      return navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'MainNavigator' }]
+        })
+      );
     });
   }
 

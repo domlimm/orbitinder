@@ -18,7 +18,7 @@ const AppNavigator = () => {
   React.useEffect(() => {
     const checkAuth = async () => {
       if (await isAuthenticated()) {
-        setAuthenticated(!authenticated);
+        setAuthenticated(true);
       } else {
         setAuthenticated(false);
       }

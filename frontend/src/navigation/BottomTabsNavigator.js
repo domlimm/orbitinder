@@ -38,7 +38,10 @@ const BottomTabBar = ({ navigation, state }) => (
 );
 
 const BottomTabsNavigator = () => (
-  <Navigator tabBar={props => <BottomTabBar {...props} />}>
+  <Navigator
+    tabBar={props => <BottomTabBar {...props} />}
+    initialRouteName='Home'
+  >
     <Screen name='Home' component={MainAppScreen} />
     <Screen name='TeamUpScreen' component={TeamUpScreen} />
     <Screen name='ChatOverviewScreen' component={ChatOverviewScreen} />

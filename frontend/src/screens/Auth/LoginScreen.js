@@ -38,7 +38,10 @@ const LoginScreen = ({ navigation }) => {
 
   if (data) {
     AsyncStorage.setItem('token', data.logIn.token).then(() => {
-      navigation.navigate('MainNavigator', { screen: 'MainApp' });
+      navigation.navigate('MainNavigator', {
+        screen: 'DrawerNavigator',
+        params: { screen: 'BottomTabsNavigator' }
+      });
     });
   }
 
