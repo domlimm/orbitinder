@@ -1,12 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import {
-  Drawer,
-  DrawerItem,
-  IndexPath,
-  Layout,
-  Text
-} from '@ui-kitten/components';
+import { Drawer, DrawerItem, IndexPath } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -15,8 +9,9 @@ import {
   LoginScreen,
   MainAppScreen
 } from '../screens/index';
-import { BottomTabsNavigator } from './BottomNavigationTab';
 import { NavHeader } from '../components/index';
+import BottomTabsNavigator from './BottomTabsNavigator';
+
 const { Navigator, Screen } = createDrawerNavigator();
 
 const DrawerContent = ({ navigation, state }) => {
@@ -43,9 +38,10 @@ const DrawerContent = ({ navigation, state }) => {
   );
 };
 
-export const HomeDrawerNavigator = () => (
+const DrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
     <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
+    {/* <Screen name='EditProfile' component={EditProfileScreen} /> */}
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
     <Screen name='Login' component={LoginScreen} />
   </Navigator>
@@ -70,3 +66,5 @@ const styles = StyleSheet.create({
     marginRight: 8
   }
 });
+
+export default DrawerNavigator;

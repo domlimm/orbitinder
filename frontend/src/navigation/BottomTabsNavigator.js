@@ -37,10 +37,12 @@ const BottomTabBar = ({ navigation, state }) => (
   </View>
 );
 
-export const BottomTabsNavigator = () => (
+const BottomTabsNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
     <Screen name='Home' component={MainAppScreen} />
     <Screen name='TeamUpScreen' component={TeamUpScreen} />
     <Screen name='ChatOverviewScreen' component={ChatOverviewScreen} />
   </Navigator>
 );
+
+export default BottomTabsNavigator;
