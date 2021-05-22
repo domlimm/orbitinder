@@ -15,6 +15,8 @@ import {
   Avatar
 } from '@ui-kitten/components';
 
+import greeting from '../../utils/Greeting';
+
 const MainAppScreen = ({ navigation }) => {
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
@@ -66,7 +68,6 @@ const MainAppScreen = ({ navigation }) => {
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
         <TopNavigation
-          style={styles.topNav}
           title={renderTitle}
           alignment='center'
           accessoryLeft={renderSettingsIcon}
@@ -75,7 +76,7 @@ const MainAppScreen = ({ navigation }) => {
         <TouchableOpacity onPress={navigateProfileScreen}>
           <Layout style={styles.introCard}>
             <Layout>
-              <Text style={styles.greetingTitle}>Good Morning</Text>
+              <Text style={styles.greetingTitle}>{greeting()}</Text>
               <Text>Harrison Ford</Text>
             </Layout>
             <Avatar
