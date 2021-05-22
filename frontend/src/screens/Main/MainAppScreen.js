@@ -106,9 +106,6 @@ const styles = StyleSheet.create({
     height: 40,
     resizeMode: 'contain'
   },
-  topNav: {
-    marginVertical: 8
-  },
   introCard: {
     margin: 20,
     borderRadius: 10,

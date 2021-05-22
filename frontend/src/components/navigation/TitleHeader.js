@@ -73,9 +73,6 @@ const TitleHeader = ({ navProps }) => {
 };
 
 const styles = StyleSheet.create({
-  topNav: {
-    marginVertical: 5
-  },
   logo: {
     width: 40,
     height: 40,
