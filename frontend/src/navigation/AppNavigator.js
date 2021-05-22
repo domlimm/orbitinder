@@ -28,14 +28,12 @@ const AppNavigator = () => {
   }, [isAuthenticated]);
 
   const isAuthenticated = async () => {
-    await AsyncStorage.removeItem('token'); // To manually logout
+    // await AsyncStorage.removeItem('token'); // To manually logout
     const token = await AsyncStorage.getItem('token');
 
     // Token exists ? true : false
     return !!token;
   };
-
-  console.log(authenticated);
 
   return (
     <NavigationContainer>

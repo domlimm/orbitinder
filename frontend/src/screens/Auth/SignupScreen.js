@@ -30,7 +30,7 @@ const SignupScreen = ({ navigation }) => {
   const genderValue = genderData[selectedIndex.row];
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(true);
   const [name, setName] = React.useState('');
 
   React.useEffect(() => {
@@ -44,10 +44,9 @@ const SignupScreen = ({ navigation }) => {
   };
 
   if (data) {
-    AsyncStorage.setItem('token', data.signUp.token);
-    // .then(() => {
-    //   navigation.navigate('MainNavigator', { screen: 'MainApp' });
-    // });
+    AsyncStorage.setItem('token', data.signUp.token).then(() => {
+      navigation.navigate('MainNavigator', { screen: 'MainApp' });
+    });
   }
 
   const navigateDetails = () => {
@@ -129,7 +128,6 @@ const SignupScreen = ({ navigation }) => {
               accessoryRight={PasswordIcon}
               value={password}
               onChangeText={input => setPassword(input)}
-              accessoryRight={PasswordIcon}
               secureTextEntry={showPassword}
             />
           </Layout>

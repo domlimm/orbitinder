@@ -33,7 +33,7 @@ const ResetPasswordScreen = ({ navigation }) => {
   };
 
   const [currentPassword, setcurrentPassword] = React.useState('');
-  const [showCurrentPassword, setShowCurrentPassword] = React.useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = React.useState(true);
 
   const CurrentPasswordIcon = props => (
     <TouchableWithoutFeedback onPress={showPasswordHandler}>
@@ -46,7 +46,7 @@ const ResetPasswordScreen = ({ navigation }) => {
   };
 
   const [newPassword, setNewPassword] = React.useState('');
-  const [showNewPassword, setShowNewPassword] = React.useState(false);
+  const [showNewPassword, setShowNewPassword] = React.useState(true);
 
   const NewPasswordIcon = props => (
     <TouchableWithoutFeedback onPress={showNewPasswordHandler}>
@@ -59,7 +59,7 @@ const ResetPasswordScreen = ({ navigation }) => {
   };
 
   const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(true);
 
   const ConfirmPasswordIcon = props => (
     <TouchableWithoutFeedback onPress={showConfirmPasswordHandler}>
@@ -72,6 +72,7 @@ const ResetPasswordScreen = ({ navigation }) => {
   };
 
   const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <KeyboardAvoidingView>
