@@ -17,21 +17,21 @@ const EditProfileScreen = ({ navigation }) => {
   const [status, setStatus] = React.useState(false);
 
   const [userDataBio, setBio] = React.useState(userData.bio);
-  const [unsavedBio, setUnsavedBio] = React.useState();
+  const [savedBio, setUnsavedBio] = React.useState(userData.bio);
 
   const sendDataToParent = index => {
     // the callback. Use a better name
     console.log(index);
-    setUnsavedBio(index);
+    setBio(index);
   };
 
   const discardChanges = () => {
-    setBio(userData.bio);
+    setBio(savedBio);
     console.log(userDataBio);
   };
 
   const updateChanges = () => {
-    setBio(unsavedBio);
+    setUnsavedBio(userDataBio);
     console.log(userDataBio);
   };
 
@@ -41,7 +41,7 @@ const EditProfileScreen = ({ navigation }) => {
         <TitleHeader navProps={navProps} />
         <Layout style={styles.inputContainer}>
           <BioInput
-            key={userDataBio}
+            // key={userDataBio}
             userData={userDataBio}
             status={status}
             sendDataToParent={sendDataToParent}
