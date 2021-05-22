@@ -4,17 +4,19 @@ import { Input } from '@ui-kitten/components';
 
 const BioInput = ({ userData, sendDataToParent }) => {
   const [bio, setBio] = React.useState(userData);
-  // console.log(status);
-  // if (status == false) {
-  //   setBio(userData.bio);
-  //   // console.log(bio);
-  // }
+  const [updateBio, setUpdateBio] = React.useState(userData);
   const changeTextHandler = input => {
-    // the callback. Use a better name
-    setBio(input);
-    sendDataToParent(bio);
+    setUpdateBio(input);
   };
-  console.log('child rendering');
+
+  React.useEffect(() => {
+    // console.log('HELLOOOOO' + updateBio);
+    setBio(updateBio);
+    sendDataToParent(bio);
+  }, [changeTextHandler]);
+
+  // console.log('Input', bio);
+
   return (
     <Input
       style={styles.bioInput}

@@ -1,5 +1,11 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+} from 'react-native';
 import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
 import { BackIcon, ContentCard } from '../../components/index';
@@ -8,58 +14,70 @@ import { TechTags } from '../../components/index';
 import { InterestTags } from '../../components/index';
 
 const UserProfileScreen = ({ navigation }) => {
-  const navigateBack = () => {
-    navigation.goBack();
+  const navigateEditProfile = () => {
+    navigation.navigate('EditProfile');
   };
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScrollView>
-        <Layout style={styles.headerContainer}>
-          <BackIcon navigation={navigation} />
-          <Image
-            style={styles.avatarImg}
-            source={{ uri: 'https://i.pravatar.cc/300' }}
-          />
-          <Layout style={styles.headerCaptions}>
-            <Text style={styles.name}>Rebecca Black</Text>
-            <Layout style={styles.subCaptionsContainer}>
-              <Text style={styles.subCaptions}>Year 1</Text>
-              <Text style={styles.subCaptions}>Business Analytics</Text>
+      <Layout>
+        <ScrollView>
+          <Layout style={styles.headerContainer}>
+            <BackIcon navigation={navigation} />
+            <Image
+              style={styles.avatarImg}
+              source={{ uri: 'https://i.pravatar.cc/300' }}
+            />
+            <Layout style={styles.headerCaptions}>
+              <Text style={styles.name}>Rebecca Black</Text>
+              <Layout style={styles.subCaptionsContainer}>
+                <Text style={styles.subCaptions}>Year 1</Text>
+                <Text style={styles.subCaptions}>Business Analytics</Text>
+              </Layout>
+            </Layout>
+            <Layout style={styles.linksIcons}>
+              <FontAwesome
+                name='linkedin-square'
+                size={30}
+                color='white'
+                style={{ marginHorizontal: 5 }}
+              />
+              <FontAwesome
+                name='github-square'
+                size={30}
+                color='white'
+                style={{ marginHorizontal: 5 }}
+              />
             </Layout>
           </Layout>
-          <Layout style={styles.linksIcons}>
-            <FontAwesome
-              name='linkedin-square'
-              size={30}
-              color='white'
-              style={{ marginHorizontal: 5 }}
-            />
-            <FontAwesome
-              name='github-square'
-              size={30}
-              color='white'
-              style={{ marginHorizontal: 5 }}
-            />
-          </Layout>
-        </Layout>
-        <Layout style={styles.contentContainer}>
-          <ContentCard type={'bio'} userData={userData} />
-          <Card style={styles.contentCard}>
-            <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-            <InterestTags tagsData={userData.interestedAreas} />
-          </Card>
+          <Layout style={styles.contentContainer}>
+            <ContentCard type={'bio'} userData={userData} />
+            <Card style={styles.contentCard}>
+              <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
+              <InterestTags tagsData={userData.interestedAreas} />
+            </Card>
 
-          <Layout style={styles.groupContainer}>
-            <ContentCard type={'coding-exp-level'} userData={userData} />
-            <ContentCard type={'commitment'} userData={userData} />
+            <Layout style={styles.groupContainer}>
+              <ContentCard type={'coding-exp-level'} userData={userData} />
+              <ContentCard type={'commitment'} userData={userData} />
+            </Layout>
+            <Card style={styles.contentCard}>
+              <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
+              <TechTags tagsData={userData.technologies} />
+            </Card>
           </Layout>
-          <Card style={styles.contentCard}>
-            <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-            <TechTags tagsData={userData.technologies} />
-          </Card>
-        </Layout>
-      </ScrollView>
+        </ScrollView>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.touchableOpacityStyle}
+          onPress={navigateEditProfile}
+        >
+          <Image
+            source={require('../../assets/images/edit.png')}
+            style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
+      </Layout>
     </SafeAreaView>
   );
 };
@@ -151,6 +169,21 @@ const styles = StyleSheet.create({
   cardGroup: {
     width: '50%',
     height: 100
+  },
+  touchableOpacityStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 30
+  },
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50
+    //backgroundColor:'black'
   }
 });
 

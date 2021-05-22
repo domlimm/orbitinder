@@ -5,6 +5,8 @@ export const commitmentData = [
   'Medium Commitment',
   'Low Commitment'
 ];
+export const sweExperience = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+export const idea = ['Yes', 'No'];
 
 export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
 

@@ -12,3 +12,4 @@ export { default as BackIcon } from './Navigation/BackIcon';
 export { default as NavHeader } from './Navigation/NavHeader';
 
 export { default as BioInput } from './EditProfile/BioInput';
+export { default as YearInput } from './EditProfile/YearInput';
