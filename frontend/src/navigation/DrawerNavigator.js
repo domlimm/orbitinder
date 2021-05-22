@@ -10,12 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import {
-  ChangePasswordScreen,
-  LoginScreen,
-  MainAppScreen,
-  EditProfileScreen
-} from '../screens/index';
+import { ChangePasswordScreen, LoginScreen } from '../screens/index';
 import { BottomTabsNavigator } from './BottomNavigationTab';
 import { NavHeader } from '../components/index';
 const { Navigator, Screen } = createDrawerNavigator();
@@ -37,7 +32,6 @@ const DrawerContent = ({ navigation, state }) => {
         onSelect={index => navigation.navigate(state.routeNames[index.row])}
       >
         <DrawerItem title='Home' />
-        <DrawerItem title='Edit Profile' />
         <DrawerItem title='Change Password' />
         <DrawerItem title='Logout' />
       </Drawer>
@@ -48,7 +42,6 @@ const DrawerContent = ({ navigation, state }) => {
 export const HomeDrawerNavigator = () => (
   <Navigator drawerContent={props => <DrawerContent {...props} />}>
     <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
-    <Screen name='EditProfile' component={EditProfileScreen} />
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
     <Screen name='Login' component={LoginScreen} />
   </Navigator>

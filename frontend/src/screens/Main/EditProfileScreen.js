@@ -1,5 +1,11 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 import {
   Button,
   Layout,
@@ -139,97 +145,103 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScrollView>
-        <TitleHeader navProps={navProps} />
-        {/* <EditProfile />
-         */}
-        <Layout style={styles.inputContainer}>
-          <Select
-            style={styles.selectInput}
-            selectedIndex={yearIndex}
-            value={displayYear}
-            onSelect={index => changeSelectHandler(index)}
-            label='Year of Study'
-          >
-            {yearData.map((value, key) => (
-              <SelectItem key={key} title={value} />
-            ))}
-          </Select>
-          <Input
-            style={styles.bioInput}
-            multiline={true}
-            textStyle={styles.bioText}
-            placeholder='Bio'
-            label='Provide a short bio about yourself'
-            onChangeText={input => changeTextHandler(input)}
-            numberOfLines={6}
-            value={bio}
+      <Layout>
+        <ScrollView>
+          <TitleHeader navProps={navProps} />
+          {/* <EditProfile />
+           */}
+          <Layout style={styles.inputContainer}>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={yearIndex}
+              value={displayYear}
+              onSelect={index => changeSelectHandler(index)}
+              label='Year of Study'
+            >
+              {yearData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Input
+              style={styles.bioInput}
+              multiline={true}
+              textStyle={styles.bioText}
+              placeholder='Bio'
+              label='Provide a short bio about yourself'
+              onChangeText={input => changeTextHandler(input)}
+              numberOfLines={6}
+              value={bio}
+            />
+            <Select
+              style={styles.selectInput}
+              selectedIndex={ideaIndex}
+              value={displayIdea}
+              onSelect={index => changeIdeaHandler(index)}
+              label='Do you already have an idea in mind?'
+            >
+              {idea.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={commitmentIndex}
+              value={displayCommitment}
+              onSelect={index => changeCommitmentHandler(index)}
+              label='Commitment to Orbital'
+            >
+              {commitmentData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={achievementIndex}
+              value={displayAchievement}
+              onSelect={index => changeAchievementHandler(index)}
+              label='Orbital Achievement Level'
+            >
+              {achievementData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+            <Select
+              style={styles.selectInput}
+              selectedIndex={sweIndex}
+              value={displaySWE}
+              onSelect={index => changeSWEHandler(index)}
+              label='Choose your SWE experience level'
+            >
+              {sweExperience.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
+          </Layout>
+          <Layout style={styles.btnContainer}>
+            <Modal
+              visible={visible}
+              backdropStyle={styles.backdrop}
+              onBackdropPress={() => setVisible(false)}
+            >
+              <Card disabled={true}>
+                <Text>Profile Has been saved</Text>
+                <Button onPress={() => setVisible(false)}>DISMISS</Button>
+              </Card>
+            </Modal>
+          </Layout>
+        </ScrollView>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.touchableOpacityStyle}
+          onPress={saveHandler}
+        >
+          <Image
+            source={require('../../assets/images/save-icon.png')}
+            style={styles.floatingButtonStyle}
           />
-          <Select
-            style={styles.selectInput}
-            selectedIndex={ideaIndex}
-            value={displayIdea}
-            onSelect={index => changeIdeaHandler(index)}
-            label='Do you already have an idea in mind?'
-          >
-            {idea.map((value, key) => (
-              <SelectItem key={key} title={value} />
-            ))}
-          </Select>
-          <Select
-            style={styles.selectInput}
-            selectedIndex={commitmentIndex}
-            value={displayCommitment}
-            onSelect={index => changeCommitmentHandler(index)}
-            label='Commitment to Orbital'
-          >
-            {commitmentData.map((value, key) => (
-              <SelectItem key={key} title={value} />
-            ))}
-          </Select>
-          <Select
-            style={styles.selectInput}
-            selectedIndex={achievementIndex}
-            value={displayAchievement}
-            onSelect={index => changeAchievementHandler(index)}
-            label='Orbital Achievement Level'
-          >
-            {achievementData.map((value, key) => (
-              <SelectItem key={key} title={value} />
-            ))}
-          </Select>
-          <Select
-            style={styles.selectInput}
-            selectedIndex={sweIndex}
-            value={displaySWE}
-            onSelect={index => changeSWEHandler(index)}
-            label='Choose your SWE experience level'
-          >
-            {sweExperience.map((value, key) => (
-              <SelectItem key={key} title={value} />
-            ))}
-          </Select>
-        </Layout>
-        <Layout style={styles.btnContainer}>
-          <Button
-            style={styles.stateBtn}
-            status='success'
-            onPress={saveHandler}
-          >
-            Save
-          </Button>
-          <Modal
-            visible={visible}
-            backdropStyle={styles.backdrop}
-            onBackdropPress={() => setVisible(false)}
-          >
-            <Card disabled={true}>
-              <Text>Profile Has been saved</Text>
-              <Button onPress={() => setVisible(false)}>DISMISS</Button>
-            </Card>
-          </Modal>
-        </Layout>
-      </ScrollView>
+        </TouchableOpacity>
+      </Layout>
     </SafeAreaView>
   );
 };
@@ -269,6 +281,21 @@ const styles = StyleSheet.create({
   bioInput: {
     width: '70%',
     marginVertical: 10
+  },
+  touchableOpacityStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 30
+  },
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50
+    //backgroundColor:'black'
   }
 });
 
