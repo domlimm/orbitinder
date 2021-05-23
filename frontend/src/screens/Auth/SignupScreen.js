@@ -18,7 +18,7 @@ import {
 } from '@ui-kitten/components';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import { SIGN_UP } from '../../graphql/queries';
@@ -45,10 +45,8 @@ const SignupScreen = ({ navigation }) => {
   };
 
   if (data) {
-    const nav = useNavigation();
-
     AsyncStorage.setItem('token', data.signUp.token).then(() => {
-      nav.dispatch(
+      navigation.dispatch(
         CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
       );
     });
