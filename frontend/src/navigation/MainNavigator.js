@@ -14,7 +14,6 @@ const MainNavigator = () => (
   <Navigator headerMode='none' initialRouteName='DrawerNavigator'>
     <Screen name='DrawerNavigator' component={DrawerNavigator} />
     <Screen name='UserProfile' component={UserProfileScreen} />
-
     <Screen name='EditProfile' component={EditProfileScreen} />
     <Screen name='ActivityFeed' component={ActivityFeedScreen} />
   </Navigator>

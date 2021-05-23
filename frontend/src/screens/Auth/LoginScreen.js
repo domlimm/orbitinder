@@ -11,8 +11,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CommonActions } from '@react-navigation/native';
-// To separate for local imports rather than installed dependencies: add below onwards
+import { useNavigation, CommonActions } from '@react-navigation/native';
+
 import {
   LandingImage,
   NavHeader,
@@ -38,14 +38,12 @@ const LoginScreen = ({ navigation }) => {
   }, [error]);
 
   if (data) {
+    const nav = useNavigation();
+
     AsyncStorage.setItem('token', data.logIn.token).then(() => {
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 0,
-      //     routes: [{ name: 'MainNavigator' }]
-      //   })
-      // );
-      navigation.navigate('MainNavigator');
+      nav.dispatch(
+        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
+      );
     });
   }
 

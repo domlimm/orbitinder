@@ -4,7 +4,7 @@ import { Drawer, DrawerItem, IndexPath } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackActions, CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 
 import { ChangePasswordScreen } from '../screens/index';
 import { NavHeader } from '../components/index';
@@ -43,22 +43,6 @@ const DrawerContent = ({ navigation, state }) => {
                 ]
               })
             );
-            // return navigation.navigate('AuthNavigator', {
-            //   screen: 'LoginLanding'
-            // });
-            // const pushAuth = StackActions.push('AuthNavigator', {
-            //   screen: 'LoginLanding'
-            // });
-            // navigation.dispatch(StackActions.pop());
-            // return navigation.dispatch(pushAuth);
-            // return navigation.reset({
-            //   index: 0,
-            //   routes: [{ name: 'AuthNavigator' }]
-            // });
-            // return navigation.navigate('MainNavigator', {
-            //   screen: 'AuthNavigator',
-            //   params: { screen: 'LoginLanding' }
-            // });
           }
 
           return navigation.navigate(state.routeNames[index.row]);
