@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Network from 'expo-network';
 
-const IP_ADDRESS = '192.168.1.163';
+const IP_ADDRESS = '10.0.2.2';
 const PORT = '4000';
 
 const URI = `http://${IP_ADDRESS}:${PORT}/`;
