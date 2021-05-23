@@ -24,8 +24,11 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.parentContainer}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.kbContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.parentContainer}>
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
@@ -45,12 +48,15 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
             </Button>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  kbContainer: {
+    flex: 1
+  },
   parentContainer: {
     flex: 1,
     backgroundColor: 'white'

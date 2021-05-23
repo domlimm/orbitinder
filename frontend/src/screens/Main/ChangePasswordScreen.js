@@ -74,8 +74,11 @@ const ResetPasswordScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
-    <SafeAreaView style={styles.parentContainer}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.kbContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.parentContainer}>
         <TitleHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.contentContainer}>
@@ -133,12 +136,15 @@ const ResetPasswordScreen = ({ navigation }) => {
             </Modal>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  kbContainer: {
+    flex: 1
+  },
   parentContainer: {
     flex: 1,
     backgroundColor: '#F5F5F5'

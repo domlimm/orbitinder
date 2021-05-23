@@ -38,8 +38,11 @@ const InputBackgroundScreen2 = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.kbContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.container}>
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.textContainer}>
@@ -88,12 +91,15 @@ const InputBackgroundScreen2 = ({ navigation }) => {
             </Button>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  kbContainer: {
+    flex: 1
+  },
   container: {
     flex: 1,
     backgroundColor: 'white'

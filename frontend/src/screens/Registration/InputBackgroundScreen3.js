@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
@@ -17,27 +17,35 @@ const InputBackgroundScreen3 = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <NavHeader navProps={navProps} />
-      <ScrollView>
-        <Layout style={styles.textContainer}>
-          <Text style={styles.screenTitle}>Technology Experience</Text>
-          <Text style={styles.screenCaption}>
-            Let others know what you're great at!
-          </Text>
-        </Layout>
-        <InputBackgroundSelect />
-        <Layout style={styles.btnContainer}>
-          <Button onPress={navigateDetails} style={styles.signupBtn}>
-            Next
-          </Button>
-        </Layout>
-      </ScrollView>
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      style={styles.kbContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.container}>
+        <NavHeader navProps={navProps} />
+        <ScrollView>
+          <Layout style={styles.textContainer}>
+            <Text style={styles.screenTitle}>Technology Experience</Text>
+            <Text style={styles.screenCaption}>
+              Let others know what you're great at!
+            </Text>
+          </Layout>
+          <InputBackgroundSelect />
+          <Layout style={styles.btnContainer}>
+            <Button onPress={navigateDetails} style={styles.signupBtn}>
+              Next
+            </Button>
+          </Layout>
+        </ScrollView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  kbContainer: {
+    flex: 1
+  },
   container: {
     flex: 1,
     backgroundColor: 'white'

@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
@@ -67,8 +68,11 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.parentContainer}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      style={styles.kbContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.parentContainer}>
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
@@ -113,12 +117,15 @@ const LoginScreen = ({ navigation }) => {
             </Text>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  kbContainer: {
+    flex: 1
+  },
   parentContainer: {
     flex: 1,
     backgroundColor: 'white'
