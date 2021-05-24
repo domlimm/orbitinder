@@ -45,8 +45,8 @@ const BottomTabsNavigator = () => (
     initialRouteName='Home'
   >
     <Screen name='Home' component={MainAppScreen} />
-    <Screen name='TeamUpScreen' component={TeamUpScreen} />
-    <Screen name='ChatOverviewScreen' component={ChatOverviewScreen} />
+    <Screen name='TeamUp' component={TeamUpScreen} />
+    <Screen name='ChatOverview' component={ChatOverviewScreen} />
   </Navigator>
 );
 

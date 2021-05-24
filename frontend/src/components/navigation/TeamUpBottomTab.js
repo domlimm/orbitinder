@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Platform, Pressable, StyleSheet, Animated, Image } from 'react-native';
 
-const TeamUpBottomTab = () => {
+const TeamUpBottomTab = ({ navigation }) => {
   const animatedScale = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -17,6 +17,10 @@ const TeamUpBottomTab = () => {
       speed: 20,
       useNativeDriver: true
     }).start();
+
+    setTimeout(() => {
+      navigation.navigate('TeamUp');
+    }, 250);
   };
 
   return (
