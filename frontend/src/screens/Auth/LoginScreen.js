@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
-import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 
@@ -19,32 +18,19 @@ import {
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
-import { LOG_IN } from '../../graphql/queries';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(true);
 
-  const [logIn, { data, error, loading }] = useMutation(LOG_IN);
-
-  const logInHandler = () => {
-    logIn({ variables: { email: email, password: password } });
-  };
-
-  React.useEffect(() => {
-    if (error) {
-      Alert.alert('Invalid Credentials!');
-    }
-  }, [error]);
-
-  if (data) {
-    AsyncStorage.setItem('token', data.logIn.token).then(() => {
-      navigation.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-      );
-    });
-  }
+  // if (data) {
+  //   AsyncStorage.setItem('token', data.logIn.token).then(() => {
+  //     navigation.dispatch(
+  //       CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
+  //     );
+  //   });
+  // }
 
   const EmailIcon = props => <Icon {...props} name='email-outline' />;
   const PasswordIcon = props => (

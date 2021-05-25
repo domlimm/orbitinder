@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
-import { SIGN_UP } from '../../graphql/queries';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -38,19 +37,13 @@ const SignupScreen = ({ navigation }) => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
 
-  const [signUp, { data, error, loading }] = useMutation(SIGN_UP);
-
-  const signUpHandler = () => {
-    signUp({ variables: { name, email, password } });
-  };
-
-  if (data) {
-    AsyncStorage.setItem('token', data.signUp.token).then(() => {
-      navigation.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-      );
-    });
-  }
+  // if (data) {
+  //   AsyncStorage.setItem('token', data.signUp.token).then(() => {
+  //     navigation.dispatch(
+  //       CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
+  //     );
+  //   });
+  // }
 
   const navigateDetails = () => {
     navigation.navigate('ProfileLanding');
