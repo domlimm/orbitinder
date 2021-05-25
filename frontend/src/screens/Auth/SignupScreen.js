@@ -3,7 +3,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Alert
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -16,11 +17,10 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import { useMutation } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
+import * as authActions from '../../redux/actions/auth';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -33,9 +33,30 @@ const SignupScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = React.useState(true);
   const [name, setName] = React.useState('');
 
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
+
+  React.useEffect(() => {
+    if (error) {
+      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
+    }
+  }, [error]);
+
+  const signUpHandler = () => {
+    try {
+      authActions.signUp(email, password, name);
+
+      setError(null);
+      setLoading(true);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   // if (data) {
   //   AsyncStorage.setItem('token', data.signUp.token).then(() => {

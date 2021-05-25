@@ -5,7 +5,7 @@ import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 
@@ -13,9 +13,10 @@ import { default as customTheme } from './src/constants/custom-theme.json';
 import AppNavigator from './src/navigation/AppNavigator';
 import { localImages } from './src/constants/imagePaths';
 import { ErrorScreen } from './src/screens/index';
+import authReducer from './src/redux/reducers/auth';
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  authState: authReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

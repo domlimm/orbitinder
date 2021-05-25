@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import firebase from '../api/firebase';
 
 import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
@@ -13,29 +13,29 @@ const AppNavigator = () => {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
+  const authHandler = () => {
     setIsLoading(true);
 
-    const checkAuth = async () => {
-      if (await isAuthenticated()) {
+    return firebase.auth().onAuthStateChanged(user => {
+      if (user) {
         setAuthenticated(true);
         setIsLoading(false);
       } else {
         setAuthenticated(false);
         setIsLoading(false);
+
+        // TODO: Logout
       }
-    };
-
-    checkAuth();
-  }, []);
-
-  const isAuthenticated = async () => {
-    // await AsyncStorage.removeItem('token'); // To manually logout
-    const token = await AsyncStorage.getItem('token');
-
-    // Token exists ? true : false
-    return !!token;
+    });
   };
+
+  React.useEffect(() => {
+    const unsubscribe = authHandler();
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <NavigationContainer>
