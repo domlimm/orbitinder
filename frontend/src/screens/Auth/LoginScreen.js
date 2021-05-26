@@ -11,13 +11,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
 
 import {
   LandingImage,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
-import { logIn } from '../../firebase/functions/auth';
+import { logIn } from '../../redux/features/authSlice';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
@@ -41,6 +42,10 @@ const LoginScreen = ({ navigation }) => {
 
       setError(null);
       setLoading(true);
+
+      navigation.dispatch(
+        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
+      );
     } catch (err) {
       setError(err.message);
       setLoading(false);

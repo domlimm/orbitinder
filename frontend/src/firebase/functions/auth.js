@@ -31,15 +31,10 @@ export const signUp = (email, password, name) => {
 };
 
 export const logIn = (email, password) => {
-  let logInResponse;
-
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(res => {
-      logInResponse = res;
-      console.log(logInResponse);
-    })
+    .then(res => res.user.displayName)
     .catch(err => {
       let message = 'An error has occured!';
       let hasError =
