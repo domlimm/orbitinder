@@ -19,10 +19,9 @@ import {
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { StackActions } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
-import { signUp } from '../../redux/features/authSlice';
+import * as authActions from '../../redux/actions/auth';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -56,7 +55,7 @@ const SignupScreen = ({ navigation }) => {
 
   const signUpHandler = async () => {
     try {
-      dispatch(signUp({ email, password, name }));
+      dispatch(authActions.signUp(email, password, name));
       // await AsyncStorage.removeItem('name');
 
       setError(null);

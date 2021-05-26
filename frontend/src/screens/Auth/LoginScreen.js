@@ -12,14 +12,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
 import { StackActions } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   LandingImage,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
-import { logIn } from '../../redux/features/authSlice';
+import * as authActions from '../../redux/actions/auth';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
@@ -39,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
 
   const logInHandler = async () => {
     try {
-      dispatch(logIn({ email, password }));
+      dispatch(authActions.logIn(email, password));
       // await AsyncStorage.removeItem('name');
 
       setError(null);

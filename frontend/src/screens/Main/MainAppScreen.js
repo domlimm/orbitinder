@@ -14,16 +14,11 @@ import {
   Avatar
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import greeting from '../../utils/Greeting';
 
 const MainAppScreen = ({ navigation }) => {
-  const [stateName, setName] = React.useState('');
-
-  const { auth } = useSelector(state => state);
-
-  console.log(auth);
+  const { name } = useSelector(state => state.auth);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
@@ -84,7 +79,7 @@ const MainAppScreen = ({ navigation }) => {
           <Layout style={styles.introCard}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
-              <Text>{stateName}</Text>
+              <Text>{name}</Text>
             </Layout>
             <Avatar
               shape='rounded'
