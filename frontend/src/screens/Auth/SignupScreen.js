@@ -17,10 +17,10 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import { CommonActions } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
-import * as authActions from '../../redux/actions/auth';
+import { signUp } from '../../redux/features/authSlice';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
@@ -36,6 +36,12 @@ const SignupScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
+  const dispatch = useDispatch();
+
+  // useSelector to read state from reducer
+  // state.auth -> auth is the name of the reducer
+  const showName = useSelector(state => state.auth.name);
+
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
@@ -48,23 +54,17 @@ const SignupScreen = ({ navigation }) => {
 
   const signUpHandler = () => {
     try {
-      authActions.signUp(email, password, name);
+      dispatch(signUp({ email, password, name }));
 
       setError(null);
       setLoading(true);
+
+      console.log(showName);
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
   };
-
-  // if (data) {
-  //   AsyncStorage.setItem('token', data.signUp.token).then(() => {
-  //     navigation.dispatch(
-  //       CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-  //     );
-  //   });
-  // }
 
   const navigateDetails = () => {
     navigation.navigate('ProfileLanding');

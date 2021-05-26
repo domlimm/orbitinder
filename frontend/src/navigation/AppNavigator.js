@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import firebase from '../api/firebase';
+import firebase from '../firebase';
 
 import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
@@ -39,15 +39,13 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Navigator headerMode='none'>
-        {authenticated && !isLoading ? (
-          <Screen name='MainNavigator' component={MainNavigator} />
-        ) : !authenticated && !isLoading ? (
-          <Screen name='AuthNavigator' component={AuthNavigator} />
-        ) : (
-          <Screen name='Loading' component={LoadingScreen} />
-        )}
-      </Navigator>
+      {authenticated && !isLoading ? (
+        <MainNavigator />
+      ) : !authenticated && !isLoading ? (
+        <AuthNavigator />
+      ) : (
+        <LoadingScreen />
+      )}
     </NavigationContainer>
   );
 };
