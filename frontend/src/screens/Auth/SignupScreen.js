@@ -17,7 +17,7 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { StackActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
@@ -39,10 +39,6 @@ const SignupScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  // useSelector to read state from reducer
-  // state.auth -> auth is the name of the reducer
-  const showName = useSelector(state => state.auth.name);
-
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
@@ -56,7 +52,6 @@ const SignupScreen = ({ navigation }) => {
   const signUpHandler = async () => {
     try {
       dispatch(authActions.signUp(email, password, name));
-      // await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);
@@ -68,10 +63,6 @@ const SignupScreen = ({ navigation }) => {
           ...StackActions.popToTop(),
           ...StackActions.replace('DrawerNavigator')
         };
-        // CommonActions.reset({
-        //   index: 0,
-        //   routes: [{ name: 'DrawerNavigator' }]
-        // });
       });
     } catch (err) {
       setError(err.message);

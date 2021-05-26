@@ -61,3 +61,14 @@ export const logIn = (email, password) => dispatch => {
       throw new Error(message);
     });
 };
+
+export const setCurrentUser = currentUserName => dispatch => {
+  try {
+    dispatch({
+      type: GET_USER_NAME,
+      user: currentUserName
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};

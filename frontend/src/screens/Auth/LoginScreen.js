@@ -39,7 +39,6 @@ const LoginScreen = ({ navigation }) => {
   const logInHandler = async () => {
     try {
       dispatch(authActions.logIn(email, password));
-      // await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);
@@ -51,24 +50,12 @@ const LoginScreen = ({ navigation }) => {
           ...StackActions.popToTop(),
           ...StackActions.replace('DrawerNavigator')
         };
-        // CommonActions.reset({
-        //   index: 0,
-        //   routes: [{ name: 'DrawerNavigator' }]
-        // });
       });
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
   };
-
-  // if (data) {
-  //   AsyncStorage.setItem('token', data.logIn.token).then(() => {
-  //     navigation.dispatch(
-  //       CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-  //     );
-  //   });
-  // }
 
   const EmailIcon = props => <Icon {...props} name='email-outline' />;
   const PasswordIcon = props => (
