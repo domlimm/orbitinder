@@ -40,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
   const logInHandler = async () => {
     try {
       dispatch(logIn({ email, password }));
-      await AsyncStorage.removeItem('name');
+      // await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);

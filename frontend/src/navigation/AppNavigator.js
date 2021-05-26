@@ -13,7 +13,7 @@ const AppNavigator = () => {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const authHandler = () => {
+  const authHandler = async () => {
     setIsLoading(true);
 
     return firebase.auth().onAuthStateChanged(user => {

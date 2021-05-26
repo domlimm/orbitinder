@@ -19,7 +19,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import greeting from '../../utils/Greeting';
 
 const MainAppScreen = ({ navigation }) => {
-  const [name, setName] = React.useState('');
+  const [stateName, setName] = React.useState('');
+
+  const { auth } = useSelector(state => state);
+
+  console.log(auth);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
@@ -80,7 +84,7 @@ const MainAppScreen = ({ navigation }) => {
           <Layout style={styles.introCard}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
-              <Text>{name}</Text>
+              <Text>{stateName}</Text>
             </Layout>
             <Avatar
               shape='rounded'

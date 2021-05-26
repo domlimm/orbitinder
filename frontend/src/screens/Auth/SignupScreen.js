@@ -57,7 +57,7 @@ const SignupScreen = ({ navigation }) => {
   const signUpHandler = async () => {
     try {
       dispatch(signUp({ email, password, name }));
-      await AsyncStorage.removeItem('name');
+      // await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);

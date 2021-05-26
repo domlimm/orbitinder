@@ -1,5 +1,4 @@
 import firebase from '../index';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const signUp = (email, password, name) => {
   let signUpResponse;
@@ -13,7 +12,13 @@ export const signUp = (email, password, name) => {
       firebase
         .auth()
         .currentUser.updateProfile({ displayName: name })
-        .then(() => signUpResponse.displayName)
+        .then(() => {
+          const name = signUpResponse.displayName;
+
+          console.log('signUp', name);
+
+          return name;
+        })
         .catch(err => console.log('err.message', err.message));
     })
     .catch(err => {
@@ -35,7 +40,13 @@ export const logIn = (email, password) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(res => res.user.displayName)
+    .then(res => {
+      const name = res.user.displayName;
+
+      console.log('logIn', name);
+
+      return name;
+    })
     .catch(err => {
       let message = 'An error has occured!';
       let hasError =
