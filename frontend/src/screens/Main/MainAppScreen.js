@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  Image,
   TouchableOpacity
 } from 'react-native';
 import {
@@ -14,10 +13,14 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
+import { useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import greeting from '../../utils/Greeting';
 
 const MainAppScreen = ({ navigation }) => {
+  const [name, setName] = React.useState('');
+
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
   };
@@ -77,7 +80,7 @@ const MainAppScreen = ({ navigation }) => {
           <Layout style={styles.introCard}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
-              <Text>Harrison Ford</Text>
+              <Text>{name}</Text>
             </Layout>
             <Avatar
               shape='rounded'

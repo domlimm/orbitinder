@@ -12,7 +12,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   MainAppScreen,
   ChatOverviewScreen,
-  TeamUpScreen
+  TeamUpScreen,
+  UserProfileScreen,
+  EditProfileScreen,
+  ActivityFeedScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
 
@@ -47,6 +50,9 @@ const BottomTabsNavigator = () => (
     <Screen name='Home' component={MainAppScreen} />
     <Screen name='TeamUp' component={TeamUpScreen} />
     <Screen name='ChatOverview' component={ChatOverviewScreen} />
+    <Screen name='UserProfile' component={UserProfileScreen} />
+    <Screen name='EditProfile' component={EditProfileScreen} />
+    <Screen name='ActivityFeed' component={ActivityFeedScreen} />
   </Navigator>
 );
 

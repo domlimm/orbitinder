@@ -11,7 +11,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
-import { CommonActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   LandingImage,
@@ -36,16 +37,26 @@ const LoginScreen = ({ navigation }) => {
     }
   }, [error]);
 
-  const logInHandler = () => {
+  const logInHandler = async () => {
     try {
       dispatch(logIn({ email, password }));
+      await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);
 
-      navigation.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-      );
+      navigation.dispatch(state => {
+        console.log('logIn', state);
+
+        return {
+          ...StackActions.popToTop(),
+          ...StackActions.replace('DrawerNavigator')
+        };
+        // CommonActions.reset({
+        //   index: 0,
+        //   routes: [{ name: 'DrawerNavigator' }]
+        // });
+      });
     } catch (err) {
       setError(err.message);
       setLoading(false);

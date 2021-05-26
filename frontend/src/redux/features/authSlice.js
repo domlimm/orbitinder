@@ -11,12 +11,16 @@ export const authSlice = createSlice({
     signUp: (state, action) => {
       const { email, password, name } = action.payload;
 
-      state.name = authFirebase.signUp(email, password, name);
+      const returnedName = authFirebase.signUp(email, password, name);
+
+      state.name = returnedName;
     },
     logIn: (state, action) => {
       const { email, password } = action.payload;
 
-      state.name = authFirebase.logIn(email, password);
+      const name = authFirebase.logIn(email, password);
+
+      state.name = name;
     }
   }
 });

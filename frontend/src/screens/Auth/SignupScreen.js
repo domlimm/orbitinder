@@ -18,7 +18,8 @@ import {
   Text
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
-import { CommonActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import { signUp } from '../../redux/features/authSlice';
@@ -53,16 +54,26 @@ const SignupScreen = ({ navigation }) => {
     }
   }, [error]);
 
-  const signUpHandler = () => {
+  const signUpHandler = async () => {
     try {
       dispatch(signUp({ email, password, name }));
+      await AsyncStorage.removeItem('name');
 
       setError(null);
       setLoading(true);
 
-      navigation.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
-      );
+      navigation.dispatch(state => {
+        console.log('signUp', state);
+
+        return {
+          ...StackActions.popToTop(),
+          ...StackActions.replace('DrawerNavigator')
+        };
+        // CommonActions.reset({
+        //   index: 0,
+        //   routes: [{ name: 'DrawerNavigator' }]
+        // });
+      });
     } catch (err) {
       setError(err.message);
       setLoading(false);

@@ -1,4 +1,5 @@
 import firebase from '../index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const signUp = (email, password, name) => {
   let signUpResponse;

@@ -5,7 +5,7 @@ import firebase from '../firebase';
 
 import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
-import MainNavigator from './MainNavigator';
+import DrawerNavigator from './DrawerNavigator';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -41,7 +41,7 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Navigator headerMode='none'>
         {authenticated && !isLoading ? (
-          <Screen name='MainNavigator' component={MainNavigator} />
+          <Screen name='DrawerNavigator' component={DrawerNavigator} />
         ) : !authenticated && !isLoading ? (
           <Screen name='AuthNavigator' component={AuthNavigator} />
         ) : (
