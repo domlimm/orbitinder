@@ -18,6 +18,7 @@ import {
   Text
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
+import { CommonActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import { signUp } from '../../redux/features/authSlice';
@@ -59,7 +60,9 @@ const SignupScreen = ({ navigation }) => {
       setError(null);
       setLoading(true);
 
-      console.log(showName);
+      navigation.dispatch(
+        CommonActions.reset({ index: 0, routes: [{ name: 'MainNavigator' }] })
+      );
     } catch (err) {
       setError(err.message);
       setLoading(false);

@@ -12,11 +12,7 @@ export const signUp = (email, password, name) => {
       firebase
         .auth()
         .currentUser.updateProfile({ displayName: name })
-        .then(() => {
-          console.log(signUpResponse.displayName);
-
-          return signUpResponse.displayName;
-        })
+        .then(() => signUpResponse.displayName)
         .catch(err => console.log('err.message', err.message));
     })
     .catch(err => {

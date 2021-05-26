@@ -10,19 +10,42 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CommonActions } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import {
   LandingImage,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
+import { logIn } from '../../firebase/functions/auth';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(true);
+
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (error) {
+      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
+    }
+  }, [error]);
+
+  const logInHandler = () => {
+    try {
+      dispatch(logIn({ email, password }));
+
+      setError(null);
+      setLoading(true);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   // if (data) {
   //   AsyncStorage.setItem('token', data.logIn.token).then(() => {

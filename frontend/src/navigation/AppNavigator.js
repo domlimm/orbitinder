@@ -39,13 +39,15 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      {authenticated && !isLoading ? (
-        <MainNavigator />
-      ) : !authenticated && !isLoading ? (
-        <AuthNavigator />
-      ) : (
-        <LoadingScreen />
-      )}
+      <Navigator headerMode='none'>
+        {authenticated && !isLoading ? (
+          <Screen name='MainNavigator' component={MainNavigator} />
+        ) : !authenticated && !isLoading ? (
+          <Screen name='AuthNavigator' component={AuthNavigator} />
+        ) : (
+          <Screen name='Loading' component={LoadingScreen} />
+        )}
+      </Navigator>
     </NavigationContainer>
   );
 };
