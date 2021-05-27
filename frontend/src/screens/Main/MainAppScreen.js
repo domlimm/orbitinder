@@ -23,7 +23,7 @@ const MainAppScreen = ({ navigation }) => {
   };
 
   const navigateProfileScreen = () => {
-    navigation.navigate('UserProfile');
+    navigation.navigate('TabNavigator');
   };
 
   const renderTitle = () => (
