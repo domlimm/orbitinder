@@ -33,7 +33,7 @@ const EditProfileScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  let navProps = {
+  const navProps = {
     title: 'Edit Profile',
     navigation: navigation,
     needBackNav: false,

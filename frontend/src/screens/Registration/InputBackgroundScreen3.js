@@ -43,7 +43,7 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
     console.log(userData);
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'

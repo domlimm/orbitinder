@@ -10,7 +10,7 @@ const PrefInputScreen2 = ({ navigation }) => {
     navigation.navigate('LoginLanding');
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'

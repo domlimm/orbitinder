@@ -10,7 +10,7 @@ const ProfileLandingScreen = ({ route, navigation }) => {
     navigation.navigate('InputBackground1', route.params);
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     type: 'profile',
     backNav: false

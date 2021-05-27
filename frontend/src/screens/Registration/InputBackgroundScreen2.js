@@ -39,7 +39,7 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
     });
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'
