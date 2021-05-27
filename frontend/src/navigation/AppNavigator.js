@@ -8,6 +8,7 @@ import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import * as authActions from '../redux/actions/auth';
+import MainNavigator from './MainNavigator';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -45,7 +46,8 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Navigator headerMode='none'>
         {authenticated && !isLoading ? (
-          <Screen name='DrawerNavigator' component={DrawerNavigator} />
+          // <Screen name='DrawerNavigator' component={DrawerNavigator} />
+          <Screen name='MainNavigator' component={MainNavigator} />
         ) : !authenticated && !isLoading ? (
           <Screen name='AuthNavigator' component={AuthNavigator} />
         ) : (

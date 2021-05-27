@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start'
-  }
+  },
+  tags: { marginHorizontal: -5 }
 });
 
 export default TechTags;

@@ -23,7 +23,9 @@ import {
 import { TitleHeader } from '../../components/index';
 import {
   yearData,
+  degreeData,
   commitmentData,
+  genderData,
   idea,
   achievementData,
   sweExperience,
@@ -33,85 +35,61 @@ import {
   dbData,
   mlData
 } from '../../constants/profleCreationData';
-import { userData } from '../../constants/userData';
-const EditProfileScreen = ({ navigation }) => {
+import { partnerPref } from '../../constants/userData';
+const EditPrefScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
   };
   let navProps = {
-    title: 'Edit Profile',
+    title: 'Edit Preferences',
     navigation: navigation,
     needBackNav: true,
     needMenuNav: false
   };
   const initialState = {
-    bioValue: userData.bio,
-    yearValue: userData.year,
-    ideaValue: userData.idea,
-    commitmentValue: userData.commitment,
-    achievementValue: userData.level,
-    sweValue: userData.codingExpLevel,
-    gamedevValue: userData.tech.gamedev,
-    webValue: userData.tech.webdev,
-    mobileValue: userData.tech.mobiledev,
-    dbValue: userData.tech.db,
-    mlValue: userData.tech.ml,
-    yearIndex: new IndexPath(yearData.indexOf(userData.year)),
-    ideaIndex: new IndexPath(idea.indexOf(userData.idea)),
-    commitmentIndex: new IndexPath(commitmentData.indexOf(userData.commitment)),
-    achievementIndex: new IndexPath(achievementData.indexOf(userData.level)),
-    sweIndex: new IndexPath(sweExperience.indexOf(userData.codingExpLevel)),
-    gamedevIndex: userData.tech.gamedev.map(index => {
+    gamedevValue: partnerPref.tech.gamedev,
+    webValue: partnerPref.tech.webdev,
+    mobileValue: partnerPref.tech.mobiledev,
+    dbValue: partnerPref.tech.db,
+    mlValue: partnerPref.tech.ml,
+    yearValue: partnerPref.year,
+    degreeValue: partnerPref.degree,
+    commitmentValue: partnerPref.commitment,
+    genderValue: partnerPref.gender,
+    expValue: partnerPref.codingExpLevel,
+    gamedevIndex: partnerPref.tech.gamedev.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
-    webIndex: userData.tech.webdev.map(index => {
+    webIndex: partnerPref.tech.webdev.map(index => {
       return new IndexPath(webDevData.indexOf(index));
     }),
-    mobileIndex: userData.tech.mobiledev.map(index => {
+    mobileIndex: partnerPref.tech.mobiledev.map(index => {
       return new IndexPath(mobileDevData.indexOf(index));
     }),
-    dbIndex: userData.tech.db.map(index => {
+    dbIndex: partnerPref.tech.db.map(index => {
       return new IndexPath(dbData.indexOf(index));
     }),
-    mlIndex: userData.tech.ml.map(index => {
+    mlIndex: partnerPref.tech.ml.map(index => {
       return new IndexPath(mlData.indexOf(index));
+    }),
+    yearIndex: partnerPref.year.map(index => {
+      return new IndexPath(yearData.indexOf(index));
+    }),
+    degreeIndex: partnerPref.degree.map(index => {
+      return new IndexPath(degreeData.indexOf(index));
+    }),
+    commitmentIndex: partnerPref.commitment.map(index => {
+      return new IndexPath(commitmentData.indexOf(index));
+    }),
+    genderIndex: partnerPref.gender.map(index => {
+      return new IndexPath(genderData.indexOf(index));
+    }),
+    expIndex: partnerPref.codingExpLevel.map(index => {
+      return new IndexPath(sweExperience.indexOf(index));
     })
   };
-  // console.log('Init', initialState);
   const myReducer = (currState, action) => {
     switch (action.type) {
-      case 'changeBio':
-        return { ...currState, bioValue: action.bioValue };
-      case 'changeYear':
-        return {
-          ...currState,
-          yearValue: action.yearValue,
-          yearIndex: action.yearIndex
-        };
-      case 'changeIdea':
-        return {
-          ...currState,
-          ideaValue: action.ideaValue,
-          ideaIndex: action.ideaIndex
-        };
-      case 'changeCommitment':
-        return {
-          ...currState,
-          commitmentValue: action.commitmentValue,
-          commitmentIndex: action.commitmentIndex
-        };
-      case 'changeAchievement':
-        return {
-          ...currState,
-          achievementValue: action.achievementValue,
-          achievementIndex: action.achievementIndex
-        };
-      case 'changeSWE':
-        return {
-          ...currState,
-          sweValue: action.sweValue,
-          sweIndex: action.sweIndex
-        };
       case 'changeGamedev':
         return {
           ...currState,
@@ -142,24 +120,53 @@ const EditProfileScreen = ({ navigation }) => {
           mlValue: action.mlValue,
           mlIndex: action.mlIndex
         };
+      case 'changeYear':
+        return {
+          ...currState,
+          yearValue: action.yearValue,
+          yearIndex: action.yearIndex
+        };
+      case 'changeDegree':
+        return {
+          ...currState,
+          degreeValue: action.degreeValue,
+          degreeIndex: action.degreeIndex
+        };
+      case 'changeCommitment':
+        return {
+          ...currState,
+          commitmentValue: action.commitmentValue,
+          commitmentIndex: action.commitmentIndex
+        };
+      case 'changeGender':
+        return {
+          ...currState,
+          genderValue: action.genderValue,
+          genderIndex: action.genderIndex
+        };
+      case 'changeExpLevel':
+        return {
+          ...currState,
+          expValue: action.expValue,
+          expIndex: action.expIndex
+        };
     }
   };
   const initialUserData = {
-    ...userData
+    ...partnerPref
   };
   const userDataReducer = (currUserData, action) => {
     switch (action.type) {
       case 'changeUserData':
-        console.log('Action', action.dataUser);
-        console.log('initialUserDATA', initialUserData);
+        // console.log('Action', action.dataUser);
+        // console.log('initialUserDATA', initialUserData);
         return {
           ...currUserData,
-          bio: action.dataUser.bioValue,
           year: action.dataUser.yearValue,
+          degree: action.dataUser.degreeValue,
           commitment: action.dataUser.commitmentValue,
-          idea: action.dataUser.ideaValue,
-          level: action.dataUser.achievementValue,
-          codingExpLevel: action.dataUser.sweValue,
+          gender: action.dataUser.genderValue,
+          codingExpLevel: action.dataUser.expValue,
           tech: {
             ...currUserData.tech,
             gamedev: action.dataUser.gamedevValue,
@@ -176,7 +183,7 @@ const EditProfileScreen = ({ navigation }) => {
     userDataReducer,
     initialUserData
   );
-  const [data, setData] = React.useState(userData);
+  const [data, setData] = React.useState(partnerPref);
   const saveHandler = () => {
     dispatchUserData({
       type: 'changeUserData',
@@ -198,109 +205,118 @@ const EditProfileScreen = ({ navigation }) => {
         <ScrollView>
           <TitleHeader navProps={navProps} />
           <Layout style={styles.inputContainer}>
-            <Text style={styles.screenTitle1}>Personal Information</Text>
+            <Divider />
+            <Text style={styles.screenTitle}>Personal Preferences</Text>
             <Select
+              label='Year of Study'
               style={styles.selectInput}
-              value={currState.yearValue}
+              multiSelect={true}
               selectedIndex={currState.yearIndex}
-              onSelect={index =>
+              onSelect={input =>
                 dispatch({
                   type: 'changeYear',
-                  yearValue: yearData[index.row],
-                  yearIndex: index
+                  yearValue: input.map(index => {
+                    return yearData[index.row];
+                  }),
+                  yearIndex: input
                 })
               }
-              label='Year of Study'
+              placeholder='Select'
+              value={currState.yearValue.join(', ')}
             >
               {yearData.map((value, key) => (
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-            <Input
-              style={styles.bioInput}
-              multiline={true}
-              textStyle={styles.bioText}
-              placeholder='Bio'
-              label='Provide a short bio about yourself'
-              onChangeText={input =>
-                dispatch({
-                  type: 'changeBio',
-                  bioValue: input
-                })
-              }
-              numberOfLines={6}
-              value={currState.bioValue}
-            />
             <Select
+              label='Major'
               style={styles.selectInput}
-              value={currState.ideaValue}
-              selectedIndex={currState.ideaIndex}
-              onSelect={index =>
+              multiSelect={true}
+              selectedIndex={currState.degreeIndex}
+              onSelect={input =>
                 dispatch({
-                  type: 'changeIdea',
-                  ideaValue: idea[index.row],
-                  ideaIndex: index
+                  type: 'changeDegree',
+                  degreeValue: input.map(index => {
+                    return degreeData[index.row];
+                  }),
+                  degreeIndex: input
                 })
               }
-              label='Do you already have an idea in mind?'
+              placeholder='Select'
+              value={currState.degreeValue.join(', ')}
             >
-              {idea.map((value, key) => (
+              {degreeData.map((value, key) => (
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
             <Select
+              label='Commitment Level'
               style={styles.selectInput}
+              multiSelect={true}
               selectedIndex={currState.commitmentIndex}
-              value={currState.commitmentValue}
-              onSelect={index =>
+              onSelect={input =>
                 dispatch({
                   type: 'changeCommitment',
-                  commitmentValue: commitmentData[index.row],
-                  commitmentIndex: index
+                  commitmentValue: input.map(index => {
+                    return commitmentData[index.row];
+                  }),
+                  commitmentIndex: input
                 })
               }
-              label='Commitment to Orbital'
+              placeholder='Select'
+              value={currState.commitmentValue.join(', ')}
             >
               {commitmentData.map((value, key) => (
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
             <Select
+              label='Gender'
               style={styles.selectInput}
-              selectedIndex={currState.achievementIndex}
-              value={currState.achievementValue}
-              onSelect={index =>
+              multiSelect={true}
+              selectedIndex={currState.genderIndex}
+              onSelect={input =>
                 dispatch({
-                  type: 'changeAchievement',
-                  achievementValue: achievementData[index.row],
-                  achievementIndex: index
+                  type: 'changeGender',
+                  genderValue: input.map(index => {
+                    return genderData[index.row];
+                  }),
+                  genderIndex: input
                 })
               }
-              label='Orbital Achievement Level'
+              placeholder='Select'
+              value={currState.genderValue.join(', ')}
             >
-              {achievementData.map((value, key) => (
+              {genderData.map((value, key) => (
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
             <Select
+              label='SWE Experience Level'
               style={styles.selectInput}
-              selectedIndex={currState.sweIndex}
-              value={currState.sweValue}
-              onSelect={index =>
+              multiSelect={true}
+              selectedIndex={currState.expIndex}
+              onSelect={input =>
                 dispatch({
-                  type: 'changeSWE',
-                  sweValue: sweExperience[index.row],
-                  sweIndex: index
+                  type: 'changeExpLevel',
+                  expValue: input.map(index => {
+                    return sweExperience[index.row];
+                  }),
+                  expIndex: input
                 })
               }
-              label='Choose your SWE experience level'
+              placeholder='Select'
+              value={currState.expValue.join(', ')}
             >
               {sweExperience.map((value, key) => (
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
+
             <Divider />
-            <Text style={styles.screenTitle}>Technology Experience</Text>
+            <Text style={styles.screenTitle}>
+              Technology Experience Preferences
+            </Text>
             <Select
               label='Game Development'
               style={styles.selectInput}
@@ -461,15 +477,6 @@ const styles = StyleSheet.create({
     width: '70%',
     marginVertical: 10
   },
-  bioText: {
-    // minHeight: '40%',
-    maxHeight: 200,
-    textAlignVertical: 'top'
-  },
-  bioInput: {
-    width: '70%',
-    marginVertical: 10
-  },
   touchableOpacityStyle: {
     position: 'absolute',
     width: 50,
@@ -509,4 +516,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   }
 });
-export default EditProfileScreen;
+export default EditPrefScreen;

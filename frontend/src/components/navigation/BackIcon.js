@@ -6,14 +6,33 @@ import {
   TopNavigationAction
 } from '@ui-kitten/components';
 
-const BackIcon = ({ props, navigation }) => {
-  const BackIcon = props => (
-    <Icon {...props} name='arrow-back' onPress={navigateBack} fill='white' />
-  );
+const BackIcon = ({ props, navigation, navProps }) => {
+  let BackIcon;
+  let navigateBack;
+  if (navProps.useNewIcon) {
+    BackIcon = props => (
+      <Icon
+        {...props}
+        name={navProps.iconName}
+        onPress={navigateBack}
+        fill='white'
+      />
+    );
+  } else {
+    BackIcon = props => (
+      <Icon {...props} name='arrow-back' onPress={navigateBack} fill='white' />
+    );
+  }
 
-  const navigateBack = () => {
-    navigation.goBack();
-  };
+  if (navProps.navigateSpecificPage) {
+    navigateBack = () => {
+      navigation.navigate(navProps.navScreenName);
+    };
+  } else {
+    navigateBack = () => {
+      navigation.goBack();
+    };
+  }
 
   const BackAction = () => (
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />

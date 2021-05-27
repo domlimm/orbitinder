@@ -9,31 +9,29 @@ import {
 import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
 import { BackIcon, ContentCard } from '../../components/index';
-import { userData } from '../../constants/userData';
+import { userData, partnerPref } from '../../constants/userData';
 import { TechTags } from '../../components/index';
 import { InterestTags } from '../../components/index';
 
-const UserProfileScreen = ({ navigation }) => {
-  const navigateEditProfile = () => {
-    navigation.navigate('EditProfile');
+const UserPreferencesScreen = ({ navigation }) => {
+  const navigateEditPref = () => {
+    navigation.navigate('EditPref');
   };
-  let navProps = {
-    navigateSpecificPage: true,
-    useNewIcon: true,
-    navScreenName: 'DrawerNavigator',
-    iconName: 'home-outline'
-  };
+
+  const [techArray, setTechArray] = React.useState(
+    partnerPref.tech.db.concat(
+      partnerPref.tech.gamedev,
+      partnerPref.tech.ml,
+      partnerPref.tech.mobiledev,
+      partnerPref.tech.webdev
+    )
+  );
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
-          <Layout style={styles.headerContainer}>
-            {/* <BackIcon navigation={navigation} navProps={navProps} /> */}
-            <Image
-              style={styles.avatarImg}
-              source={{ uri: 'https://i.pravatar.cc/300' }}
-            />
+          {/* <Layout style={styles.headerContainer}>
             <Layout style={styles.headerCaptions}>
               <Text style={styles.name}>Rebecca Black</Text>
               <Layout style={styles.subCaptionsContainer}>
@@ -41,42 +39,43 @@ const UserProfileScreen = ({ navigation }) => {
                 <Text style={styles.subCaptions}>Business Analytics</Text>
               </Layout>
             </Layout>
-            {/* <Layout style={styles.linksIcons}>
-              <FontAwesome
-                name='linkedin-square'
-                size={30}
-                color='white'
-                style={{ marginHorizontal: 5 }}
-              />
-              <FontAwesome
-                name='github-square'
-                size={30}
-                color='white'
-                style={{ marginHorizontal: 5 }}
-              />
-            </Layout> */}
-          </Layout>
+          </Layout> */}
           <Layout style={styles.contentContainer}>
-            <ContentCard type={'bio'} userData={userData} />
-            <Card style={styles.contentCard}>
-              <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-              <InterestTags tagsData={userData.interestedAreas} />
+            {/* <ContentCard type={'bio'} userData={userData} /> */}
+            <Card style={styles.contentCard} status='basic'>
+              <Text style={styles.cardTitle}>YEAR OF STUDY</Text>
+              <InterestTags tagsData={partnerPref.year} />
             </Card>
-
-            <Layout style={styles.groupContainer}>
+            <Card style={styles.contentCard} status='basic'>
+              <Text style={styles.cardTitle}>MAJOR</Text>
+              <InterestTags tagsData={partnerPref.degree} />
+            </Card>
+            <Card style={styles.contentCard} status='basic'>
+              <Text style={styles.cardTitle}>COMMITMENT</Text>
+              <InterestTags tagsData={partnerPref.commitment} />
+            </Card>
+            <Card style={styles.contentCard} status='basic'>
+              <Text style={styles.cardTitle}>GENDER</Text>
+              <InterestTags tagsData={partnerPref.gender} />
+            </Card>
+            <Card style={styles.contentCard} status='basic'>
+              <Text style={styles.cardTitle}>SWE EXPERIENCE LEVEL</Text>
+              <InterestTags tagsData={partnerPref.codingExpLevel} />
+            </Card>
+            {/* <Layout style={styles.groupContainer}>
               <ContentCard type={'coding-exp-level'} userData={userData} />
               <ContentCard type={'commitment'} userData={userData} />
-            </Layout>
+            </Layout> */}
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              <TechTags tagsData={userData.technologies} />
+              <TechTags tagsData={techArray} />
             </Card>
           </Layout>
         </ScrollView>
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.touchableOpacityStyle}
-          onPress={navigateEditProfile}
+          onPress={navigateEditPref}
         >
           <Image
             source={require('../../assets/images/edit.png')}
@@ -91,7 +90,8 @@ const UserProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: '#F7F7F7'
+    backgroundColor: 'white',
+    paddingTop: 20
   },
   icon: {
     width: 25,
@@ -103,8 +103,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 200,
-    alignItems: 'center'
+    height: 270,
+    alignItems: 'center',
+    paddingTop: 20
   },
   avatarImg: {
     width: 70,
@@ -112,8 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
-    shadowOpacity: 1,
-    marginTop: 30
+    shadowOpacity: 1
   },
   headerCaptions: {
     marginVertical: 10,
@@ -147,13 +147,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   contentContainer: {
-    // flex: 1
-    // backgroundColor: '#'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   contentCard: {
     margin: 5,
     shadowColor: 'grey',
-    shadowRadius: 4
+    shadowRadius: 4,
+    marginTop: 5,
+    width: '90%',
+    alignContent: 'center'
     // flexWrap: 'wrap'
   },
   cardTitle: {
@@ -193,4 +196,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserProfileScreen;
+export default UserPreferencesScreen;
