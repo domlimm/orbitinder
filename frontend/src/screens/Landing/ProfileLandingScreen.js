@@ -5,13 +5,15 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { NavHeader, LandingImage } from '../../components/index';
 
-const ProfileLandingScreen = ({ navigation }) => {
+const ProfileLandingScreen = props => {
+  console.log(props);
+
   const navigateLoginLanding = () => {
-    navigation.navigate('InputBackground1');
+    props.navigation.navigate('InputBackground1');
   };
 
   let navProps = {
-    navigation: navigation,
+    navigation: props.navigation,
     type: 'profile',
     backNav: false
   };

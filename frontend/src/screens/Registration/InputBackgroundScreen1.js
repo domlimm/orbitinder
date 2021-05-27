@@ -18,7 +18,9 @@ import {
   achievementData
 } from '../../constants/profleCreationData';
 
-const InputBackgroundScreen1 = ({ navigation }) => {
+const InputBackgroundScreen1 = props => {
+  console.log(props);
+
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
     new IndexPath(0)
   );
@@ -34,11 +36,11 @@ const InputBackgroundScreen1 = ({ navigation }) => {
   const displayAchievement = achievementData[selectedAchievementIndex.row];
 
   const navigateDetails = () => {
-    navigation.navigate('InputBackground2');
+    props.navigation.navigate('InputBackground2');
   };
 
   let navProps = {
-    navigation: navigation,
+    navigation: props.navigation,
     backNav: true,
     type: 'register'
   };

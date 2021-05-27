@@ -22,12 +22,12 @@ import { StackActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import * as authActions from '../../redux/actions/auth';
+import { genderData } from '../../constants/profleCreationData';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
   const [lName, setLName] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-  const genderData = ['Male', 'Female'];
   const genderValue = genderData[selectedIndex.row];
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -70,8 +70,8 @@ const SignupScreen = ({ navigation }) => {
     }
   };
 
-  const navigateDetails = () => {
-    navigation.navigate('ProfileLanding');
+  const navigateRegistration = () => {
+    navigation.navigate('ProfileLanding', { name: name, gender: genderValue });
   };
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;
@@ -126,6 +126,7 @@ const SignupScreen = ({ navigation }) => {
               selectedIndex={selectedIndex}
               value={genderValue}
               onSelect={index => setSelectedIndex(index)}
+              placeholder='Select'
               label='Gender'
             >
               {genderData.map((value, key) => (
@@ -155,7 +156,7 @@ const SignupScreen = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={navigateRegistration} style={styles.signupBtn}>
               Sign Up
             </Button>
             <Button
