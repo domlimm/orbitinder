@@ -14,22 +14,23 @@ import {
 import { NavHeader } from '../../components/index';
 import { sweExperience, idea } from '../../constants/prefCreationData';
 
-const InputBackgroundScreen2 = ({ navigation }) => {
-  const navigateDetails = () => {
-    navigation.navigate('InputBackground3');
-  };
+const InputBackgroundScreen2 = ({ route, navigation }) => {
+  const [ideaIndex, setIdeaIndex] = React.useState(new IndexPath(0));
+  const displayIdea = idea[ideaIndex.row];
 
-  const [selectedIdeaIndex, setSelectedIdeaIndex] = React.useState(
-    new IndexPath(0)
-  );
-  const displayIdea = idea[selectedIdeaIndex.row];
-
-  const [selectedSWEIndex, setSelectedSWEIndex] = React.useState(
-    new IndexPath(0)
-  );
-  const displaySWE = sweExperience[selectedSWEIndex.row];
+  const [sweIndex, setSWEIndex] = React.useState(new IndexPath(0));
+  const displaySWE = sweExperience[sweIndex.row];
 
   const [bio, setBio] = React.useState('');
+
+  const navigateRegistration = () => {
+    navigation.navigate('InputBackground3', {
+      ...route.params,
+      idea: displayIdea,
+      sweExperience: displaySWE,
+      biography: bio
+    });
+  };
 
   let navProps = {
     navigation: navigation,
@@ -54,9 +55,9 @@ const InputBackgroundScreen2 = ({ navigation }) => {
           <Layout style={styles.inputContainer}>
             <Select
               style={styles.selectInput}
-              selectedIndex={selectedIdeaIndex}
+              selectedIndex={ideaIndex}
               value={displayIdea}
-              onSelect={index => setSelectedIdeaIndex(index)}
+              onSelect={index => setIdeaIndex(index)}
               label='Do you already have an idea in mind?'
             >
               {idea.map((value, key) => (
@@ -65,9 +66,9 @@ const InputBackgroundScreen2 = ({ navigation }) => {
             </Select>
             <Select
               style={styles.selectInput}
-              selectedIndex={selectedSWEIndex}
+              selectedIndex={sweIndex}
               value={displaySWE}
-              onSelect={index => setSelectedSWEIndex(index)}
+              onSelect={index => setSWEIndex(index)}
               label='Choose your SWE experience level'
             >
               {sweExperience.map((value, key) => (
@@ -86,7 +87,7 @@ const InputBackgroundScreen2 = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={navigateRegistration} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>
@@ -145,8 +146,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   bioText: {
-    minHeight: '40%',
-    maxHeight: '70%',
+    minHeight: 64,
+    paddingVertical: 10,
     textAlignVertical: 'top'
   }
 });

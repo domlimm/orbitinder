@@ -5,7 +5,9 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
-const InputBackgroundScreen3 = ({ navigation }) => {
+const InputBackgroundScreen3 = ({ route, navigation }) => {
+  console.log(route);
+
   const navigateDetails = () => {
     navigation.navigate('PreferencesLanding');
   };

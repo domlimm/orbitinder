@@ -2,18 +2,16 @@ import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
-// To separate for local imports rather than installed dependencies: add below onwards
+
 import { NavHeader, LandingImage } from '../../components/index';
 
-const ProfileLandingScreen = props => {
-  console.log(props);
-
-  const navigateLoginLanding = () => {
-    props.navigation.navigate('InputBackground1');
+const ProfileLandingScreen = ({ route, navigation }) => {
+  const navigationRegistration = () => {
+    navigation.navigate('InputBackground1', route.params);
   };
 
   let navProps = {
-    navigation: props.navigation,
+    navigation: navigation,
     type: 'profile',
     backNav: false
   };
@@ -28,7 +26,7 @@ const ProfileLandingScreen = props => {
         />
       </Layout>
       <Layout style={styles.btnContainer}>
-        <Button onPress={navigateLoginLanding} style={styles.btn}>
+        <Button onPress={navigationRegistration} style={styles.btn}>
           Let's Go!
         </Button>
       </Layout>

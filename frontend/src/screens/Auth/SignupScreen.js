@@ -99,8 +99,11 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={styles.formContainer}>
+    <KeyboardAvoidingView
+      style={styles.formContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.container}>
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.inputContainer}>
@@ -169,8 +172,8 @@ const SignupScreen = ({ navigation }) => {
             </Button>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
