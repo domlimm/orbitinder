@@ -6,12 +6,6 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
 const InputBackgroundScreen3 = ({ route, navigation }) => {
-  const userData = {
-    ...route.params,
-    ...technologyExperience
-  };
-  console.log(userData);
-
   const [technologyExperience, setTechnologyExperience] = React.useState({
     game: [],
     web: [],
@@ -31,8 +25,22 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
   //   console.log('parent.useEffect.getSelections', technologyExperience);
   // }, [technologyExperience]);
 
+  React.useEffect(() => {
+    console.log('3', route.params);
+  }, []);
+
   const saveBackgroundHandler = () => {
     navigation.navigate('PreferencesLanding');
+
+    const userData = {
+      ...route.params,
+      background: {
+        ...route.params.background,
+        technologyExperience
+      }
+    };
+
+    console.log(userData);
   };
 
   let navProps = {

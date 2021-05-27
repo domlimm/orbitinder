@@ -30,13 +30,19 @@ const InputBackgroundScreen1 = ({ route, navigation }) => {
   const [achieveIndex, setAchieveIndex] = React.useState(new IndexPath(0));
   const displayAchievement = achievementData[achieveIndex.row];
 
+  React.useEffect(() => {
+    console.log('1', route.params);
+  }, []);
+
   const navigateRegistration = () => {
     navigation.navigate('InputBackground2', {
       ...route.params,
-      year: displayYear,
-      degree: degree,
-      commitment: displayCommitment,
-      achievement: displayAchievement
+      background: {
+        year: displayYear,
+        degree: degree,
+        commitment: displayCommitment,
+        achievement: displayAchievement
+      }
     });
   };
 

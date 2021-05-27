@@ -123,7 +123,7 @@ const InputBackgroundSelect = ({ getSelections }) => {
         selectedIndex={mlIndex}
         onSelect={index => setMLIndex(index)}
         placeholder='Select'
-        value={''}
+        value={displayMl.join(', ')}
       >
         {mlData.map((value, key) => (
           <SelectItem key={key} title={value} />

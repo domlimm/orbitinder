@@ -159,7 +159,12 @@ const SignupScreen = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateRegistration} style={styles.signupBtn}>
+            <Button
+              onPress={navigateRegistration}
+              disabled={loading}
+              style={styles.signupBtn}
+              accessoryLeft={loading ? () => <LoadingIndicator /> : null}
+            >
               Sign Up
             </Button>
             <Button
