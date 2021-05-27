@@ -11,28 +11,30 @@ import {
 } from '../../constants/profleCreationData';
 
 const InputBackgroundSelect = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState([]);
-  const displayGameDev = selectedIndex.map(index => {
+  React.useEffect(() => {}, []);
+
+  const [gameIndex, setGameIndex] = React.useState([]);
+  const displayGameDev = gameIndex.map(index => {
     return gameDevData[index.row];
   });
 
-  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
-  const displayWebDev = selectedWebIndex.map(index => {
+  const [webIndex, setWebIndex] = React.useState([]);
+  const displayWebDev = webIndex.map(index => {
     return webDevData[index.row];
   });
 
-  const [selectedMobileIndex, setselectedMobileIndex] = React.useState([]);
-  const displaymobileDev = selectedMobileIndex.map(index => {
+  const [mobileIndex, setMobileIndex] = React.useState([]);
+  const displaymobileDev = mobileIndex.map(index => {
     return mobileDevData[index.row];
   });
 
-  const [selectedDbIndex, setselectedDbIndex] = React.useState([]);
-  const displayDb = selectedDbIndex.map(index => {
+  const [dbIndex, setDBIndex] = React.useState([]);
+  const displayDb = dbIndex.map(index => {
     return dbData[index.row];
   });
 
-  const [selectedMlIndex, setselectedMlIndex] = React.useState([]);
-  const displayMl = selectedMlIndex.map(index => {
+  const [mlIndex, setMLIndex] = React.useState([]);
+  const displayMl = mlIndex.map(index => {
     return mlData[index.row];
   });
 
@@ -42,8 +44,8 @@ const InputBackgroundSelect = () => {
         label='Game Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedIndex}
-        onSelect={index => setSelectedIndex(index)}
+        selectedIndex={gameIndex}
+        onSelect={index => setGameIndex(index)}
         placeholder='Select'
         value={displayGameDev.join(', ')}
       >
@@ -56,8 +58,8 @@ const InputBackgroundSelect = () => {
         label='Web Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedWebIndex}
-        onSelect={index => setselectedWebIndex(index)}
+        selectedIndex={webIndex}
+        onSelect={index => setWebIndex(index)}
         placeholder='Select'
         value={displayWebDev.join(', ')}
       >
@@ -70,8 +72,8 @@ const InputBackgroundSelect = () => {
         label='Mobile Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedMobileIndex}
-        onSelect={index => setselectedMobileIndex(index)}
+        selectedIndex={mobileIndex}
+        onSelect={index => setMobileIndex(index)}
         placeholder='Select'
         value={displaymobileDev.join(', ')}
       >
@@ -84,8 +86,8 @@ const InputBackgroundSelect = () => {
         label='Database'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedDbIndex}
-        onSelect={index => setselectedDbIndex(index)}
+        selectedIndex={dbIndex}
+        onSelect={index => setDBIndex(index)}
         placeholder='Select'
         value={displayDb.join(', ')}
       >
@@ -98,8 +100,8 @@ const InputBackgroundSelect = () => {
         label='Machine Learning'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedMlIndex}
-        onSelect={index => setselectedMlIndex(index)}
+        selectedIndex={mlIndex}
+        onSelect={index => setMLIndex(index)}
         placeholder='Select'
         value={displayMl.join(', ')}
       >

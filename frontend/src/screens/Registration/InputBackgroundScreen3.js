@@ -6,9 +6,9 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
 const InputBackgroundScreen3 = ({ route, navigation }) => {
-  console.log(route);
+  const previousData = route.params;
 
-  const navigateDetails = () => {
+  const saveBackgroundHandler = () => {
     navigation.navigate('PreferencesLanding');
   };
 
@@ -34,7 +34,7 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
           </Layout>
           <InputBackgroundSelect />
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={saveBackgroundHandler} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>
