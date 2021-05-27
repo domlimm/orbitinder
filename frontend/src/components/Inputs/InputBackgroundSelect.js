@@ -10,7 +10,7 @@ import {
   mlData
 } from '../../constants/profleCreationData';
 
-export default function InputBackgroundSelect() {
+const InputBackgroundSelect = () => {
   const [selectedIndex, setSelectedIndex] = React.useState([]);
   const displayGameDev = selectedIndex.map(index => {
     return gameDevData[index.row];
@@ -109,7 +109,7 @@ export default function InputBackgroundSelect() {
       </Select>
     </Layout>
   );
-}
+};
 
 const styles = StyleSheet.create({
   topNav: {
@@ -131,3 +131,5 @@ const styles = StyleSheet.create({
     marginVertical: 10
   }
 });
+
+export default InputBackgroundSelect;
