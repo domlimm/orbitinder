@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   tags: {
-    marginRight: 5
+    marginRight: 5,
+    marginVertical: 5
   }
 });
 

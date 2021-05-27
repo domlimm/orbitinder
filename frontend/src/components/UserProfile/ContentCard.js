@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
   contentCard: {
     margin: 5,
     shadowColor: 'grey',
-    shadowRadius: 4
+    shadowRadius: 4,
+    marginVertical: 10
     // flexWrap: 'wrap'
   },
   cardTitle: {
