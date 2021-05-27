@@ -17,13 +17,19 @@ const UserProfileScreen = ({ navigation }) => {
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
   };
+  let navProps = {
+    navigateSpecificPage: true,
+    useNewIcon: true,
+    navScreenName: 'DrawerNavigator',
+    iconName: 'home-outline'
+  };
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
           <Layout style={styles.headerContainer}>
-            <BackIcon navigation={navigation} />
+            {/* <BackIcon navigation={navigation} navProps={navProps} /> */}
             <Image
               style={styles.avatarImg}
               source={{ uri: 'https://i.pravatar.cc/300' }}
@@ -35,7 +41,7 @@ const UserProfileScreen = ({ navigation }) => {
                 <Text style={styles.subCaptions}>Business Analytics</Text>
               </Layout>
             </Layout>
-            <Layout style={styles.linksIcons}>
+            {/* <Layout style={styles.linksIcons}>
               <FontAwesome
                 name='linkedin-square'
                 size={30}
@@ -48,7 +54,7 @@ const UserProfileScreen = ({ navigation }) => {
                 color='white'
                 style={{ marginHorizontal: 5 }}
               />
-            </Layout>
+            </Layout> */}
           </Layout>
           <Layout style={styles.contentContainer}>
             <ContentCard type={'bio'} userData={userData} />
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 270,
+    height: 200,
     alignItems: 'center'
   },
   avatarImg: {
@@ -106,7 +112,8 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
-    shadowOpacity: 1
+    shadowOpacity: 1,
+    marginTop: 30
   },
   headerCaptions: {
     marginVertical: 10,
@@ -154,7 +161,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginVertical: 5
   },
-  cardSubContend: {},
   tagContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
