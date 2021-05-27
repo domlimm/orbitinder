@@ -10,6 +10,29 @@ export const userData = {
   level: 'Artemis',
   interestedAreas: ['Finance', 'Social'],
   codingExpLevel: 'Beginner',
-  commitment: 'High',
-  technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK']
+  commitment: 'High Commitment',
+  technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
+  tech: {
+    ml: ['NLTK'],
+    gamedev: ['Unity', 'Unreal Engine'],
+    webdev: ['React'],
+    mobiledev: ['Ionic', 'Corona'],
+    db: ['Oracle']
+  }
+};
+
+export const partnerPref = {
+  year: ['Year 1', 'Year 2', 'Year 3', 'Year 4'],
+  degree: ['Computer Science', 'Information Systems'],
+  commitment: ['High Commitment', 'Medium Commitment'],
+  gender: ['Female', 'Male'],
+  codingExpLevel: ['Beginner', 'Intermediate'],
+  idea: ['Yes', 'No'],
+  tech: {
+    ml: ['NLTK'],
+    gamedev: ['Unity', 'Unreal Engine'],
+    webdev: ['React'],
+    mobiledev: ['Ionic', 'Corona'],
+    db: ['Oracle']
+  }
 };
