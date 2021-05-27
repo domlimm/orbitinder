@@ -42,8 +42,6 @@ const InputBackgroundSelect = ({ getSelections }) => {
   );
 
   React.useEffect(() => {
-    console.log('Calling props.getSelections');
-
     getSelections({
       game: displayGameDev,
       web: displayWebDev,
