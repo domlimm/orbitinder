@@ -6,7 +6,30 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
 const InputBackgroundScreen3 = ({ route, navigation }) => {
-  const previousData = route.params;
+  // console.log(route.params);
+
+  const [technologyExperience, setTechnologyExperience] = React.useState({
+    game: [],
+    web: [],
+    mobile: [],
+    database: [],
+    machineLearning: []
+  });
+
+  const getSelections = React.useCallback(data => {
+    setTechnologyExperience(prevData => ({ ...prevData, ...data }));
+  }, []);
+
+  // Current state, useState is async.
+  // console.log('parent.getSelections', technologyExperience);
+
+  React.useEffect(() => {
+    console.log('parent.useEffect.getSelections', technologyExperience);
+  }, [technologyExperience]);
+
+  const test = () => {
+    console.log(technologyExperience);
+  };
 
   const saveBackgroundHandler = () => {
     navigation.navigate('PreferencesLanding');
@@ -32,9 +55,12 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
               Let others know what you're great at!
             </Text>
           </Layout>
-          <InputBackgroundSelect />
+          <InputBackgroundSelect getSelections={getSelections} />
           <Layout style={styles.btnContainer}>
             <Button onPress={saveBackgroundHandler} style={styles.signupBtn}>
+              Next
+            </Button>
+            <Button onPress={test} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>

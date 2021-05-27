@@ -10,33 +10,55 @@ import {
   mlData
 } from '../../constants/profleCreationData';
 
-const InputBackgroundSelect = () => {
-  React.useEffect(() => {}, []);
-
+const InputBackgroundSelect = ({ getSelections }) => {
   const [gameIndex, setGameIndex] = React.useState([]);
-  const displayGameDev = gameIndex.map(index => {
-    return gameDevData[index.row];
-  });
+  const displayGameDev = React.useMemo(
+    () => gameIndex.map(index => gameDevData[index.row]),
+    [gameIndex]
+  );
 
   const [webIndex, setWebIndex] = React.useState([]);
-  const displayWebDev = webIndex.map(index => {
-    return webDevData[index.row];
-  });
+  const displayWebDev = React.useMemo(
+    () => webIndex.map(index => webDevData[index.row]),
+    [webIndex]
+  );
 
   const [mobileIndex, setMobileIndex] = React.useState([]);
-  const displaymobileDev = mobileIndex.map(index => {
-    return mobileDevData[index.row];
-  });
+  const displayMobileDev = React.useMemo(
+    () => mobileIndex.map(index => mobileDevData[index.row]),
+    [mobileIndex]
+  );
 
   const [dbIndex, setDBIndex] = React.useState([]);
-  const displayDb = dbIndex.map(index => {
-    return dbData[index.row];
-  });
+  const displayDb = React.useMemo(
+    () => dbIndex.map(index => dbData[index.row]),
+    [dbIndex]
+  );
 
   const [mlIndex, setMLIndex] = React.useState([]);
-  const displayMl = mlIndex.map(index => {
-    return mlData[index.row];
-  });
+  const displayMl = React.useMemo(
+    () => mlIndex.map(index => mlData[index.row]),
+    [mlIndex]
+  );
+
+  React.useEffect(() => {
+    console.log('Calling props.getSelections');
+
+    getSelections({
+      game: displayGameDev,
+      web: displayWebDev,
+      mobile: displayMobileDev,
+      database: displayDb,
+      machineLearning: displayMl
+    });
+  }, [
+    displayGameDev,
+    displayWebDev,
+    displayMobileDev,
+    displayDb,
+    displayMl,
+    getSelections
+  ]);
 
   return (
     <Layout style={styles.inputContainer}>
@@ -75,7 +97,7 @@ const InputBackgroundSelect = () => {
         selectedIndex={mobileIndex}
         onSelect={index => setMobileIndex(index)}
         placeholder='Select'
-        value={displaymobileDev.join(', ')}
+        value={displayMobileDev.join(', ')}
       >
         {mobileDevData.map((value, key) => (
           <SelectItem key={key} title={value} />
@@ -103,7 +125,7 @@ const InputBackgroundSelect = () => {
         selectedIndex={mlIndex}
         onSelect={index => setMLIndex(index)}
         placeholder='Select'
-        value={displayMl.join(', ')}
+        value={''}
       >
         {mlData.map((value, key) => (
           <SelectItem key={key} title={value} />
@@ -114,15 +136,6 @@ const InputBackgroundSelect = () => {
 };
 
 const styles = StyleSheet.create({
-  topNav: {
-    marginVertical: 5
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
-    marginLeft: '5%'
-  },
   inputContainer: {
     flex: 3,
     alignItems: 'center',
