@@ -3,7 +3,7 @@ import { StyleSheet, RefreshControl, ScrollView } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { TitleHeader } from '../../components/index';
+import { InfoCard, TitleHeader } from '../../components/index';
 
 const TeamUpScreen = ({ navigation }) => {
   let navProps = {
@@ -16,7 +16,7 @@ const TeamUpScreen = ({ navigation }) => {
     <SafeAreaView style={styles.parentContainer}>
       <TitleHeader navProps={navProps} />
       <ScrollView>
-        <Text>Team Up Screen</Text>
+        <InfoCard />
       </ScrollView>
     </SafeAreaView>
   );

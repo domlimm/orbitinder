@@ -9,9 +9,9 @@ const InterestTags = ({ tagsData }) => {
         return (
           <Button
             style={styles.tags}
-            size='small'
-            appearance='outline'
-            status='basic'
+            size='small' //small
+            appearance='filled' //outline
+            status='basic' //basic
             key={index}
           >
             {tag}
