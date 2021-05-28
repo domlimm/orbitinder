@@ -1,79 +1,92 @@
-export const yearData = ['Year 1', 'Year 2', 'Year 3', 'Year 4'];
+export const yearData = ['Select', 'Year 1', 'Year 2', 'Year 3', 'Year 4'];
 
 export const commitmentData = [
+  'Select',
   'High Commitment',
   'Medium Commitment',
   'Low Commitment'
 ];
 
-export const sweExperience = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+export const sweExperience = [
+  'Select',
+  'Beginner',
+  'Intermediate',
+  'Advanced',
+  'Expert'
+];
 
-export const idea = ['Yes', 'No'];
+export const idea = ['Select', 'Yes', 'No'];
 
-export const genderData = ['Female', 'Male'];
+export const genderData = ['Select', 'Both', 'Male', 'Female'];
 
-export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
+export const achievementData = [
+  'Select',
+  'Artemis',
+  'Apollo 11',
+  'Gemini',
+  'Vostok'
+];
 
 export const gameDevData = [
-  'Unity',
-  'Gamemaker',
-  'pygame',
-  'Unreal Engine',
-  'CryEngine',
   'Amazon Lumberyard',
-  'Phaser'
+  'CryEngine',
+  'Gamemaker',
+  'Phaser',
+  'pygame',
+  'Unity',
+  'Unreal Engine'
 ];
 
 export const webDevData = [
-  'React',
   'Angular',
-  'Ember.js',
-  'Vue.js',
-  'Metero',
-  'Express.js',
-  'Django',
-  'Flask',
-  'Rails',
-  'Laravel',
-  'Spring',
   'ASP .NET',
+  'Browser Extension',
+  'Django',
+  'Ember.js',
+  'Express.js',
+  'Flask',
   'GraphQL',
+  'Laravel',
+  'Metero',
+  'Rails',
+  'React',
+  'Spring',
   'Telegram Bot',
-  'Browser Extension'
+  'Vue.js'
 ];
 
 export const mobileDevData = [
-  'Xcode',
   'Android Studio',
-  'Flutter',
-  'React Native',
-  'NativeScripts',
-  'Ionic',
-  'Xamarin',
+  'Cordova',
   'Corona',
-  'Cordova'
+  'Flutter',
+  'Ionic',
+  'NativeScripts',
+  'React Native',
+  'Xamarin',
+  'Xcode'
 ];
 
 export const dbData = [
-  'Oracle',
-  'MySQL',
-  'PostgreSQL',
-  'MongoDB',
-  'IBM Db2',
-  'Firebase',
-  'SQLite',
   'Cassandra',
-  'MariaDB'
+  'Firebase',
+  'IBM Db2',
+  'MariaDB',
+  'MongoDB',
+  'MySQL',
+  'Oracle',
+  'PostgreSQL',
+  'SQLite'
 ];
 
 export const mlData = [
-  'TensorFlow',
-  'PyTorch',
-  'Keras',
-  'scikit-learn',
-  'RapidMiner',
+  'Amazon ML',
   'Caffe2',
-  'NLTK',
   'Google Cloud AutoML',
-  'Amazon ML'
+  'Keras',
+  'NLTK',
+  'PyTorch',
+  'RapidMiner',
+  'scikit-learn',
+  'TensorFlow'
 ];

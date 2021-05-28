@@ -45,7 +45,7 @@ const PrefInputScreen1 = ({ navigation }) => {
     navigation.navigate('PrefInput2');
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'

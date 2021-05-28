@@ -25,7 +25,8 @@ const ResetPasswordScreen = ({ navigation }) => {
   const navigateDetails = () => {
     navigation.navigate('UserProfileScreen');
   };
-  let navProps = {
+
+  const navProps = {
     title: 'Change Password',
     navigation: navigation,
     needBackNav: false,

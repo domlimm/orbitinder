@@ -3,21 +3,17 @@ import firebase from '../../firebase';
 export const GET_USER_NAME = 'GET_USER_NAME';
 
 export const signUp = (email, password, name) => dispatch => {
-  let signUpResponse;
-
   firebase
     .auth()
     .createUserWithEmailAndPassword(email.trim().toLowerCase(), password)
     .then(res => {
-      signUpResponse = res.user;
-
       firebase
         .auth()
         .currentUser.updateProfile({ displayName: name })
         .then(() => {
           dispatch({
             type: GET_USER_NAME,
-            user: signupResponse.displayName
+            user: res.user.displayName
           });
         })
         .catch(err => console.log('err.message', err.message));

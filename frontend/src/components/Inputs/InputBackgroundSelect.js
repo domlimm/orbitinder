@@ -1,4 +1,3 @@
-// TODO
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout, Select, SelectItem } from '@ui-kitten/components';
@@ -11,31 +10,53 @@ import {
   mlData
 } from '../../constants/profleCreationData';
 
-export default function InputBackgroundSelect() {
-  const [selectedIndex, setSelectedIndex] = React.useState([]);
-  const displayGameDev = selectedIndex.map(index => {
-    return gameDevData[index.row];
-  });
+const InputBackgroundSelect = ({ getSelections }) => {
+  const [gameIndex, setGameIndex] = React.useState([]);
+  const displayGameDev = React.useMemo(
+    () => gameIndex.map(index => gameDevData[index.row]),
+    [gameIndex]
+  );
 
-  const [selectedWebIndex, setselectedWebIndex] = React.useState([]);
-  const displayWebDev = selectedWebIndex.map(index => {
-    return webDevData[index.row];
-  });
+  const [webIndex, setWebIndex] = React.useState([]);
+  const displayWebDev = React.useMemo(
+    () => webIndex.map(index => webDevData[index.row]),
+    [webIndex]
+  );
 
-  const [selectedMobileIndex, setselectedMobileIndex] = React.useState([]);
-  const displaymobileDev = selectedMobileIndex.map(index => {
-    return mobileDevData[index.row];
-  });
+  const [mobileIndex, setMobileIndex] = React.useState([]);
+  const displayMobileDev = React.useMemo(
+    () => mobileIndex.map(index => mobileDevData[index.row]),
+    [mobileIndex]
+  );
 
-  const [selectedDbIndex, setselectedDbIndex] = React.useState([]);
-  const displayDb = selectedDbIndex.map(index => {
-    return dbData[index.row];
-  });
+  const [dbIndex, setDBIndex] = React.useState([]);
+  const displayDb = React.useMemo(
+    () => dbIndex.map(index => dbData[index.row]),
+    [dbIndex]
+  );
 
-  const [selectedMlIndex, setselectedMlIndex] = React.useState([]);
-  const displayMl = selectedMlIndex.map(index => {
-    return mlData[index.row];
-  });
+  const [mlIndex, setMLIndex] = React.useState([]);
+  const displayMl = React.useMemo(
+    () => mlIndex.map(index => mlData[index.row]),
+    [mlIndex]
+  );
+
+  React.useEffect(() => {
+    getSelections({
+      game: displayGameDev,
+      web: displayWebDev,
+      mobile: displayMobileDev,
+      database: displayDb,
+      machineLearning: displayMl
+    });
+  }, [
+    displayGameDev,
+    displayWebDev,
+    displayMobileDev,
+    displayDb,
+    displayMl,
+    getSelections
+  ]);
 
   return (
     <Layout style={styles.inputContainer}>
@@ -43,8 +64,8 @@ export default function InputBackgroundSelect() {
         label='Game Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedIndex}
-        onSelect={index => setSelectedIndex(index)}
+        selectedIndex={gameIndex}
+        onSelect={index => setGameIndex(index)}
         placeholder='Select'
         value={displayGameDev.join(', ')}
       >
@@ -57,8 +78,8 @@ export default function InputBackgroundSelect() {
         label='Web Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedWebIndex}
-        onSelect={index => setselectedWebIndex(index)}
+        selectedIndex={webIndex}
+        onSelect={index => setWebIndex(index)}
         placeholder='Select'
         value={displayWebDev.join(', ')}
       >
@@ -71,10 +92,10 @@ export default function InputBackgroundSelect() {
         label='Mobile Development'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedMobileIndex}
-        onSelect={index => setselectedMobileIndex(index)}
+        selectedIndex={mobileIndex}
+        onSelect={index => setMobileIndex(index)}
         placeholder='Select'
-        value={displaymobileDev.join(', ')}
+        value={displayMobileDev.join(', ')}
       >
         {mobileDevData.map((value, key) => (
           <SelectItem key={key} title={value} />
@@ -85,8 +106,8 @@ export default function InputBackgroundSelect() {
         label='Database'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedDbIndex}
-        onSelect={index => setselectedDbIndex(index)}
+        selectedIndex={dbIndex}
+        onSelect={index => setDBIndex(index)}
         placeholder='Select'
         value={displayDb.join(', ')}
       >
@@ -99,8 +120,8 @@ export default function InputBackgroundSelect() {
         label='Machine Learning'
         style={styles.selectInput}
         multiSelect={true}
-        selectedIndex={selectedMlIndex}
-        onSelect={index => setselectedMlIndex(index)}
+        selectedIndex={mlIndex}
+        onSelect={index => setMLIndex(index)}
         placeholder='Select'
         value={displayMl.join(', ')}
       >
@@ -110,18 +131,9 @@ export default function InputBackgroundSelect() {
       </Select>
     </Layout>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  topNav: {
-    marginVertical: 5
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
-    marginLeft: '5%'
-  },
   inputContainer: {
     flex: 3,
     alignItems: 'center',
@@ -132,3 +144,5 @@ const styles = StyleSheet.create({
     marginVertical: 10
   }
 });
+
+export default InputBackgroundSelect;

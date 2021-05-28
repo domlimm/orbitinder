@@ -5,8 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Image,
-  Alert
+  Image
 } from 'react-native';
 import {
   Button,
@@ -20,6 +19,7 @@ import {
   Input,
   Divider
 } from '@ui-kitten/components';
+
 import { TitleHeader } from '../../components/index';
 import {
   yearData,
@@ -34,11 +34,13 @@ import {
   mlData
 } from '../../constants/profleCreationData';
 import { userData } from '../../constants/userData';
+
 const EditProfileScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
   };
-  let navProps = {
+
+  const navProps = {
     title: 'Edit Profile',
     navigation: navigation,
     needBackNav: true,

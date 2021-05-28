@@ -10,7 +10,7 @@ const PreferencesLandingScreen = ({ navigation }) => {
     navigation.navigate('PrefInput1');
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     type: 'profile',
     backNav: false

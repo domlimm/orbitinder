@@ -17,17 +17,15 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import { useDispatch } from 'react-redux';
-import { StackActions } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
-import * as authActions from '../../redux/actions/auth';
+import { genderData } from '../../constants/profleCreationData';
 
 const SignupScreen = ({ navigation }) => {
   const [fName, setFName] = React.useState('');
   const [lName, setLName] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-  const genderData = ['Male', 'Female'];
   const genderValue = genderData[selectedIndex.row];
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -36,8 +34,6 @@ const SignupScreen = ({ navigation }) => {
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
@@ -49,29 +45,38 @@ const SignupScreen = ({ navigation }) => {
     }
   }, [error]);
 
-  const signUpHandler = async () => {
+  const signUpHandler = () => {
     try {
-      dispatch(authActions.signUp(email, password, name));
+      Promise.all([
+        SecureStore.setItemAsync('email', email),
+        SecureStore.setItemAsync('password', password)
+      ])
+        .then(() => {
+          setError(null);
+          setLoading(true);
 
-      setError(null);
-      setLoading(true);
+          navigation.navigate('ProfileLanding', {
+            name: name,
+            gender: genderValue
+          });
+        })
+        .catch(err => {
+          setError('Error with Secure Store', err);
+          setLoading(false);
+        });
+      // Navigation to be used after cr8ing preferences
+      // navigation.dispatch(state => {
+      //   console.log('signUp', state);
 
-      navigation.dispatch(state => {
-        console.log('signUp', state);
-
-        return {
-          ...StackActions.popToTop(),
-          ...StackActions.replace('DrawerNavigator')
-        };
-      });
+      //   return {
+      //     ...StackActions.popToTop(),
+      //     ...StackActions.replace('DrawerNavigator')
+      //   };
+      // });
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
-  };
-
-  const navigateDetails = () => {
-    navigation.navigate('ProfileLanding');
   };
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;
@@ -99,8 +104,11 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={styles.formContainer}>
+    <KeyboardAvoidingView
+      style={styles.formContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.container}>
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.inputContainer}>
@@ -126,6 +134,7 @@ const SignupScreen = ({ navigation }) => {
               selectedIndex={selectedIndex}
               value={genderValue}
               onSelect={index => setSelectedIndex(index)}
+              placeholder='Select'
               label='Gender'
             >
               {genderData.map((value, key) => (
@@ -155,21 +164,18 @@ const SignupScreen = ({ navigation }) => {
             />
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
-              Sign Up
-            </Button>
             <Button
               onPress={signUpHandler}
               disabled={loading}
               style={styles.signupBtn}
               accessoryLeft={loading ? () => <LoadingIndicator /> : null}
             >
-              Click
+              {loading ? 'Registering' : 'Register'}
             </Button>
           </Layout>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TitleHeader } from '../../components/index';
 
 const ChatOverviewScreen = ({ navigation }) => {
-  let navProps = {
+  const navProps = {
     title: 'Chats',
     navigation: navigation,
     needBackNav: false,
