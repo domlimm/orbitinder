@@ -56,22 +56,23 @@ const SignupScreen = ({ navigation }) => {
       setError(null);
       setLoading(true);
 
-      navigation.dispatch(state => {
-        console.log('signUp', state);
-
-        return {
-          ...StackActions.popToTop(),
-          ...StackActions.replace('DrawerNavigator')
-        };
+      navigation.navigate('ProfileLanding', {
+        name: name,
+        gender: genderValue
       });
+      // Navigation to be used after cr8ing preferences
+      // navigation.dispatch(state => {
+      //   console.log('signUp', state);
+
+      //   return {
+      //     ...StackActions.popToTop(),
+      //     ...StackActions.replace('DrawerNavigator')
+      //   };
+      // });
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
-  };
-
-  const navigateRegistration = () => {
-    navigation.navigate('ProfileLanding', { name: name, gender: genderValue });
   };
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;
@@ -160,20 +161,12 @@ const SignupScreen = ({ navigation }) => {
           </Layout>
           <Layout style={styles.btnContainer}>
             <Button
-              onPress={navigateRegistration}
-              disabled={loading}
-              style={styles.signupBtn}
-              accessoryLeft={loading ? () => <LoadingIndicator /> : null}
-            >
-              Sign Up
-            </Button>
-            <Button
               onPress={signUpHandler}
               disabled={loading}
               style={styles.signupBtn}
               accessoryLeft={loading ? () => <LoadingIndicator /> : null}
             >
-              Click
+              {loading ? 'Registering' : 'Register'}
             </Button>
           </Layout>
         </ScrollView>
