@@ -1,11 +1,8 @@
-// import { ActivityIcon, VideoIcon } from '../assets/icons';
 import React from 'react';
 import {
   BottomNavigation,
   BottomNavigationTab,
-  Divider,
-  Icon,
-  Layout
+  Icon
 } from '@ui-kitten/components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -15,7 +12,8 @@ import {
   TeamUpScreen,
   UserProfileScreen,
   EditProfileScreen,
-  ActivityFeedScreen
+  ActivityFeedScreen,
+  EditPrefScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
 
@@ -28,18 +26,15 @@ const ChatIcon = props => <Icon {...props} name='message-square-outline' />;
 const TeamUpIcon = props => <Icon {...props} name='person-outline' />;
 
 const BottomTabBar = ({ navigation, state }) => (
-  <Layout>
-    <Divider />
-    <BottomNavigation
-      appearance='noIndicator'
-      selectedIndex={state.index}
-      onSelect={index => navigation.navigate(state.routeNames[index])}
-    >
-      <BottomNavigationTab icon={HomeIcon} />
-      <BottomNavigationTab icon={TeamUpBottomTab} />
-      <BottomNavigationTab icon={ChatIcon} />
-    </BottomNavigation>
-  </Layout>
+  <BottomNavigation
+    appearance='noIndicator'
+    selectedIndex={state.index}
+    onSelect={index => navigation.navigate(state.routeNames[index])}
+  >
+    <BottomNavigationTab icon={HomeIcon} />
+    <BottomNavigationTab icon={TeamUpIcon} />
+    <BottomNavigationTab icon={ChatIcon} />
+  </BottomNavigation>
 );
 
 const BottomTabsNavigator = () => (
@@ -53,6 +48,7 @@ const BottomTabsNavigator = () => (
     <Screen name='UserProfile' component={UserProfileScreen} />
     <Screen name='EditProfile' component={EditProfileScreen} />
     <Screen name='ActivityFeed' component={ActivityFeedScreen} />
+    <Screen name='EditPref' component={EditPrefScreen} />
   </Navigator>
 );
 

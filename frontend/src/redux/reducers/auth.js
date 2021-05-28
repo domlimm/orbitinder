@@ -1,4 +1,4 @@
-import { GET_USER_NAME } from '../actions/auth';
+import { GET_USER_NAME, LOG_OUT } from '../actions/auth';
 
 const initialState = {
   id: '',
@@ -13,6 +13,8 @@ export default (state = initialState, action) => {
         id: action.id,
         name: action.user
       };
+    case LOG_OUT:
+      return {};
     default:
       return state;
   }

@@ -5,9 +5,9 @@ import firebase from '../firebase';
 import { useDispatch } from 'react-redux';
 
 import { LoadingScreen } from '../screens/index';
+import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
 import * as authActions from '../redux/actions/auth';
-import MainNavigator from './MainNavigator';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -42,8 +42,7 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Navigator headerMode='none'>
         {authenticated && !isLoading ? (
-          // <Screen name='DrawerNavigator' component={DrawerNavigator} />
-          <Screen name='MainNavigator' component={MainNavigator} />
+          <Screen name='DrawerNavigator' component={DrawerNavigator} />
         ) : !authenticated && !isLoading ? (
           <Screen name='AuthNavigator' component={AuthNavigator} />
         ) : (

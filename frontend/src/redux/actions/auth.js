@@ -1,6 +1,7 @@
 import firebase from '../../firebase';
 
 export const GET_USER_NAME = 'GET_USER_NAME';
+export const LOG_OUT = 'LOG_OUT';
 
 export const signUp = (email, password, name) => dispatch => {
   firebase
@@ -58,6 +59,16 @@ export const logIn = (email, password) => dispatch => {
 
       throw new Error(message);
     });
+};
+
+export const logOut = () => dispatch => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch({ type: LOG_OUT });
+    })
+    .catch(err => new Error(err));
 };
 
 export const setCurrentUser = currentUserName => dispatch => {

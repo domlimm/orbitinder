@@ -1,9 +1,0 @@
-AppNavigator
--LandingNavigator
--AuthNavigator
---SignUpScreen
---SignInScreen
---ChangePasswordScreen
--MainNavigator
---HomeScreen
---EtcScreen
