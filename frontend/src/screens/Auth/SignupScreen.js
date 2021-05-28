@@ -18,7 +18,6 @@ import {
   Text
 } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
-import { StackActions } from '@react-navigation/native';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import * as authActions from '../../redux/actions/auth';

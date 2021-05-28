@@ -2,10 +2,18 @@ import React from 'react';
 import { ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
+import { useDispatch } from 'react-redux';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { InputBackgroundSelect, NavHeader } from '../../components/index';
+import {
+  InputBackgroundSelect,
+  NavHeader,
+  LoadingIndicator
+} from '../../components/index';
+import * as userActions from '../../redux/actions/user';
 
 const InputBackgroundScreen3 = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+
   const [technologyExperience, setTechnologyExperience] = React.useState({
     game: [],
     web: [],
@@ -13,6 +21,14 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
     database: [],
     machineLearning: []
   });
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    if (error) {
+      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
+    }
+  }, [error]);
 
   const getSelections = React.useCallback(data => {
     setTechnologyExperience(prevData => ({ ...prevData, ...data }));
@@ -30,8 +46,6 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
   }, []);
 
   const saveBackgroundHandler = () => {
-    navigation.navigate('PreferencesLanding');
-
     const userData = {
       ...route.params,
       background: {
@@ -40,7 +54,17 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
       }
     };
 
-    console.log(userData);
+    try {
+      dispatch(userActions.addProfile(userData));
+
+      setError(null);
+      setLoading(true);
+
+      navigation.navigate('PreferencesLanding');
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
   };
 
   const navProps = {
@@ -65,8 +89,13 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
           </Layout>
           <InputBackgroundSelect getSelections={getSelections} />
           <Layout style={styles.btnContainer}>
-            <Button onPress={saveBackgroundHandler} style={styles.signupBtn}>
-              Next
+            <Button
+              onPress={saveBackgroundHandler}
+              style={styles.signupBtn}
+              accessoryLeft={loading ? () => <LoadingIndicator /> : null}
+              disabled={loading}
+            >
+              {loading ? 'Add Background' : 'Adding'}
             </Button>
           </Layout>
         </ScrollView>
