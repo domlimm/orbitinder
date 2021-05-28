@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 
 import { LoadingScreen } from '../screens/index';
 import AuthNavigator from './AuthNavigator';
-import DrawerNavigator from './DrawerNavigator';
 import * as authActions from '../redux/actions/auth';
 import MainNavigator from './MainNavigator';
 
@@ -29,13 +28,14 @@ const AppNavigator = () => {
       } else {
         setAuthenticated(false);
         setIsLoading(false);
-        // TODO: Auto Logout
       }
     });
   };
 
   React.useEffect(() => {
-    authHandler();
+    const unsubscribe = authHandler();
+
+    return () => unsubscribe();
   }, []);
 
   return (

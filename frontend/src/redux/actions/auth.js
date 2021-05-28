@@ -13,6 +13,7 @@ export const signUp = (email, password, name) => dispatch => {
         .then(() => {
           dispatch({
             type: GET_USER_NAME,
+            id: res.user.uid,
             user: res.user.displayName
           });
         })
@@ -40,6 +41,7 @@ export const logIn = (email, password) => dispatch => {
     .then(res => {
       dispatch({
         type: GET_USER_NAME,
+        id: res.user.uid,
         user: res.user.displayName
       });
     })
