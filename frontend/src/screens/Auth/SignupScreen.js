@@ -17,10 +17,9 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import { useDispatch } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
-import * as authActions from '../../redux/actions/auth';
 import { genderData } from '../../constants/profleCreationData';
 
 const SignupScreen = ({ navigation }) => {
@@ -36,8 +35,6 @@ const SignupScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
-  const dispatch = useDispatch();
-
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
@@ -48,17 +45,25 @@ const SignupScreen = ({ navigation }) => {
     }
   }, [error]);
 
-  const signUpHandler = async () => {
+  const signUpHandler = () => {
     try {
-      dispatch(authActions.signUp(email, password, name));
+      Promise.all([
+        SecureStore.setItemAsync('email', email),
+        SecureStore.setItemAsync('password', password)
+      ])
+        .then(() => {
+          setError(null);
+          setLoading(true);
 
-      setError(null);
-      setLoading(true);
-
-      navigation.navigate('ProfileLanding', {
-        name: name,
-        gender: genderValue
-      });
+          navigation.navigate('ProfileLanding', {
+            name: name,
+            gender: genderValue
+          });
+        })
+        .catch(err => {
+          setError('Error with Secure Store', err);
+          setLoading(false);
+        });
       // Navigation to be used after cr8ing preferences
       // navigation.dispatch(state => {
       //   console.log('signUp', state);

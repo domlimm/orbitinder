@@ -9,6 +9,8 @@ export const addProfile = data => dispatch => {
 
   const userId = firebase.auth().currentUser.uid;
 
+  console.log(userId);
+
   db.collection('users')
     .doc(userId)
     .set(data)
