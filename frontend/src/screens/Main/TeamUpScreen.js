@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TitleHeader } from '../../components/index';
 
 const TeamUpScreen = ({ navigation }) => {
-  let navProps = {
+  const navProps = {
     title: 'Team Up',
     navigation: navigation,
     needBackNav: false,

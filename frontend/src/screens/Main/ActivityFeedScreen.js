@@ -23,7 +23,7 @@ const ActivityFeedScreen = ({ navigation }) => {
     navigation.navigate('UserProfile');
   };
 
-  let navProps = {
+  const navProps = {
     title: 'Activity Feed',
     navigation: navigation,
     needBackNav: true,

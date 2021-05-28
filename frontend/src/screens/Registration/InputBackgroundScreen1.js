@@ -18,26 +18,35 @@ import {
   achievementData
 } from '../../constants/profleCreationData';
 
-const InputBackgroundScreen1 = ({ navigation }) => {
-  const [selectedYearIndex, setSelectedYearIndex] = React.useState(
-    new IndexPath(0)
-  );
-  const displayYear = yearData[selectedYearIndex.row];
+const InputBackgroundScreen1 = ({ route, navigation }) => {
+  const [yearIndex, setYearIndex] = React.useState(new IndexPath(0));
+  const displayYear = yearData[yearIndex.row];
 
-  const [selectedCommitmentIndex, setSelectedCommitmentIndex] = React.useState(
-    new IndexPath(0)
-  );
-  const displayCommitment = commitmentData[selectedCommitmentIndex.row];
+  const [degree, setDegree] = React.useState('');
 
-  const [selectedAchievementIndex, setSelectedAchievementIndex] =
-    React.useState(new IndexPath(0));
-  const displayAchievement = achievementData[selectedAchievementIndex.row];
+  const [commitIndex, setCommitIndex] = React.useState(new IndexPath(0));
+  const displayCommitment = commitmentData[commitIndex.row];
 
-  const navigateDetails = () => {
-    navigation.navigate('InputBackground2');
+  const [achieveIndex, setAchieveIndex] = React.useState(new IndexPath(0));
+  const displayAchievement = achievementData[achieveIndex.row];
+
+  React.useEffect(() => {
+    console.log('1', route.params);
+  }, []);
+
+  const navigateRegistration = () => {
+    navigation.navigate('InputBackground2', {
+      ...route.params,
+      background: {
+        year: displayYear,
+        degree: degree,
+        commitment: displayCommitment,
+        achievement: displayAchievement
+      }
+    });
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'
@@ -60,9 +69,9 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           <Layout style={styles.inputContainer}>
             <Select
               style={styles.selectInput}
-              selectedIndex={selectedYearIndex}
+              selectedIndex={yearIndex}
               value={displayYear}
-              onSelect={index => setSelectedYearIndex(index)}
+              onSelect={index => setYearIndex(index)}
               label='Year of Study'
             >
               {yearData.map((value, key) => (
@@ -73,12 +82,15 @@ const InputBackgroundScreen1 = ({ navigation }) => {
               label='Degree'
               style={styles.textInput}
               autoCapitalize='words'
+              placeholder='Name of Degree'
+              value={degree}
+              onChangeText={input => setDegree(input)}
             />
             <Select
               style={styles.selectInput}
-              selectedIndex={selectedCommitmentIndex}
+              selectedIndex={commitIndex}
               value={displayCommitment}
-              onSelect={index => setSelectedCommitmentIndex(index)}
+              onSelect={index => setCommitIndex(index)}
               label='Commitment to Orbital'
             >
               {commitmentData.map((value, key) => (
@@ -87,9 +99,9 @@ const InputBackgroundScreen1 = ({ navigation }) => {
             </Select>
             <Select
               style={styles.selectInput}
-              selectedIndex={selectedAchievementIndex}
+              selectedIndex={achieveIndex}
               value={displayAchievement}
-              onSelect={index => setSelectedAchievementIndex(index)}
+              onSelect={index => setAchieveIndex(index)}
               label='Orbital Achievement Level'
             >
               {achievementData.map((value, key) => (
@@ -98,7 +110,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
             </Select>
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={navigateRegistration} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>

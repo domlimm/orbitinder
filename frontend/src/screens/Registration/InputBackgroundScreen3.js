@@ -5,12 +5,45 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InputBackgroundSelect, NavHeader } from '../../components/index';
 
-const InputBackgroundScreen3 = ({ navigation }) => {
-  const navigateDetails = () => {
+const InputBackgroundScreen3 = ({ route, navigation }) => {
+  const [technologyExperience, setTechnologyExperience] = React.useState({
+    game: [],
+    web: [],
+    mobile: [],
+    database: [],
+    machineLearning: []
+  });
+
+  const getSelections = React.useCallback(data => {
+    setTechnologyExperience(prevData => ({ ...prevData, ...data }));
+  }, []);
+
+  // Current state, useState is async.
+  // console.log('parent.getSelections', technologyExperience);
+
+  // React.useEffect(() => {
+  //   console.log('parent.useEffect.getSelections', technologyExperience);
+  // }, [technologyExperience]);
+
+  React.useEffect(() => {
+    console.log('3', route.params);
+  }, []);
+
+  const saveBackgroundHandler = () => {
     navigation.navigate('PreferencesLanding');
+
+    const userData = {
+      ...route.params,
+      background: {
+        ...route.params.background,
+        technologyExperience
+      }
+    };
+
+    console.log(userData);
   };
 
-  let navProps = {
+  const navProps = {
     navigation: navigation,
     backNav: true,
     type: 'register'
@@ -30,9 +63,9 @@ const InputBackgroundScreen3 = ({ navigation }) => {
               Let others know what you're great at!
             </Text>
           </Layout>
-          <InputBackgroundSelect />
+          <InputBackgroundSelect getSelections={getSelections} />
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={saveBackgroundHandler} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>

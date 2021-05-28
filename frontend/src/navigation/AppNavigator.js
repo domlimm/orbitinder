@@ -35,11 +35,7 @@ const AppNavigator = () => {
   };
 
   React.useEffect(() => {
-    const unsubscribe = authHandler();
-
-    return () => {
-      unsubscribe();
-    };
+    authHandler();
   }, []);
 
   return (
