@@ -1,23 +1,16 @@
-export const yearData = ['Select', 'Year 1', 'Year 2', 'Year 3', 'Year 4'];
+export const yearData = ['Year 1', 'Year 2', 'Year 3', 'Year 4'];
 
 export const commitmentData = [
-  'Select',
   'High Commitment',
   'Medium Commitment',
   'Low Commitment'
 ];
 
-export const sweExperience = [
-  'Select',
-  'Beginner',
-  'Intermediate',
-  'Advanced',
-  'Expert'
-];
+export const sweExperience = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
 
-export const idea = ['Select', 'Yes', 'No'];
+export const idea = ['Yes', 'No'];
 
-export const genderData = ['Select', 'Both', 'Male', 'Female'];
+export const genderData = ['Male', 'Female'];
 
 export const achievementData = [
   'Select',

@@ -19,30 +19,41 @@ import {
 } from '../../constants/prefCreationData';
 
 const PrefInputScreen1 = ({ navigation }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState([]);
-  const displayGameDev = selectedIndex.map(index => {
+  const [yearIndex, setYearIndex] = React.useState([]);
+  const displayYear = yearIndex.map(index => {
     return yearData[index.row];
   });
 
-  const [selectedCommitmentIndex, setSelectedCommitmentIndex] = React.useState(
-    []
-  );
-  const displayCommitment = selectedCommitmentIndex.map(index => {
+  const [commitmentIndex, setCommitmentIndex] = React.useState([]);
+  const displayCommitment = commitmentIndex.map(index => {
     return commitmentData[index.row];
   });
 
-  const [selectedGenderIndex, setSelectedGenderIndex] = React.useState([]);
-  const displayGender = selectedGenderIndex.map(index => {
+  const [degrees, setDegrees] = React.useState([]);
+
+  const [genderIndex, setGenderIndex] = React.useState([]);
+  const displayGender = genderIndex.map(index => {
     return genderData[index.row];
   });
 
-  const [selectedSWEIndex, setSelectedSWEIndex] = React.useState([]);
-  const displaySWE = selectedSWEIndex.map(index => {
+  const [sweIndex, setSWEIndex] = React.useState([]);
+  const displaySWE = sweIndex.map(index => {
     return sweExperience[index.row];
   });
 
+  const degreeInputHandler = input => {
+    const revisedInput = input.replace(/\s*,\s*/g, ',');
+    setDegrees(revisedInput.split(','));
+  };
+
   const navigatePreference = () => {
-    navigation.navigate('PrefInput2');
+    navigation.navigate('PrefInput2', {
+      year: displayYear,
+      degree: degrees,
+      commitment: displayCommitment,
+      gender: displayGender,
+      sweExperience: displaySWE
+    });
   };
 
   const navProps = {
@@ -70,10 +81,10 @@ const PrefInputScreen1 = ({ navigation }) => {
               label='Year of Study'
               style={styles.selectInput}
               multiSelect={true}
-              selectedIndex={selectedIndex}
-              onSelect={index => setSelectedIndex(index)}
+              selectedIndex={yearIndex}
+              onSelect={index => setYearIndex(index)}
               placeholder='Select'
-              value={displayGameDev.join(', ')}
+              value={displayYear.join(', ')}
             >
               {yearData.map((value, key) => (
                 <SelectItem key={key} title={value} />
@@ -84,14 +95,16 @@ const PrefInputScreen1 = ({ navigation }) => {
               label='Degree'
               style={styles.textInput}
               autoCapitalize='words'
+              placeholder='Degree 1, Degree 2, ...'
+              onChangeText={degreeInputHandler}
             />
 
             <Select
               label='Commitment to Orbital'
               style={styles.selectInput}
               multiSelect={true}
-              selectedIndex={selectedCommitmentIndex}
-              onSelect={index => setSelectedCommitmentIndex(index)}
+              selectedIndex={commitmentIndex}
+              onSelect={index => setCommitmentIndex(index)}
               placeholder='Select'
               value={displayCommitment.join(', ')}
             >
@@ -104,8 +117,8 @@ const PrefInputScreen1 = ({ navigation }) => {
               label='Gender'
               style={styles.selectInput}
               multiSelect={true}
-              selectedIndex={selectedGenderIndex}
-              onSelect={index => setSelectedGenderIndex(index)}
+              selectedIndex={genderIndex}
+              onSelect={index => setGenderIndex(index)}
               placeholder='Select'
               value={displayGender.join(', ')}
             >
@@ -118,8 +131,8 @@ const PrefInputScreen1 = ({ navigation }) => {
               label='Prefered SWE experience level '
               style={styles.selectInput}
               multiSelect={true}
-              selectedIndex={selectedSWEIndex}
-              onSelect={index => setSelectedSWEIndex(index)}
+              selectedIndex={sweIndex}
+              onSelect={index => setSWEIndex(index)}
               placeholder='Select'
               value={displaySWE.join(', ')}
             >
