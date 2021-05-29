@@ -27,7 +27,7 @@ const ContentCard = ({ type, userData }) => {
         //   <Text style={styles.cardTitle}>Coding Exp Level</Text>
         //   <InterestTags tagsData={[userData.codingExpLevel]} />
         // </Card>
-        <Card style={styles.cardGroup}>
+        <Card style={[styles.cardGroup, styles.cardGroupRight]}>
           <Text style={styles.cardTitle}>Coding Exp Level</Text>
           <Button
             style={styles.tags}
@@ -42,7 +42,7 @@ const ContentCard = ({ type, userData }) => {
       break;
     case 'commitment':
       return (
-        <Card style={styles.cardGroup}>
+        <Card style={[styles.cardGroup, styles.cardGroupLeft]}>
           <Text style={styles.cardTitle}>Commitment</Text>
           <Button
             style={styles.tags}
@@ -79,6 +79,12 @@ const styles = StyleSheet.create({
   cardGroup: {
     width: '50%',
     height: 100
+  },
+  cardGroupLeft: {
+    marginLeft: 2.5
+  },
+  cardGroupRight: {
+    marginRight: 2.5
   }
 });
 
