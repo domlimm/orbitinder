@@ -56,7 +56,6 @@ const SignupScreen = ({ navigation }) => {
       setError(null);
       setLoading(true);
 
-      // navigation.navigate('RegisterNavigator');
       return {
         ...StackActions.popToTop(),
         ...StackActions.replace('RegisterNavigator')
@@ -65,37 +64,6 @@ const SignupScreen = ({ navigation }) => {
       setError(err.message);
       setLoading(false);
     }
-    // try {
-    // Promise.all([
-    //   SecureStore.setItemAsync('email', email),
-    //   SecureStore.setItemAsync('password', password)
-    // ])
-    // .then(() => {
-    //   setError(null);
-    //   setLoading(true);
-
-    //   navigation.navigate('ProfileLanding', {
-    //     name: name,
-    //     gender: genderValue
-    //   });
-    // })
-    // .catch(err => {
-    //   setError('Error with Secure Store', err);
-    //   setLoading(false);
-    // });
-    // Navigation to be used after cr8ing preferences
-    // navigation.dispatch(state => {
-    //   console.log('signUp', state);
-
-    //   return {
-    //     ...StackActions.popToTop(),
-    //     ...StackActions.replace('DrawerNavigator')
-    //   };
-    // });
-    // } catch (err) {
-    //   setError(err.message);
-    //   setLoading(false);
-    // }
   };
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;

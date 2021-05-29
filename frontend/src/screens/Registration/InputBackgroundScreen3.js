@@ -51,8 +51,6 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
   }, []);
 
   const saveBackgroundHandler = () => {
-    console.log('saveBackgroundHandler', new Date().toISOString());
-
     const userData = {
       ...route.params,
       background: {

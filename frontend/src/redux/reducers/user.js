@@ -1,4 +1,4 @@
-import { ADD_USER_PROFILE } from '../actions/user';
+import { ADD_USER_PROFILE, ADD_USER_PREFERENCES } from '../actions/user';
 
 const initialState = {
   userData: {}
@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userData: action.userData
+      };
+    case ADD_USER_PREFERENCES:
+      return {
+        ...state,
+        userData: action.preferenceData
       };
     default:
       return state;
