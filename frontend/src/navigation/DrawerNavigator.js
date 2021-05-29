@@ -12,6 +12,7 @@ import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
 import * as authActions from '../redux/actions/auth';
+import * as userActions from '../redux/actions/user';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -34,6 +35,7 @@ const DrawerContent = ({ navigation, state }) => {
         onSelect={index => {
           if (index.row === 2) {
             dispatch(authActions.logOut());
+            dispatch(userActions.clearDataLogOut());
 
             return navigation.dispatch(() => ({
               ...StackActions.popToTop(),

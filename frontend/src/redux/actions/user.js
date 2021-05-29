@@ -2,6 +2,7 @@ import firebase from '../../firebase';
 
 export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
+export const CLEAR_LOG_OUT = 'CLEAR_LOG_OUT';
 
 const db = firebase.firestore();
 
@@ -31,4 +32,12 @@ export const addPreferences = data => dispatch => {
     .catch(err => {
       throw new Error(`Adding Preferences: ${err}`);
     });
+};
+
+export const clearDataLogOut = () => dispatch => {
+  try {
+    dispatch({ type: CLEAR_LOG_OUT });
+  } catch (err) {
+    throw new Error(`Clear Data: ${err}`);
+  }
 };
