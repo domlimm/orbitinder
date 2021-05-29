@@ -14,7 +14,6 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { localImages } from './src/constants/imagePaths';
 import { ErrorScreen } from './src/screens/index';
 import authReducer from './src/redux/reducers/auth';
-// import store from './src/redux/store';
 
 const rootReducer = combineReducers({
   auth: authReducer

@@ -11,7 +11,6 @@ import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
 
 const App = createStackNavigator();
-const AuthRegister = createStackNavigator();
 
 const AppNavigator = () => {
   const [authenticated, setAuthenticated] = React.useState(false);
@@ -41,15 +40,6 @@ const AppNavigator = () => {
 
   React.useEffect(() => {
     authHandler();
-
-    console.log(
-      'authenticated',
-      authenticated,
-      'isLoading',
-      isLoading,
-      'isRegistering',
-      isRegistering
-    );
   }, []);
 
   // {register ? (
@@ -61,21 +51,6 @@ const AppNavigator = () => {
   // ) : (
   //   <App.Screen name='Loading' component={LoadingScreen} />
   // )}
-
-  const AuthRegisterNavigator = () => (
-    <AuthRegister.Navigator headerMode='none' initialRouteName='AuthNavigator'>
-      <AuthRegister.Screen name='AuthNavigator' component={AuthNavigator} />
-      <AuthRegister.Screen
-        name='RegisterNavigator'
-        component={RegisterNavigator}
-      />
-    </AuthRegister.Navigator>
-  );
-
-  // (!authenticated && !isLoading) ||
-  //       (authenticated && !isLoading && isRegistering) ? (
-  //       <App.Screen name='AuthNavigator' component={AuthRegisterNavigator} />
-  //     )
 
   return (
     <NavigationContainer>

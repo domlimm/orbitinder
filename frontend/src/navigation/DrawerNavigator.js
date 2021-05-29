@@ -35,14 +35,6 @@ const DrawerContent = ({ navigation, state }) => {
           if (index.row === 2) {
             dispatch(authActions.logOut());
 
-            //, params: { screen: 'LoginLanding' }
-            // return navigation.dispatch(
-            //   CommonActions.reset({
-            //     index: 0,
-            //     routes: [{ name: 'AuthNavigator' }]
-            //   })
-            // );
-
             return navigation.dispatch(() => ({
               ...StackActions.popToTop(),
               ...CommonActions.reset({
