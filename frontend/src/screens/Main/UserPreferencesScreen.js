@@ -6,12 +6,16 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
+import { Layout, Text, Card } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
-import { BackIcon, ContentCard } from '../../components/index';
+
 import { userData, partnerPref } from '../../constants/userData';
-import { TechTags } from '../../components/index';
-import { InterestTags } from '../../components/index';
+import {
+  TechTags,
+  InterestTags,
+  BackIcon,
+  ContentCard
+} from '../../components/index';
 
 const UserPreferencesScreen = ({ navigation }) => {
   const navigateEditPref = () => {

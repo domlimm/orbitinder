@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Button, Card, Layout, Text } from '@ui-kitten/components';
-import { InterestTags } from '.';
-import { userData } from '../constants/userData';
+import InterestTags from './InterestTags';
+import { userData } from '../../constants/userData';
 
 const InfoCard = () => {
   return (
