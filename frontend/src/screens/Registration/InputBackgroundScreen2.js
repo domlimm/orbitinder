@@ -12,7 +12,7 @@ import {
 } from '@ui-kitten/components';
 
 import { NavHeader } from '../../components/index';
-import { sweExperience, idea } from '../../constants/prefCreationData';
+import { sweExperience, idea } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen2 = ({ route, navigation }) => {
   const [ideaIndex, setIdeaIndex] = React.useState(new IndexPath(0));

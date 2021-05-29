@@ -12,13 +12,7 @@ export const idea = ['Yes', 'No'];
 
 export const genderData = ['Male', 'Female'];
 
-export const achievementData = [
-  'Select',
-  'Artemis',
-  'Apollo 11',
-  'Gemini',
-  'Vostok'
-];
+export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
 
 export const gameDevData = [
   'Amazon Lumberyard',
