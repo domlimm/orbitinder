@@ -10,7 +10,7 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
 
 import {
-  InputBackgroundSelect,
+  ExperienceSelectInputs,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
@@ -93,7 +93,7 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
               Let others know what you're great at!
             </Text>
           </Layout>
-          <InputBackgroundSelect getSelections={getSelections} />
+          <ExperienceSelectInputs getSelections={getSelections} />
           <Layout style={styles.btnContainer}>
             <Button
               onPress={saveBackgroundHandler}

@@ -1,5 +1,4 @@
-export { default as InputBackgroundSelect } from './Inputs/InputBackgroundSelect';
-export { default as PrefBackgroundSelect } from './Inputs/PrefBackgroundSelect';
+export { default as InputBackgroundSelect } from './Inputs/ExperienceSelectInputs';
 export { default as LoadingIndicator } from './Inputs/LoadingIndicator';
 
 export { default as TechTags } from './UserProfile/TechTags';

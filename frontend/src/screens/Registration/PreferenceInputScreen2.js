@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 // To separate for local imports rather than installed dependencies: add below onwards
-import { PrefBackgroundSelect, NavHeader } from '../../components/index';
+import { ExperienceSelectInputs, NavHeader } from '../../components/index';
 
 const PrefInputScreen2 = ({ route, navigation }) => {
   console.log(route.params);
@@ -32,7 +32,7 @@ const PrefInputScreen2 = ({ route, navigation }) => {
               {'Which technologies should your \npartner have experience in?'}
             </Text>
           </Layout>
-          <PrefBackgroundSelect />
+          <ExperienceSelectInputs />
           <Layout style={styles.btnContainer}>
             <Button onPress={savePreferenceHandler} style={styles.signupBtn}>
               Next
