@@ -51,12 +51,15 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
   }, []);
 
   const saveBackgroundHandler = () => {
+    console.log('saveBackgroundHandler', new Date().toISOString());
+
     const userData = {
       ...route.params,
       background: {
         ...route.params.background,
         technologyExperience
-      }
+      },
+      updatedAt: new Date().toISOString()
     };
 
     try {
@@ -70,39 +73,6 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
       setError(err.message);
       setLoading(false);
     }
-
-    // try {
-    //   Promise.all([
-    //     SecureStore.getItemAsync('email'),
-    //     SecureStore.getItemAsync('password')
-    //   ])
-    //     .then(([email, password]) => {
-    //       Promise.all([
-    //         SecureStore.deleteItemAsync('email'),
-    //         SecureStore.deleteItemAsync('password')
-    //       ])
-    //         .then(() => {
-    //           dispatch(authActions.signUp(email, password, route.params.name));
-    //           dispatch(userActions.addProfile(userData));
-
-    //           setError(null);
-    //           setLoading(true);
-
-    //           navigation.navigate('PreferencesLanding');
-    //         })
-    //         .catch(err => {
-    //           setError('Error deleting account data', err);
-    //           setLoading(false);
-    //         });
-    //     })
-    //     .catch(err => {
-    //       setError('Error retrieving account data', err);
-    //       setLoading(false);
-    //     });
-    // } catch (err) {
-    //   setError(err.message);
-    //   setLoading(false);
-    // }
   };
 
   const navProps = {
