@@ -15,8 +15,6 @@ const ForgotPasswordConfirmationScreen = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
-  const [value, setValue] = React.useState('');
-
   const navProps = {
     navigation: navigation,
     type: 'auth',

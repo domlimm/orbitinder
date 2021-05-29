@@ -4,7 +4,7 @@ export { default as LoadingIndicator } from './Inputs/LoadingIndicator';
 export { default as TechTags } from './UserProfile/TechTags';
 export { default as InterestTags } from './UserProfile/InterestTags';
 export { default as ContentCard } from './UserProfile/ContentCard';
-export { default as InfoCard } from './InfoCard';
+export { default as InfoCard } from './UserProfile/InfoCard';
 
 export { default as LandingImage } from './Navigation/LandingImage';
 export { default as TitleHeader } from './Navigation/TitleHeader';

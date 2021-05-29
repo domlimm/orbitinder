@@ -4,12 +4,11 @@ import {
   RefreshControl,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native';
 import {
   Layout,
-  List,
-  ListItem,
   Text,
   Input,
   Icon,
@@ -82,60 +81,58 @@ const ResetPasswordScreen = ({ navigation }) => {
       <SafeAreaView style={styles.parentContainer}>
         <TitleHeader navProps={navProps} />
         <ScrollView>
-          <Layout style={styles.contentContainer}>
-            <Layout style={styles.inputContainer}>
-              <Input
-                label='Current Password'
-                style={styles.textInput}
-                placeholder='********'
-                accessoryRight={CurrentPasswordIcon}
-                value={currentPassword}
-                onChangeText={input => setcurrentPassword(input)}
-                accessoryRight={CurrentPasswordIcon}
-                secureTextEntry={showCurrentPassword}
-              />
-              <Input
-                label='New Password'
-                style={styles.textInput}
-                placeholder='********'
-                accessoryRight={NewPasswordIcon}
-                value={newPassword}
-                onChangeText={input => setNewPassword(input)}
-                accessoryRight={NewPasswordIcon}
-                secureTextEntry={showNewPassword}
-              />
-              <Input
-                label='Confirm New Password'
-                style={styles.textInput}
-                placeholder='********'
-                accessoryRight={ConfirmPasswordIcon}
-                value={confirmPassword}
-                onChangeText={input => setConfirmPassword(input)}
-                accessoryRight={ConfirmPasswordIcon}
-                secureTextEntry={showConfirmPassword}
-              />
-            </Layout>
-            <Layout style={styles.btnContainer}>
-              <Button
-                style={styles.btnInput}
-                onPress={() => setModalVisible(true)}
-              >
-                Change Password
-              </Button>
-            </Layout>
-            <Modal
-              visible={modalVisible}
-              backdropStyle={styles.backdrop}
-              onBackdropPress={() => setModalVisible(false)}
-            >
-              <Card disabled={true}>
-                <Text style={styles.modalText}>Password Changed</Text>
-                <Button size='small' onPress={() => setModalVisible(false)}>
-                  DISMISS
-                </Button>
-              </Card>
-            </Modal>
+          <Layout style={styles.inputContainer}>
+            <Input
+              label='Current Password'
+              style={styles.textInput}
+              placeholder='********'
+              accessoryRight={CurrentPasswordIcon}
+              value={currentPassword}
+              onChangeText={input => setcurrentPassword(input)}
+              accessoryRight={CurrentPasswordIcon}
+              secureTextEntry={showCurrentPassword}
+            />
+            <Input
+              label='New Password'
+              style={styles.textInput}
+              placeholder='********'
+              accessoryRight={NewPasswordIcon}
+              value={newPassword}
+              onChangeText={input => setNewPassword(input)}
+              accessoryRight={NewPasswordIcon}
+              secureTextEntry={showNewPassword}
+            />
+            <Input
+              label='Confirm New Password'
+              style={styles.textInput}
+              placeholder='********'
+              accessoryRight={ConfirmPasswordIcon}
+              value={confirmPassword}
+              onChangeText={input => setConfirmPassword(input)}
+              accessoryRight={ConfirmPasswordIcon}
+              secureTextEntry={showConfirmPassword}
+            />
           </Layout>
+          <Layout style={styles.btnContainer}>
+            <Button
+              style={styles.btnInput}
+              onPress={() => setModalVisible(true)}
+            >
+              Change Password
+            </Button>
+          </Layout>
+          <Modal
+            visible={modalVisible}
+            backdropStyle={styles.backdrop}
+            onBackdropPress={() => setModalVisible(false)}
+          >
+            <Card disabled={true}>
+              <Text style={styles.modalText}>Password Changed</Text>
+              <Button size='small' onPress={() => setModalVisible(false)}>
+                DISMISS
+              </Button>
+            </Card>
+          </Modal>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
@@ -148,26 +145,22 @@ const styles = StyleSheet.create({
   },
   parentContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: 'white'
   },
   textInput: {
     width: '70%',
-    marginVertical: 25
+    marginVertical: 10
   },
   inputContainer: {
-    // marginVertical: 30,
+    flex: 1,
     alignItems: 'center',
-    flex: 1
-    // height: '100%'
+    marginTop: Dimensions.get('window').height * 0.05
   },
   btnContainer: {
     paddingVertical: 30,
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'white',
-    marginTop: 110,
-    marginBottom: 20
-    // height: '30%'
+    backgroundColor: 'white'
   },
   btnInput: {
     width: '70%'
@@ -177,9 +170,6 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginVertical: 20
-  },
-  contentContainer: {
-    margin: 20
   }
 });
 

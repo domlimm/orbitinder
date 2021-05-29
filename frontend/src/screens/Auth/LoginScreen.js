@@ -11,7 +11,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Input, Icon, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
-import { StackActions, CommonActions } from '@react-navigation/native';
 
 import {
   LandingImage,
@@ -42,39 +41,6 @@ const LoginScreen = ({ navigation }) => {
 
       setError(null);
       setLoading(true);
-
-      // navigation.dispatch(state => {
-      //   console.log('logIn', state);
-
-      //   return {
-      //     ...StackActions.popToTop(),
-      //     ...StackActions.replace('DrawerNavigator')
-      //   };
-      // });
-      // return {
-      //   ...StackActions.popToTop(),
-      //   ...StackActions.replace('DrawerNavigator')
-      // };
-      // return navigation.dispatch(() => ({
-      //   ...StackActions.popToTop(),
-      //   ...StackActions.replace('DrawerNavigator')
-      // }));
-
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 1,
-      //     routes: [
-      //       {
-      //         name: 'DrawerNavigator'
-      //       }
-      //     ]
-      //   })
-      // );
-
-      // navigation.dispatch(() => ({
-      //   ...StackActions.popToTop(),
-      //   ...StackActions.replace('DrawerNavigator')
-      // }));
     } catch (err) {
       setError(err.message);
       setLoading(false);

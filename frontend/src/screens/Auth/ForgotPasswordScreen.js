@@ -49,9 +49,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
               value={value}
               onChangeText={nextValue => setValue(nextValue)}
               accessoryRight={EmailIcon}
+              keyboardType='email-address'
             />
-            <Button onPress={navigateDetails} style={styles.sendBtn}>
-              Send
+            <Button onPress={navigateDetails} style={styles.sendBtn} disabled>
+              Come back later, work in progress!
             </Button>
           </Layout>
         </ScrollView>
