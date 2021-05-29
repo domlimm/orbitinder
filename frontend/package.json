@@ -21,8 +21,6 @@
     "expo-app-loading": "^1.0.3",
     "expo-asset": "~8.3.1",
     "expo-localization": "~10.1.0",
-    "expo-network": "~3.1.1",
-    "expo-secure-store": "~10.1.0",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.6.2",
     "react": "16.13.1",

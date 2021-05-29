@@ -5,9 +5,9 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 
 import { NavHeader, LandingImage } from '../../components/index';
 
-const ProfileLandingScreen = ({ route, navigation }) => {
+const ProfileLandingScreen = ({ navigation }) => {
   const navigationRegistration = () => {
-    navigation.navigate('InputBackground1', route.params);
+    navigation.navigate('InputBackground1');
   };
 
   const navProps = {

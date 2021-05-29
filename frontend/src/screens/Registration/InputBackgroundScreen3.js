@@ -8,15 +8,13 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { useDispatch } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
-// To separate for local imports rather than installed dependencies: add below onwards
+
 import {
   InputBackgroundSelect,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
 import * as userActions from '../../redux/actions/user';
-import * as authActions from '../../redux/actions/auth';
 
 const InputBackgroundScreen3 = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -62,37 +60,49 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
     };
 
     try {
-      Promise.all([
-        SecureStore.getItemAsync('email'),
-        SecureStore.getItemAsync('password')
-      ])
-        .then(([email, password]) => {
-          Promise.all([
-            SecureStore.deleteItemAsync('email'),
-            SecureStore.deleteItemAsync('password')
-          ])
-            .then(() => {
-              dispatch(authActions.signUp(email, password, route.params.name));
-              dispatch(userActions.addProfile(userData));
+      dispatch(userActions.addProfile(userData));
 
-              setError(null);
-              setLoading(true);
+      setError(null);
+      setLoading(true);
 
-              navigation.navigate('PreferencesLanding');
-            })
-            .catch(err => {
-              setError('Error deleting account data', err);
-              setLoading(false);
-            });
-        })
-        .catch(err => {
-          setError('Error retrieving account data', err);
-          setLoading(false);
-        });
+      navigation.navigate('PreferencesLanding');
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
+
+    // try {
+    //   Promise.all([
+    //     SecureStore.getItemAsync('email'),
+    //     SecureStore.getItemAsync('password')
+    //   ])
+    //     .then(([email, password]) => {
+    //       Promise.all([
+    //         SecureStore.deleteItemAsync('email'),
+    //         SecureStore.deleteItemAsync('password')
+    //       ])
+    //         .then(() => {
+    //           dispatch(authActions.signUp(email, password, route.params.name));
+    //           dispatch(userActions.addProfile(userData));
+
+    //           setError(null);
+    //           setLoading(true);
+
+    //           navigation.navigate('PreferencesLanding');
+    //         })
+    //         .catch(err => {
+    //           setError('Error deleting account data', err);
+    //           setLoading(false);
+    //         });
+    //     })
+    //     .catch(err => {
+    //       setError('Error retrieving account data', err);
+    //       setLoading(false);
+    //     });
+    // } catch (err) {
+    //   setError(err.message);
+    //   setLoading(false);
+    // }
   };
 
   const navProps = {

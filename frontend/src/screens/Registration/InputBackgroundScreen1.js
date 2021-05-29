@@ -10,7 +10,8 @@ import {
   IndexPath,
   Text
 } from '@ui-kitten/components';
-// To separate for local imports rather than installed dependencies: add below onwards
+import { useSelector } from 'react-redux';
+
 import { NavHeader } from '../../components/index';
 import {
   yearData,
@@ -18,7 +19,7 @@ import {
   achievementData
 } from '../../constants/profleCreationData';
 
-const InputBackgroundScreen1 = ({ route, navigation }) => {
+const InputBackgroundScreen1 = ({ navigation }) => {
   const [yearIndex, setYearIndex] = React.useState(new IndexPath(0));
   const displayYear = yearData[yearIndex.row];
 
@@ -30,13 +31,12 @@ const InputBackgroundScreen1 = ({ route, navigation }) => {
   const [achieveIndex, setAchieveIndex] = React.useState(new IndexPath(0));
   const displayAchievement = achievementData[achieveIndex.row];
 
-  React.useEffect(() => {
-    console.log('1', route.params);
-  }, []);
+  const { name, gender } = useSelector(state => state.auth);
 
   const navigateRegistration = () => {
     navigation.navigate('InputBackground2', {
-      ...route.params,
+      name: name,
+      gender: gender,
       background: {
         year: displayYear,
         degree: degree,

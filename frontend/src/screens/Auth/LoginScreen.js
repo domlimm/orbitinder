@@ -51,11 +51,14 @@ const LoginScreen = ({ navigation }) => {
       //     ...StackActions.replace('DrawerNavigator')
       //   };
       // });
-
-      return navigation.dispatch(() => ({
-        ...StackActions.popToTop(),
-        ...StackActions.replace('DrawerNavigator')
-      }));
+      // return {
+      //   ...StackActions.popToTop(),
+      //   ...StackActions.replace('DrawerNavigator')
+      // };
+      // return navigation.dispatch(() => ({
+      //   ...StackActions.popToTop(),
+      //   ...StackActions.replace('DrawerNavigator')
+      // }));
 
       // navigation.dispatch(
       //   CommonActions.reset({

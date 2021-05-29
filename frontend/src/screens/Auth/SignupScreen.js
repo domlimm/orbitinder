@@ -17,12 +17,16 @@ import {
   Icon,
   Text
 } from '@ui-kitten/components';
-import * as SecureStore from 'expo-secure-store';
+import { StackActions } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import { NavHeader, LoadingIndicator } from '../../components/index';
 import { genderData } from '../../constants/profleCreationData';
+import * as authActions from '../../redux/actions/auth';
 
 const SignupScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [fName, setFName] = React.useState('');
   const [lName, setLName] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
@@ -47,36 +51,51 @@ const SignupScreen = ({ navigation }) => {
 
   const signUpHandler = () => {
     try {
-      Promise.all([
-        SecureStore.setItemAsync('email', email),
-        SecureStore.setItemAsync('password', password)
-      ])
-        .then(() => {
-          setError(null);
-          setLoading(true);
+      dispatch(authActions.signUp(email, password, name, genderValue));
 
-          navigation.navigate('ProfileLanding', {
-            name: name,
-            gender: genderValue
-          });
-        })
-        .catch(err => {
-          setError('Error with Secure Store', err);
-          setLoading(false);
-        });
-      // Navigation to be used after cr8ing preferences
-      // navigation.dispatch(state => {
-      //   console.log('signUp', state);
+      setError(null);
+      setLoading(true);
 
-      //   return {
-      //     ...StackActions.popToTop(),
-      //     ...StackActions.replace('DrawerNavigator')
-      //   };
-      // });
+      // navigation.navigate('RegisterNavigator');
+      return {
+        ...StackActions.popToTop(),
+        ...StackActions.replace('RegisterNavigator')
+      };
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
+    // try {
+    // Promise.all([
+    //   SecureStore.setItemAsync('email', email),
+    //   SecureStore.setItemAsync('password', password)
+    // ])
+    // .then(() => {
+    //   setError(null);
+    //   setLoading(true);
+
+    //   navigation.navigate('ProfileLanding', {
+    //     name: name,
+    //     gender: genderValue
+    //   });
+    // })
+    // .catch(err => {
+    //   setError('Error with Secure Store', err);
+    //   setLoading(false);
+    // });
+    // Navigation to be used after cr8ing preferences
+    // navigation.dispatch(state => {
+    //   console.log('signUp', state);
+
+    //   return {
+    //     ...StackActions.popToTop(),
+    //     ...StackActions.replace('DrawerNavigator')
+    //   };
+    // });
+    // } catch (err) {
+    //   setError(err.message);
+    //   setLoading(false);
+    // }
   };
 
   const NameIcon = props => <Icon {...props} name='smiling-face-outline' />;

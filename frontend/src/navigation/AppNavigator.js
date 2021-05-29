@@ -2,18 +2,22 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import firebase from '../firebase';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LoadingScreen } from '../screens/index';
 import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
+import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
 
-const { Navigator, Screen } = createStackNavigator();
+const App = createStackNavigator();
+const AuthRegister = createStackNavigator();
 
 const AppNavigator = () => {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const isRegistering = useSelector(state => state.auth.isRegistering);
 
   const dispatch = useDispatch();
 
@@ -24,7 +28,10 @@ const AppNavigator = () => {
       if (user) {
         setAuthenticated(true);
         setIsLoading(false);
-        dispatch(authActions.setCurrentUser(user.displayName));
+
+        dispatch(
+          authActions.setCurrentUser(user.uid, user.displayName, isRegistering)
+        );
       } else {
         setAuthenticated(false);
         setIsLoading(false);
@@ -33,22 +40,56 @@ const AppNavigator = () => {
   };
 
   React.useEffect(() => {
-    const unsubscribe = authHandler();
+    authHandler();
 
-    return () => unsubscribe();
+    console.log(
+      'authenticated',
+      authenticated,
+      'isLoading',
+      isLoading,
+      'isRegistering',
+      isRegistering
+    );
   }, []);
+
+  // {register ? (
+  //   <App.Screen name='RegisterNavigator' component={RegisterNavigator} />
+  // ) : authenticated && !register && !isLoading ? (
+  //   <App.Screen name='DrawerNavigator' component={DrawerNavigator} />
+  // ) : !authenticated && !isLoading ? (
+  //   <App.Screen name='AuthNavigator' component={AuthNavigator} />
+  // ) : (
+  //   <App.Screen name='Loading' component={LoadingScreen} />
+  // )}
+
+  const AuthRegisterNavigator = () => (
+    <AuthRegister.Navigator headerMode='none' initialRouteName='AuthNavigator'>
+      <AuthRegister.Screen name='AuthNavigator' component={AuthNavigator} />
+      <AuthRegister.Screen
+        name='RegisterNavigator'
+        component={RegisterNavigator}
+      />
+    </AuthRegister.Navigator>
+  );
+
+  // (!authenticated && !isLoading) ||
+  //       (authenticated && !isLoading && isRegistering) ? (
+  //       <App.Screen name='AuthNavigator' component={AuthRegisterNavigator} />
+  //     )
 
   return (
     <NavigationContainer>
-      <Navigator headerMode='none'>
-        {authenticated && !isLoading ? (
-          <Screen name='DrawerNavigator' component={DrawerNavigator} />
+      <App.Navigator headerMode='none'>
+        {authenticated && !isRegistering && !isLoading ? (
+          <App.Screen name='DrawerNavigator' component={DrawerNavigator} />
         ) : !authenticated && !isLoading ? (
-          <Screen name='AuthNavigator' component={AuthNavigator} />
+          <App.Screen name='AuthNavigator' component={AuthNavigator} />
+        ) : isRegistering && !isLoading ? (
+          <App.Screen name='RegisterNavigator' component={RegisterNavigator} />
         ) : (
-          <Screen name='Loading' component={LoadingScreen} />
+          <App.Screen name='Loading' component={LoadingScreen} />
         )}
-      </Navigator>
+      </App.Navigator>
     </NavigationContainer>
   );
 };

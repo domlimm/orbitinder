@@ -1,9 +1,10 @@
 import firebase from '../../firebase';
 
-export const GET_USER_NAME = 'GET_USER_NAME';
+export const STORE_USER_DATA = 'STORE_USER_DATA';
 export const LOG_OUT = 'LOG_OUT';
+export const SET_REGISTER = 'SET_REGISTER';
 
-export const signUp = (email, password, name) => dispatch => {
+export const signUp = (email, password, name, gender) => dispatch => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email.trim().toLowerCase(), password)
@@ -13,9 +14,14 @@ export const signUp = (email, password, name) => dispatch => {
         .currentUser.updateProfile({ displayName: name })
         .then(() => {
           dispatch({
-            type: GET_USER_NAME,
+            type: STORE_USER_DATA,
             id: res.user.uid,
             user: res.user.displayName
+          });
+          dispatch({
+            type: SET_REGISTER,
+            isRegistering: true,
+            gender: gender
           });
         })
         .catch(err => console.log('err.message', err.message));
@@ -41,9 +47,13 @@ export const logIn = (email, password) => dispatch => {
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       dispatch({
-        type: GET_USER_NAME,
+        type: STORE_USER_DATA,
         id: res.user.uid,
         user: res.user.displayName
+      });
+      dispatch({
+        type: SET_REGISTER,
+        isRegistering: false
       });
     })
     .catch(err => {
@@ -71,11 +81,13 @@ export const logOut = () => dispatch => {
     .catch(err => new Error(err));
 };
 
-export const setCurrentUser = currentUserName => dispatch => {
+export const setCurrentUser = (id, name, isRegistering) => dispatch => {
   try {
     dispatch({
-      type: GET_USER_NAME,
-      user: currentUserName
+      type: STORE_USER_DATA,
+      id: id,
+      user: name,
+      isRegistering: isRegistering
     });
   } catch (error) {
     throw new Error(error);
