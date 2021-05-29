@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
 
@@ -32,7 +32,6 @@ const PreferencesLandingScreen = ({ navigation }) => {
           Let's Go!
         </Button>
       </Layout>
-      <StatusBar style='auto' />
     </SafeAreaView>
   );
 };
