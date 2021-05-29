@@ -71,7 +71,7 @@ const PrefInputScreen1 = ({ navigation }) => {
         <NavHeader navProps={navProps} />
         <ScrollView>
           <Layout style={styles.textContainer}>
-            <Text style={styles.screenTitle}>Partner Preferences </Text>
+            <Text style={styles.screenTitle}>Partner Preferences</Text>
             <Text style={styles.screenCaption}>
               Who would your ideal partner be?
             </Text>
