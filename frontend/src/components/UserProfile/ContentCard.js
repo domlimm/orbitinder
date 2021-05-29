@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Button, Layout, Card, Text } from '@ui-kitten/components';
+import { Dimensions, StyleSheet } from 'react-native';
+import { Button, Card, Text } from '@ui-kitten/components';
 import { InterestTags } from './InterestTags';
+
+const { width } = Dimensions.get('window');
 
 const ContentCard = ({ type, userData }) => {
   switch (type) {
@@ -12,7 +14,6 @@ const ContentCard = ({ type, userData }) => {
           <Text>{userData.bio}</Text>
         </Card>
       );
-      break;
     case 'areas-of-interest':
       return (
         <Card style={styles.contentCard}>
@@ -20,15 +21,14 @@ const ContentCard = ({ type, userData }) => {
           <InterestTags tagsData={userData.interestedAreas} />
         </Card>
       );
-      break;
     case 'coding-exp-level':
       return (
         // <Card style={styles.cardGroup}>
         //   <Text style={styles.cardTitle}>Coding Exp Level</Text>
         //   <InterestTags tagsData={[userData.codingExpLevel]} />
         // </Card>
-        <Card style={[styles.cardGroup, styles.cardGroupRight]}>
-          <Text style={styles.cardTitle}>Coding Exp Level</Text>
+        <Card style={styles.cardGroup}>
+          <Text style={styles.cardTitle}>EXP. LEVEL</Text>
           <Button
             style={styles.tags}
             size='small'
@@ -39,11 +39,10 @@ const ContentCard = ({ type, userData }) => {
           </Button>
         </Card>
       );
-      break;
     case 'commitment':
       return (
-        <Card style={[styles.cardGroup, styles.cardGroupLeft]}>
-          <Text style={styles.cardTitle}>Commitment</Text>
+        <Card style={styles.cardGroup}>
+          <Text style={styles.cardTitle}>COMMITMENT</Text>
           <Button
             style={styles.tags}
             size='small'
@@ -54,7 +53,6 @@ const ContentCard = ({ type, userData }) => {
           </Button>
         </Card>
       );
-      break;
   }
 };
 
@@ -65,11 +63,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   contentCard: {
-    margin: 5,
+    marginHorizontal: 5,
     shadowColor: 'grey',
     shadowRadius: 4,
-    marginVertical: 10
-    // flexWrap: 'wrap'
+    marginVertical: 4
   },
   cardTitle: {
     fontWeight: 'bold',
@@ -77,14 +74,11 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   cardGroup: {
-    width: '50%',
-    height: 100
-  },
-  cardGroupLeft: {
-    marginLeft: 2.5
-  },
-  cardGroupRight: {
-    marginRight: 2.5
+    marginVertical: 4,
+    width: width * 0.48,
+    height: 100,
+    shadowColor: 'grey',
+    shadowRadius: 4
   }
 });
 

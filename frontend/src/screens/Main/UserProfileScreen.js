@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -12,6 +13,8 @@ import { BackIcon, ContentCard } from '../../components/index';
 import { userData } from '../../constants/userData';
 import { TechTags } from '../../components/index';
 import { InterestTags } from '../../components/index';
+
+const { width } = Dimensions.get('window');
 
 const UserProfileScreen = ({ navigation }) => {
   const navigateEditProfile = () => {
@@ -147,14 +150,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   contentContainer: {
-    // flex: 1
-    // backgroundColor: '#'
+    flex: 1,
+    marginBottom: 5
   },
   contentCard: {
-    margin: 5,
+    marginHorizontal: 5,
     shadowColor: 'grey',
     shadowRadius: 4
-    // flexWrap: 'wrap'
   },
   cardTitle: {
     fontWeight: 'bold',
@@ -170,7 +172,9 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   groupContainer: {
-    flexDirection: 'row'
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   },
   cardGroup: {
     width: '50%',
@@ -189,7 +193,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50
-    //backgroundColor:'black'
   }
 });
 
