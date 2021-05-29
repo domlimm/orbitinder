@@ -6,7 +6,7 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { LandingImage, NavHeader } from '../../components/index';
 
 const PreferencesLandingScreen = ({ navigation }) => {
-  const navigateLoginLanding = () => {
+  const navigatePreference = () => {
     navigation.navigate('PrefInput1');
   };
 
@@ -19,14 +19,16 @@ const PreferencesLandingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <NavHeader navProps={navProps} />
-      <Text style={styles.landingTitle}>Its time to create your profile!</Text>
+      <Text style={styles.landingTitle}>
+        Time to set your partner preferences!
+      </Text>
       <Layout style={styles.imgContainer}>
         <LandingImage
           imgSrc={require('../../assets/images/pref-landing-img.png')}
         />
       </Layout>
       <Layout style={styles.btnContainer}>
-        <Button onPress={navigateLoginLanding} style={styles.btn}>
+        <Button onPress={navigatePreference} style={styles.btn}>
           Let's Go!
         </Button>
       </Layout>

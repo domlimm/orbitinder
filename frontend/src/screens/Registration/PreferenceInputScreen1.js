@@ -41,7 +41,7 @@ const PrefInputScreen1 = ({ navigation }) => {
     return sweExperience[index.row];
   });
 
-  const navigateDetails = () => {
+  const navigatePreference = () => {
     navigation.navigate('PrefInput2');
   };
 
@@ -129,7 +129,7 @@ const PrefInputScreen1 = ({ navigation }) => {
             </Select>
           </Layout>
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={navigatePreference} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>

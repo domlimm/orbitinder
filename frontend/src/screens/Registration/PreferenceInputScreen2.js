@@ -6,7 +6,7 @@ import { Button, Layout, Text } from '@ui-kitten/components';
 import { PrefBackgroundSelect, NavHeader } from '../../components/index';
 
 const PrefInputScreen2 = ({ navigation }) => {
-  const navigateDetails = () => {
+  const savePreferenceHandler = () => {
     navigation.navigate('LoginLanding');
   };
 
@@ -32,7 +32,7 @@ const PrefInputScreen2 = ({ navigation }) => {
           </Layout>
           <PrefBackgroundSelect />
           <Layout style={styles.btnContainer}>
-            <Button onPress={navigateDetails} style={styles.signupBtn}>
+            <Button onPress={savePreferenceHandler} style={styles.signupBtn}>
               Next
             </Button>
           </Layout>
