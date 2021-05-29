@@ -2,13 +2,16 @@ import React from 'react';
 import { ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { StackActions, CommonActions } from '@react-navigation/native';
 // To separate for local imports rather than installed dependencies: add below onwards
 import {
   ExperienceSelectInputs,
   NavHeader,
   LoadingIndicator
 } from '../../components/index';
+import * as userActions from '../../redux/actions/user';
+import * as authActions from '../../redux/actions/auth';
 
 const PrefInputScreen2 = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -33,6 +36,8 @@ const PrefInputScreen2 = ({ route, navigation }) => {
     setTechnologyExperience(prevData => ({ ...prevData, ...data }));
   }, []);
 
+  const { isRegistering } = useSelector(state => state.auth);
+
   const savePreferencesHandler = () => {
     const preferences = {
       preferences: {
@@ -41,9 +46,27 @@ const PrefInputScreen2 = ({ route, navigation }) => {
       }
     };
 
-    console.log(preferences);
+    try {
+      console.log(isRegistering);
 
-    // navigation.navigate('LoginLanding');
+      dispatch(userActions.addPreferences(preferences));
+
+      setError(null);
+      setLoading(true);
+
+      dispatch(authActions.completeRegister(false));
+
+      // return navigation.dispatch(() => ({
+      //   ...StackActions.popToTop(),
+      //   ...CommonActions.reset({
+      //     index: 0,
+      //     routes: [{ name: 'DrawerNavigator' }]
+      //   })
+      // }));
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
   };
 
   const navProps = {

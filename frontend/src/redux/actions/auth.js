@@ -71,6 +71,10 @@ export const logIn = (email, password) => dispatch => {
     });
 };
 
+export const completeRegister = complete => dispatch => {
+  dispatch({ type: SET_REGISTER, isRegistering: complete });
+};
+
 export const logOut = () => dispatch => {
   firebase
     .auth()
