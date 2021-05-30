@@ -138,4 +138,4 @@
 | React Native      | Backbone of application                |
 | Expo       | Framework for React Native                    |
 | Firebase | Database and authentication |
-| Git CLI/ GitHub | Version control |
+| Git CLI/GitHub | Version control |
