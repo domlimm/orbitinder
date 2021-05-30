@@ -7,7 +7,6 @@ import { CommonActions, StackActions } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
 import { ChangePasswordScreen } from '../screens/index';
-import TabNavigator from './TopTabsNavigator';
 import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
@@ -60,14 +59,10 @@ const DrawerContent = ({ navigation, state }) => {
 };
 
 const DrawerNavigator = () => (
-  <Navigator
-    drawerContent={props => <DrawerContent {...props} />}
-    initialRouteName='BottomTabsNavigator'
-  >
+  <Navigator drawerContent={props => <DrawerContent {...props} />}>
     <Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     <Screen name='ChangePassword' component={ChangePasswordScreen} />
     <Screen name='AuthNavigator' component={AuthNavigator} />
-    <Screen name='TabNavigator' component={TabNavigator} />
   </Navigator>
 );
 

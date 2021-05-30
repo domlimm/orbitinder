@@ -16,6 +16,7 @@ import {
   EditPrefScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
+import TabNavigator from './TopTabsNavigator';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -45,10 +46,11 @@ const BottomTabsNavigator = () => (
     <Screen name='Home' component={MainAppScreen} />
     <Screen name='TeamUp' component={TeamUpScreen} />
     <Screen name='ChatOverview' component={ChatOverviewScreen} />
+    <Screen name='ActivityFeed' component={ActivityFeedScreen} />
     <Screen name='UserProfile' component={UserProfileScreen} />
     <Screen name='EditProfile' component={EditProfileScreen} />
-    <Screen name='ActivityFeed' component={ActivityFeedScreen} />
     <Screen name='EditPref' component={EditPrefScreen} />
+    <Screen name='TabNavigator' component={TabNavigator} />
   </Navigator>
 );
 
