@@ -26,14 +26,14 @@ const TeamUpBottomTab = () => {
   };
 
   return (
-    <Pressable onPress={pressHandler} style={styles.teamUp}>
-      <Animated.View style={[{ transform: [{ scale: animatedScale }] }]}>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/images/orbital-logo.png')}
-        />
-      </Animated.View>
-    </Pressable>
+    // <Pressable onPress={pressHandler} style={styles.teamUp}>
+    <Animated.View style={[{ transform: [{ scale: animatedScale }] }]}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/images/orbital-logo.png')}
+      />
+    </Animated.View>
+    // </Pressable>
   );
 };
 
