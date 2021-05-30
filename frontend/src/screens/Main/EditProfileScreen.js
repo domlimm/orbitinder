@@ -59,10 +59,12 @@ const EditProfileScreen = ({ navigation }) => {
     dbValue: userData.tech.db,
     mlValue: userData.tech.ml,
     yearIndex: new IndexPath(yearData.indexOf(userData.year)),
-    ideaIndex: new IndexPath(idea.indexOf(userData.idea)),
-    commitmentIndex: new IndexPath(commitmentData.indexOf(userData.commitment)),
-    achievementIndex: new IndexPath(achievementData.indexOf(userData.level)),
-    sweIndex: new IndexPath(sweExperience.indexOf(userData.codingExpLevel)),
+    ideaIndex: new IndexPath(idea.indexOf(userData.idea[0])),
+    commitmentIndex: new IndexPath(
+      commitmentData.indexOf(userData.commitment[0])
+    ),
+    achievementIndex: new IndexPath(achievementData.indexOf(userData.level[0])),
+    sweIndex: new IndexPath(sweExperience.indexOf(userData.codingExpLevel[0])),
     gamedevIndex: userData.tech.gamedev.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
@@ -79,7 +81,6 @@ const EditProfileScreen = ({ navigation }) => {
       return new IndexPath(mlData.indexOf(index));
     })
   };
-  // console.log('Init', initialState);
   const myReducer = (currState, action) => {
     switch (action.type) {
       case 'changeBio':
@@ -250,6 +251,7 @@ const EditProfileScreen = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
+
             <Select
               style={styles.selectInput}
               selectedIndex={currState.commitmentIndex}

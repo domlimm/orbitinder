@@ -24,7 +24,10 @@ const TeamUpScreen = ({ navigation }) => {
 
   const onSwipedLeft = index => {
     console.log('swiped left');
-    console.log(index);
+  };
+
+  const onSwipedRight = index => {
+    console.log('swiped right');
   };
 
   return (
@@ -40,6 +43,7 @@ const TeamUpScreen = ({ navigation }) => {
         useViewOverflow={Platform.OS === 'ios'}
         onSwiped={onSwiped}
         onSwipedLeft={onSwipedLeft}
+        onSwipedRight={onSwipedRight}
         showSecondCard={true}
         stackSize={2}
         disableTopSwipe
