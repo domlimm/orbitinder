@@ -12,7 +12,7 @@ const TeamUpScreen = ({ navigation }) => {
     title: 'Team Up',
     navigation: navigation,
     needBackNav: false,
-    needMenuNav: true
+    needMenuNav: false
   };
 
   const [cardIndex, setCardIndex] = React.useState(0);
