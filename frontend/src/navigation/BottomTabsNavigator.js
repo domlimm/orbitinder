@@ -33,7 +33,7 @@ const BottomTabBar = ({ navigation, state }) => (
     onSelect={index => navigation.navigate(state.routeNames[index])}
   >
     <BottomNavigationTab icon={HomeIcon} />
-    <BottomNavigationTab icon={TeamUpIcon} />
+    <BottomNavigationTab icon={TeamUpBottomTab} />
     <BottomNavigationTab icon={ChatIcon} />
   </BottomNavigation>
 );

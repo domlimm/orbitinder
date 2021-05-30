@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, Image } from 'react-native';
+import { StatusBar, Image, LogBox } from 'react-native';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
@@ -30,6 +30,8 @@ const fetchImages = images => {
     }
   });
 };
+
+LogBox.ignoreAllLogs();
 
 const App = () => {
   const [isAssetsLoading, setIsAssetsLoading] = React.useState(false);

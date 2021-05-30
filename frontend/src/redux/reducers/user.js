@@ -1,6 +1,7 @@
 import {
   ADD_USER_PROFILE,
   ADD_USER_PREFERENCES,
+  GET_USER_DATA,
   CLEAR_LOG_OUT
 } from '../actions/user';
 
@@ -19,6 +20,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userData: action.preferenceData
+      };
+    case GET_USER_DATA:
+      return {
+        ...state,
+        userData: action.userData
       };
     case CLEAR_LOG_OUT:
       return {};
