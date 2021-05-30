@@ -20,30 +20,28 @@ const NavHeader = ({ navProps }) => {
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
 
-  const renderBrand = React.useMemo(() => (
+  const renderBrand = () => (
     <View style={styles.titleContainer}>
       <Image style={{ ...styles.logo, ...styles.authLogo }} source={brand} />
     </View>
-  ));
+  );
 
-  const renderLogo = React.useMemo(() => (
+  const Brand = React.useMemo(() => renderBrand, []);
+
+  const renderLogo = () => (
     <Image style={{ ...styles.logo, ...styles.registerLogo }} source={logo} />
-  ));
+  );
+
+  const Logo = React.useMemo(() => renderLogo, []);
 
   return (
     <TopNavigation
       style={styles.topNav}
       accessoryLeft={navProps.backNav && BackAction}
       accessoryRight={
-        navProps.type === 'register' || navProps.type === 'profile'
-          ? renderLogo
-          : null
+        (navProps.type === 'register' || navProps.type === 'profile') && Logo
       }
-      title={
-        navProps.type === 'landing' || navProps.type === 'auth'
-          ? renderBrand
-          : null
-      }
+      title={(navProps.type === 'landing' || navProps.type === 'auth') && Brand}
       alignment='center'
     />
   );
@@ -59,8 +57,8 @@ const styles = StyleSheet.create({
   },
   authLogo: {
     flex: 1,
-    width: 200,
-    height: 60
+    width: 140,
+    height: 45
   },
   registerLogo: {
     marginLeft: '5%',
