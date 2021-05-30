@@ -101,4 +101,15 @@
   ** | User | Compare the features of users that i like
   ** | User | Customize my home screen
   
+  <br/>
+  <b>Activity Diagram:</b>
+  <p align="center">
+    <a>
+      <img
+        width="100%"
+        src="https://user-images.githubusercontent.com/66832279/120101159-3d617c00-c177-11eb-9f29-8d6c4edc2002.png"
+      />
+    </a>
+  </p>
+  
 </div>
