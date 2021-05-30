@@ -17,10 +17,7 @@ const InfoCard = ({ cardData, navProps }) => {
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>
-        <Image
-          style={styles.avatarImg}
-          source={{ uri: 'https://i.pravatar.cc/300' }}
-        />
+        <Image style={styles.avatarImg} source={{ uri: cardData.img }} />
         <Layout style={styles.headerCaptions}>
           <Text style={styles.name}>{cardData.name}</Text>
 

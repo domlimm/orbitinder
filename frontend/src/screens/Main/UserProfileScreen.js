@@ -63,7 +63,7 @@ const UserProfileScreen = ({ navigation, route }) => {
               style={[
                 route.params ? styles.avatarImgNoMargin : styles.avatarImg
               ]}
-              source={{ uri: 'https://i.pravatar.cc/300' }}
+              source={{ uri: profileData.img }}
             />
             <Layout style={styles.headerCaptions}>
               <Text style={styles.name}>{profileData.name}</Text>

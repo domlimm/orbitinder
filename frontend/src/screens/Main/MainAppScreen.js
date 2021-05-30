@@ -14,7 +14,7 @@ import {
   Avatar
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-
+import { userData } from '../../constants/userData';
 import greeting from '../../utils/Greeting';
 
 const MainAppScreen = ({ navigation }) => {
@@ -84,7 +84,7 @@ const MainAppScreen = ({ navigation }) => {
             <Avatar
               shape='rounded'
               size='giant'
-              source={{ uri: 'https://i.pravatar.cc/300' }}
+              source={{ uri: userData.img }}
             />
           </Layout>
         </TouchableOpacity>
