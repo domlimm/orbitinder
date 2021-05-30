@@ -16,76 +16,92 @@ import { InterestTags } from '../../components/index';
 
 const { width } = Dimensions.get('window');
 
-const UserProfileScreen = ({ navigation }) => {
+const UserProfileScreen = ({ navigation, route }) => {
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
   };
-  let navProps = {
-    navigateSpecificPage: true,
-    useNewIcon: true,
-    navScreenName: 'DrawerNavigator',
-    iconName: 'home-outline'
+
+  const navigateBack = () => {
+    navigation.goBack();
   };
+
+  const [profileData, setProfileData] = React.useState(() => {
+    const initialState =
+      typeof route.params == 'undefined' ? userData : route.params.profileData;
+    return initialState;
+  });
+
+  React.useEffect(() => {
+    if (route.params) {
+      setProfileData(route.params.profileData);
+    }
+  }, [route.params]);
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
-          <Layout style={styles.headerContainer}>
-            {/* <BackIcon navigation={navigation} navProps={navProps} /> */}
+          <Layout style={styles.iconContainer}>
+            {route.params && (
+              <Icon
+                name='arrow-back'
+                onPress={navigateBack}
+                fill='white'
+                style={styles.backIcon}
+              />
+            )}
+          </Layout>
+
+          <Layout
+            style={[
+              route.params
+                ? styles.smallHeaderContainer
+                : styles.headerContainer
+            ]}
+          >
             <Image
-              style={styles.avatarImg}
+              style={[
+                route.params ? styles.avatarImgNoMargin : styles.avatarImg
+              ]}
               source={{ uri: 'https://i.pravatar.cc/300' }}
             />
             <Layout style={styles.headerCaptions}>
-              <Text style={styles.name}>Rebecca Black</Text>
+              <Text style={styles.name}>{profileData.name}</Text>
               <Layout style={styles.subCaptionsContainer}>
-                <Text style={styles.subCaptions}>Year 1</Text>
-                <Text style={styles.subCaptions}>Business Analytics</Text>
+                <Text style={styles.subCaptions}>{profileData.year}</Text>
+                <Text style={styles.subCaptions}>{profileData.major}</Text>
               </Layout>
             </Layout>
-            {/* <Layout style={styles.linksIcons}>
-              <FontAwesome
-                name='linkedin-square'
-                size={30}
-                color='white'
-                style={{ marginHorizontal: 5 }}
-              />
-              <FontAwesome
-                name='github-square'
-                size={30}
-                color='white'
-                style={{ marginHorizontal: 5 }}
-              />
-            </Layout> */}
           </Layout>
           <Layout style={styles.contentContainer}>
-            <ContentCard type={'bio'} userData={userData} />
+            <ContentCard type={'bio'} userData={profileData} />
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-              <InterestTags tagsData={userData.interestedAreas} />
+              <InterestTags tagsData={profileData.interestedAreas} />
             </Card>
 
             <Layout style={styles.groupContainer}>
-              <ContentCard type={'coding-exp-level'} userData={userData} />
-              <ContentCard type={'commitment'} userData={userData} />
+              <ContentCard type={'coding-exp-level'} userData={profileData} />
+              <ContentCard type={'commitment'} userData={profileData} />
             </Layout>
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              <TechTags tagsData={userData.technologies} />
+              <TechTags tagsData={profileData.technologies} />
             </Card>
           </Layout>
         </ScrollView>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.touchableOpacityStyle}
-          onPress={navigateEditProfile}
-        >
-          <Image
-            source={require('../../assets/images/edit.png')}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
+        {!route.params && (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.touchableOpacityStyle}
+            onPress={navigateEditProfile}
+          >
+            <Image
+              source={require('../../assets/images/edit.png')}
+              style={styles.floatingButtonStyle}
+            />
+          </TouchableOpacity>
+        )}
       </Layout>
     </SafeAreaView>
   );
@@ -109,6 +125,12 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center'
   },
+  smallHeaderContainer: {
+    flex: 1,
+    backgroundColor: '#407BFF',
+    height: 170,
+    alignItems: 'center'
+  },
   avatarImg: {
     width: 70,
     height: 70,
@@ -117,6 +139,14 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1,
     marginTop: 30
+  },
+  avatarImgNoMargin: {
+    width: 70,
+    height: 70,
+    borderRadius: 32,
+    shadowColor: 'grey',
+    shadowOffset: { height: 5, width: 5 },
+    shadowOpacity: 1
   },
   headerCaptions: {
     marginVertical: 10,
@@ -193,6 +223,16 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50
+  },
+  backIcon: {
+    width: 32,
+    height: 32,
+    marginLeft: 10,
+    marginTop: 10,
+    justifyContent: 'flex-start'
+  },
+  iconContainer: {
+    backgroundColor: '#407bff'
   }
 });
 

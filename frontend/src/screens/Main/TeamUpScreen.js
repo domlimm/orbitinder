@@ -33,7 +33,7 @@ const TeamUpScreen = ({ navigation }) => {
       <Swiper
         cards={userArrayData}
         renderCard={card => {
-          return <InfoCard cardData={card} />;
+          return <InfoCard cardData={card} navProps={navProps} />;
         }}
         cardIndex={cardIndex}
         backgroundColor={'transparent'}

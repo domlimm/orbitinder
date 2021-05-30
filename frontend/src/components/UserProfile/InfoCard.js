@@ -4,9 +4,16 @@ import { Button, Card, Layout, Text } from '@ui-kitten/components';
 import InterestTags from './InterestTags';
 import { userData } from '../../constants/userData';
 
-const InfoCard = ({ cardData }) => {
-  // let cardData = userData;
-  // console.log(cardData);
+const InfoCard = ({ cardData, navProps }) => {
+  const handleReadMore = () => {
+    navProps.navigation.navigate({
+      name: 'UserProfile',
+      params: {
+        profileData: cardData
+      }
+    });
+  };
+
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>
@@ -16,10 +23,10 @@ const InfoCard = ({ cardData }) => {
         />
         <Layout style={styles.headerCaptions}>
           <Text style={styles.name}>{cardData.name}</Text>
-          <Layout style={styles.subCaptionsContainer}>
-            <Text style={styles.subCaptions}>{cardData.year}</Text>
-            <Text style={styles.subCaptions}>{cardData.major}</Text>
-          </Layout>
+
+          <Text style={styles.subCaptions}>{cardData.major}</Text>
+          <Text style={styles.subCaptions}>{cardData.year}</Text>
+          <Layout style={styles.subCaptionsContainer}></Layout>
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
@@ -53,7 +60,10 @@ const InfoCard = ({ cardData }) => {
         </Layout>
       </Layout>
       <Layout>
-        <TouchableOpacity style={styles.readMoreContainer}>
+        <TouchableOpacity
+          style={styles.readMoreContainer}
+          onPress={handleReadMore}
+        >
           <Text style={styles.readMoreText}>VIEW MORE</Text>
         </TouchableOpacity>
       </Layout>
@@ -71,7 +81,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: '#407BFF',
-    height: 140,
+    height: 150,
     alignItems: 'center'
   },
   avatarImg: {
@@ -81,7 +91,7 @@ const styles = StyleSheet.create({
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1,
-    marginTop: 20
+    marginTop: 15
   },
   headerCaptions: {
     marginVertical: 5,
@@ -102,12 +112,13 @@ const styles = StyleSheet.create({
   },
   subCaptions: {
     fontWeight: '600',
-    fontSize: 15,
+    fontSize: 12,
     color: 'rgba(255,255,255,0.6)',
     textTransform: 'uppercase',
     marginVertical: 1,
     letterSpacing: 1,
-    marginRight: 10
+    marginRight: 10,
+    textAlign: 'center'
   },
   contentContainer: {
     paddingVertical: 15,
