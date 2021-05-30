@@ -51,16 +51,6 @@
   
   <br/>
   
-  <b>Competitor Analysis: </b>
-  Competitor's Name | User's Experience with Competitors App | User's Experience with OrbiTinder
-  --- | --- | ---
-  **Reddit**| The NUS subreddit only comprises a small percentage of NUS students interested in Orbital. | OrbiTinder would primarily be adopted by students interested in forming teams for Orbital
-  **Reddit**| Reddit post’s audience reach depends on the popularity of the post and it’s age. Older posts and posts with low numbers of upvotes tend not to have high levels of engagement. | User profiles on OrbiTinder will receive engagement based on whether they meet the preferences of other users
-  **Reddit**| Users may choose not to include their technical backgrounds in their posts, which can deter others from reaching out to them. | OrbiTinder would require users to include details such as technical backgrounds etc, making it much more likely for interested users to reach out to them.
-  **Telegram** |Students currently post messages in large NUS module group chats as a way to potentially find those that are interested in teaming up with them. <br/> Such group chats comprise a small percentage of NUS students interested in Orbital.| OrbiTinder would primarily be adopted by students interested in forming teams for Orbital.
-  
-  <br/>
-  
   <b>Main Features: </b>
   Features | Description
   --- | --- 
