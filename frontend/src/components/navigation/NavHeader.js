@@ -6,6 +6,9 @@ import {
   TopNavigationAction
 } from '@ui-kitten/components';
 
+const brand = require('../../assets/images/orbital-brand.png');
+const logo = require('../../assets/images/orbital-logo.png');
+
 const NavHeader = ({ navProps }) => {
   const navigateBack = () => {
     navProps.navigation.goBack();
@@ -17,21 +20,15 @@ const NavHeader = ({ navProps }) => {
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
 
-  const renderBrand = () => (
+  const renderBrand = React.useMemo(() => (
     <View style={styles.titleContainer}>
-      <Image
-        style={{ ...styles.logo, ...styles.authLogo }}
-        source={require('../../assets/images/orbital-brand.png')}
-      />
+      <Image style={{ ...styles.logo, ...styles.authLogo }} source={brand} />
     </View>
-  );
+  ));
 
-  const renderLogo = () => (
-    <Image
-      style={{ ...styles.logo, ...styles.registerLogo }}
-      source={require('../../assets/images/orbital-logo.png')}
-    />
-  );
+  const renderLogo = React.useMemo(() => (
+    <Image style={{ ...styles.logo, ...styles.registerLogo }} source={logo} />
+  ));
 
   return (
     <TopNavigation
@@ -58,15 +55,17 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logo: {
-    width: 40,
-    height: 40,
     resizeMode: 'contain'
   },
   authLogo: {
-    flex: 1
+    flex: 1,
+    width: 200,
+    height: 60
   },
   registerLogo: {
-    marginLeft: '5%'
+    marginLeft: '5%',
+    width: 40,
+    height: 40
   },
   topNav: {
     marginVertical: 6
