@@ -10,7 +10,7 @@ const ChatOverviewScreen = ({ navigation }) => {
     title: 'Chats',
     navigation: navigation,
     needBackNav: false,
-    needMenuNav: true
+    needMenuNav: false
   };
   return (
     <SafeAreaView style={styles.parentContainer}>
