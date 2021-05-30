@@ -80,7 +80,7 @@
   <br/>
   
   <b>User Stories: </b>
-  <p>Priorities: High (must have) - `***`, Medium (nice to have) - `**`</p>
+  <p>Priorities: High (must have) - <b>***</b>, Medium (nice to have) - <b>**</b></p>
   
   Priority | As a... | I want to... 
   --- | --- | --- 
