@@ -4,7 +4,9 @@ import { Button, Card, Layout, Text } from '@ui-kitten/components';
 import InterestTags from './InterestTags';
 import { userData } from '../../constants/userData';
 
-const InfoCard = () => {
+const InfoCard = ({ cardData }) => {
+  // let cardData = userData;
+  // console.log(cardData);
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>
@@ -13,32 +15,28 @@ const InfoCard = () => {
           source={{ uri: 'https://i.pravatar.cc/300' }}
         />
         <Layout style={styles.headerCaptions}>
-          <Text style={styles.name}>Rebecca Black</Text>
+          <Text style={styles.name}>{cardData.name}</Text>
           <Layout style={styles.subCaptionsContainer}>
-            <Text style={styles.subCaptions}>Year 1</Text>
-            <Text style={styles.subCaptions}>BZA</Text>
+            <Text style={styles.subCaptions}>{cardData.year}</Text>
+            <Text style={styles.subCaptions}>{cardData.major}</Text>
           </Layout>
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
-        <Text style={styles.sectionText}>
-          Rebecca Renee Black is an American YouTuber and singer who gained
-          extensive media coverage when the music video for her 2011 single
-          Friday went viral on YouTube and other social media sites.
-        </Text>
+        <Text style={styles.sectionText}>{cardData.bio}</Text>
         <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-        <InterestTags tagsData={userData.interestedAreas} />
+        <InterestTags tagsData={cardData.interestedAreas} />
 
         <Layout
           style={{ flexDirection: 'row', justifyContent: 'space-between' }}
         >
           <Layout>
             <Text style={styles.sectionTitle}>SWE EXP LEVEL</Text>
-            <InterestTags tagsData={userData.codingExpLevel} />
+            <InterestTags tagsData={cardData.codingExpLevel} />
           </Layout>
           <Layout>
             <Text style={styles.sectionTitleRight}>HAS IDEA?</Text>
-            <InterestTags tagsData={userData.idea} />
+            <InterestTags tagsData={cardData.idea} />
           </Layout>
         </Layout>
         <Layout
@@ -46,11 +44,11 @@ const InfoCard = () => {
         >
           <Layout>
             <Text style={styles.sectionTitle}>ORBITAL LEVEL</Text>
-            <InterestTags tagsData={userData.level} />
+            <InterestTags tagsData={cardData.level} />
           </Layout>
           <Layout>
             <Text style={styles.sectionTitleRight}>COMMITMENT</Text>
-            <InterestTags tagsData={userData.commitment} />
+            <InterestTags tagsData={cardData.commitment} />
           </Layout>
         </Layout>
       </Layout>
@@ -65,15 +63,15 @@ const InfoCard = () => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginHorizontal: 30,
+    marginHorizontal: 20,
     marginVertical: 30,
-    height: 520,
+    height: 530,
     backgroundColor: 'white',
     borderRadius: 20
   },
   headerContainer: {
     backgroundColor: '#407BFF',
-    height: 150,
+    height: 140,
     alignItems: 'center'
   },
   avatarImg: {
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingVertical: 15,
     paddingHorizontal: 25,
-    height: 340
+    height: 360
   },
   sectionTitle: {
     fontWeight: 'bold',
