@@ -14,7 +14,7 @@
   
   <br/>
   
-  <b>Proposed Level of Achievement: Artemis</b>
+  <b>Proposed Level of Achievement:</b> Artemis
 
   <b>Motivation: </b>
   <p>
