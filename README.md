@@ -93,7 +93,7 @@
   *** | User | Decline chat requests with users i’m not interested in
   *** | User | Filter users based on specific characteristics
   *** | User | Be recommended users that i may be interested in
-  *** | User | Confirm my orbital partnership with a user, and at the same time not receive subsequent requests from other users
+  *** | User | Confirm my orbital partnership with a user, at the same time not receive subsequent requests from others
   *** | User | Receive chat request notifications
   *** | User | Receive chat notifications
   ** | User | Toggle Dark Mode
