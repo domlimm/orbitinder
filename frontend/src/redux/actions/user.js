@@ -2,6 +2,7 @@ import firebase from '../../firebase';
 
 export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
+export const GET_USER_DATA = 'GET_USER_DATA';
 export const CLEAR_LOG_OUT = 'CLEAR_LOG_OUT';
 
 const db = firebase.firestore();
@@ -40,4 +41,20 @@ export const clearDataLogOut = () => dispatch => {
   } catch (err) {
     throw new Error(`Clear Data: ${err}`);
   }
+};
+
+export const getUserData = () => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .get()
+    .then(res => {
+      console.log('UserData', res.data());
+
+      dispatch({ type: GET_USER_DATA, userData: {} });
+    })
+    .catch(err => {
+      throw new Error(`Get User Data: ${err}`);
+    });
 };

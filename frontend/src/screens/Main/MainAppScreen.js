@@ -13,12 +13,19 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
+import * as userActions from '../../redux/actions/user';
 
 const MainAppScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const { name } = useSelector(state => state.auth);
+
+  React.useEffect(() => {
+    dispatch(userActions.getUserData());
+  }, []);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
@@ -28,15 +35,7 @@ const MainAppScreen = ({ navigation }) => {
     navigation.navigate('TabNavigator');
   };
 
-  const renderTitle = () => (
-    // <Layout style={styles.titleContainer}>
-    //   <Image
-    //     style={styles.logo}
-    //     source={require('../../assets/images/orbital-brand.png')}
-    //   />
-    // </Layout>
-    <Text style={styles.titleHeader}>Home</Text>
-  );
+  const renderTitle = () => <Text style={styles.titleHeader}>Home</Text>;
 
   const DrawerIcon = props => (
     <Icon
