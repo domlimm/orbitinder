@@ -34,27 +34,31 @@ const InfoCard = ({ cardData, navProps }) => {
         <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
         <InterestTags tagsData={cardData.interestedAreas} />
 
-        <Layout
-          style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-        >
-          <Layout>
-            <Text style={styles.sectionTitle}>SWE EXP LEVEL</Text>
-            <InterestTags tagsData={cardData.codingExpLevel} />
-          </Layout>
-          <Layout>
+        <Layout style={{ flexDirection: 'column' }}>
+          <Layout
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
+            <Text style={styles.sectionTitle}>ORBITAL LEVEL</Text>
             <Text style={styles.sectionTitleRight}>HAS IDEA?</Text>
+          </Layout>
+          <Layout
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
+            <InterestTags tagsData={cardData.level} />
             <InterestTags tagsData={cardData.idea} />
           </Layout>
         </Layout>
-        <Layout
-          style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-        >
-          <Layout>
+        <Layout style={{ flexDirection: 'column' }}>
+          <Layout
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
             <Text style={styles.sectionTitle}>ORBITAL LEVEL</Text>
-            <InterestTags tagsData={cardData.level} />
-          </Layout>
-          <Layout>
             <Text style={styles.sectionTitleRight}>COMMITMENT</Text>
+          </Layout>
+          <Layout
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
+            <InterestTags tagsData={cardData.level} />
             <InterestTags tagsData={cardData.commitment} />
           </Layout>
         </Layout>
@@ -77,7 +81,10 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 530,
     backgroundColor: 'white',
-    borderRadius: 20
+    borderRadius: 20,
+    flexDirection: 'column',
+    alignSelf: 'center',
+    justifyContent: 'center'
   },
   headerContainer: {
     backgroundColor: '#407BFF',
@@ -101,7 +108,8 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
     // fontFamily: 'Lato'
   },
   subCaptionsContainer: {
@@ -117,7 +125,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginVertical: 1,
     letterSpacing: 1,
-    marginRight: 10,
     textAlign: 'center'
   },
   contentContainer: {
@@ -138,7 +145,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     fontSize: 13,
-    textAlign: 'right'
+    textAlign: 'right',
+    marginRight: 5
   },
   sectionText: {
     color: 'grey',
