@@ -7,6 +7,8 @@
   </a>
 </p>
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)
+
 <div align="left">
   <br/>
   
@@ -118,6 +120,6 @@
   
   Milestone 1 | Milestone2 | Milestone 3 
   --- | --- | --- 
-  Implement sign up (i.e. User registration and profiling) and login<br/><br/>Allow for modifications of user profile<br/><br/>Ability to perform swiping actions on other users<br/><br/>Ability to save preferences of users<br/><br/>Setup of Firebase (i.e. Authentication/Registration, Database) | Filtering and sorting of all users<br/><br/>Integration of in-application messaging with Firebase<br/><br/>Implement in-app and push notifications<br/><br/>Creation and testing of Machine Learning Models<br/><br/>Basic implementation of ML Models into application<br/><br/>User Testing (I)| Continue testing ML models<br/><br/>Implement ML models into mobile application<br/><br/>Implement Error Handling & Input Validation<br/><br/>Refine UI<br/><br/>User Testing (II)
+  Implement sign up (i.e. User registration and profiling) and login<br/><br/>Allow for modifications of user profile<br/><br/>Ability to perform swiping actions on other users<br/><br/>Ability to save preferences of users<br/><br/>Setup of Firebase (i.e. Authentication/Registration, Database) | Filtering and sorting of all users<br/><br/>Integration of in-application messaging with Firebase<br/><br/>Implement in-app and push notifications<br/><br/>Creation and testing of Machine Learning Models<br/><br/>Basic implementation of ML Models into application<br/><br/>User Testing (I)<br/><br/>System Testing (I)| Continue testing ML models<br/><br/>Implement ML models into mobile application<br/><br/>Implement Error Handling & Input Validation<br/><br/>Refine UI<br/><br/>User Testing (II)<br/><br/>System Testing (II)
   
 </div>
