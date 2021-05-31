@@ -13,20 +13,13 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { dummyUserData } from '../../constants/userData';
 import greeting from '../../utils/Greeting';
-import * as userActions from '../../redux/actions/user';
 
 const MainAppScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
-
   const { name } = useSelector(state => state.auth);
-
-  React.useEffect(() => {
-    dispatch(userActions.getUserData());
-  }, []);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');

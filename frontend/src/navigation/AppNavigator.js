@@ -31,6 +31,7 @@ const AppNavigator = () => {
         dispatch(
           authActions.setCurrentUser(user.uid, user.displayName, isRegistering)
         );
+        dispatch(userActions.getUserData());
       } else {
         setAuthenticated(false);
         setIsLoading(false);
