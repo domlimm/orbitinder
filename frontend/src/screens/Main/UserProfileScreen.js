@@ -18,15 +18,15 @@ const UserProfileScreen = ({ navigation, route }) => {
   const background = userData.background;
   const techExp = background.technologyExperience;
 
-  const DBIcon = () => <Feather name='database' size={24} color='#407BFF' />;
+  const DBIcon = () => <Feather name='database' size={30} color='#407BFF' />;
   const GameIcon = () => (
-    <Ionicons name='game-controller-outline' size={24} color='#407BFF' />
+    <Ionicons name='game-controller-outline' size={30} color='#407BFF' />
   );
-  const MLIcon = () => <Octicons name='hubot' size={24} color='#407BFF' />;
+  const MLIcon = () => <Octicons name='hubot' size={30} color='#407BFF' />;
   const MobileIcon = () => (
-    <Feather name='smartphone' size={24} color='#407BFF' />
+    <Feather name='smartphone' size={30} color='#407BFF' />
   );
-  const WebIcon = () => <Feather name='globe' size={24} color='#407BFF' />;
+  const WebIcon = () => <Feather name='globe' size={30} color='#407BFF' />;
 
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
