@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
   tagContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingHorizontal: 5,
+    borderRadius: 10
   },
   tags: {
     marginRight: 5,
