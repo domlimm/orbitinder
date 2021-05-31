@@ -3,7 +3,8 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableNativeFeedback
 } from 'react-native';
 import {
   Layout,
@@ -68,7 +69,11 @@ const MainAppScreen = ({ navigation }) => {
         accessoryRight={renderNotificationsIcon}
       />
       <ScrollView>
-        <TouchableOpacity onPress={navigateProfileScreen}>
+        <TouchableNativeFeedback
+          onPress={navigateProfileScreen}
+          background={TouchableNativeFeedback.Ripple('#00000020', false)}
+          useForeground={true}
+        >
           <Layout style={styles.introCard}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
@@ -80,7 +85,7 @@ const MainAppScreen = ({ navigation }) => {
               source={{ uri: dummyUserData.img }}
             />
           </Layout>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
       </ScrollView>
     </SafeAreaView>
   );
@@ -109,14 +114,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-
+    shadowColor: 'rgba(0,0,0, .4)', // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
   greetingTitle: {
