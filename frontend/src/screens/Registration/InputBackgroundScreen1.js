@@ -8,7 +8,9 @@ import {
   Select,
   SelectItem,
   IndexPath,
-  Text
+  Text,
+  Autocomplete,
+  AutocompleteItem
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 
@@ -20,6 +22,31 @@ import {
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
+  const degreeData = [
+    { title: 'Business Analytics' },
+    { title: 'Computer Science' },
+    { title: 'Information Systems' },
+    { title: 'Information Security' },
+    { title: 'Computer Engineering' }
+  ];
+
+  const filter = (item, query) =>
+    item.title.toLowerCase().includes(query.toLowerCase());
+  const [valueDegree, setValueDegree] = React.useState(null);
+  const [dataDegree, setDataDegree] = React.useState(degreeData);
+  const onSelectDegree = index => {
+    setValueDegree(degreeData[index].title);
+  };
+
+  const onChangeDegree = query => {
+    setValueDegree(query);
+    setDataDegree(degreeData.filter(item => filter(item, query)));
+  };
+
+  const renderDegreeOption = (item, index) => (
+    <AutocompleteItem key={index} title={item.title} />
+  );
+
   const [yearIndex, setYearIndex] = React.useState(new IndexPath(0));
   const displayYear = yearData[yearIndex.row];
 
@@ -78,14 +105,24 @@ const InputBackgroundScreen1 = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-            <Input
+            {/* <Input
               label='Degree'
               style={styles.textInput}
               autoCapitalize='words'
               placeholder='Name of Degree'
               value={degree}
               onChangeText={input => setDegree(input)}
-            />
+            /> */}
+            <Autocomplete
+              placeholder='Name of Degree'
+              value={valueDegree}
+              onSelect={onSelectDegree}
+              onChangeText={onChangeDegree}
+              style={styles.textInput}
+              label='Degree'
+            >
+              {dataDegree.map(renderDegreeOption)}
+            </Autocomplete>
             <Select
               style={styles.selectInput}
               selectedIndex={commitIndex}
