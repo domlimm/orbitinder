@@ -1,20 +1,15 @@
 import React from 'react';
 import {
-  Dimensions,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
-import { FontAwesome } from '@expo/vector-icons';
-import { BackIcon, ContentCard } from '../../components/index';
-import { userData } from '../../constants/userData';
-import { TechTags } from '../../components/index';
-import { InterestTags } from '../../components/index';
+import { Layout, Text, Card, Icon } from '@ui-kitten/components';
 
-const { width } = Dimensions.get('window');
+import { ContentCard, TechTags, InterestTags } from '../../components/index';
+import { userData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
   const navigateEditProfile = () => {

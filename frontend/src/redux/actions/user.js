@@ -50,9 +50,7 @@ export const getUserData = () => dispatch => {
     .doc(userId)
     .get()
     .then(res => {
-      console.log('UserData', res.data());
-
-      dispatch({ type: GET_USER_DATA, userData: {} });
+      dispatch({ type: GET_USER_DATA, userData: res.data() });
     })
     .catch(err => {
       throw new Error(`Get User Data: ${err}`);
