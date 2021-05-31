@@ -12,7 +12,7 @@ const TopTabBar = ({ navigation, state }) => (
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}
   >
-    <Tab title='User Profile' />
+    <Tab title='Your Profile' />
     <Tab title='Partner Preferences' />
   </TabBar>
 );
