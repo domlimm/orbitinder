@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1,
-    marginTop: 30
+    marginTop: 30,
+    borderRadius: 70 / 2
   },
   avatarImgNoMargin: {
     width: 70,
