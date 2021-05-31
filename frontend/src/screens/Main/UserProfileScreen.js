@@ -6,47 +6,36 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Layout, Text, Card, Icon } from '@ui-kitten/components';
+import { Layout, Text, Card, Button } from '@ui-kitten/components';
+import { useSelector } from 'react-redux';
+import { Feather, Ionicons, Octicons } from '@expo/vector-icons';
 
-import { ContentCard, TechTags, InterestTags } from '../../components/index';
-import { userData } from '../../constants/userData';
+import { ContentCard, InterestTags } from '../../components/index';
+import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
+  const userData = useSelector(state => state.user.userData);
+  const background = userData.background;
+  const techExp = background.technologyExperience;
+
+  const DBIcon = () => <Feather name='database' size={24} color='#407BFF' />;
+  const GameIcon = () => (
+    <Ionicons name='game-controller-outline' size={24} color='#407BFF' />
+  );
+  const MLIcon = () => <Octicons name='hubot' size={24} color='#407BFF' />;
+  const MobileIcon = () => (
+    <Feather name='smartphone' size={24} color='#407BFF' />
+  );
+  const WebIcon = () => <Feather name='globe' size={24} color='#407BFF' />;
+
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
   };
-
-  const navigateBack = () => {
-    navigation.goBack();
-  };
-
-  const [profileData, setProfileData] = React.useState(() => {
-    const initialState =
-      typeof route.params == 'undefined' ? userData : route.params.profileData;
-    return initialState;
-  });
-
-  React.useEffect(() => {
-    if (route.params) {
-      setProfileData(route.params.profileData);
-    }
-  }, [route.params]);
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
-          <Layout style={styles.iconContainer}>
-            {route.params && (
-              <Icon
-                name='arrow-back'
-                onPress={navigateBack}
-                fill='white'
-                style={styles.backIcon}
-              />
-            )}
-          </Layout>
-
           <Layout
             style={[
               route.params
@@ -58,30 +47,81 @@ const UserProfileScreen = ({ navigation, route }) => {
               style={[
                 route.params ? styles.avatarImgNoMargin : styles.avatarImg
               ]}
-              source={{ uri: profileData.img }}
+              source={{ uri: dummyUserData.img }}
             />
             <Layout style={styles.headerCaptions}>
-              <Text style={styles.name}>{profileData.name}</Text>
+              <Text style={styles.name}>{userData.name}</Text>
               <Layout style={styles.subCaptionsContainer}>
-                <Text style={styles.subCaptions}>{profileData.year}</Text>
-                <Text style={styles.subCaptions}>{profileData.major}</Text>
+                <Text style={styles.subCaptions}>{background.year}</Text>
+                <Text style={styles.subCaptions}>{background.degree}</Text>
               </Layout>
             </Layout>
           </Layout>
           <Layout style={styles.contentContainer}>
-            <ContentCard type={'bio'} userData={profileData} />
+            <ContentCard type={'bio'} data={background.biography} />
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-              <InterestTags tagsData={profileData.interestedAreas} />
+              <InterestTags tagsData={dummyUserData.interestedAreas} />
             </Card>
 
             <Layout style={styles.groupContainer}>
-              <ContentCard type={'coding-exp-level'} userData={profileData} />
-              <ContentCard type={'commitment'} userData={profileData} />
+              <ContentCard
+                type={'coding-exp-level'}
+                data={background.sweExperience}
+              />
+              <ContentCard type={'commitment'} data={background.commitment} />
             </Layout>
+
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              <TechTags tagsData={profileData.technologies} />
+              {Object.entries(techExp).map(([key, value]) => {
+                if (value.length > 0) {
+                  let displayHeader, displayIcon;
+
+                  if (key === 'game') {
+                    displayHeader = 'GAME DEVELOPMENT';
+                    displayIcon = GameIcon;
+                  } else if (key === 'machineLearning') {
+                    displayHeader = 'MACHINE LEARNING';
+                    displayIcon = MLIcon;
+                  } else if (key === 'mobile') {
+                    displayHeader = 'MOBILE DEVELOPMENT';
+                    displayIcon = MobileIcon;
+                  } else if (key === 'web') {
+                    displayHeader = 'WEB DEVELOPMENT';
+                    displayIcon = WebIcon;
+                  } else if (key === 'database') {
+                    displayHeader = 'DATABASE';
+                    displayIcon = DBIcon;
+                  }
+
+                  return (
+                    <Layout style={styles.techContainer} key={displayHeader}>
+                      <Button
+                        size='large'
+                        appearance='ghost'
+                        status='basic'
+                        accessoryRight={displayIcon}
+                      >
+                        {displayHeader}
+                      </Button>
+                      <Layout style={styles.tagContainer}>
+                        {value.map(tech => (
+                          <Button
+                            style={styles.tags}
+                            size='small'
+                            appearance='ghost'
+                            status='basic'
+                            key={tech}
+                          >
+                            {tech}
+                          </Button>
+                        ))}
+                      </Layout>
+                    </Layout>
+                  );
+                }
+              })}
             </Card>
           </Layout>
         </ScrollView>
@@ -152,7 +192,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     color: 'white'
-    // fontFamily: 'Lato'
   },
   subCaptionsContainer: {
     backgroundColor: '#407BFF',
@@ -228,6 +267,18 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '#407bff'
+  },
+  techContainer: {
+    borderRadius: 10,
+    marginVertical: 5
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderRadius: 10
+  },
+  tags: {
+    marginHorizontal: -5
   }
 });
 

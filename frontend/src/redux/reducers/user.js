@@ -23,7 +23,6 @@ export default (state = initialState, action) => {
       };
     case GET_USER_DATA:
       return {
-        ...state,
         userData: action.userData
       };
     case CLEAR_LOG_OUT:

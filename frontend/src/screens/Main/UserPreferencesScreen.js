@@ -9,7 +9,7 @@ import {
 import { Layout, Text, Card } from '@ui-kitten/components';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { userData, partnerPref } from '../../constants/userData';
+import { dummyUserData, partnerPref } from '../../constants/userData';
 import {
   TechTags,
   InterestTags,
@@ -72,7 +72,7 @@ const UserPreferencesScreen = ({ navigation }) => {
             </Layout> */}
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              <TechTags tagsData={techArray} />
+              {/* <TechTags tagsData={techArray} /> */}
             </Card>
           </Layout>
         </ScrollView>

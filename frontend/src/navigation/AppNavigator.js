@@ -9,6 +9,7 @@ import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
 import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
+import * as userActions from '../redux/actions/user';
 
 const App = createStackNavigator();
 
