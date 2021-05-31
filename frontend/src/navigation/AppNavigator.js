@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import firebase from '../firebase';
 import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { LoadingScreen } from '../screens/index';
 import DrawerNavigator from './DrawerNavigator';
@@ -29,10 +30,16 @@ const AppNavigator = () => {
         setAuthenticated(true);
         setIsLoading(false);
 
-        dispatch(
-          authActions.setCurrentUser(user.uid, user.displayName, isRegistering)
-        );
-        dispatch(userActions.getUserData());
+        AsyncStorage.setItem('init', 'true').then(() => {
+          dispatch(
+            authActions.setCurrentUser(
+              user.uid,
+              user.displayName,
+              isRegistering
+            )
+          );
+          dispatch(userActions.getUserData());
+        });
       } else {
         setAuthenticated(false);
         setIsLoading(false);
@@ -53,16 +60,6 @@ const AppNavigator = () => {
       isMounted = false;
     };
   }, []);
-
-  // {register ? (
-  //   <App.Screen name='RegisterNavigator' component={RegisterNavigator} />
-  // ) : authenticated && !register && !isLoading ? (
-  //   <App.Screen name='DrawerNavigator' component={DrawerNavigator} />
-  // ) : !authenticated && !isLoading ? (
-  //   <App.Screen name='AuthNavigator' component={AuthNavigator} />
-  // ) : (
-  //   <App.Screen name='Loading' component={LoadingScreen} />
-  // )}
 
   return (
     <NavigationContainer>
