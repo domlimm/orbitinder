@@ -33,7 +33,7 @@ import {
   dbData,
   mlData
 } from '../../constants/profleCreationData';
-import { userData } from '../../constants/userData';
+import { dummyUserData } from '../../constants/userData';
 
 const EditProfileScreen = ({ navigation }) => {
   const navigateBack = () => {
@@ -47,37 +47,41 @@ const EditProfileScreen = ({ navigation }) => {
     needMenuNav: false
   };
   const initialState = {
-    bioValue: userData.bio,
-    yearValue: userData.year,
-    ideaValue: userData.idea,
-    commitmentValue: userData.commitment,
-    achievementValue: userData.level,
-    sweValue: userData.codingExpLevel,
-    gamedevValue: userData.tech.gamedev,
-    webValue: userData.tech.webdev,
-    mobileValue: userData.tech.mobiledev,
-    dbValue: userData.tech.db,
-    mlValue: userData.tech.ml,
-    yearIndex: new IndexPath(yearData.indexOf(userData.year)),
-    ideaIndex: new IndexPath(idea.indexOf(userData.idea[0])),
+    bioValue: dummyUserData.bio,
+    yearValue: dummyUserData.year,
+    ideaValue: dummyUserData.idea,
+    commitmentValue: dummyUserData.commitment,
+    achievementValue: dummyUserData.level,
+    sweValue: dummyUserData.codingExpLevel,
+    gamedevValue: dummyUserData.tech.gamedev,
+    webValue: dummyUserData.tech.webdev,
+    mobileValue: dummyUserData.tech.mobiledev,
+    dbValue: dummyUserData.tech.db,
+    mlValue: dummyUserData.tech.ml,
+    yearIndex: new IndexPath(yearData.indexOf(dummyUserData.year)),
+    ideaIndex: new IndexPath(idea.indexOf(dummyUserData.idea[0])),
     commitmentIndex: new IndexPath(
-      commitmentData.indexOf(userData.commitment[0])
+      commitmentData.indexOf(dummyUserData.commitment[0])
     ),
-    achievementIndex: new IndexPath(achievementData.indexOf(userData.level[0])),
-    sweIndex: new IndexPath(sweExperience.indexOf(userData.codingExpLevel[0])),
-    gamedevIndex: userData.tech.gamedev.map(index => {
+    achievementIndex: new IndexPath(
+      achievementData.indexOf(dummyUserData.level[0])
+    ),
+    sweIndex: new IndexPath(
+      sweExperience.indexOf(dummyUserData.codingExpLevel[0])
+    ),
+    gamedevIndex: dummyUserData.tech.gamedev.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
-    webIndex: userData.tech.webdev.map(index => {
+    webIndex: dummyUserData.tech.webdev.map(index => {
       return new IndexPath(webDevData.indexOf(index));
     }),
-    mobileIndex: userData.tech.mobiledev.map(index => {
+    mobileIndex: dummyUserData.tech.mobiledev.map(index => {
       return new IndexPath(mobileDevData.indexOf(index));
     }),
-    dbIndex: userData.tech.db.map(index => {
+    dbIndex: dummyUserData.tech.db.map(index => {
       return new IndexPath(dbData.indexOf(index));
     }),
-    mlIndex: userData.tech.ml.map(index => {
+    mlIndex: dummyUserData.tech.ml.map(index => {
       return new IndexPath(mlData.indexOf(index));
     })
   };
@@ -148,7 +152,7 @@ const EditProfileScreen = ({ navigation }) => {
     }
   };
   const initialUserData = {
-    ...userData
+    ...dummyUserData
   };
   const userDataReducer = (currUserData, action) => {
     switch (action.type) {
@@ -179,7 +183,7 @@ const EditProfileScreen = ({ navigation }) => {
     userDataReducer,
     initialUserData
   );
-  const [data, setData] = React.useState(userData);
+  const [data, setData] = React.useState(dummyUserData);
   const saveHandler = () => {
     dispatchUserData({
       type: 'changeUserData',

@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Card, Text } from '@ui-kitten/components';
 
 import { InterestTags } from './InterestTags';
-import { userData } from '../../constants/userData';
+import { dummyUserData } from '../../constants/userData';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ const ContentCard = ({ type, data }) => {
       return (
         <Card style={styles.contentCard}>
           <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-          <InterestTags tagsData={userData.interestedAreas} />
+          <InterestTags tagsData={dummyUserData.interestedAreas} />
         </Card>
       );
     case 'coding-exp-level':
