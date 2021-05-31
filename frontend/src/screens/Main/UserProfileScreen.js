@@ -6,10 +6,10 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Layout, Text, Card, Button } from '@ui-kitten/components';
+import { Layout, Text, Card, Button, Icon } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
-
+import IconBadge from 'react-native-icon-badge';
 import { ContentCard, InterestTags } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
@@ -31,11 +31,23 @@ const UserProfileScreen = ({ navigation, route }) => {
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
   };
-
+  const navigateBack = () => {
+    navigation.goBack();
+  };
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
+          <Layout style={styles.iconContainer}>
+            {route.params && (
+              <Icon
+                name='arrow-back'
+                onPress={navigateBack}
+                fill='white'
+                style={styles.backIcon}
+              />
+            )}
+          </Layout>
           <Layout
             style={[
               route.params
@@ -43,24 +55,40 @@ const UserProfileScreen = ({ navigation, route }) => {
                 : styles.headerContainer
             ]}
           >
-            <Image
-              style={[
-                route.params ? styles.avatarImgNoMargin : styles.avatarImg
+            <IconBadge
+              MainElement={
+                <Image
+                  style={[
+                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                  ]}
+                  source={{ uri: dummyUserData.img }}
+                />
+              }
+              BadgeElement={
+                <Foundation
+                  name={
+                    userData.gender == 'Female'
+                      ? 'female-symbol'
+                      : 'male-symbol'
+                  }
+                  size={30}
+                  color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+                  style={styles.genderIcon}
+                />
+              }
+              // IconBadgeStyle={styles.genderBadgeUserProfile}
+              IconBadgeStyle={[
+                route.params
+                  ? styles.genderBadgeViewDetails
+                  : styles.genderBadgeUserProfile
               ]}
-              source={{ uri: dummyUserData.img }}
             />
+
             <Layout style={styles.headerCaptions}>
               <Text style={styles.name}>{userData.name}</Text>
               <Text style={styles.subCaptions}>{background.degree}</Text>
               <Text style={styles.subCaptions}>{background.year}</Text>
-              <Foundation
-                name={
-                  userData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
-                }
-                size={30}
-                color={userData.gender == 'Female' ? '#FF59A1' : '#2104FF'}
-                style={styles.genderIcon}
-              />
+
               {/* <Layout style={styles.subCaptionsContainer}>
                
               </Layout> */}
@@ -172,13 +200,13 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 230,
+    height: 210,
     alignItems: 'center'
   },
   smallHeaderContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 200,
+    height: 180,
     alignItems: 'center'
   },
   avatarImg: {
@@ -220,7 +248,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'rgba(255,255,255,0.6)',
     textTransform: 'uppercase',
-    marginVertical: 1,
+    marginTop: 5,
     letterSpacing: 1,
     // marginRight: 10,
 
@@ -301,6 +329,20 @@ const styles = StyleSheet.create({
   },
   tags: {
     marginHorizontal: -5
+  },
+  genderBadgeUserProfile: {
+    width: 20,
+    height: 20,
+    top: 20,
+    right: 5,
+    backgroundColor: 'transparent'
+  },
+  genderBadgeViewDetails: {
+    width: 20,
+    height: 20,
+    top: -5,
+    right: -3,
+    backgroundColor: 'transparent'
   }
 });
 
