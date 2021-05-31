@@ -35,13 +35,13 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <Text style={styles.sectionTitle}>ORBITAL LEVEL</Text>
+            <Text style={styles.sectionTitle}>EXP LEVEL</Text>
             <Text style={styles.sectionTitleRight}>HAS IDEA?</Text>
           </Layout>
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <InterestTags tagsData={cardData.level} />
+            <InterestTags tagsData={cardData.codingExpLevel} />
             <InterestTags tagsData={cardData.idea} />
           </Layout>
         </Layout>
@@ -60,14 +60,12 @@ const InfoCard = ({ cardData, navProps }) => {
           </Layout>
         </Layout>
       </Layout>
-      <Layout>
-        <TouchableOpacity
-          style={styles.readMoreContainer}
-          onPress={handleReadMore}
-        >
-          <Text style={styles.readMoreText}>VIEW MORE</Text>
-        </TouchableOpacity>
-      </Layout>
+      <TouchableOpacity
+        onPress={handleReadMore}
+        style={styles.readMoreContainer}
+      >
+        <Text style={styles.readMoreText}>VIEW DETAILS</Text>
+      </TouchableOpacity>
     </Layout>
   );
 };
@@ -76,17 +74,31 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 20,
     marginVertical: 30,
-    height: 530,
+    height: 550,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 30,
     flexDirection: 'column',
     alignSelf: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
+    // borderBottomLeftRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+
+    elevation: 3
   },
   headerContainer: {
     backgroundColor: '#407BFF',
     height: 150,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30
   },
   avatarImg: {
     width: 60,
@@ -127,7 +139,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingVertical: 15,
     paddingHorizontal: 25,
-    height: 360
+    height: 350,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30
   },
   sectionTitle: {
     fontWeight: 'bold',
@@ -151,7 +165,21 @@ const styles = StyleSheet.create({
   },
   readMoreContainer: {
     backgroundColor: '#8CB1FF',
-    height: 30
+    height: 30,
+    width: 120,
+    alignSelf: 'center',
+    marginBottom: 15,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 1,
+
+    elevation: 5,
+    alignItems: 'center'
   },
   readMoreText: {
     color: 'white',

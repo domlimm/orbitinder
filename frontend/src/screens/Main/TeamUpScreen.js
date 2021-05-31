@@ -59,14 +59,16 @@ const TeamUpScreen = ({ navigation }) => {
                 borderColor: '#FF7559',
                 color: 'white',
                 borderWidth: 1,
-                fontSize: 15
+                fontSize: 15,
+                borderRadius: 20
               },
               wrapper: {
                 flexDirection: 'column',
                 alignItems: 'flex-end',
                 justifyContent: 'flex-start',
                 marginTop: 40,
-                marginLeft: -30
+                marginLeft: -30,
+                elevation: 5
               }
             }
           },
@@ -78,14 +80,17 @@ const TeamUpScreen = ({ navigation }) => {
                 borderColor: '#8CB1FF',
                 color: 'white',
                 borderWidth: 1,
-                fontSize: 15
+                fontSize: 15,
+                borderRadius: 20
               },
               wrapper: {
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 justifyContent: 'flex-start',
                 marginTop: 40,
-                marginLeft: 30
+                marginLeft: 30,
+                elevation: 5
+                //
               }
             }
           }
