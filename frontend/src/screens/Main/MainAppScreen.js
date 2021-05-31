@@ -26,7 +26,9 @@ const MainAppScreen = ({ navigation }) => {
   };
 
   const navigateProfileScreen = () => {
-    navigation.navigate('TabNavigator');
+    setTimeout(() => {
+      navigation.navigate('TabNavigator');
+    }, 975);
   };
 
   const renderTitle = () => <Text style={styles.titleHeader}>Home</Text>;
