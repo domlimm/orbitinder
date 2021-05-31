@@ -1,17 +1,19 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Card, Text } from '@ui-kitten/components';
+
 import { InterestTags } from './InterestTags';
+import { userData } from '../../constants/userData';
 
 const { width } = Dimensions.get('window');
 
-const ContentCard = ({ type, userData }) => {
+const ContentCard = ({ type, data }) => {
   switch (type) {
     case 'bio':
       return (
         <Card style={styles.contentCard}>
           <Text style={styles.cardTitle}>ABOUT ME</Text>
-          <Text>{userData.bio}</Text>
+          <Text>{data}</Text>
         </Card>
       );
     case 'areas-of-interest':
@@ -23,10 +25,6 @@ const ContentCard = ({ type, userData }) => {
       );
     case 'coding-exp-level':
       return (
-        // <Card style={styles.cardGroup}>
-        //   <Text style={styles.cardTitle}>Coding Exp Level</Text>
-        //   <InterestTags tagsData={[userData.codingExpLevel]} />
-        // </Card>
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>EXP. LEVEL</Text>
           <Button
@@ -35,7 +33,7 @@ const ContentCard = ({ type, userData }) => {
             appearance='outline'
             status='basic'
           >
-            {userData.codingExpLevel}
+            {data}
           </Button>
         </Card>
       );
@@ -49,7 +47,7 @@ const ContentCard = ({ type, userData }) => {
             appearance='outline'
             status='basic'
           >
-            {userData.commitment}
+            {data}
           </Button>
         </Card>
       );
@@ -63,7 +61,7 @@ const ContentCard = ({ type, userData }) => {
             appearance='outline'
             status='basic'
           >
-            {userData.level}
+            {data}
           </Button>
         </Card>
       );
@@ -77,7 +75,7 @@ const ContentCard = ({ type, userData }) => {
             appearance='outline'
             status='basic'
           >
-            {userData.idea}
+            {data}
           </Button>
         </Card>
       );

@@ -9,6 +9,7 @@ import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
 import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
+import * as userActions from '../redux/actions/user';
 
 const App = createStackNavigator();
 
@@ -31,6 +32,7 @@ const AppNavigator = () => {
         dispatch(
           authActions.setCurrentUser(user.uid, user.displayName, isRegistering)
         );
+        dispatch(userActions.getUserData());
       } else {
         setAuthenticated(false);
         setIsLoading(false);
