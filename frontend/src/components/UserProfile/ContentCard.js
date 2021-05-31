@@ -53,6 +53,34 @@ const ContentCard = ({ type, userData }) => {
           </Button>
         </Card>
       );
+    case 'orbitalLevel':
+      return (
+        <Card style={styles.cardGroup}>
+          <Text style={styles.cardTitle}>ORBITAL LEVEL</Text>
+          <Button
+            style={styles.tags}
+            size='small'
+            appearance='outline'
+            status='basic'
+          >
+            {userData.level}
+          </Button>
+        </Card>
+      );
+    case 'hasIdea':
+      return (
+        <Card style={styles.cardGroup}>
+          <Text style={styles.cardTitle}>HAS IDEA?</Text>
+          <Button
+            style={styles.tags}
+            size='small'
+            appearance='outline'
+            status='basic'
+          >
+            {userData.idea}
+          </Button>
+        </Card>
+      );
   }
 };
 
@@ -66,7 +94,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     shadowColor: 'grey',
     shadowRadius: 4,
-    marginVertical: 4
+    marginTop: 7
   },
   cardTitle: {
     fontWeight: 'bold',
@@ -74,7 +102,7 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   cardGroup: {
-    marginVertical: 4,
+    marginTop: 7,
     width: width * 0.48,
     height: 100,
     shadowColor: 'grey',

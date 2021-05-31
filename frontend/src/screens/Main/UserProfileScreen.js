@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Button, Layout, Text, Card, Icon } from '@ui-kitten/components';
-import { FontAwesome } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 import { BackIcon, ContentCard } from '../../components/index';
 import { userData } from '../../constants/userData';
 import { TechTags } from '../../components/index';
@@ -67,16 +67,28 @@ const UserProfileScreen = ({ navigation, route }) => {
             />
             <Layout style={styles.headerCaptions}>
               <Text style={styles.name}>{profileData.name}</Text>
-              <Layout style={styles.subCaptionsContainer}>
-                <Text style={styles.subCaptions}>{profileData.year}</Text>
-                <Text style={styles.subCaptions}>{profileData.major}</Text>
-              </Layout>
+              <Text style={styles.subCaptions}>{profileData.major}</Text>
+              <Text style={styles.subCaptions}>{profileData.year}</Text>
+              <Foundation
+                name={
+                  profileData.gender == 'Female'
+                    ? 'female-symbol'
+                    : 'male-symbol'
+                }
+                size={30}
+                color={profileData.gender == 'Female' ? '#FF59A1' : '#2104FF'}
+                style={styles.genderIcon}
+              />
+
+              {/* <Layout style={styles.subCaptionsContainer}>
+               
+              </Layout> */}
             </Layout>
           </Layout>
           <Layout style={styles.contentContainer}>
             <ContentCard type={'bio'} userData={profileData} />
             <Card style={styles.contentCard}>
-              <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
+              <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
               <InterestTags tagsData={profileData.interestedAreas} />
             </Card>
 
@@ -84,9 +96,20 @@ const UserProfileScreen = ({ navigation, route }) => {
               <ContentCard type={'coding-exp-level'} userData={profileData} />
               <ContentCard type={'commitment'} userData={profileData} />
             </Layout>
+            <Layout style={styles.groupContainer}>
+              <ContentCard type={'orbitalLevel'} userData={profileData} />
+              <ContentCard type={'hasIdea'} userData={profileData} />
+            </Layout>
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              <TechTags tagsData={profileData.technologies} />
+              <TechTags
+                tagsData={profileData.tech.db.concat(
+                  profileData.tech.gamedev,
+                  profileData.tech.ml,
+                  profileData.tech.mobiledev,
+                  profileData.tech.webdev
+                )}
+              />
             </Card>
           </Layout>
         </ScrollView>
@@ -122,13 +145,13 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 200,
+    height: 230,
     alignItems: 'center'
   },
   smallHeaderContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 170,
+    height: 200,
     alignItems: 'center'
   },
   avatarImg: {
@@ -173,7 +196,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginVertical: 1,
     letterSpacing: 1,
-    marginRight: 10
+    // marginRight: 10,
+
+    textAlign: 'center'
   },
   linksIcons: {
     backgroundColor: '#407BFF',
@@ -186,6 +211,7 @@ const styles = StyleSheet.create({
   },
   contentCard: {
     marginHorizontal: 5,
+    marginTop: 7,
     shadowColor: 'grey',
     shadowRadius: 4
   },
@@ -234,6 +260,9 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '#407bff'
+  },
+  genderIcon: {
+    marginTop: 4
   }
 });
 

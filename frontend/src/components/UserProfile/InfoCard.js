@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Button, Card, Layout, Text } from '@ui-kitten/components';
 import InterestTags from './InterestTags';
 import { userData } from '../../constants/userData';
@@ -73,8 +73,8 @@ const InfoCard = ({ cardData, navProps }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 20,
-    marginVertical: 30,
-    height: 550,
+    height: 540,
+    marginVertical: 20,
     backgroundColor: 'white',
     borderRadius: 30,
     flexDirection: 'column',
