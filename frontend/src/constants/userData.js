@@ -1,4 +1,4 @@
-export const userData = {
+export const dummyUserData = {
   name: 'Rebecca Black',
   year: 'Year 1',
   major: 'Business Analytics',

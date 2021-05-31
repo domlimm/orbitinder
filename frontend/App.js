@@ -15,7 +15,6 @@ import { localImages } from './src/constants/imagePaths';
 import { ErrorScreen } from './src/screens/index';
 import { authReducer, userReducer } from './src/redux/reducers/index';
 
-// To create index file for reducers
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer

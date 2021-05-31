@@ -15,7 +15,7 @@ import {
 } from '@ui-kitten/components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { userData } from '../../constants/userData';
+import { dummyUserData } from '../../constants/userData';
 import greeting from '../../utils/Greeting';
 import * as userActions from '../../redux/actions/user';
 
@@ -84,7 +84,7 @@ const MainAppScreen = ({ navigation }) => {
             <Avatar
               shape='rounded'
               size='giant'
-              source={{ uri: userData.img }}
+              source={{ uri: dummyUserData.img }}
             />
           </Layout>
         </TouchableOpacity>
