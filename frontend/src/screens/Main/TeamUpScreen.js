@@ -66,7 +66,7 @@ const TeamUpScreen = ({ navigation }) => {
                 flexDirection: 'column',
                 alignItems: 'flex-end',
                 justifyContent: 'flex-start',
-                marginTop: 40,
+                marginTop: 30,
                 marginLeft: -30,
                 elevation: 5
               }
@@ -87,7 +87,7 @@ const TeamUpScreen = ({ navigation }) => {
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 justifyContent: 'flex-start',
-                marginTop: 40,
+                marginTop: 30,
                 marginLeft: 30,
                 elevation: 5
                 //
