@@ -13,10 +13,12 @@ import { default as customTheme } from './src/constants/custom-theme.json';
 import AppNavigator from './src/navigation/AppNavigator';
 import { localImages } from './src/constants/imagePaths';
 import { ErrorScreen } from './src/screens/index';
-import authReducer from './src/redux/reducers/auth';
+import { authReducer, userReducer } from './src/redux/reducers/index';
 
+// To create index file for reducers
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  user: userReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
