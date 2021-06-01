@@ -10,6 +10,8 @@ import { Layout, Text, Card, Button, Icon } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
+import Moment from 'moment';
+
 import { ContentCard, InterestTags } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
@@ -17,6 +19,9 @@ const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
   const background = userData.background;
   const techExp = background.technologyExperience;
+  const updatedAt = Moment(userData.updatedAt).format(
+    'dddd Do MMM YY, h:mm:ss A'
+  );
 
   const DBIcon = () => <Feather name='database' size={30} color='#407BFF' />;
   const GameIcon = () => (
@@ -34,6 +39,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const navigateBack = () => {
     navigation.goBack();
   };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
@@ -76,7 +82,6 @@ const UserProfileScreen = ({ navigation, route }) => {
                   style={styles.genderIcon}
                 />
               }
-              // IconBadgeStyle={styles.genderBadgeUserProfile}
               IconBadgeStyle={[
                 route.params
                   ? styles.genderBadgeViewDetails
@@ -88,10 +93,6 @@ const UserProfileScreen = ({ navigation, route }) => {
               <Text style={styles.name}>{userData.name}</Text>
               <Text style={styles.subCaptions}>{background.degree}</Text>
               <Text style={styles.subCaptions}>{background.year}</Text>
-
-              {/* <Layout style={styles.subCaptionsContainer}>
-               
-              </Layout> */}
             </Layout>
           </Layout>
           <Layout style={styles.contentContainer}>
@@ -166,6 +167,10 @@ const UserProfileScreen = ({ navigation, route }) => {
                 }
               })}
             </Card>
+            <Text
+              style={styles.updatedText}
+              category='label'
+            >{`Last Updated: ${updatedAt}`}</Text>
           </Layout>
         </ScrollView>
         {!route.params && (
@@ -250,8 +255,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginTop: 5,
     letterSpacing: 1,
-    // marginRight: 10,
-
     textAlign: 'center'
   },
   linksIcons: {
@@ -343,6 +346,10 @@ const styles = StyleSheet.create({
     top: -5,
     right: -3,
     backgroundColor: 'transparent'
+  },
+  updatedText: {
+    marginHorizontal: 8,
+    marginVertical: 5
   }
 });
 
