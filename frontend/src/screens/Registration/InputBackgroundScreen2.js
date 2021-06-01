@@ -23,10 +23,6 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
 
   const [bio, setBio] = React.useState('');
 
-  React.useEffect(() => {
-    console.log('2', route.params);
-  }, []);
-
   const navigateRegistration = () => {
     navigation.navigate('InputBackground3', {
       ...route.params,

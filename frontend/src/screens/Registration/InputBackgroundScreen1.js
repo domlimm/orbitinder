@@ -101,8 +101,6 @@ const InputBackgroundScreen1 = ({ navigation }) => {
               label='Degree'
             >
               {degreeData.map((value, key) => {
-                console.log(value, key);
-
                 if (key === 0) {
                   return <SelectItem key={key} title={value} disabled />;
                 }
