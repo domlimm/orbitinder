@@ -79,9 +79,10 @@ export const mlData = [
 ];
 
 export const degreeData = [
-  'Computer Science',
-  'Information Systems',
-  'Computer Engineering',
+  'Computing',
   'Business Analytics',
-  'Information Security'
+  'Computer Science',
+  'Information Security',
+  'Information Systems',
+  'Computer Engineering'
 ];

@@ -4,13 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
-  Input,
   Select,
   SelectItem,
   IndexPath,
-  Text,
-  Autocomplete,
-  AutocompleteItem
+  Text
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 
@@ -18,39 +15,30 @@ import { NavHeader } from '../../components/index';
 import {
   yearData,
   commitmentData,
-  achievementData
+  achievementData,
+  degreeData
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation }) => {
-  const degreeData = [
-    { title: 'Business Analytics' },
-    { title: 'Computer Science' },
-    { title: 'Information Systems' },
-    { title: 'Information Security' },
-    { title: 'Computer Engineering' }
-  ];
-
-  const filter = (item, query) =>
-    item.title.toLowerCase().includes(query.toLowerCase());
-  const [valueDegree, setValueDegree] = React.useState(null);
-  const [dataDegree, setDataDegree] = React.useState(degreeData);
-  const onSelectDegree = index => {
-    setValueDegree(degreeData[index].title);
-  };
-
-  const onChangeDegree = query => {
-    setValueDegree(query);
-    setDataDegree(degreeData.filter(item => filter(item, query)));
-  };
-
-  const renderDegreeOption = (item, index) => (
-    <AutocompleteItem key={index} title={item.title} />
-  );
-
+  // const [valueDegree, setValueDegree] = React.useState('');
+  // const [degrees, setDegrees] = React.useState(degreeData);
+  // const filterDegree = (item, query) =>
+  //   item.title.toLowerCase().includes(query.toLowerCase());
+  // const onSelectDegree = index => {
+  //   setValueDegree(degreeData[index].title);
+  // };
+  // const onChangeDegree = query => {
+  //   setValueDegree(query);
+  //   setDegrees(degreeData.filter(deg => filterDegree(deg, query)));
+  // };
+  // const renderDegreeOption = (item, index) => (
+  //   <AutocompleteItem key={index} title={item.title} />
+  // );
   const [yearIndex, setYearIndex] = React.useState(new IndexPath(0));
   const displayYear = yearData[yearIndex.row];
 
-  const [degree, setDegree] = React.useState('');
+  const [degIndex, setDegIndex] = React.useState(new IndexPath(0));
+  const displayDegree = degreeData[degIndex.row];
 
   const [commitIndex, setCommitIndex] = React.useState(new IndexPath(0));
   const displayCommitment = commitmentData[commitIndex.row];
@@ -66,7 +54,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
       gender: gender,
       background: {
         year: displayYear,
-        degree: degree,
+        degree: displayDegree,
         commitment: displayCommitment,
         achievement: displayAchievement
       }
@@ -95,7 +83,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
           </Layout>
           <Layout style={styles.inputContainer}>
             <Select
-              style={styles.selectInput}
+              style={styles.input}
               selectedIndex={yearIndex}
               value={displayYear}
               onSelect={index => setYearIndex(index)}
@@ -105,15 +93,24 @@ const InputBackgroundScreen1 = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-            {/* <Input
+            <Select
+              style={styles.input}
+              selectedIndex={degIndex}
+              value={displayDegree}
+              onSelect={index => setDegIndex(index)}
               label='Degree'
-              style={styles.textInput}
-              autoCapitalize='words'
-              placeholder='Name of Degree'
-              value={degree}
-              onChangeText={input => setDegree(input)}
-            /> */}
-            <Autocomplete
+            >
+              {degreeData.map((value, key) => {
+                console.log(value, key);
+
+                if (key === 0) {
+                  return <SelectItem key={key} title={value} disabled />;
+                }
+
+                return <SelectItem key={key} title={value} />;
+              })}
+            </Select>
+            {/* <Autocomplete
               placeholder='Name of Degree'
               value={valueDegree}
               onSelect={onSelectDegree}
@@ -121,10 +118,10 @@ const InputBackgroundScreen1 = ({ navigation }) => {
               style={styles.textInput}
               label='Degree'
             >
-              {dataDegree.map(renderDegreeOption)}
-            </Autocomplete>
+              {degrees.map(renderDegreeOption)}
+            </Autocomplete> */}
             <Select
-              style={styles.selectInput}
+              style={styles.input}
               selectedIndex={commitIndex}
               value={displayCommitment}
               onSelect={index => setCommitIndex(index)}
@@ -135,7 +132,7 @@ const InputBackgroundScreen1 = ({ navigation }) => {
               ))}
             </Select>
             <Select
-              style={styles.selectInput}
+              style={styles.input}
               selectedIndex={achieveIndex}
               value={displayAchievement}
               onSelect={index => setAchieveIndex(index)}
@@ -173,17 +170,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  textInput: {
+  input: {
     width: '70%',
     marginVertical: 10
   },
   signupBtn: {
     width: '70%',
     marginVertical: 30
-  },
-  selectInput: {
-    width: '70%',
-    marginVertical: 10
   },
   screenTitle: {
     color: '#407BFF',
