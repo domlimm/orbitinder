@@ -46,10 +46,6 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
   //   console.log('parent.useEffect.getSelections', technologyExperience);
   // }, [technologyExperience]);
 
-  React.useEffect(() => {
-    console.log('3', route.params);
-  }, []);
-
   const saveBackgroundHandler = () => {
     const userData = {
       ...route.params,
