@@ -77,3 +77,11 @@ export const mlData = [
   'scikit-learn',
   'TensorFlow'
 ];
+
+export const degreeData = [
+  'Business Analytics',
+  'Computer Science',
+  'Information Security',
+  'Information Systems',
+  'Computer Engineering'
+];

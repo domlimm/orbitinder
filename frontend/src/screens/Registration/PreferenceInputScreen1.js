@@ -4,18 +4,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
-  Input,
   Select,
   SelectItem,
   Text
 } from '@ui-kitten/components';
-// To separate for local imports rather than installed dependencies: add below onwards
+
 import { NavHeader } from '../../components/index';
 import {
   yearData,
   commitmentData,
   genderData,
-  sweExperience
+  sweExperience,
+  degreeData
 } from '../../constants/prefCreationData';
 
 const PrefInputScreen1 = ({ navigation }) => {
@@ -29,7 +29,10 @@ const PrefInputScreen1 = ({ navigation }) => {
     return commitmentData[index.row];
   });
 
-  const [degrees, setDegrees] = React.useState([]);
+  const [degIndex, setDegIndex] = React.useState([]);
+  const displayDegree = degIndex.map(index => {
+    return degreeData[index.row];
+  });
 
   const [genderIndex, setGenderIndex] = React.useState([]);
   const displayGender = genderIndex.map(index => {
@@ -41,15 +44,10 @@ const PrefInputScreen1 = ({ navigation }) => {
     return sweExperience[index.row];
   });
 
-  const degreeInputHandler = input => {
-    const revisedInput = input.replace(/\s*,\s*/g, ',');
-    setDegrees(revisedInput.split(','));
-  };
-
   const navigatePreference = () => {
     navigation.navigate('PrefInput2', {
       year: displayYear,
-      degree: degrees,
+      degree: displayDegree,
       commitment: displayCommitment,
       gender: displayGender,
       sweExperience: displaySWE
@@ -91,13 +89,19 @@ const PrefInputScreen1 = ({ navigation }) => {
               ))}
             </Select>
 
-            <Input
+            <Select
               label='Degree'
-              style={styles.textInput}
-              autoCapitalize='words'
-              placeholder='Degree 1, Degree 2, ...'
-              onChangeText={degreeInputHandler}
-            />
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={degIndex}
+              onSelect={index => setDegIndex(index)}
+              placeholder='Select'
+              value={displayDegree.join(', ')}
+            >
+              {degreeData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
 
             <Select
               label='Commitment to Orbital'
