@@ -28,7 +28,7 @@ export const addPreferences = data => dispatch => {
     .doc(userId)
     .set(data, { merge: true })
     .then(() => {
-      dispatch({ type: ADD_USER_PREFERENCES, preferenceData: data });
+      dispatch({ type: ADD_USER_PREFERENCES, userData: data });
     })
     .catch(err => {
       throw new Error(`Adding Preferences: ${err}`);

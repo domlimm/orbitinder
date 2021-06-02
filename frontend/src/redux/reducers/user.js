@@ -14,12 +14,12 @@ export default (state = initialState, action) => {
     case ADD_USER_PROFILE:
       return {
         ...state,
-        userData: action.userData
+        userData: { ...state.userData, ...action.userData }
       };
     case ADD_USER_PREFERENCES:
       return {
         ...state,
-        userData: action.preferenceData
+        userData: { ...state.userData, ...action.userData }
       };
     case GET_USER_DATA:
       return {
