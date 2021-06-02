@@ -67,7 +67,9 @@ const AppNavigator = () => {
         {authenticated && !isRegistering && !isLoading ? (
           <App.Screen name='DrawerNavigator' component={DrawerNavigator} />
         ) : !authenticated && !isLoading ? (
-          <App.Screen name='AuthNavigator' component={AuthNavigator} />
+          (dispatch(authActions.logOut()),
+          dispatch(userActions.clearDataLogOut()),
+          (<App.Screen name='AuthNavigator' component={AuthNavigator} />))
         ) : isRegistering && !isLoading ? (
           <App.Screen name='RegisterNavigator' component={RegisterNavigator} />
         ) : (
