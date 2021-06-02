@@ -21,7 +21,6 @@
     "expo": "~41.0.1",
     "expo-app-loading": "^1.0.3",
     "expo-asset": "~8.3.1",
-    "expo-localization": "~10.1.0",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.6.2",
     "moment": "^2.29.1",

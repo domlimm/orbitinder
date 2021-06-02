@@ -1,11 +1,7 @@
-import * as Localization from 'expo-localization';
+import moment from 'moment';
 
 const greeting = () => {
-  const dateTimeArray = new Date()
-    .toLocaleString([], { timeZone: Localization.timezone })
-    .split(' ');
-  const time = dateTimeArray[3].split(':');
-  const hour = time[0];
+  const hour = parseInt(moment().format('HH'));
   const greeting =
     hour >= 0 && hour < 12
       ? 'good morning,'
