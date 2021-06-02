@@ -43,6 +43,8 @@ const AppNavigator = () => {
       } else {
         setAuthenticated(false);
         setIsLoading(false);
+        dispatch(authActions.logOut());
+        dispatch(userActions.clearDataLogOut());
       }
     });
   };
@@ -67,9 +69,7 @@ const AppNavigator = () => {
         {authenticated && !isRegistering && !isLoading ? (
           <App.Screen name='DrawerNavigator' component={DrawerNavigator} />
         ) : !authenticated && !isLoading ? (
-          (dispatch(authActions.logOut()),
-          dispatch(userActions.clearDataLogOut()),
-          (<App.Screen name='AuthNavigator' component={AuthNavigator} />))
+          <App.Screen name='AuthNavigator' component={AuthNavigator} />
         ) : isRegistering && !isLoading ? (
           <App.Screen name='RegisterNavigator' component={RegisterNavigator} />
         ) : (
