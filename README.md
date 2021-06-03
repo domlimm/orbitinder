@@ -19,7 +19,7 @@
 <div align="left">
   <br/>
   
-  You may want to watch our [video](https://drive.google.com/file/d/1-tXbN5Yr0KRQDf51QrBR_rcDU527qURu/view?usp=sharing) presentation or view our [poster](https://i.imgur.com/89aBsEq.jpg)
+  You may want to view our [poster](https://i.imgur.com/89aBsEq.jpg).
   
   <br/>
   
