@@ -17,6 +17,7 @@ import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
+  console.log(userData.background);
   const background = userData.background;
   const techExp = background.technologyExperience;
   const updatedAt = Moment(userData.updatedAt).format(

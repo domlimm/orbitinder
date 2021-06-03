@@ -33,12 +33,26 @@ import {
   dbData,
   mlData
 } from '../../constants/profleCreationData';
-import { dummyUserData } from '../../constants/userData';
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../../redux/actions/user';
 
 const EditProfileScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
   };
+
+  const dispatch = useDispatch();
+
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    if (error) {
+      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
+    }
+  }, [error]);
+
+  const userData = useSelector(state => state.user.userData);
+  const background = userData.background;
 
   const navProps = {
     title: 'Edit Profile',
@@ -47,41 +61,39 @@ const EditProfileScreen = ({ navigation }) => {
     needMenuNav: false
   };
   const initialState = {
-    bioValue: dummyUserData.bio,
-    yearValue: dummyUserData.year,
-    ideaValue: dummyUserData.idea,
-    commitmentValue: dummyUserData.commitment,
-    achievementValue: dummyUserData.level,
-    sweValue: dummyUserData.codingExpLevel,
-    gamedevValue: dummyUserData.tech.gamedev,
-    webValue: dummyUserData.tech.webdev,
-    mobileValue: dummyUserData.tech.mobiledev,
-    dbValue: dummyUserData.tech.db,
-    mlValue: dummyUserData.tech.ml,
-    yearIndex: new IndexPath(yearData.indexOf(dummyUserData.year)),
-    ideaIndex: new IndexPath(idea.indexOf(dummyUserData.idea[0])),
+    bioValue: background.biography,
+    yearValue: background.year,
+    ideaValue: background.idea,
+    commitmentValue: background.commitment,
+    achievementValue: background.achievement,
+    sweValue: background.sweExperience,
+    gamedevValue: background.technologyExperience.game,
+    webValue: background.technologyExperience.web,
+    mobileValue: background.technologyExperience.mobile,
+    dbValue: background.technologyExperience.database,
+    mlValue: background.technologyExperience.machineLearning,
+    yearIndex: new IndexPath(yearData.indexOf(background.year)),
+    ideaIndex: new IndexPath(idea.indexOf(background.idea)),
     commitmentIndex: new IndexPath(
-      commitmentData.indexOf(dummyUserData.commitment[0])
+      commitmentData.indexOf(background.commitment)
     ),
     achievementIndex: new IndexPath(
-      achievementData.indexOf(dummyUserData.level[0])
+      achievementData.indexOf(background.achievement)
     ),
-    sweIndex: new IndexPath(
-      sweExperience.indexOf(dummyUserData.codingExpLevel[0])
-    ),
-    gamedevIndex: dummyUserData.tech.gamedev.map(index => {
+    sweIndex: new IndexPath(sweExperience.indexOf(background.sweExperience)),
+    gamedevIndex: background.technologyExperience.game.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
-    webIndex: dummyUserData.tech.webdev.map(index => {
+    webIndex: background.technologyExperience.web.map(index => {
       return new IndexPath(webDevData.indexOf(index));
     }),
-    mobileIndex: dummyUserData.tech.mobiledev.map(index => {
+    mobileIndex: background.technologyExperience.mobile.map(index => {
       return new IndexPath(mobileDevData.indexOf(index));
     }),
-    dbIndex: dummyUserData.tech.db.map(index => {
+    dbIndex: background.technologyExperience.database.map(index => {
       return new IndexPath(dbData.indexOf(index));
     }),
-    mlIndex: dummyUserData.tech.ml.map(index => {
+    mlIndex: background.technologyExperience.machineLearning.map(index => {
       return new IndexPath(mlData.indexOf(index));
     })
   };
@@ -151,52 +163,36 @@ const EditProfileScreen = ({ navigation }) => {
         };
     }
   };
-  const initialUserData = {
-    ...dummyUserData
-  };
-  const userDataReducer = (currUserData, action) => {
-    switch (action.type) {
-      case 'changeUserData':
-        console.log('Action', action.dataUser);
-        console.log('initialUserDATA', initialUserData);
-        return {
-          ...currUserData,
-          bio: action.dataUser.bioValue,
-          year: action.dataUser.yearValue,
-          commitment: action.dataUser.commitmentValue,
-          idea: action.dataUser.ideaValue,
-          level: action.dataUser.achievementValue,
-          codingExpLevel: action.dataUser.sweValue,
-          tech: {
-            ...currUserData.tech,
-            gamedev: action.dataUser.gamedevValue,
-            webdev: action.dataUser.webValue,
-            mobiledev: action.dataUser.mobileValue,
-            db: action.dataUser.dbValue,
-            ml: action.dataUser.mlValue
-          }
-        };
-    }
-  };
-  const [currState, dispatch] = React.useReducer(myReducer, initialState);
-  const [currUserData, dispatchUserData] = React.useReducer(
-    userDataReducer,
-    initialUserData
-  );
-  const [data, setData] = React.useState(dummyUserData);
+  const [currState, currdispatch] = React.useReducer(myReducer, initialState);
   const saveHandler = () => {
-    dispatchUserData({
-      type: 'changeUserData',
-      dataUser: currState
-    });
+    const backgroundData = {
+      background: {
+        biography: currState.bioValue,
+        commitment: currState.commitmentValue,
+        idea: currState.ideaValue,
+        achievement: currState.achievementValue,
+        sweExperience: currState.sweValue,
+        technologyExperience: {
+          game: currState.gamedevValue,
+          web: currState.webValue,
+          mobile: currState.mobileValue,
+          database: currState.dbValue,
+          machineLearning: currState.mlValue
+        },
+        year: currState.yearValue
+      }
+    };
+
+    try {
+      dispatch(userActions.updateProfile(backgroundData));
+      console.log('bgdata', backgroundData);
+      setError(null);
+      setVisible(!visible);
+    } catch (err) {
+      setError(err.message);
+    }
     setVisible(!visible);
   };
-
-  React.useEffect(() => {
-    if (currUserData != initialUserData) {
-      console.log('FINAL CURR1', currUserData);
-    }
-  }, [currUserData]); //only changes on save
 
   const [visible, setVisible] = React.useState(false); // for save modal
   return (
@@ -211,7 +207,7 @@ const EditProfileScreen = ({ navigation }) => {
               value={currState.yearValue}
               selectedIndex={currState.yearIndex}
               onSelect={index =>
-                dispatch({
+                currdispatch({
                   type: 'changeYear',
                   yearValue: yearData[index.row],
                   yearIndex: index
@@ -230,7 +226,7 @@ const EditProfileScreen = ({ navigation }) => {
               placeholder='Bio'
               label='Provide a short bio about yourself'
               onChangeText={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeBio',
                   bioValue: input
                 })
@@ -243,7 +239,7 @@ const EditProfileScreen = ({ navigation }) => {
               value={currState.ideaValue}
               selectedIndex={currState.ideaIndex}
               onSelect={index =>
-                dispatch({
+                currdispatch({
                   type: 'changeIdea',
                   ideaValue: idea[index.row],
                   ideaIndex: index
@@ -261,7 +257,7 @@ const EditProfileScreen = ({ navigation }) => {
               selectedIndex={currState.commitmentIndex}
               value={currState.commitmentValue}
               onSelect={index =>
-                dispatch({
+                currdispatch({
                   type: 'changeCommitment',
                   commitmentValue: commitmentData[index.row],
                   commitmentIndex: index
@@ -278,7 +274,7 @@ const EditProfileScreen = ({ navigation }) => {
               selectedIndex={currState.achievementIndex}
               value={currState.achievementValue}
               onSelect={index =>
-                dispatch({
+                currdispatch({
                   type: 'changeAchievement',
                   achievementValue: achievementData[index.row],
                   achievementIndex: index
@@ -295,7 +291,7 @@ const EditProfileScreen = ({ navigation }) => {
               selectedIndex={currState.sweIndex}
               value={currState.sweValue}
               onSelect={index =>
-                dispatch({
+                currdispatch({
                   type: 'changeSWE',
                   sweValue: sweExperience[index.row],
                   sweIndex: index
@@ -315,7 +311,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.gamedevIndex}
               onSelect={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeGamedev',
                   gamedevValue: input.map(index => {
                     return gameDevData[index.row];
@@ -336,7 +332,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.webIndex}
               onSelect={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeWebdev',
                   webValue: input.map(index => {
                     return webDevData[index.row];
@@ -357,7 +353,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.mobileIndex}
               onSelect={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeMobiledev',
                   mobileValue: input.map(index => {
                     return mobileDevData[index.row];
@@ -378,7 +374,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.dbIndex}
               onSelect={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeDB',
                   dbValue: input.map(index => {
                     return dbData[index.row];
@@ -399,7 +395,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.mlIndex}
               onSelect={input =>
-                dispatch({
+                currdispatch({
                   type: 'changeML',
                   mlValue: input.map(index => {
                     return mlData[index.row];

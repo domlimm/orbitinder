@@ -4,8 +4,23 @@ export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const CLEAR_LOG_OUT = 'CLEAR_LOG_OUT';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
 const db = firebase.firestore();
+
+export const updateProfile = data => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .set(data, { merge: true })
+    .then(() => {
+      dispatch({ type: UPDATE_PROFILE, userData: data });
+    })
+    .catch(err => {
+      throw new Error(`Updating Profile: ${err}`);
+    });
+};
 
 export const addProfile = data => dispatch => {
   const userId = firebase.auth().currentUser.uid;
