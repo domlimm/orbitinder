@@ -195,6 +195,7 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   const [visible, setVisible] = React.useState(false); // for save modal
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
@@ -419,7 +420,11 @@ const EditProfileScreen = ({ navigation }) => {
             >
               <Card disabled={true}>
                 <Text>Profile Has been saved</Text>
-                <Button size='small' onPress={() => setVisible(false)}>
+                <Button
+                  style={styles.dismissBtn}
+                  size='small'
+                  onPress={() => setVisible(false)}
+                >
                   DISMISS
                 </Button>
               </Card>
@@ -511,6 +516,9 @@ const styles = StyleSheet.create({
   discardAlertText: {
     alignItems: 'center',
     justifyContent: 'space-evenly'
+  },
+  dismissBtn: {
+    marginVertical: 15
   }
 });
 export default EditProfileScreen;

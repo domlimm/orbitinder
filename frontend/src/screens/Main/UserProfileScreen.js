@@ -6,7 +6,14 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Layout, Text, Card, Button, Icon } from '@ui-kitten/components';
+import {
+  Layout,
+  Text,
+  Card,
+  Button,
+  Icon,
+  Divider
+} from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
@@ -24,15 +31,15 @@ const UserProfileScreen = ({ navigation, route }) => {
     'dddd Do MMM YY, h:mm:ss A'
   );
 
-  const DBIcon = () => <Feather name='database' size={30} color='#407BFF' />;
+  const DBIcon = () => <Feather name='database' size={20} color='#407BFF' />;
   const GameIcon = () => (
-    <Ionicons name='game-controller-outline' size={30} color='#407BFF' />
+    <Ionicons name='game-controller-outline' size={20} color='#407BFF' />
   );
-  const MLIcon = () => <Octicons name='hubot' size={30} color='#407BFF' />;
+  const MLIcon = () => <Octicons name='hubot' size={20} color='#407BFF' />;
   const MobileIcon = () => (
-    <Feather name='smartphone' size={30} color='#407BFF' />
+    <Feather name='smartphone' size={20} color='#407BFF' />
   );
-  const WebIcon = () => <Feather name='globe' size={30} color='#407BFF' />;
+  const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
@@ -119,6 +126,7 @@ const UserProfileScreen = ({ navigation, route }) => {
             </Layout>
             <Card style={styles.contentCard}>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
+
               {Object.entries(techExp).map(([key, value]) => {
                 if (value.length > 0) {
                   let displayHeader, displayIcon;
@@ -142,6 +150,7 @@ const UserProfileScreen = ({ navigation, route }) => {
 
                   return (
                     <Layout style={styles.techContainer} key={displayHeader}>
+                      <Divider />
                       <Button
                         size='large'
                         appearance='ghost'
