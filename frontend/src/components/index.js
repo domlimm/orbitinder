@@ -1,5 +1,6 @@
 export { default as ExperienceSelectInputs } from './Inputs/ExperienceSelectInputs';
 export { default as LoadingIndicator } from './Inputs/LoadingIndicator';
+export { default as Toast } from './Inputs/Toast';
 
 export { default as TechTags } from './UserProfile/TechTags';
 export { default as InterestTags } from './UserProfile/InterestTags';

@@ -1,30 +1,21 @@
 import React from 'react';
 import {
   StyleSheet,
-  RefreshControl,
+  Alert,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   ScrollView,
   Dimensions
 } from 'react-native';
-import {
-  Layout,
-  Text,
-  Input,
-  Icon,
-  Button,
-  Modal,
-  Card
-} from '@ui-kitten/components';
+import { Layout, Input, Icon, Button } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// To separate for local imports rather than installed dependencies: add below onwards
-import { TitleHeader } from '../../components/index';
 
-const ResetPasswordScreen = ({ navigation }) => {
-  const navigateDetails = () => {
-    navigation.navigate('UserProfileScreen');
-  };
+import { TitleHeader, LoadingIndicator, Toast } from '../../components/index';
+import firebase from '../../firebase';
 
+const { height } = Dimensions.get('window');
+
+const ChangePasswordScreen = ({ navigation }) => {
   const navProps = {
     title: 'Change Password',
     navigation: navigation,
@@ -32,17 +23,38 @@ const ResetPasswordScreen = ({ navigation }) => {
     needMenuNav: true
   };
 
-  const [currentPassword, setcurrentPassword] = React.useState('');
-  const [showCurrentPassword, setShowCurrentPassword] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
 
-  const CurrentPasswordIcon = props => (
-    <TouchableWithoutFeedback onPress={showPasswordHandler}>
-      <Icon {...props} name={showCurrentPassword ? 'eye' : 'eye-off'} />
-    </TouchableWithoutFeedback>
-  );
+  const updatePWHandler = async () => {
+    try {
+      if (
+        newPassword !== confirmPassword ||
+        newPassword.length === 0 ||
+        confirmPassword.length === 0
+      ) {
+        setAlertMessage('Passwords do not match!');
+        setShowAlert(true);
+        setAlertStatus('warning');
+        return;
+      }
 
-  const showPasswordHandler = () => {
-    setShowCurrentPassword(!showCurrentPassword);
+      setLoading(true);
+
+      await firebase.auth().currentUser.updatePassword(confirmPassword);
+
+      setLoading(false);
+      setAlertMessage('Your password has been changed!');
+      setShowAlert(true);
+      setAlertStatus('success');
+    } catch (err) {
+      setLoading(false);
+      setAlertMessage(err.message);
+      setShowAlert(true);
+      setAlertStatus('danger');
+    }
   };
 
   const [newPassword, setNewPassword] = React.useState('');
@@ -71,8 +83,6 @@ const ResetPasswordScreen = ({ navigation }) => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const [modalVisible, setModalVisible] = React.useState(false);
-
   return (
     <KeyboardAvoidingView
       style={styles.kbContainer}
@@ -80,18 +90,15 @@ const ResetPasswordScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.parentContainer}>
         <TitleHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.inputContainer}>
-            <Input
-              label='Current Password'
-              style={styles.textInput}
-              placeholder='********'
-              accessoryRight={CurrentPasswordIcon}
-              value={currentPassword}
-              onChangeText={input => setcurrentPassword(input)}
-              accessoryRight={CurrentPasswordIcon}
-              secureTextEntry={showCurrentPassword}
-            />
             <Input
               label='New Password'
               style={styles.textInput}
@@ -115,24 +122,14 @@ const ResetPasswordScreen = ({ navigation }) => {
           </Layout>
           <Layout style={styles.btnContainer}>
             <Button
-              style={styles.btnInput}
-              onPress={() => setModalVisible(true)}
+              onPress={updatePWHandler}
+              accessoryLeft={loading ? () => <LoadingIndicator /> : null}
+              style={styles.changePWBtn}
+              disabled={loading}
             >
               Change Password
             </Button>
           </Layout>
-          <Modal
-            visible={modalVisible}
-            backdropStyle={styles.backdrop}
-            onBackdropPress={() => setModalVisible(false)}
-          >
-            <Card disabled={true}>
-              <Text style={styles.modalText}>Password Changed</Text>
-              <Button size='small' onPress={() => setModalVisible(false)}>
-                DISMISS
-              </Button>
-            </Card>
-          </Modal>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
@@ -154,16 +151,17 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     alignItems: 'center',
-    marginTop: Dimensions.get('window').height * 0.05
+    marginTop: height * 0.02
   },
   btnContainer: {
-    paddingVertical: 30,
+    marginTop: 20,
     alignItems: 'center',
     flex: 1,
     backgroundColor: 'white'
   },
-  btnInput: {
-    width: '70%'
+  changePWBtn: {
+    width: '70%',
+    marginTop: 10
   },
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)'
@@ -173,4 +171,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ResetPasswordScreen;
+export default ChangePasswordScreen;
