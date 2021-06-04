@@ -19,16 +19,19 @@ import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import Moment from 'moment';
 
-import { ContentCard, InterestTags } from '../../components/index';
+import {
+  ContentCard,
+  InterestTags,
+  FloatingEdit
+} from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
-  console.log(userData.background);
   const background = userData.background;
   const techExp = background.technologyExperience;
   const updatedAt = Moment(userData.updatedAt).format(
-    'dddd Do MMM YY, h:mm:ss A'
+    'dddd D MMM YY, h:mm:ss A'
   );
 
   const DBIcon = () => <Feather name='database' size={20} color='#407BFF' />;
@@ -183,18 +186,7 @@ const UserProfileScreen = ({ navigation, route }) => {
             >{`Last Updated: ${updatedAt}`}</Text>
           </Layout>
         </ScrollView>
-        {!route.params && (
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={styles.touchableOpacityStyle}
-            onPress={navigateEditProfile}
-          >
-            <Image
-              source={require('../../assets/images/edit.png')}
-              style={styles.floatingButtonStyle}
-            />
-          </TouchableOpacity>
-        )}
+        {!route.params && <FloatingEdit navigate={navigateEditProfile} />}
       </Layout>
     </SafeAreaView>
   );
@@ -303,20 +295,6 @@ const styles = StyleSheet.create({
   cardGroup: {
     width: '50%',
     height: 100
-  },
-  touchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30
-  },
-  floatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50
   },
   backIcon: {
     width: 32,

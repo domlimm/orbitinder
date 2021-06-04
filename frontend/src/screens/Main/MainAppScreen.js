@@ -120,15 +120,13 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 1, width: 1 }, // IOS
     shadowOpacity: 1, // IOS
     shadowRadius: 1, //IOS
-    // shadowOpacity: 0.1,
-    // shadowRadius: 3,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
   greetingTitle: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 25
+    fontSize: 24
   },
   profileAvatar: {
     width: 100,

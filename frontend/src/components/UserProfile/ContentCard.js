@@ -27,12 +27,7 @@ const ContentCard = ({ type, data }) => {
       return (
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>EXP. LEVEL</Text>
-          <Button
-            style={styles.tags}
-            size='small'
-            appearance='outline'
-            status='basic'
-          >
+          <Button size='small' appearance='outline' status='basic'>
             {data}
           </Button>
         </Card>
@@ -41,13 +36,8 @@ const ContentCard = ({ type, data }) => {
       return (
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>COMMITMENT</Text>
-          <Button
-            style={styles.tags}
-            size='small'
-            appearance='outline'
-            status='basic'
-          >
-            {data}
+          <Button size='small' appearance='outline' status='basic'>
+            {data.split(' ')[0]}
           </Button>
         </Card>
       );
@@ -55,12 +45,7 @@ const ContentCard = ({ type, data }) => {
       return (
         <Card style={styles.cardGroup}>
           <Text style={styles.cardTitle}>ORBITAL LEVEL</Text>
-          <Button
-            style={styles.tags}
-            size='small'
-            appearance='outline'
-            status='basic'
-          >
+          <Button size='small' appearance='outline' status='basic'>
             {data}
           </Button>
         </Card>
@@ -68,13 +53,8 @@ const ContentCard = ({ type, data }) => {
     case 'hasIdea':
       return (
         <Card style={styles.cardGroup}>
-          <Text style={styles.cardTitle}>HAS IDEA?</Text>
-          <Button
-            style={styles.tags}
-            size='small'
-            appearance='outline'
-            status='basic'
-          >
+          <Text style={styles.cardTitle}>HAS AN IDEA?</Text>
+          <Button size='small' appearance='outline' status='basic'>
             {data}
           </Button>
         </Card>
