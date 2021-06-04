@@ -14,7 +14,8 @@ import {
   TechTags,
   InterestTags,
   BackIcon,
-  ContentCard
+  ContentCard,
+  FloatingEdit
 } from '../../components/index';
 
 const UserPreferencesScreen = ({ navigation }) => {
@@ -76,16 +77,7 @@ const UserPreferencesScreen = ({ navigation }) => {
             </Card>
           </Layout>
         </ScrollView>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.touchableOpacityStyle}
-          onPress={navigateEditPref}
-        >
-          <Image
-            source={require('../../assets/images/edit.png')}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
+        <FloatingEdit navigate={navigateEditPref} />
       </Layout>
     </SafeAreaView>
   );
@@ -182,21 +174,6 @@ const styles = StyleSheet.create({
   cardGroup: {
     width: '50%',
     height: 100
-  },
-  touchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30
-  },
-  floatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50
-    //backgroundColor:'black'
   }
 });
 
