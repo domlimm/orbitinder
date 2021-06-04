@@ -3,7 +3,8 @@ import {
   ADD_USER_PREFERENCES,
   GET_USER_DATA,
   CLEAR_LOG_OUT,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  UPDATE_PREFERENCES
 } from '../actions/user';
 
 const initialState = {
@@ -12,6 +13,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_PREFERENCES:
+      return {
+        ...state,
+        userData: { ...state.userData, ...action.userData }
+      };
     case UPDATE_PROFILE:
       return {
         ...state,

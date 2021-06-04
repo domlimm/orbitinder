@@ -1,13 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Alert
-} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
   Button,
   Layout,
@@ -17,7 +10,6 @@ import {
   IndexPath,
   Select,
   SelectItem,
-  Input,
   Divider
 } from '@ui-kitten/components';
 
@@ -28,7 +20,6 @@ import {
   commitmentData,
   genderData,
   idea,
-  achievementData,
   sweExperience,
   gameDevData,
   webDevData,
@@ -38,10 +29,26 @@ import {
 } from '../../constants/profleCreationData';
 import { partnerPref } from '../../constants/userData';
 
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../../redux/actions/user';
 const EditPrefScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
   };
+
+  const dispatch = useDispatch();
+
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    if (error) {
+      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
+    }
+  }, [error]);
+
+  const userData = useSelector(state => state.user.userData);
+  const preferences = userData.preferences;
+
   let navProps = {
     title: 'Edit Preferences',
     navigation: navigation,
@@ -49,44 +56,44 @@ const EditPrefScreen = ({ navigation }) => {
     needMenuNav: false
   };
   const initialState = {
-    gamedevValue: partnerPref.tech.gamedev,
-    webValue: partnerPref.tech.webdev,
-    mobileValue: partnerPref.tech.mobiledev,
-    dbValue: partnerPref.tech.db,
-    mlValue: partnerPref.tech.ml,
-    yearValue: partnerPref.year,
-    degreeValue: partnerPref.degree,
-    commitmentValue: partnerPref.commitment,
-    genderValue: partnerPref.gender,
-    expValue: partnerPref.codingExpLevel,
-    gamedevIndex: partnerPref.tech.gamedev.map(index => {
+    gamedevValue: preferences.technologyExperience.game,
+    webValue: preferences.technologyExperience.web,
+    mobileValue: preferences.technologyExperience.mobile,
+    dbValue: preferences.technologyExperience.database,
+    mlValue: preferences.technologyExperience.machineLearning,
+    yearValue: preferences.year,
+    degreeValue: preferences.degree,
+    commitmentValue: preferences.commitment,
+    genderValue: preferences.gender,
+    expValue: preferences.sweExperience,
+    gamedevIndex: preferences.technologyExperience.game.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
-    webIndex: partnerPref.tech.webdev.map(index => {
+    webIndex: preferences.technologyExperience.web.map(index => {
       return new IndexPath(webDevData.indexOf(index));
     }),
-    mobileIndex: partnerPref.tech.mobiledev.map(index => {
+    mobileIndex: preferences.technologyExperience.mobile.map(index => {
       return new IndexPath(mobileDevData.indexOf(index));
     }),
-    dbIndex: partnerPref.tech.db.map(index => {
+    dbIndex: preferences.technologyExperience.database.map(index => {
       return new IndexPath(dbData.indexOf(index));
     }),
-    mlIndex: partnerPref.tech.ml.map(index => {
+    mlIndex: preferences.technologyExperience.machineLearning.map(index => {
       return new IndexPath(mlData.indexOf(index));
     }),
-    yearIndex: partnerPref.year.map(index => {
+    yearIndex: preferences.year.map(index => {
       return new IndexPath(yearData.indexOf(index));
     }),
-    degreeIndex: partnerPref.degree.map(index => {
+    degreeIndex: preferences.degree.map(index => {
       return new IndexPath(degreeData.indexOf(index));
     }),
-    commitmentIndex: partnerPref.commitment.map(index => {
+    commitmentIndex: preferences.commitment.map(index => {
       return new IndexPath(commitmentData.indexOf(index));
     }),
-    genderIndex: partnerPref.gender.map(index => {
+    genderIndex: preferences.gender.map(index => {
       return new IndexPath(genderData.indexOf(index));
     }),
-    expIndex: partnerPref.codingExpLevel.map(index => {
+    expIndex: preferences.sweExperience.map(index => {
       return new IndexPath(sweExperience.indexOf(index));
     })
   };
@@ -154,51 +161,58 @@ const EditPrefScreen = ({ navigation }) => {
         };
     }
   };
-  const initialUserData = {
-    ...partnerPref
-  };
-  const userDataReducer = (currUserData, action) => {
-    switch (action.type) {
-      case 'changeUserData':
-        // console.log('Action', action.dataUser);
-        // console.log('initialUserDATA', initialUserData);
-        return {
-          ...currUserData,
-          year: action.dataUser.yearValue,
-          degree: action.dataUser.degreeValue,
-          commitment: action.dataUser.commitmentValue,
-          gender: action.dataUser.genderValue,
-          codingExpLevel: action.dataUser.expValue,
-          tech: {
-            ...currUserData.tech,
-            gamedev: action.dataUser.gamedevValue,
-            webdev: action.dataUser.webValue,
-            mobiledev: action.dataUser.mobileValue,
-            db: action.dataUser.dbValue,
-            ml: action.dataUser.mlValue
-          }
-        };
-    }
-  };
-  const [currState, dispatch] = React.useReducer(myReducer, initialState);
-  const [currUserData, dispatchUserData] = React.useReducer(
-    userDataReducer,
-    initialUserData
-  );
-  const [data, setData] = React.useState(partnerPref);
+  const [currState, myDispatch] = React.useReducer(myReducer, initialState);
   const saveHandler = () => {
-    dispatchUserData({
-      type: 'changeUserData',
-      dataUser: currState
-    });
+    const prefData = {
+      //idea?????
+      preferences: {
+        commitment: currState.commitmentValue,
+        degree: currState.degreeValue,
+        gender: currState.genderValue,
+        sweExperience: currState.expValue,
+        technologyExperience: {
+          game: currState.gamedevValue,
+          web: currState.webValue,
+          mobile: currState.mobileValue,
+          database: currState.dbValue,
+          machineLearning: currState.mlValue
+        },
+        year: currState.yearValue
+      }
+    };
+    try {
+      dispatch(userActions.updatePref(prefData));
+      setError(null);
+      setVisible(!visible);
+    } catch (err) {
+      setError(err.message);
+    }
     setVisible(!visible);
   };
 
-  React.useEffect(() => {
-    if (currUserData != initialUserData) {
-      console.log('FINAL CURR1', currUserData);
-    }
-  }, [currUserData]); //only changes on save
+  React.useEffect(
+    () =>
+      navigation.addListener('blur', e => {
+        //backRemove
+        console.log('back nav');
+        let finalB = {
+          commitment: currState.commitmentValue,
+          degree: currState.degreeValue,
+          gender: currState.genderValue,
+          sweExperience: currState.expValue,
+          technologyExperience: {
+            game: currState.gamedevValue,
+            web: currState.webValue,
+            mobile: currState.mobileValue,
+            database: currState.dbValue,
+            machineLearning: currState.mlValue
+          },
+          year: currState.yearValue
+        };
+        console.log(_.isEqual(finalB, preferences)); //but preferences isnt updated even after save
+      }),
+    [navigation, currState]
+  );
 
   const [visible, setVisible] = React.useState(false); // for save modal
   return (
@@ -215,7 +229,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.yearIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeYear',
                   yearValue: input.map(index => {
                     return yearData[index.row];
@@ -236,7 +250,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.degreeIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeDegree',
                   degreeValue: input.map(index => {
                     return degreeData[index.row];
@@ -257,7 +271,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.commitmentIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeCommitment',
                   commitmentValue: input.map(index => {
                     return commitmentData[index.row];
@@ -278,7 +292,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.genderIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeGender',
                   genderValue: input.map(index => {
                     return genderData[index.row];
@@ -299,7 +313,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.expIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeExpLevel',
                   expValue: input.map(index => {
                     return sweExperience[index.row];
@@ -325,7 +339,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.gamedevIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeGamedev',
                   gamedevValue: input.map(index => {
                     return gameDevData[index.row];
@@ -346,7 +360,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.webIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeWebdev',
                   webValue: input.map(index => {
                     return webDevData[index.row];
@@ -367,7 +381,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.mobileIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeMobiledev',
                   mobileValue: input.map(index => {
                     return mobileDevData[index.row];
@@ -388,7 +402,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.dbIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeDB',
                   dbValue: input.map(index => {
                     return dbData[index.row];
@@ -409,7 +423,7 @@ const EditPrefScreen = ({ navigation }) => {
               multiSelect={true}
               selectedIndex={currState.mlIndex}
               onSelect={input =>
-                dispatch({
+                myDispatch({
                   type: 'changeML',
                   mlValue: input.map(index => {
                     return mlData[index.row];
@@ -433,7 +447,11 @@ const EditPrefScreen = ({ navigation }) => {
             >
               <Card disabled={true}>
                 <Text>Profile Has been saved</Text>
-                <Button size='small' onPress={() => setVisible(false)}>
+                <Button
+                  style={styles.dismissBtn}
+                  size='small'
+                  onPress={() => setVisible(false)}
+                >
                   DISMISS
                 </Button>
               </Card>
@@ -492,6 +510,9 @@ const styles = StyleSheet.create({
   discardAlertText: {
     alignItems: 'center',
     justifyContent: 'space-evenly'
+  },
+  dismissBtn: {
+    marginVertical: 15
   }
 });
 export default EditPrefScreen;
