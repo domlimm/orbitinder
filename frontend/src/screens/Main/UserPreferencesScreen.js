@@ -1,27 +1,20 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Image,
-  TouchableOpacity
-} from 'react-native';
-import { Layout, Text, Card } from '@ui-kitten/components';
-import { FontAwesome } from '@expo/vector-icons';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Layout, Text, Card, Button } from '@ui-kitten/components';
+import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 
-import { dummyUserData, partnerPref } from '../../constants/userData';
-import {
-  TechTags,
-  InterestTags,
-  BackIcon,
-  ContentCard,
-  FloatingEdit
-} from '../../components/index';
+import { partnerPref } from '../../constants/userData';
+import { InterestTags, FloatingEdit } from '../../components/index';
+import { useSelector } from 'react-redux';
 
 const UserPreferencesScreen = ({ navigation }) => {
   const navigateEditPref = () => {
     navigation.navigate('EditPref');
   };
+
+  const userData = useSelector(state => state.user.userData);
+  const prefData = userData.preferences;
+  const techExp = prefData.technologyExperience;
 
   const [techArray, setTechArray] = React.useState(
     partnerPref.tech.db.concat(
@@ -31,50 +24,85 @@ const UserPreferencesScreen = ({ navigation }) => {
       partnerPref.tech.webdev
     )
   );
+  const DBIcon = () => <Feather name='database' size={20} color='#407BFF' />;
+  const GameIcon = () => (
+    <Ionicons name='game-controller-outline' size={20} color='#407BFF' />
+  );
+  const MLIcon = () => <Octicons name='hubot' size={20} color='#407BFF' />;
+  const MobileIcon = () => (
+    <Feather name='smartphone' size={20} color='#407BFF' />
+  );
+  const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
         <ScrollView>
-          {/* <Layout style={styles.headerContainer}>
-            <Layout style={styles.headerCaptions}>
-              <Text style={styles.name}>Rebecca Black</Text>
-              <Layout style={styles.subCaptionsContainer}>
-                <Text style={styles.subCaptions}>Year 1</Text>
-                <Text style={styles.subCaptions}>Business Analytics</Text>
-              </Layout>
-            </Layout>
-          </Layout> */}
           <Layout style={styles.contentContainer}>
-            {/* <ContentCard type={'bio'} userData={userData} /> */}
             <Card style={styles.contentCard} status='basic'>
               <Text style={styles.cardTitle}>YEAR OF STUDY</Text>
-              <InterestTags tagsData={partnerPref.year} />
+              <InterestTags tagsData={prefData.year} />
             </Card>
             <Card style={styles.contentCard} status='basic'>
               <Text style={styles.cardTitle}>MAJOR</Text>
-              <InterestTags tagsData={partnerPref.degree} />
+              <InterestTags tagsData={prefData.degree} />
             </Card>
             <Card style={styles.contentCard} status='basic'>
               <Text style={styles.cardTitle}>COMMITMENT</Text>
-              <InterestTags tagsData={partnerPref.commitment} />
+              <InterestTags tagsData={prefData.commitment} />
             </Card>
             <Card style={styles.contentCard} status='basic'>
               <Text style={styles.cardTitle}>GENDER</Text>
-              <InterestTags tagsData={partnerPref.gender} />
+              <InterestTags tagsData={prefData.gender} />
             </Card>
             <Card style={styles.contentCard} status='basic'>
               <Text style={styles.cardTitle}>SWE EXPERIENCE LEVEL</Text>
-              <InterestTags tagsData={partnerPref.codingExpLevel} />
+              <InterestTags tagsData={prefData.sweExperience} />
             </Card>
-            {/* <Layout style={styles.groupContainer}>
-              <ContentCard type={'coding-exp-level'} userData={userData} />
-              <ContentCard type={'commitment'} userData={userData} />
-            </Layout> */}
-            <Card style={styles.contentCard}>
-              <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-              {/* <TechTags tagsData={techArray} /> */}
-            </Card>
+
+            {Object.entries(techExp).map(([key, value]) => {
+              if (value.length > 0) {
+                let displayHeader, displayIcon;
+
+                if (key === 'game') {
+                  displayHeader = 'GAME DEVELOPMENT';
+                  displayIcon = GameIcon;
+                  console.log(value);
+                } else if (key === 'machineLearning') {
+                  displayHeader = 'MACHINE LEARNING';
+                  displayIcon = MLIcon;
+                } else if (key === 'mobile') {
+                  displayHeader = 'MOBILE DEVELOPMENT';
+                  displayIcon = MobileIcon;
+                } else if (key === 'web') {
+                  displayHeader = 'WEB DEVELOPMENT';
+                  displayIcon = WebIcon;
+                } else if (key === 'database') {
+                  displayHeader = 'DATABASE';
+                  displayIcon = DBIcon;
+                }
+
+                return (
+                  <Card
+                    style={styles.contentCard}
+                    key={displayHeader}
+                    status='primary'
+                  >
+                    <Layout style={{ flexDirection: 'row' }}>
+                      <Text style={styles.cardTitle}>{displayHeader}</Text>
+                      <Button
+                        size='tiny'
+                        appearance='ghost'
+                        status='basic'
+                        accessoryRight={displayIcon}
+                      ></Button>
+                    </Layout>
+
+                    <InterestTags tagsData={value} />
+                  </Card>
+                );
+              }
+            })}
           </Layout>
         </ScrollView>
         <FloatingEdit navigate={navigateEditPref} />
@@ -151,8 +179,8 @@ const styles = StyleSheet.create({
     shadowColor: 'grey',
     shadowRadius: 4,
     marginTop: 5,
-    width: '90%',
-    alignContent: 'center'
+    width: '90%'
+    // alignContent: 'center'
     // flexWrap: 'wrap'
   },
   cardTitle: {
