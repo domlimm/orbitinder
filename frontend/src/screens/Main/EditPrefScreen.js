@@ -20,7 +20,8 @@ import {
   Input,
   Divider
 } from '@ui-kitten/components';
-import { TitleHeader } from '../../components/index';
+
+import { TitleHeader, FloatingSave } from '../../components/index';
 import {
   yearData,
   degreeData,
@@ -36,6 +37,7 @@ import {
   mlData
 } from '../../constants/profleCreationData';
 import { partnerPref } from '../../constants/userData';
+
 const EditPrefScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
@@ -438,16 +440,7 @@ const EditPrefScreen = ({ navigation }) => {
             </Modal>
           </Layout>
         </ScrollView>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.touchableOpacityStyle}
-          onPress={saveHandler}
-        >
-          <Image
-            source={require('../../assets/images/save-icon.png')}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
+        <FloatingSave saveHandler={saveHandler} />
       </Layout>
     </SafeAreaView>
   );
@@ -476,21 +469,6 @@ const styles = StyleSheet.create({
   selectInput: {
     width: '70%',
     marginVertical: 10
-  },
-  touchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30
-  },
-  floatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50
-    //backgroundColor:'black'
   },
   screenTitle: {
     color: '#407BFF',

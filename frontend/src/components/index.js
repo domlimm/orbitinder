@@ -6,6 +6,7 @@ export { default as InterestTags } from './UserProfile/InterestTags';
 export { default as ContentCard } from './UserProfile/ContentCard';
 export { default as InfoCard } from './UserProfile/InfoCard';
 export { default as FloatingEdit } from './UserProfile/FloatingEdit';
+export { default as FloatingSave } from './UserProfile/FloatingSave';
 
 export { default as LandingImage } from './Navigation/LandingImage';
 export { default as TitleHeader } from './Navigation/TitleHeader';

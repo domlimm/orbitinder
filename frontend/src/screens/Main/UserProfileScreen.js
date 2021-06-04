@@ -20,14 +20,11 @@ import {
 import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
-  console.log('route.params', route.params);
-
   const userData = useSelector(state => state.user.userData);
-  console.log(userData.background);
   const background = userData.background;
   const techExp = background.technologyExperience;
   const updatedAt = Moment(userData.updatedAt).format(
-    'dddd Do MMM YY, h:mm:ss A'
+    'dddd D MMM YY, h:mm:ss A'
   );
 
   const DBIcon = () => <Feather name='database' size={30} color='#407BFF' />;
