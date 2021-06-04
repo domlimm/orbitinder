@@ -5,7 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import {
   Button,
@@ -63,6 +64,7 @@ const EditProfileScreen = ({ navigation }) => {
   const initialState = {
     bioValue: background.biography,
     yearValue: background.year,
+    degreeValue: background.degree,
     ideaValue: background.idea,
     commitmentValue: background.commitment,
     achievementValue: background.achievement,
@@ -169,6 +171,7 @@ const EditProfileScreen = ({ navigation }) => {
       background: {
         biography: currState.bioValue,
         commitment: currState.commitmentValue,
+        degree: currState.degreeValue,
         idea: currState.ideaValue,
         achievement: currState.achievementValue,
         sweExperience: currState.sweValue,
@@ -184,8 +187,7 @@ const EditProfileScreen = ({ navigation }) => {
     };
 
     try {
-      dispatch(userActions.updateProfile(backgroundData));
-      console.log('bgdata', backgroundData);
+      dispatch(userActions.updateProfile({ ...backgroundData }));
       setError(null);
       setVisible(!visible);
     } catch (err) {
@@ -195,6 +197,34 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   const [visible, setVisible] = React.useState(false); // for save modal
+
+  React.useEffect(
+    () =>
+      navigation.addListener('blur', e => {
+        //backRemove
+        console.log('back nav');
+        let finalB = {
+          achievement: currState.achievementValue,
+          biography: currState.bioValue,
+          commitment: currState.commitmentValue,
+          degree: currState.degreeValue,
+          idea: currState.ideaValue,
+          sweExperience: currState.sweValue,
+          technologyExperience: {
+            game: currState.gamedevValue,
+            web: currState.webValue,
+            mobile: currState.mobileValue,
+            database: currState.dbValue,
+            machineLearning: currState.mlValue
+          },
+          year: currState.yearValue
+        };
+        // console.log('final', finalB);
+        // console.log('BG', background);
+        console.log(_.isEqual(finalB, background)); //but background isnt updated even after save
+      }),
+    [navigation, currState]
+  );
 
   return (
     <SafeAreaView style={styles.parentContainer}>
