@@ -4,6 +4,8 @@ import React from 'react';
 import { View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { UserPreferencesScreen, UserProfileScreen } from '../screens/index';
+import ProfileStackNavigator from './ProfileStackNavigator';
+import PrefStackNavigator from './PrefStackNavigator';
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
@@ -23,8 +25,8 @@ const TabNavigator = () => (
     initialRouteName='UserProfile'
     backBehavior='initialRoute'
   >
-    <Screen name='UserProfile' component={UserProfileScreen} />
-    <Screen name='UserPreferences' component={UserPreferencesScreen} />
+    <Screen name='UserProfile' component={ProfileStackNavigator} />
+    <Screen name='UserPreferences' component={PrefStackNavigator} />
   </Navigator>
 );
 

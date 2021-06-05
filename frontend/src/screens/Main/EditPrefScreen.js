@@ -48,6 +48,7 @@ const EditPrefScreen = ({ navigation }) => {
 
   const userData = useSelector(state => state.user.userData);
   const preferences = userData.preferences;
+  const [preferencesData, setPreferencesData] = React.useState(preferences);
 
   let navProps = {
     title: 'Edit Preferences',
@@ -182,6 +183,7 @@ const EditPrefScreen = ({ navigation }) => {
     };
     try {
       dispatch(userActions.updatePref(prefData));
+      setPreferencesData(prefData.preferences);
       setError(null);
       setVisible(!visible);
     } catch (err) {
@@ -192,10 +194,10 @@ const EditPrefScreen = ({ navigation }) => {
 
   React.useEffect(
     () =>
-      navigation.addListener('blur', e => {
+      navigation.addListener('beforeRemove', e => {
         //backRemove
         console.log('back nav');
-        let finalB = {
+        let finalPref = {
           commitment: currState.commitmentValue,
           degree: currState.degreeValue,
           gender: currState.genderValue,
@@ -209,9 +211,27 @@ const EditPrefScreen = ({ navigation }) => {
           },
           year: currState.yearValue
         };
-        console.log(_.isEqual(finalB, preferences)); //but preferences isnt updated even after save
+        if (_.isEqual(preferencesData, finalPref)) {
+          return;
+        } else {
+          e.preventDefault();
+          Alert.alert(
+            'Discard changes?',
+            'You have unsaved changes. Are you sure to discard them and leave the screen?',
+            [
+              { text: "Don't leave", style: 'cancel', onPress: () => {} },
+              {
+                text: 'Discard',
+                style: 'destructive',
+                // If the user confirmed, then we dispatch the action we blocked earlier
+                // This will continue the action that had triggered the removal of the screen
+                onPress: () => navigation.dispatch(e.data.action)
+              }
+            ]
+          );
+        }
       }),
-    [navigation, currState]
+    [navigation, currState, preferencesData]
   );
 
   const [visible, setVisible] = React.useState(false); // for save modal
