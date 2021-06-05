@@ -43,6 +43,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   const userData = useSelector(state => state.user.userData);
   const background = userData.background;
+  const [bgData, setBgData] = React.useState(background);
 
   const navProps = {
     title: 'Edit Profile',
@@ -177,7 +178,8 @@ const EditProfileScreen = ({ navigation }) => {
     };
 
     try {
-      dispatch(userActions.updateProfile({ ...backgroundData }));
+      dispatch(userActions.updateProfile(backgroundData));
+      setBgData(backgroundData.background);
       setError(null);
       setVisible(!visible);
     } catch (err) {
@@ -190,7 +192,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   React.useEffect(
     () =>
-      navigation.addListener('blur', e => {
+      navigation.addListener('beforeRemove', e => {
         //backRemove
         console.log('back nav');
         let finalB = {
@@ -201,19 +203,35 @@ const EditProfileScreen = ({ navigation }) => {
           idea: currState.ideaValue,
           sweExperience: currState.sweValue,
           technologyExperience: {
-            game: currState.gamedevValue,
-            web: currState.webValue,
-            mobile: currState.mobileValue,
             database: currState.dbValue,
-            machineLearning: currState.mlValue
+            game: currState.gamedevValue,
+            machineLearning: currState.mlValue,
+            mobile: currState.mobileValue,
+            web: currState.webValue
           },
           year: currState.yearValue
         };
-        // console.log('final', finalB);
-        // console.log('BG', background);
-        console.log(_.isEqual(finalB, background)); //but background isnt updated even after save
+        if (_.isEqual(bgData, finalB)) {
+          return;
+        } else {
+          e.preventDefault();
+          Alert.alert(
+            'Discard changes?',
+            'You have unsaved changes. Are you sure to discard them and leave the screen?',
+            [
+              { text: "Don't leave", style: 'cancel', onPress: () => {} },
+              {
+                text: 'Discard',
+                style: 'destructive',
+                // If the user confirmed, then we dispatch the action we blocked earlier
+                // This will continue the action that had triggered the removal of the screen
+                onPress: () => navigation.dispatch(e.data.action)
+              }
+            ]
+          );
+        }
       }),
-    [navigation, currState]
+    [navigation, currState, bgData]
   );
 
   return (
