@@ -22,7 +22,7 @@ const AppNavigator = () => {
 
   const dispatch = useDispatch();
 
-  const authHandler = () => {
+  const authHandler = async () => {
     setIsLoading(true);
 
     return firebase.auth().onAuthStateChanged(user => {
@@ -50,8 +50,15 @@ const AppNavigator = () => {
   };
 
   React.useEffect(() => {
-    const subscriber = authHandler();
-    return subscriber;
+    let isMounted = true;
+
+    authHandler().then(() => {
+      if (isMounted) {
+        return;
+      }
+    });
+
+    return () => (isMounted = false);
   }, []);
 
   return (
