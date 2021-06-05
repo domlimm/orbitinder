@@ -1,10 +1,9 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Layout, Text, Card, Button } from '@ui-kitten/components';
-import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
+import { Feather, Ionicons, Octicons } from '@expo/vector-icons';
 
-import { partnerPref } from '../../constants/userData';
-import { InterestTags, FloatingEdit } from '../../components/index';
+import { MainTags, FloatingEdit } from '../../components/index';
 import { useSelector } from 'react-redux';
 
 const UserPreferencesScreen = ({ navigation }) => {
@@ -16,14 +15,6 @@ const UserPreferencesScreen = ({ navigation }) => {
   const prefData = userData.preferences;
   const techExp = prefData.technologyExperience;
 
-  const [techArray, setTechArray] = React.useState(
-    partnerPref.tech.db.concat(
-      partnerPref.tech.gamedev,
-      partnerPref.tech.ml,
-      partnerPref.tech.mobiledev,
-      partnerPref.tech.webdev
-    )
-  );
   const DBIcon = () => <Feather name='database' size={20} color='#407BFF' />;
   const GameIcon = () => (
     <Ionicons name='game-controller-outline' size={20} color='#407BFF' />
@@ -39,25 +30,27 @@ const UserPreferencesScreen = ({ navigation }) => {
       <Layout>
         <ScrollView>
           <Layout style={styles.contentContainer}>
-            <Card style={styles.contentCard} status='basic'>
+            <Card style={styles.contentCard} status='basic' disabled>
               <Text style={styles.cardTitle}>YEAR OF STUDY</Text>
-              <InterestTags tagsData={prefData.year} />
+              <MainTags tagsData={prefData.year} />
             </Card>
-            <Card style={styles.contentCard} status='basic'>
+            <Card style={styles.contentCard} status='basic' disabled>
               <Text style={styles.cardTitle}>MAJOR</Text>
-              <InterestTags tagsData={prefData.degree} />
+              <MainTags tagsData={prefData.degree} />
             </Card>
-            <Card style={styles.contentCard} status='basic'>
+            <Card style={styles.contentCard} status='basic' disabled>
               <Text style={styles.cardTitle}>COMMITMENT</Text>
-              <InterestTags tagsData={prefData.commitment} />
+              <MainTags
+                tagsData={prefData.commitment.map(value => value.split(' ')[0])}
+              />
             </Card>
-            <Card style={styles.contentCard} status='basic'>
+            <Card style={styles.contentCard} status='basic' disabled>
               <Text style={styles.cardTitle}>GENDER</Text>
-              <InterestTags tagsData={prefData.gender} />
+              <MainTags tagsData={prefData.gender} />
             </Card>
-            <Card style={styles.contentCard} status='basic'>
+            <Card style={styles.contentCard} status='basic' disabled>
               <Text style={styles.cardTitle}>SWE EXPERIENCE LEVEL</Text>
-              <InterestTags tagsData={prefData.sweExperience} />
+              <MainTags tagsData={prefData.sweExperience} />
             </Card>
 
             {Object.entries(techExp).map(([key, value]) => {
@@ -67,7 +60,6 @@ const UserPreferencesScreen = ({ navigation }) => {
                 if (key === 'game') {
                   displayHeader = 'GAME DEVELOPMENT';
                   displayIcon = GameIcon;
-                  console.log(value);
                 } else if (key === 'machineLearning') {
                   displayHeader = 'MACHINE LEARNING';
                   displayIcon = MLIcon;
@@ -87,6 +79,7 @@ const UserPreferencesScreen = ({ navigation }) => {
                     style={styles.contentCard}
                     key={displayHeader}
                     status='primary'
+                    disabled
                   >
                     <Layout style={{ flexDirection: 'row' }}>
                       <Text style={styles.cardTitle}>{displayHeader}</Text>
@@ -98,7 +91,7 @@ const UserPreferencesScreen = ({ navigation }) => {
                       ></Button>
                     </Layout>
 
-                    <InterestTags tagsData={value} />
+                    <MainTags tagsData={value} />
                   </Card>
                 );
               }

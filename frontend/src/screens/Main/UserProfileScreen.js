@@ -13,11 +13,7 @@ import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import Moment from 'moment';
 
-import {
-  ContentCard,
-  InterestTags,
-  FloatingEdit
-} from '../../components/index';
+import { ContentCard, MainTags, FloatingEdit } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
@@ -102,9 +98,9 @@ const UserProfileScreen = ({ navigation, route }) => {
           </Layout>
           <Layout style={styles.contentContainer}>
             <ContentCard type={'bio'} data={background.biography} />
-            <Card style={styles.contentCard}>
+            <Card style={styles.contentCard} disabled>
               <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-              <InterestTags tagsData={dummyUserData.interestedAreas} />
+              <MainTags tagsData={dummyUserData.interestedAreas} />
             </Card>
 
             <Layout style={styles.groupContainer}>
@@ -121,7 +117,7 @@ const UserProfileScreen = ({ navigation, route }) => {
               />
               <ContentCard type={'hasIdea'} data={background.idea} />
             </Layout>
-            <Card style={styles.contentCard}>
+            <Card style={styles.contentCard} disabled>
               <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
 
               {Object.entries(techExp).map(([key, value]) => {

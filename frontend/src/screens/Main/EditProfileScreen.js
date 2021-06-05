@@ -1,13 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Alert
-} from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
   Button,
   Layout,
@@ -38,10 +31,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 
 const EditProfileScreen = ({ navigation }) => {
-  const navigateBack = () => {
-    navigation.goBack();
-  };
-
   const dispatch = useDispatch();
 
   const [error, setError] = React.useState(null);
@@ -183,7 +172,8 @@ const EditProfileScreen = ({ navigation }) => {
           machineLearning: currState.mlValue
         },
         year: currState.yearValue
-      }
+      },
+      updatedAt: new Date().toISOString()
     };
 
     try {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Button, Card, Layout, Text } from '@ui-kitten/components';
-import InterestTags from './InterestTags';
+import MainTags from './MainTags';
 import { dummyUserData } from '../../constants/userData';
 
 const InfoCard = ({ cardData, navProps }) => {
@@ -29,7 +29,7 @@ const InfoCard = ({ cardData, navProps }) => {
       <Layout style={styles.contentContainer}>
         <Text style={styles.sectionText}>{cardData.bio}</Text>
         <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-        <InterestTags tagsData={cardData.interestedAreas} />
+        <MainTags tagsData={cardData.interestedAreas} />
 
         <Layout style={{ flexDirection: 'column' }}>
           <Layout
@@ -41,8 +41,8 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <InterestTags tagsData={cardData.codingExpLevel} />
-            <InterestTags tagsData={cardData.idea} />
+            <MainTags tagsData={cardData.codingExpLevel} />
+            <MainTags tagsData={cardData.idea} />
           </Layout>
         </Layout>
         <Layout style={{ flexDirection: 'column' }}>
@@ -55,8 +55,8 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <InterestTags tagsData={cardData.level} />
-            <InterestTags tagsData={cardData.commitment} />
+            <MainTags tagsData={cardData.level} />
+            <MainTags tagsData={cardData.commitment} />
           </Layout>
         </Layout>
       </Layout>
@@ -76,13 +76,10 @@ const styles = StyleSheet.create({
     height: 540,
     marginVertical: 20,
     backgroundColor: 'white',
-    borderRadius: 30,
+    borderRadius: 20,
     flexDirection: 'column',
     alignSelf: 'center',
     justifyContent: 'center',
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
-    // borderBottomLeftRadius: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -90,15 +87,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3,
-
-    elevation: 3
+    elevation: 5
   },
   headerContainer: {
     backgroundColor: '#407BFF',
     height: 150,
     alignItems: 'center',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
   },
   avatarImg: {
     width: 60,
@@ -119,7 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textAlign: 'center'
-    // fontFamily: 'Lato'
   },
   subCaptionsContainer: {
     backgroundColor: '#407BFF',
@@ -169,7 +164,7 @@ const styles = StyleSheet.create({
     width: 120,
     alignSelf: 'center',
     marginBottom: 15,
-    borderRadius: 30,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -177,9 +172,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 1,
-
-    elevation: 5,
-    alignItems: 'center'
+    elevation: 5
   },
   readMoreText: {
     color: 'white',

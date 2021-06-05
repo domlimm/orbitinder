@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 
-const InterestTags = ({ tagsData }) => {
+const MainTags = ({ tagsData }) => {
   return (
     <Layout style={styles.tagContainer}>
       {tagsData.map(function (tag, index) {
         return (
           <Button
             style={styles.tags}
-            size='small' //small
-            appearance='filled' //outline
-            status='basic' //basic
+            size='small'
+            appearance='filled'
+            status='basic'
             key={index}
           >
             {tag}
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InterestTags;
+export default MainTags;

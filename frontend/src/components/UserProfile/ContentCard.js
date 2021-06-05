@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Card, Text } from '@ui-kitten/components';
 
-import { InterestTags } from './InterestTags';
+import MainTags from './MainTags';
 import { dummyUserData } from '../../constants/userData';
 
 const { width } = Dimensions.get('window');
@@ -11,21 +11,21 @@ const ContentCard = ({ type, data }) => {
   switch (type) {
     case 'bio':
       return (
-        <Card style={styles.contentCard}>
+        <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>ABOUT ME</Text>
           <Text>{data}</Text>
         </Card>
       );
     case 'areas-of-interest':
       return (
-        <Card style={styles.contentCard}>
+        <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-          <InterestTags tagsData={dummyUserData.interestedAreas} />
+          <MainTags tagsData={dummyUserData.interestedAreas} />
         </Card>
       );
     case 'coding-exp-level':
       return (
-        <Card style={styles.cardGroup}>
+        <Card style={styles.cardGroup} disabled>
           <Text style={styles.cardTitle}>EXP. LEVEL</Text>
           <Button size='small' appearance='outline' status='basic'>
             {data}
@@ -34,7 +34,7 @@ const ContentCard = ({ type, data }) => {
       );
     case 'commitment':
       return (
-        <Card style={styles.cardGroup}>
+        <Card style={styles.cardGroup} disabled>
           <Text style={styles.cardTitle}>COMMITMENT</Text>
           <Button size='small' appearance='outline' status='basic'>
             {data.split(' ')[0]}
@@ -43,7 +43,7 @@ const ContentCard = ({ type, data }) => {
       );
     case 'orbitalLevel':
       return (
-        <Card style={styles.cardGroup}>
+        <Card style={styles.cardGroup} disabled>
           <Text style={styles.cardTitle}>ORBITAL LEVEL</Text>
           <Button size='small' appearance='outline' status='basic'>
             {data}
@@ -52,7 +52,7 @@ const ContentCard = ({ type, data }) => {
       );
     case 'hasIdea':
       return (
-        <Card style={styles.cardGroup}>
+        <Card style={styles.cardGroup} disabled>
           <Text style={styles.cardTitle}>HAS AN IDEA?</Text>
           <Button size='small' appearance='outline' status='basic'>
             {data}

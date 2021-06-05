@@ -3,7 +3,7 @@ export { default as LoadingIndicator } from './Inputs/LoadingIndicator';
 export { default as Toast } from './Inputs/Toast';
 
 export { default as TechTags } from './UserProfile/TechTags';
-export { default as InterestTags } from './UserProfile/InterestTags';
+export { default as MainTags } from './UserProfile/MainTags';
 export { default as ContentCard } from './UserProfile/ContentCard';
 export { default as InfoCard } from './UserProfile/InfoCard';
 export { default as FloatingEdit } from './UserProfile/FloatingEdit';
