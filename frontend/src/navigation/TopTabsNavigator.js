@@ -1,13 +1,35 @@
-// import { ActivityIcon, VideoIcon } from '../assets/icons';
-import { Divider, Icon, TabBar, Tab } from '@ui-kitten/components';
 import React from 'react';
-import { View } from 'react-native';
+import { TabBar, Tab } from '@ui-kitten/components';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { UserPreferencesScreen, UserProfileScreen } from '../screens/index';
-import ProfileStackNavigator from './ProfileStackNavigator';
-import PrefStackNavigator from './PrefStackNavigator';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const { Navigator, Screen } = createMaterialTopTabNavigator();
+import {
+  UserProfileScreen,
+  EditProfileScreen,
+  UserPreferencesScreen,
+  EditPrefScreen
+} from '../screens/index';
+
+const TopTabs = createMaterialTopTabNavigator();
+const Profile = createStackNavigator();
+const Preferences = createStackNavigator();
+
+const ProfileStackNavigator = () => (
+  <Profile.Navigator headerMode='none'>
+    <Profile.Screen name='UserProfile' component={UserProfileScreen} />
+    <Profile.Screen name='EditProfile' component={EditProfileScreen} />
+  </Profile.Navigator>
+);
+
+const PrefStackNavigator = () => (
+  <Preferences.Navigator headerMode='none'>
+    <Preferences.Screen
+      name='UserPreferences'
+      component={UserPreferencesScreen}
+    />
+    <Preferences.Screen name='EditPref' component={EditPrefScreen} />
+  </Preferences.Navigator>
+);
 
 const TopTabBar = ({ navigation, state }) => (
   <TabBar
@@ -20,14 +42,14 @@ const TopTabBar = ({ navigation, state }) => (
 );
 
 const TabNavigator = () => (
-  <Navigator
+  <TopTabs.Navigator
     tabBar={props => <TopTabBar {...props} />}
     initialRouteName='UserProfile'
     backBehavior='initialRoute'
   >
-    <Screen name='UserProfile' component={ProfileStackNavigator} />
-    <Screen name='UserPreferences' component={PrefStackNavigator} />
-  </Navigator>
+    <TopTabs.Screen name='UserProfile' component={ProfileStackNavigator} />
+    <TopTabs.Screen name='UserPreferences' component={PrefStackNavigator} />
+  </TopTabs.Navigator>
 );
 
 export default TabNavigator;

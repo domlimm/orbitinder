@@ -196,7 +196,6 @@ const EditPrefScreen = ({ navigation }) => {
     () =>
       navigation.addListener('beforeRemove', e => {
         //backRemove
-        console.log('back nav');
         let finalPref = {
           commitment: currState.commitmentValue,
           degree: currState.degreeValue,

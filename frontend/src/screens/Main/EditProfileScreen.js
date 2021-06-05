@@ -194,7 +194,6 @@ const EditProfileScreen = ({ navigation }) => {
     () =>
       navigation.addListener('beforeRemove', e => {
         //backRemove
-        console.log('back nav');
         let finalB = {
           achievement: currState.achievementValue,
           biography: currState.bioValue,

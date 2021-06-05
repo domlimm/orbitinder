@@ -11,7 +11,7 @@ import {
   ForgotPasswordConfirmationScreen
 } from '../screens/index';
 
-const { Navigator, Screen } = createStackNavigator();
+const Auth = createStackNavigator();
 
 const AuthNavigator = () => {
   const [hasInit, setHasInit] = React.useState(false);
@@ -27,17 +27,19 @@ const AuthNavigator = () => {
   }, []);
 
   return (
-    <Navigator headerMode='none'>
-      {!hasInit && <Screen name='HomeLanding' component={HomeLandingScreen} />}
-      <Screen name='LoginLanding' component={LoginLandingScreen} />
-      <Screen name='Login' component={LoginScreen} />
-      <Screen name='Signup' component={SignupScreen} />
-      <Screen name='ForgotPassword' component={ForgotPasswordScreen} />
-      <Screen
+    <Auth.Navigator headerMode='none'>
+      {!hasInit && (
+        <Auth.Screen name='HomeLanding' component={HomeLandingScreen} />
+      )}
+      <Auth.Screen name='LoginLanding' component={LoginLandingScreen} />
+      <Auth.Screen name='Login' component={LoginScreen} />
+      <Auth.Screen name='Signup' component={SignupScreen} />
+      <Auth.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
+      <Auth.Screen
         name='ForgotPasswordConfirmation'
         component={ForgotPasswordConfirmationScreen}
       />
-    </Navigator>
+    </Auth.Navigator>
   );
 };
 
