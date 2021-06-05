@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 20,
     height: 540,
-    marginVertical: 20,
+    // marginVertical: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     flexDirection: 'column',

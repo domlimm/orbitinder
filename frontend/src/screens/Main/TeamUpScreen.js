@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, RefreshControl, ScrollView, View } from 'react-native';
+import {
+  StyleSheet,
+  RefreshControl,
+  ScrollView,
+  View,
+  Touchable,
+  TouchableOpacity
+} from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // To separate for local imports rather than installed dependencies: add below onwards
@@ -8,6 +15,10 @@ import Swiper from 'react-native-deck-swiper';
 import { userArrayData } from '../../constants/userData';
 
 const TeamUpScreen = ({ navigation }) => {
+  // const navPrefs = () => {
+  //   navigation.navigate('UserPreferences');
+  // };
+
   const navProps = {
     title: 'Team Up',
     navigation: navigation,
@@ -33,69 +44,72 @@ const TeamUpScreen = ({ navigation }) => {
   return (
     <Layout style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
-      <Swiper
-        cards={userArrayData}
-        renderCard={card => {
-          return <InfoCard cardData={card} navProps={navProps} />;
-        }}
-        cardIndex={cardIndex}
-        backgroundColor={'transparent'}
-        useViewOverflow={Platform.OS === 'ios'}
-        onSwiped={onSwiped}
-        onSwipedLeft={onSwipedLeft}
-        onSwipedRight={onSwipedRight}
-        showSecondCard={true}
-        stackSize={2}
-        disableTopSwipe
-        disableBottomSwipe
-        stackScale={10}
-        stackSeparation={14}
-        overlayLabels={{
-          left: {
-            title: 'NOPE',
-            style: {
-              label: {
-                backgroundColor: '#FF7559',
-                borderColor: '#FF7559',
-                color: 'white',
-                borderWidth: 1,
-                fontSize: 15,
-                borderRadius: 20
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-                marginTop: 30,
-                marginLeft: -30,
-                elevation: 5
+      <Layout style={styles.swiperContainer}>
+        <Swiper
+          cards={userArrayData}
+          renderCard={card => {
+            return <InfoCard cardData={card} navProps={navProps} />;
+          }}
+          cardIndex={cardIndex}
+          backgroundColor={'transparent'}
+          useViewOverflow={Platform.OS === 'ios'}
+          onSwiped={onSwiped}
+          onSwipedLeft={onSwipedLeft}
+          onSwipedRight={onSwipedRight}
+          showSecondCard={true}
+          stackSize={2}
+          disableTopSwipe
+          disableBottomSwipe
+          stackScale={10}
+          stackSeparation={14}
+          cardVerticalMargin={20}
+          overlayLabels={{
+            left: {
+              title: 'NOPE',
+              style: {
+                label: {
+                  backgroundColor: '#FF7559',
+                  borderColor: '#FF7559',
+                  color: 'white',
+                  borderWidth: 1,
+                  fontSize: 15,
+                  borderRadius: 20
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-start',
+                  marginTop: 30,
+                  marginLeft: -30,
+                  elevation: 5
+                }
+              }
+            },
+            right: {
+              title: 'LIKE',
+              style: {
+                label: {
+                  backgroundColor: '#8CB1FF',
+                  borderColor: '#8CB1FF',
+                  color: 'white',
+                  borderWidth: 1,
+                  fontSize: 15,
+                  borderRadius: 20
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  marginTop: 30,
+                  marginLeft: 30,
+                  elevation: 5
+                  //
+                }
               }
             }
-          },
-          right: {
-            title: 'LIKE',
-            style: {
-              label: {
-                backgroundColor: '#8CB1FF',
-                borderColor: '#8CB1FF',
-                color: 'white',
-                borderWidth: 1,
-                fontSize: 15,
-                borderRadius: 20
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                marginTop: 30,
-                marginLeft: 30,
-                elevation: 5
-                //
-              }
-            }
-          }
-        }}
-      ></Swiper>
+          }}
+        ></Swiper>
+      </Layout>
     </Layout>
   );
 };
