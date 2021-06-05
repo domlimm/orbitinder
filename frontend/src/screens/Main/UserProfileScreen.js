@@ -326,8 +326,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   updatedText: {
-    marginHorizontal: 8,
-    marginVertical: 5
+    marginHorizontal: 15,
+    marginVertical: 10
   }
 });
 
