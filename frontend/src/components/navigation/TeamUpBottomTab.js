@@ -20,20 +20,18 @@ const TeamUpBottomTab = () => {
       useNativeDriver: true
     }).start();
 
-    setTimeout(() => {
-      navigation.navigate('TeamUp');
-    }, 250);
+    navigation.navigate('TeamUp');
   };
 
   return (
-    // <Pressable onPress={pressHandler} style={styles.teamUp}>
-    <Animated.View style={[{ transform: [{ scale: animatedScale }] }]}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/images/orbital-logo.png')}
-      />
-    </Animated.View>
-    // </Pressable>
+    <Pressable onPress={pressHandler} style={styles.teamUp}>
+      <Animated.View style={[{ transform: [{ scale: animatedScale }] }]}>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/images/orbital-logo.png')}
+        />
+      </Animated.View>
+    </Pressable>
   );
 };
 
@@ -58,8 +56,8 @@ const styles = StyleSheet.create({
     borderColor: 'white'
   },
   logo: {
-    width: 62,
-    height: 62
+    width: 68,
+    height: 68
   }
 });
 

@@ -13,15 +13,12 @@ import {
   ActivityFeedScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
-import TabNavigator from './TopTabsNavigator';
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const BottomTabs = createBottomTabNavigator();
 
 const HomeIcon = props => <Icon {...props} name='home-outline' />;
 
 const ChatIcon = props => <Icon {...props} name='message-square-outline' />;
-
-const TeamUpIcon = props => <Icon {...props} name='person-outline' />;
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -36,15 +33,15 @@ const BottomTabBar = ({ navigation, state }) => (
 );
 
 const BottomTabsNavigator = () => (
-  <Navigator
+  <BottomTabs.Navigator
     tabBar={props => <BottomTabBar {...props} />}
     initialRouteName='Home'
   >
-    <Screen name='Home' component={MainAppScreen} />
-    <Screen name='TeamUp' component={TeamUpScreen} />
-    <Screen name='ChatOverview' component={ChatOverviewScreen} />
-    <Screen name='ActivityFeed' component={ActivityFeedScreen} />
-  </Navigator>
+    <BottomTabs.Screen name='Home' component={MainAppScreen} />
+    <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} />
+    <BottomTabs.Screen name='ChatOverview' component={ChatOverviewScreen} />
+    <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
+  </BottomTabs.Navigator>
 );
 
 export default BottomTabsNavigator;
