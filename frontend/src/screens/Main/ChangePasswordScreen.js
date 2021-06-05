@@ -29,11 +29,14 @@ const ChangePasswordScreen = ({ navigation }) => {
 
   const updatePWHandler = async () => {
     try {
-      if (
-        newPassword !== confirmPassword ||
-        newPassword.length === 0 ||
-        confirmPassword.length === 0
-      ) {
+      if (newPassword.length === 0 || confirmPassword.length === 0) {
+        setAlertMessage('Password fields cannot be empty!');
+        setShowAlert(true);
+        setAlertStatus('warning');
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
         setAlertMessage('Passwords do not match!');
         setShowAlert(true);
         setAlertStatus('warning');
