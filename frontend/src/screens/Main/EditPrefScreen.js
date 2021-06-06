@@ -1,6 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
-import { SafeAreaView, ScrollView, StyleSheet, Alert } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
@@ -232,14 +239,17 @@ const EditPrefScreen = ({ navigation }) => {
   );
 
   const [visible, setVisible] = React.useState(false); // for save modal
+
   return (
-    <SafeAreaView style={styles.parentContainer}>
-      <Layout>
+    <KeyboardAvoidingView
+      style={styles.formContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.parentContainer}>
+        <TitleHeader navProps={navProps} />
         <ScrollView>
-          <TitleHeader navProps={navProps} />
           <Layout style={styles.inputContainer}>
-            <Divider />
-            <Text style={styles.screenTitle}>Personal Preferences</Text>
+            <Text style={styles.screenTitle}>Partner Preferences</Text>
             <Select
               label='Year of Study'
               style={styles.selectInput}
@@ -347,7 +357,7 @@ const EditPrefScreen = ({ navigation }) => {
             </Select>
 
             <Divider />
-            <Text style={styles.screenTitle}>
+            <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
               Technology Experience Preferences
             </Text>
             <Select
@@ -476,19 +486,20 @@ const EditPrefScreen = ({ navigation }) => {
           </Layout>
         </ScrollView>
         <FloatingSave saveHandler={saveHandler} />
-      </Layout>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
+  formContainer: {
+    flex: 1
+  },
   parentContainer: {
     flex: 1,
-    // backgroundColor: '#F7F7F7',
     backgroundColor: 'white'
   },
   inputContainer: {
-    // flex: 3,
-    marginVertical: 20,
+    marginVertical: 14,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
@@ -509,13 +520,6 @@ const styles = StyleSheet.create({
     color: '#407BFF',
     fontSize: 20,
     fontWeight: 'bold',
-    width: '70%',
-    marginTop: 20
-  },
-  screenTitle1: {
-    color: '#407BFF',
-    fontSize: 20,
-    fontWeight: 'bold',
     width: '70%'
   },
   discardAlertBtnContainer: {
@@ -523,7 +527,10 @@ const styles = StyleSheet.create({
     // flex: 1,
     // alignItems: 'center'
   },
-  discardAlertBtn: { marginVertical: 10, marginHorizontal: 5 },
+  discardAlertBtn: {
+    marginVertical: 10,
+    marginHorizontal: 5
+  },
   discardAlertText: {
     alignItems: 'center',
     justifyContent: 'space-evenly'

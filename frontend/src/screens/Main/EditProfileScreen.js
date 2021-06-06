@@ -1,6 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
-import { SafeAreaView, ScrollView, StyleSheet, Alert } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
   Layout,
@@ -234,12 +241,15 @@ const EditProfileScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.parentContainer}>
-      <Layout>
+    <KeyboardAvoidingView
+      style={styles.formContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
+      <SafeAreaView style={styles.parentContainer}>
+        <TitleHeader navProps={navProps} />
         <ScrollView>
-          <TitleHeader navProps={navProps} />
           <Layout style={styles.inputContainer}>
-            <Text style={styles.screenTitle1}>Personal Information</Text>
+            <Text style={styles.screenTitle}>Personal Information</Text>
             <Select
               style={styles.selectInput}
               value={currState.yearValue}
@@ -342,7 +352,9 @@ const EditProfileScreen = ({ navigation }) => {
               ))}
             </Select>
             <Divider />
-            <Text style={styles.screenTitle}>Technology Experience</Text>
+            <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
+              Technology Experience
+            </Text>
             <Select
               label='Game Development'
               style={styles.selectInput}
@@ -469,19 +481,20 @@ const EditProfileScreen = ({ navigation }) => {
           </Layout>
         </ScrollView>
         <FloatingSave saveHandler={saveHandler} />
-      </Layout>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
+  formContainer: {
+    flex: 1
+  },
   parentContainer: {
     flex: 1,
-    // backgroundColor: '#F7F7F7',
     backgroundColor: 'white'
   },
   inputContainer: {
-    // flex: 3,
-    marginVertical: 20,
+    marginVertical: 14,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
@@ -499,8 +512,8 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   bioText: {
-    // minHeight: '40%',
-    maxHeight: 200,
+    minHeight: 64,
+    paddingVertical: 10,
     textAlignVertical: 'top'
   },
   bioInput: {
@@ -508,13 +521,6 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   screenTitle: {
-    color: '#407BFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-    width: '70%',
-    marginTop: 20
-  },
-  screenTitle1: {
     color: '#407BFF',
     fontSize: 20,
     fontWeight: 'bold',
