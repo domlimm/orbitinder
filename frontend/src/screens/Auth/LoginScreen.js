@@ -47,7 +47,6 @@ const LoginScreen = ({ navigation }) => {
 
       await dispatch(authActions.logIn(email, password));
     } catch (err) {
-      console.log(err);
       setAlertMessage(err.message);
       setShowAlert(true);
       setAlertStatus('danger');
