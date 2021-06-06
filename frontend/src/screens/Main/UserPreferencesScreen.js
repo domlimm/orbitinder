@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux';
 
 const UserPreferencesScreen = ({ navigation }) => {
   const navigateEditPref = () => {
-    navigation.navigate('EditPref');
+    // navigation.navigate('EditPref');
+    navigation.navigate('EditNavigator', { screen: 'EditPref' });
   };
 
   const userData = useSelector(state => state.user.userData);

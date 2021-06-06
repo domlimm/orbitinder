@@ -42,7 +42,8 @@ const UserProfileScreen = ({ navigation, route }) => {
   const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
   const navigateEditProfile = () => {
-    navigation.navigate('EditProfile');
+    // navigation.navigate('EditProfile');
+    navigation.navigate('EditNavigator', { screen: 'EditProfile' });
   };
 
   const navigateBack = () => {

@@ -10,26 +10,9 @@ import {
   EditPrefScreen
 } from '../screens/index';
 
+const TabStack = createStackNavigator();
 const TopTabs = createMaterialTopTabNavigator();
-const Profile = createStackNavigator();
-const Preferences = createStackNavigator();
-
-const ProfileStackNavigator = () => (
-  <Profile.Navigator headerMode='none'>
-    <Profile.Screen name='UserProfile' component={UserProfileScreen} />
-    <Profile.Screen name='EditProfile' component={EditProfileScreen} />
-  </Profile.Navigator>
-);
-
-const PrefStackNavigator = () => (
-  <Preferences.Navigator headerMode='none'>
-    <Preferences.Screen
-      name='UserPreferences'
-      component={UserPreferencesScreen}
-    />
-    <Preferences.Screen name='EditPref' component={EditPrefScreen} />
-  </Preferences.Navigator>
-);
+const EditProfilePref = createStackNavigator();
 
 const TopTabBar = ({ navigation, state }) => (
   <TabBar
@@ -41,15 +24,29 @@ const TopTabBar = ({ navigation, state }) => (
   </TabBar>
 );
 
-const TabNavigator = () => (
+const EditStackNavigator = () => (
+  <EditProfilePref.Navigator headerMode='none'>
+    <EditProfilePref.Screen name='EditProfile' component={EditProfileScreen} />
+    <EditProfilePref.Screen name='EditPref' component={EditPrefScreen} />
+  </EditProfilePref.Navigator>
+);
+
+const TopTabsNavigator = () => (
   <TopTabs.Navigator
     tabBar={props => <TopTabBar {...props} />}
     initialRouteName='UserProfile'
     backBehavior='initialRoute'
   >
-    <TopTabs.Screen name='UserProfile' component={ProfileStackNavigator} />
-    <TopTabs.Screen name='UserPreferences' component={PrefStackNavigator} />
+    <TopTabs.Screen name='UserProfile' component={UserProfileScreen} />
+    <TopTabs.Screen name='UserPreferences' component={UserPreferencesScreen} />
   </TopTabs.Navigator>
+);
+
+const TabNavigator = () => (
+  <TabStack.Navigator initialRouteName='TopTabsNavigator' headerMode='none'>
+    <TabStack.Screen name='TopTabsNavigator' component={TopTabsNavigator} />
+    <TabStack.Screen name='EditNavigator' component={EditStackNavigator} />
+  </TabStack.Navigator>
 );
 
 export default TabNavigator;
