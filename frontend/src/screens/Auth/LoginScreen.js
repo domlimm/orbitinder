@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
-  Alert,
   Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,7 +14,8 @@ import { useDispatch } from 'react-redux';
 import {
   LandingImage,
   NavHeader,
-  LoadingIndicator
+  LoadingIndicator,
+  Toast
 } from '../../components/index';
 import * as authActions from '../../redux/actions/auth';
 
@@ -25,24 +25,32 @@ const LoginScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = React.useState(true);
 
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
 
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (error) {
-      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
-    }
-  }, [error]);
-
   const logInHandler = async () => {
     try {
-      dispatch(authActions.logIn(email, password));
+      if (email.length === 0 || password.length === 0) {
+        setAlertMessage('You have empty fields!');
+        setShowAlert(true);
+        setAlertStatus('warning');
+        return;
+      }
 
-      setError(null);
       setLoading(true);
+      setAlertMessage('Logging In...');
+      setShowAlert(true);
+      setAlertStatus('info');
+
+      await dispatch(authActions.logIn(email, password));
     } catch (err) {
-      setError(err.message);
+      console.log(err);
+      setAlertMessage(err.message);
+      setShowAlert(true);
+      setAlertStatus('danger');
       setLoading(false);
     }
   };
@@ -75,6 +83,13 @@ const LoginScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.parentContainer}>
         <NavHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.landingImageContainer}>
             <LandingImage

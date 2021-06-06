@@ -27,7 +27,7 @@ export const signUp = (email, password, name, gender) => dispatch => {
         .catch(err => console.log('err.message', err.message));
     })
     .catch(err => {
-      let message = 'actions.signUp: An error has occured!';
+      let message = 'An error has occured!';
       let hasError =
         err.code === 'auth/email-already-in-use' ||
         err.code === 'auth/invalid-email' ||
@@ -41,8 +41,8 @@ export const signUp = (email, password, name, gender) => dispatch => {
     });
 };
 
-export const logIn = (email, password) => dispatch => {
-  firebase
+export const logIn = (email, password) => async dispatch => {
+  return await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(res => {
@@ -57,11 +57,11 @@ export const logIn = (email, password) => dispatch => {
       });
     })
     .catch(err => {
-      let message = 'actions.logIn: An error has occured!';
+      let message = 'An error has occured!';
       let hasError =
-        err.code === 'auth/email-already-in-use' ||
         err.code === 'auth/invalid-email' ||
-        err.code === 'auth/weak-password';
+        err.code === 'auth/wrong-password' ||
+        err.code === 'auth/user-not-found';
 
       if (hasError) {
         message = 'Invalid Credentials!';
