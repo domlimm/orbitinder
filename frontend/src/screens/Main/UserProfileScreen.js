@@ -37,147 +37,139 @@ const UserProfileScreen = ({ navigation, route }) => {
   const navigateEditProfile = () => {
     navigation.navigate('EditProfile');
   };
+
   const navigateBack = () => {
     navigation.goBack();
   };
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <Layout>
-        <ScrollView>
-          <Layout style={styles.iconContainer}>
-            {route.params && (
-              <Icon
-                name='arrow-back'
-                onPress={navigateBack}
-                fill='white'
-                style={styles.backIcon}
-              />
-            )}
-          </Layout>
-          <Layout
-            style={[
-              route.params
-                ? styles.smallHeaderContainer
-                : styles.headerContainer
-            ]}
-          >
-            <IconBadge
-              MainElement={
-                <Image
-                  style={[
-                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
-                  ]}
-                  source={{ uri: dummyUserData.img }}
-                />
-              }
-              BadgeElement={
-                <Foundation
-                  name={
-                    userData.gender == 'Female'
-                      ? 'female-symbol'
-                      : 'male-symbol'
-                  }
-                  size={30}
-                  color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
-                  style={styles.genderIcon}
-                />
-              }
-              IconBadgeStyle={[
-                route.params
-                  ? styles.genderBadgeViewDetails
-                  : styles.genderBadgeUserProfile
-              ]}
+      <ScrollView>
+        <Layout style={styles.iconContainer}>
+          {route.params && (
+            <Icon
+              name='arrow-back'
+              onPress={navigateBack}
+              fill='white'
+              style={styles.backIcon}
             />
-
-            <Layout style={styles.headerCaptions}>
-              <Text style={styles.name}>{userData.name}</Text>
-              <Text style={styles.subCaptions}>{background.degree}</Text>
-              <Text style={styles.subCaptions}>{background.year}</Text>
-            </Layout>
-          </Layout>
-          <Layout style={styles.contentContainer}>
-            <ContentCard type={'bio'} data={background.biography} />
-            <Card style={styles.contentCard} disabled>
-              <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-              <MainTags tagsData={dummyUserData.interestedAreas} />
-            </Card>
-
-            <Layout style={styles.groupContainer}>
-              <ContentCard
-                type={'coding-exp-level'}
-                data={background.sweExperience}
+          )}
+        </Layout>
+        <Layout
+          style={[
+            route.params ? styles.smallHeaderContainer : styles.headerContainer
+          ]}
+        >
+          <IconBadge
+            MainElement={
+              <Image
+                style={[
+                  route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                ]}
+                source={{ uri: dummyUserData.img }}
               />
-              <ContentCard type={'commitment'} data={background.commitment} />
-            </Layout>
-            <Layout style={styles.groupContainer}>
-              <ContentCard
-                type={'orbitalLevel'}
-                data={background.achievement}
-              />
-              <ContentCard type={'hasIdea'} data={background.idea} />
-            </Layout>
-            <Card style={styles.contentCard} disabled>
-              <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
-
-              {Object.entries(techExp).map(([key, value]) => {
-                if (value.length > 0) {
-                  let displayHeader, displayIcon;
-
-                  if (key === 'game') {
-                    displayHeader = 'GAME DEVELOPMENT';
-                    displayIcon = GameIcon;
-                  } else if (key === 'machineLearning') {
-                    displayHeader = 'MACHINE LEARNING';
-                    displayIcon = MLIcon;
-                  } else if (key === 'mobile') {
-                    displayHeader = 'MOBILE DEVELOPMENT';
-                    displayIcon = MobileIcon;
-                  } else if (key === 'web') {
-                    displayHeader = 'WEB DEVELOPMENT';
-                    displayIcon = WebIcon;
-                  } else if (key === 'database') {
-                    displayHeader = 'DATABASE';
-                    displayIcon = DBIcon;
-                  }
-
-                  return (
-                    <Layout style={styles.techContainer} key={displayHeader}>
-                      <Divider />
-                      <Button
-                        size='large'
-                        appearance='ghost'
-                        status='basic'
-                        accessoryRight={displayIcon}
-                      >
-                        {displayHeader}
-                      </Button>
-                      <Layout style={styles.tagContainer}>
-                        {value.map(tech => (
-                          <Button
-                            style={styles.tags}
-                            size='small'
-                            appearance='ghost'
-                            status='basic'
-                            key={tech}
-                          >
-                            {tech}
-                          </Button>
-                        ))}
-                      </Layout>
-                    </Layout>
-                  );
+            }
+            BadgeElement={
+              <Foundation
+                name={
+                  userData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
                 }
-              })}
-            </Card>
-            <Text
-              style={styles.updatedText}
-              category='label'
-            >{`Last Updated: ${updatedAt}`}</Text>
+                size={30}
+                color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+                style={styles.genderIcon}
+              />
+            }
+            IconBadgeStyle={[
+              route.params
+                ? styles.genderBadgeViewDetails
+                : styles.genderBadgeUserProfile
+            ]}
+          />
+
+          <Layout style={styles.headerCaptions}>
+            <Text style={styles.name}>{userData.name}</Text>
+            <Text style={styles.subCaptions}>{background.degree}</Text>
+            <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
-        </ScrollView>
-        {!route.params && <FloatingEdit navigate={navigateEditProfile} />}
-      </Layout>
+        </Layout>
+        <Layout style={styles.contentContainer}>
+          <ContentCard type={'bio'} data={background.biography} />
+          <Card style={styles.contentCard} disabled>
+            <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
+            <MainTags tagsData={dummyUserData.interestedAreas} />
+          </Card>
+
+          <Layout style={styles.groupContainer}>
+            <ContentCard
+              type={'coding-exp-level'}
+              data={background.sweExperience}
+            />
+            <ContentCard type={'commitment'} data={background.commitment} />
+          </Layout>
+          <Layout style={styles.groupContainer}>
+            <ContentCard type={'orbitalLevel'} data={background.achievement} />
+            <ContentCard type={'hasIdea'} data={background.idea} />
+          </Layout>
+          <Card style={styles.contentCard} disabled>
+            <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
+
+            {Object.entries(techExp).map(([key, value]) => {
+              if (value.length > 0) {
+                let displayHeader, displayIcon;
+
+                if (key === 'game') {
+                  displayHeader = 'GAME DEVELOPMENT';
+                  displayIcon = GameIcon;
+                } else if (key === 'machineLearning') {
+                  displayHeader = 'MACHINE LEARNING';
+                  displayIcon = MLIcon;
+                } else if (key === 'mobile') {
+                  displayHeader = 'MOBILE DEVELOPMENT';
+                  displayIcon = MobileIcon;
+                } else if (key === 'web') {
+                  displayHeader = 'WEB DEVELOPMENT';
+                  displayIcon = WebIcon;
+                } else if (key === 'database') {
+                  displayHeader = 'DATABASE';
+                  displayIcon = DBIcon;
+                }
+
+                return (
+                  <Layout style={styles.techContainer} key={displayHeader}>
+                    <Divider />
+                    <Button
+                      size='large'
+                      appearance='ghost'
+                      status='basic'
+                      accessoryRight={displayIcon}
+                    >
+                      {displayHeader}
+                    </Button>
+                    <Layout style={styles.tagContainer}>
+                      {value.map(tech => (
+                        <Button
+                          style={styles.tags}
+                          size='small'
+                          appearance='ghost'
+                          status='basic'
+                          key={tech}
+                        >
+                          {tech}
+                        </Button>
+                      ))}
+                    </Layout>
+                  </Layout>
+                );
+              }
+            })}
+          </Card>
+          <Text
+            style={styles.updatedText}
+            category='label'
+          >{`Last Updated: ${updatedAt}`}</Text>
+        </Layout>
+      </ScrollView>
+      {!route.params && <FloatingEdit navigate={navigateEditProfile} />}
     </SafeAreaView>
   );
 };

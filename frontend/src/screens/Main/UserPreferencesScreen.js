@@ -12,8 +12,16 @@ const UserPreferencesScreen = ({ navigation }) => {
   };
 
   const userData = useSelector(state => state.user.userData);
-  const prefData = userData.preferences;
-  const techExp = prefData.technologyExperience;
+  const { commitment, degree, gender, sweExperience, year } =
+    userData.preferences;
+  const partialPreferences = {
+    year,
+    degree,
+    commitment,
+    gender,
+    sweExperience
+  };
+  const techExp = userData.preferences.technologyExperience;
 
   const DBIcon = () => <Feather name='database' size={20} color='#407BFF' />;
   const GameIcon = () => (
@@ -25,81 +33,91 @@ const UserPreferencesScreen = ({ navigation }) => {
   );
   const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
+  const ContentCard = props => (
+    <Card style={styles.contentCard} status='basic' disabled>
+      <Text style={styles.cardTitle}>{props.title}</Text>
+      <MainTags tagsData={props.data} />
+    </Card>
+  );
+
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <Layout>
-        <ScrollView>
-          <Layout style={styles.contentContainer}>
-            <Card style={styles.contentCard} status='basic' disabled>
-              <Text style={styles.cardTitle}>YEAR OF STUDY</Text>
-              <MainTags tagsData={prefData.year} />
-            </Card>
-            <Card style={styles.contentCard} status='basic' disabled>
-              <Text style={styles.cardTitle}>MAJOR</Text>
-              <MainTags tagsData={prefData.degree} />
-            </Card>
-            <Card style={styles.contentCard} status='basic' disabled>
-              <Text style={styles.cardTitle}>COMMITMENT</Text>
-              <MainTags
-                tagsData={prefData.commitment.map(value => value.split(' ')[0])}
-              />
-            </Card>
-            <Card style={styles.contentCard} status='basic' disabled>
-              <Text style={styles.cardTitle}>GENDER</Text>
-              <MainTags tagsData={prefData.gender} />
-            </Card>
-            <Card style={styles.contentCard} status='basic' disabled>
-              <Text style={styles.cardTitle}>SWE EXPERIENCE LEVEL</Text>
-              <MainTags tagsData={prefData.sweExperience} />
-            </Card>
-
-            {Object.entries(techExp).map(([key, value]) => {
-              if (value.length > 0) {
-                let displayHeader, displayIcon;
-
-                if (key === 'game') {
-                  displayHeader = 'GAME DEVELOPMENT';
-                  displayIcon = GameIcon;
-                } else if (key === 'machineLearning') {
-                  displayHeader = 'MACHINE LEARNING';
-                  displayIcon = MLIcon;
-                } else if (key === 'mobile') {
-                  displayHeader = 'MOBILE DEVELOPMENT';
-                  displayIcon = MobileIcon;
-                } else if (key === 'web') {
-                  displayHeader = 'WEB DEVELOPMENT';
-                  displayIcon = WebIcon;
-                } else if (key === 'database') {
-                  displayHeader = 'DATABASE';
-                  displayIcon = DBIcon;
-                }
-
+      <ScrollView>
+        <Layout style={styles.contentContainer}>
+          {Object.entries(partialPreferences).map(([key, value]) => {
+            if (value.length > 0) {
+              if (key === 'year') {
                 return (
-                  <Card
-                    style={styles.contentCard}
-                    key={displayHeader}
-                    status='primary'
-                    disabled
-                  >
-                    <Layout style={{ flexDirection: 'row' }}>
-                      <Text style={styles.cardTitle}>{displayHeader}</Text>
-                      <Button
-                        size='tiny'
-                        appearance='ghost'
-                        status='basic'
-                        accessoryRight={displayIcon}
-                      ></Button>
-                    </Layout>
-
-                    <MainTags tagsData={value} />
-                  </Card>
+                  <ContentCard key={key} title={'YEAR OF STUDY'} data={year} />
+                );
+              } else if (key === 'degree') {
+                return <ContentCard key={key} title={'MAJOR'} data={degree} />;
+              } else if (key === 'commitment') {
+                return (
+                  <ContentCard
+                    key={key}
+                    title={'COMMITMENT'}
+                    data={commitment.map(value => value.split(' ')[0])}
+                  />
+                );
+              } else if (key === 'gender') {
+                return <ContentCard key={key} title={'GENDER'} data={gender} />;
+              } else if (key === 'sweExperience') {
+                return (
+                  <ContentCard
+                    key={key}
+                    title={'SWE EXPERIENCE LEVEL'}
+                    data={sweExperience}
+                  />
                 );
               }
-            })}
-          </Layout>
-        </ScrollView>
-        <FloatingEdit navigate={navigateEditPref} />
-      </Layout>
+            }
+          })}
+          {Object.entries(techExp).map(([key, value]) => {
+            if (value.length > 0) {
+              let displayHeader, displayIcon;
+
+              if (key === 'game') {
+                displayHeader = 'GAME DEVELOPMENT';
+                displayIcon = GameIcon;
+              } else if (key === 'machineLearning') {
+                displayHeader = 'MACHINE LEARNING';
+                displayIcon = MLIcon;
+              } else if (key === 'mobile') {
+                displayHeader = 'MOBILE DEVELOPMENT';
+                displayIcon = MobileIcon;
+              } else if (key === 'web') {
+                displayHeader = 'WEB DEVELOPMENT';
+                displayIcon = WebIcon;
+              } else if (key === 'database') {
+                displayHeader = 'DATABASE';
+                displayIcon = DBIcon;
+              }
+
+              return (
+                <Card
+                  style={styles.contentCard}
+                  key={displayHeader}
+                  status='primary'
+                  disabled
+                >
+                  <Layout style={{ flexDirection: 'row' }}>
+                    <Text style={styles.cardTitle}>{displayHeader}</Text>
+                    <Button
+                      size='tiny'
+                      appearance='ghost'
+                      status='basic'
+                      accessoryRight={displayIcon}
+                    ></Button>
+                  </Layout>
+                  <MainTags tagsData={value} />
+                </Card>
+              );
+            }
+          })}
+        </Layout>
+      </ScrollView>
+      <FloatingEdit navigate={navigateEditPref} />
     </SafeAreaView>
   );
 };
@@ -108,7 +126,7 @@ const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
     backgroundColor: 'white',
-    paddingTop: 20
+    paddingVertical: 10
   },
   icon: {
     width: 25,
