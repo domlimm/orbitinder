@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
-import Moment from 'moment';
+import dayjs from 'dayjs';
 
 import { ContentCard, MainTags, FloatingEdit } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
@@ -20,7 +20,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
   const background = userData.background;
   const techExp = background.technologyExperience;
-  const updatedAt = Moment(userData.updatedAt).format(
+  const updatedAt = dayjs(userData.updatedAt).format(
     'dddd D MMM YY, h:mm:ss A'
   );
   const { database, game, machineLearning, mobile, web } = techExp;

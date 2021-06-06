@@ -1,7 +1,7 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const greeting = () => {
-  const hour = parseInt(moment().format('HH'));
+  const hour = parseInt(dayjs().format('HH'));
   const greeting =
     hour >= 0 && hour < 12
       ? 'good morning,'
