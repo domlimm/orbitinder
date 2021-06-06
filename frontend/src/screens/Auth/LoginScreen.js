@@ -41,9 +41,6 @@ const LoginScreen = ({ navigation }) => {
       }
 
       setLoading(true);
-      setAlertMessage('Logging In...');
-      setShowAlert(true);
-      setAlertStatus('info');
 
       await dispatch(authActions.logIn(email, password));
     } catch (err) {

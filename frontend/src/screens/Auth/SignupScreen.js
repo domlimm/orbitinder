@@ -60,9 +60,6 @@ const SignupScreen = ({ navigation }) => {
       }
 
       setLoading(true);
-      setAlertMessage('Registering...');
-      setShowAlert(true);
-      setAlertStatus('info');
 
       await dispatch(authActions.signUp(email, password, name, genderValue));
 
