@@ -20,7 +20,7 @@ import {
 import { StackActions } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { NavHeader, LoadingIndicator } from '../../components/index';
+import { NavHeader, LoadingIndicator, Toast } from '../../components/index';
 import { genderData } from '../../constants/profleCreationData';
 import * as authActions from '../../redux/actions/auth';
 
@@ -37,31 +37,43 @@ const SignupScreen = ({ navigation }) => {
   const [name, setName] = React.useState('');
 
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
 
   React.useEffect(() => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
 
-  React.useEffect(() => {
-    if (error) {
-      Alert.alert('Error Occured', error, [{ text: 'Close' }]);
-    }
-  }, [error]);
-
-  const signUpHandler = () => {
+  const signUpHandler = async () => {
     try {
-      dispatch(authActions.signUp(email, password, name, genderValue));
+      if (
+        fName.length === 0 ||
+        lName.length === 0 ||
+        email.length === 0 ||
+        password.length === 0
+      ) {
+        setAlertMessage('You have empty fields!');
+        setShowAlert(true);
+        setAlertStatus('warning');
+        return;
+      }
 
-      setError(null);
       setLoading(true);
+      setAlertMessage('Registering...');
+      setShowAlert(true);
+      setAlertStatus('info');
+
+      await dispatch(authActions.signUp(email, password, name, genderValue));
 
       return {
         ...StackActions.popToTop(),
         ...StackActions.replace('RegisterNavigator')
       };
     } catch (err) {
-      setError(err.message);
+      setAlertMessage(err.message);
+      setShowAlert(true);
+      setAlertStatus('danger');
       setLoading(false);
     }
   };
@@ -97,6 +109,13 @@ const SignupScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.container}>
         <NavHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.inputContainer}>
             <Title title='Personal Details' />

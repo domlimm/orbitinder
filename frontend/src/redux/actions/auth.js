@@ -4,8 +4,8 @@ export const STORE_USER_DATA = 'STORE_USER_DATA';
 export const LOG_OUT = 'LOG_OUT';
 export const SET_REGISTER = 'SET_REGISTER';
 
-export const signUp = (email, password, name, gender) => dispatch => {
-  firebase
+export const signUp = (email, password, name, gender) => async dispatch => {
+  return await firebase
     .auth()
     .createUserWithEmailAndPassword(email.trim().toLowerCase(), password)
     .then(res => {
