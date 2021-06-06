@@ -13,6 +13,7 @@ import {
   Input,
   Divider
 } from '@ui-kitten/components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TitleHeader, FloatingSave } from '../../components/index';
 import {
@@ -27,7 +28,6 @@ import {
   dbData,
   mlData
 } from '../../constants/profleCreationData';
-import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 
 const EditProfileScreen = ({ navigation }) => {

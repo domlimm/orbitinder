@@ -12,6 +12,7 @@ import {
   SelectItem,
   Divider
 } from '@ui-kitten/components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TitleHeader, FloatingSave } from '../../components/index';
 import {
@@ -19,7 +20,6 @@ import {
   degreeData,
   commitmentData,
   genderData,
-  idea,
   sweExperience,
   gameDevData,
   webDevData,
@@ -27,10 +27,8 @@ import {
   dbData,
   mlData
 } from '../../constants/profleCreationData';
-import { partnerPref } from '../../constants/userData';
-
-import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
+
 const EditPrefScreen = ({ navigation }) => {
   const navigateBack = () => {
     navigation.goBack();
