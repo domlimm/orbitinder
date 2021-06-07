@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 
-const MainTags = ({ tagsData }) => {
+const MainTags = ({ tagsData, firstWord }) => {
   return (
     <Layout style={styles.tagContainer}>
       {tagsData.map(function (tag, index) {
@@ -14,7 +14,7 @@ const MainTags = ({ tagsData }) => {
             status='basic'
             key={index}
           >
-            {tag}
+            {firstWord ? tag.replace(/ .*/, '') : tag}
           </Button>
         );
       })}
