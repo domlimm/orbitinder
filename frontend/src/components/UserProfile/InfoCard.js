@@ -3,8 +3,12 @@ import { StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Button, Card, Layout, Text } from '@ui-kitten/components';
 import MainTags from './MainTags';
 import { dummyUserData } from '../../constants/userData';
+// import { IconBadge } from 'react-native-icon-badge';
+import IconBadge from 'react-native-icon-badge';
+import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 
 const InfoCard = ({ cardData, navProps }) => {
+  console.log(cardData);
   const handleReadMore = () => {
     navProps.navigation.navigate({
       name: 'UserProfile',
@@ -17,7 +21,22 @@ const InfoCard = ({ cardData, navProps }) => {
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>
-        <Image style={styles.avatarImg} source={{ uri: cardData.img }} />
+        <IconBadge
+          MainElement={
+            <Image style={styles.avatarImg} source={{ uri: cardData.img }} />
+          }
+          BadgeElement={
+            <Foundation
+              name={
+                cardData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
+              }
+              size={30}
+              color={cardData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+              style={styles.genderIcon}
+            />
+          }
+          IconBadgeStyle={styles.genderBadge}
+        />
         <Layout style={styles.headerCaptions}>
           <Text style={styles.name}>{cardData.name}</Text>
 
@@ -56,7 +75,7 @@ const InfoCard = ({ cardData, navProps }) => {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <MainTags tagsData={cardData.level} />
-            <MainTags tagsData={cardData.commitment} />
+            <MainTags tagsData={cardData.commitment} firstWord={true} />
           </Layout>
         </Layout>
       </Layout>
@@ -100,9 +119,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 32,
-    shadowColor: 'grey',
-    shadowOffset: { height: 5, width: 5 },
-    shadowOpacity: 1,
+    // shadowColor: 'grey',
+    // shadowOffset: { height: 5, width: 5 },
+    // shadowOpacity: 1,
     marginTop: 15
   },
   headerCaptions: {
@@ -179,6 +198,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 7,
     fontSize: 12
+  },
+  genderIcon: {
+    // marginTop: 4,
+    // alignItems: 'center'
+  },
+  genderBadge: {
+    width: 30,
+    height: 30,
+    top: 8,
+    right: -8,
+    // backgroundColor: 'rgba(0, 0, 0, 0.2)'
+    backgroundColor: 'transparent'
   }
 });
 
