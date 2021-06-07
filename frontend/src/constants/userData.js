@@ -40,106 +40,111 @@ export const userArrayData = [
   {
     name: 'Rebecca Black',
     year: 'Year 1',
-    major: 'Business Analytics',
+    degree: 'Business Analytics',
     img: 'https://i.pravatar.cc/150?img=48',
     gender: 'Female',
-    bio: 'Total problem solver. Professional thinker. Twitter fan. Freelance entrepreneur. Bacon enthusiast. Committed to doing the very best and works very hard. Looking for like minded people',
-    idea: ['No'],
-    level: ['Artemis'],
+    biography:
+      'Total problem solver. Professional thinker. Twitter fan. Freelance entrepreneur. Bacon enthusiast. Committed to doing the very best and works very hard. Looking for like minded people',
+    idea: 'No',
+    achievement: 'Artemis',
     interestedAreas: ['Finance', 'Social'],
-    codingExpLevel: ['Beginner'],
-    commitment: ['High Commitment'],
+    sweExperience: 'Beginner',
+    commitment: 'High Commitment',
     technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
-    tech: {
-      ml: ['NLTK'],
-      gamedev: ['Unity', 'Unreal Engine'],
-      webdev: ['React'],
-      mobiledev: ['Ionic', 'Corona'],
-      db: ['Oracle']
+    technologyExperience: {
+      machineLearning: ['NLTK'],
+      game: ['Unity', 'Unreal Engine'],
+      web: ['React'],
+      mobile: ['Ionic', 'Corona'],
+      database: ['Oracle']
     }
   },
   {
     name: 'Bernard Richard',
     year: 'Year 3',
-    major: 'Computer Science',
+    degree: 'Computer Science',
     img: 'https://i.pravatar.cc/150?img=51',
     gender: 'Male',
-    bio: 'Evil reader. Coffee ninja. Infuriatingly humble bacon aficionado. Introvert. Typical entrepreneur. Amateur travel maven. Troublemaker. Pop culture junkie.',
-    idea: ['No'],
-    level: ['Gemini'],
+    biography:
+      'Evil reader. Coffee ninja. Infuriatingly humble bacon aficionado. Introvert. Typical entrepreneur. Amateur travel maven. Troublemaker. Pop culture junkie.',
+    idea: 'No',
+    achievement: 'Gemini',
     interestedAreas: ['Finance', 'Games'],
-    codingExpLevel: ['Advanced'],
-    commitment: ['High Commitment'],
+    sweExperience: 'Advanced',
+    commitment: 'High Commitment',
     technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
-    tech: {
-      ml: ['NLTK'],
-      gamedev: ['Unity', 'Unreal Engine'],
-      webdev: ['React'],
-      mobiledev: ['Ionic', 'Corona'],
-      db: ['Oracle']
+    technologyExperience: {
+      machineLearning: ['NLTK'],
+      game: ['Unity', 'Unreal Engine'],
+      web: ['React'],
+      mobile: ['Ionic', 'Corona'],
+      database: ['Oracle']
     }
   },
   {
     name: 'Alisia Charlene',
     year: 'Year 2',
-    major: 'Information Systems',
+    degree: 'Information Systems',
     img: 'https://i.pravatar.cc/150?img=30',
     gender: 'Female',
-    bio: 'Creator. Certified travel aficionado. Gamer. Alcohol practitioner. Social media lover. Wannabe coffee nerd. Tv geek. ',
-    idea: ['No'],
-    level: ['Vostok'],
+    biography:
+      'Creator. Certified travel aficionado. Gamer. Alcohol practitioner. Social media lover. Wannabe coffee nerd. Tv geek. ',
+    idea: 'No',
+    achievement: 'Vostok',
     interestedAreas: ['Games', 'Mobile'],
-    codingExpLevel: ['Beginner'],
-    commitment: ['High Commitment'],
+    sweExperience: 'Beginner',
+    commitment: 'High Commitment',
     technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
-    tech: {
-      ml: ['NLTK'],
-      gamedev: ['Unity', 'Unreal Engine'],
-      webdev: ['React'],
-      mobiledev: ['Ionic', 'Corona'],
-      db: ['Oracle']
+    technologyExperience: {
+      machineLearning: ['NLTK'],
+      game: ['Unity', 'Unreal Engine'],
+      web: ['React'],
+      mobile: ['Ionic', 'Corona'],
+      database: ['Oracle']
     }
   },
   {
     name: 'Kev Christiana',
     year: 'Year 1',
-    major: 'Computer Science',
+    degree: 'Computer Science',
     img: 'https://i.pravatar.cc/150?img=10',
     gender: 'Female',
-    bio: 'Hipster-friendly analyst. Friend of animals everywhere. Alcohol buff. Social media scholar. Wannabe tv fan. Creator',
-    idea: ['Yes'],
-    level: ['Apollo'],
+    biography:
+      'Hipster-friendly analyst. Friend of animals everywhere. Alcohol buff. Social media scholar. Wannabe tv fan. Creator',
+    idea: 'Yes',
+    achievement: 'Apollo',
     interestedAreas: ['Social'],
-    codingExpLevel: ['Beginner'],
-    commitment: ['High Commitment'],
+    sweExperience: 'Beginner',
+    commitment: 'High Commitment',
     technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
-    tech: {
-      ml: ['NLTK'],
-      gamedev: ['Unity', 'Unreal Engine'],
-      webdev: ['React'],
-      mobiledev: ['Ionic', 'Corona'],
-      db: ['Oracle']
+    technologyExperience: {
+      machineLearning: ['NLTK'],
+      game: ['Unity', 'Unreal Engine'],
+      web: ['React'],
+      mobile: ['Ionic', 'Corona'],
+      database: ['Oracle']
     }
   },
   {
     name: 'Pen Lenora',
     year: 'Year 1',
-    major: 'Computer Engineering',
+    degree: 'Computer Engineering',
     img: 'https://i.pravatar.cc/150?img=49',
     gender: 'Female',
-    bio: 'witter specialist. Music trailblazer. General social media evangelist. Internet aficionado. Web scholar.',
-    idea: ['Yes'],
-    level: ['Artemis'],
+    biography:
+      'witter specialist. Music trailblazer. General social media evangelist. Internet aficionado. Web scholar.',
+    idea: 'Yes',
+    achievement: 'Artemis',
     interestedAreas: ['Others'],
-    codingExpLevel: ['Advanced'],
-    commitment: ['Medium Commitment'],
+    sweExperience: 'Advanced',
+    commitment: 'Medium Commitment',
     technologies: ['Flutter/Dart', 'Android/Java', 'React-Native/Js', 'NLTK'],
-    tech: {
-      ml: ['NLTK'],
-      gamedev: ['Unity', 'Unreal Engine'],
-      webdev: ['React'],
-      mobiledev: ['Ionic', 'Corona'],
-      db: ['Oracle']
+    technologyExperience: {
+      machineLearning: ['NLTK'],
+      game: ['Unity', 'Unreal Engine'],
+      web: ['React'],
+      mobile: ['Ionic', 'Corona'],
+      database: ['Oracle']
     }
   }
 ];
