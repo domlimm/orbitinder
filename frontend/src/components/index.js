@@ -17,3 +17,7 @@ export { default as TeamUpBottomTab } from './Navigation/TeamUpBottomTab';
 
 export { default as BioInput } from './EditProfile/BioInput';
 export { default as YearInput } from './EditProfile/YearInput';
+
+export { default as OnboardingItem } from './Onboarding/OnboardingItem';
+export { default as Paginator } from './Onboarding/Paginator';
+export { default as OnboardingButton } from './Onboarding/OnboardingButton';

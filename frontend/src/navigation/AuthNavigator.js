@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
+  OnboardingScreen,
   HomeLandingScreen,
   LoginLandingScreen,
   LoginScreen,
@@ -29,7 +30,7 @@ const AuthNavigator = () => {
   return (
     <Auth.Navigator headerMode='none'>
       {!hasInit && (
-        <Auth.Screen name='HomeLanding' component={HomeLandingScreen} />
+        <Auth.Screen name='HomeLanding' component={OnboardingScreen} />
       )}
       <Auth.Screen name='LoginLanding' component={LoginLandingScreen} />
       <Auth.Screen name='Login' component={LoginScreen} />
