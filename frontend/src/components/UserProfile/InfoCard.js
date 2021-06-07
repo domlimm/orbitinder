@@ -11,7 +11,7 @@ const InfoCard = ({ cardData, navProps }) => {
   console.log(cardData);
   const handleReadMore = () => {
     navProps.navigation.navigate({
-      name: 'UserProfile',
+      name: 'TeamUpProfile',
       params: {
         profileData: cardData
       }
@@ -40,15 +40,15 @@ const InfoCard = ({ cardData, navProps }) => {
         <Layout style={styles.headerCaptions}>
           <Text style={styles.name}>{cardData.name}</Text>
 
-          <Text style={styles.subCaptions}>{cardData.major}</Text>
+          <Text style={styles.subCaptions}>{cardData.degree}</Text>
           <Text style={styles.subCaptions}>{cardData.year}</Text>
           <Layout style={styles.subCaptionsContainer}></Layout>
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
-        <Text style={styles.sectionText}>{cardData.bio}</Text>
+        <Text style={styles.sectionText}>{cardData.biography}</Text>
         <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-        <MainTags tagsData={cardData.interestedAreas} />
+        <MainTags tagsData={cardData.interestedAreas} isArray={true} />
 
         <Layout style={{ flexDirection: 'column' }}>
           <Layout
@@ -60,7 +60,7 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <MainTags tagsData={cardData.codingExpLevel} />
+            <MainTags tagsData={cardData.sweExperience} />
             <MainTags tagsData={cardData.idea} />
           </Layout>
         </Layout>
@@ -74,7 +74,7 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <MainTags tagsData={cardData.level} />
+            <MainTags tagsData={cardData.achievement} />
             <MainTags tagsData={cardData.commitment} firstWord={true} />
           </Layout>
         </Layout>

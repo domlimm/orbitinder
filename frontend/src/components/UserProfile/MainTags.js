@@ -2,22 +2,33 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 
-const MainTags = ({ tagsData, firstWord }) => {
+const MainTags = ({ tagsData, firstWord, isArray }) => {
   return (
     <Layout style={styles.tagContainer}>
-      {tagsData.map(function (tag, index) {
-        return (
-          <Button
-            style={styles.tags}
-            size='small'
-            appearance='filled'
-            status='basic'
-            key={index}
-          >
-            {firstWord ? tag.replace(/ .*/, '') : tag}
-          </Button>
-        );
-      })}
+      {isArray ? (
+        tagsData.map(function (tag, index) {
+          return (
+            <Button
+              style={styles.tags}
+              size='small'
+              appearance='filled'
+              status='basic'
+              key={index}
+            >
+              {firstWord ? tag.replace(/ .*/, '') : tag}
+            </Button>
+          );
+        })
+      ) : (
+        <Button
+          style={styles.tags}
+          size='small'
+          appearance='filled'
+          status='basic'
+        >
+          {firstWord ? tagsData.replace(/ .*/, '') : tagsData}
+        </Button>
+      )}
     </Layout>
   );
 };

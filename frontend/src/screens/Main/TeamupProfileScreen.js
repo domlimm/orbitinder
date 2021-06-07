@@ -8,21 +8,15 @@ import {
   Icon,
   Divider
 } from '@ui-kitten/components';
-import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
-import dayjs from 'dayjs';
 
-import { ContentCard, MainTags, FloatingEdit } from '../../components/index';
+import { ContentCard, MainTags } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
-const UserProfileScreen = ({ navigation, route }) => {
-  const userData = useSelector(state => state.user.userData);
-  const background = userData.background;
+const TeamupProfileScreen = ({ navigation, route }) => {
+  const background = route.params.profileData;
   const techExp = background.technologyExperience;
-  const updatedAt = dayjs(userData.updatedAt).format(
-    'dddd D MMM YY, h:mm:ss A'
-  );
   const { database, game, machineLearning, mobile, web } = techExp;
   const isTechExpEmpty =
     database.length === 0 &&
@@ -41,11 +35,6 @@ const UserProfileScreen = ({ navigation, route }) => {
   );
   const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
-  const navigateEditProfile = () => {
-    // navigation.navigate('EditProfile');
-    navigation.navigate('EditNavigator', { screen: 'EditProfile' });
-  };
-
   const navigateBack = () => {
     navigation.goBack();
   };
@@ -54,48 +43,38 @@ const UserProfileScreen = ({ navigation, route }) => {
     <SafeAreaView style={styles.parentContainer}>
       <ScrollView>
         <Layout style={styles.iconContainer}>
-          {route.params && (
-            <Icon
-              name='arrow-back'
-              onPress={navigateBack}
-              fill='white'
-              style={styles.backIcon}
-            />
-          )}
+          <Icon
+            name='arrow-back'
+            onPress={navigateBack}
+            fill='white'
+            style={styles.backIcon}
+          />
         </Layout>
-        <Layout
-          style={[
-            route.params ? styles.smallHeaderContainer : styles.headerContainer
-          ]}
-        >
+        <Layout style={styles.smallHeaderContainer}>
           <IconBadge
             MainElement={
               <Image
-                style={[
-                  route.params ? styles.avatarImgNoMargin : styles.avatarImg
-                ]}
-                source={{ uri: dummyUserData.img }}
+                style={styles.avatarImgNoMargin}
+                source={{ uri: background.img }}
               />
             }
             BadgeElement={
               <Foundation
                 name={
-                  userData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
+                  background.gender == 'Female'
+                    ? 'female-symbol'
+                    : 'male-symbol'
                 }
                 size={30}
-                color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+                color={background.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
                 style={styles.genderIcon}
               />
             }
-            IconBadgeStyle={[
-              route.params
-                ? styles.genderBadgeViewDetails
-                : styles.genderBadgeUserProfile
-            ]}
+            IconBadgeStyle={styles.genderBadgeViewDetails}
           />
 
           <Layout style={styles.headerCaptions}>
-            <Text style={styles.name}>{userData.name}</Text>
+            <Text style={styles.name}>{background.name}</Text>
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
@@ -112,7 +91,7 @@ const UserProfileScreen = ({ navigation, route }) => {
               type={'coding-exp-level'}
               data={background.sweExperience}
             />
-            <ContentCard type={'commitment'} data={background.commitment} />
+            <ContentCard type={'orbitalLevel'} data={background.commitment} />
           </Layout>
           <Layout style={styles.groupContainer}>
             <ContentCard type={'orbitalLevel'} data={background.achievement} />
@@ -173,13 +152,8 @@ const UserProfileScreen = ({ navigation, route }) => {
               })}
             </Card>
           )}
-          <Text
-            style={styles.updatedText}
-            category='label'
-          >{`Last Updated: ${updatedAt}`}</Text>
         </Layout>
       </ScrollView>
-      {!route.params && <FloatingEdit navigate={navigateEditProfile} />}
     </SafeAreaView>
   );
 };
@@ -333,4 +307,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserProfileScreen;
+export default TeamupProfileScreen;
