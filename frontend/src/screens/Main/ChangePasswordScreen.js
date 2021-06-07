@@ -164,12 +164,6 @@ const styles = StyleSheet.create({
   changePWBtn: {
     width: '70%',
     marginTop: 10
-  },
-  backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
-  },
-  modalText: {
-    marginVertical: 20
   }
 });
 

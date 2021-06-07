@@ -9,19 +9,15 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  Button,
   Layout,
   Text,
-  Card,
-  Modal,
   IndexPath,
   Select,
-  SelectItem,
-  Divider
+  SelectItem
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TitleHeader, FloatingSave } from '../../components/index';
+import { TitleHeader, FloatingSave, Toast } from '../../components/index';
 import {
   yearData,
   degreeData,
@@ -37,12 +33,11 @@ import {
 import * as userActions from '../../redux/actions/user';
 
 const EditPrefScreen = ({ navigation }) => {
-  const navigateBack = () => {
-    navigation.goBack();
-  };
-
   const dispatch = useDispatch();
 
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
@@ -186,15 +181,18 @@ const EditPrefScreen = ({ navigation }) => {
         year: currState.yearValue
       }
     };
+
     try {
       dispatch(userActions.updatePref(prefData));
       setPreferencesData(prefData.preferences);
       setError(null);
-      setVisible(!visible);
+
+      setAlertMessage("Preferences' changes saved!");
+      setShowAlert(true);
+      setAlertStatus('success');
     } catch (err) {
       setError(err.message);
     }
-    setVisible(!visible);
   };
 
   React.useEffect(
@@ -238,8 +236,6 @@ const EditPrefScreen = ({ navigation }) => {
     [navigation, currState, preferencesData]
   );
 
-  const [visible, setVisible] = React.useState(false); // for save modal
-
   return (
     <KeyboardAvoidingView
       style={styles.formContainer}
@@ -247,6 +243,13 @@ const EditPrefScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.parentContainer}>
         <TitleHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.inputContainer}>
             <Text style={styles.screenTitle}>Partner Preferences</Text>
@@ -356,9 +359,8 @@ const EditPrefScreen = ({ navigation }) => {
               ))}
             </Select>
 
-            <Divider />
             <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
-              Technology Experience Preferences
+              Technology Experience
             </Text>
             <Select
               label='Game Development'
@@ -466,24 +468,6 @@ const EditPrefScreen = ({ navigation }) => {
               ))}
             </Select>
           </Layout>
-          <Layout>
-            <Modal
-              visible={visible}
-              backdropStyle={styles.backdrop}
-              onBackdropPress={() => setVisible(false)}
-            >
-              <Card disabled={true}>
-                <Text>Profile Has been saved</Text>
-                <Button
-                  style={styles.dismissBtn}
-                  size='small'
-                  onPress={() => setVisible(false)}
-                >
-                  DISMISS
-                </Button>
-              </Card>
-            </Modal>
-          </Layout>
         </ScrollView>
         <FloatingSave saveHandler={saveHandler} />
       </SafeAreaView>
@@ -503,15 +487,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  btnContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical: 10
-  },
-  backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
-  },
   selectInput: {
     width: '70%',
     marginVertical: 10
@@ -521,22 +496,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     width: '70%'
-  },
-  discardAlertBtnContainer: {
-    flexDirection: 'row'
-    // flex: 1,
-    // alignItems: 'center'
-  },
-  discardAlertBtn: {
-    marginVertical: 10,
-    marginHorizontal: 5
-  },
-  discardAlertText: {
-    alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
-  dismissBtn: {
-    marginVertical: 15
   }
 });
 export default EditPrefScreen;

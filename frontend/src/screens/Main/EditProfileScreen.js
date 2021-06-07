@@ -9,20 +9,16 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  Button,
   Layout,
   Text,
-  Card,
-  Modal,
   IndexPath,
   Select,
   SelectItem,
-  Input,
-  Divider
+  Input
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TitleHeader, FloatingSave } from '../../components/index';
+import { TitleHeader, FloatingSave, Toast } from '../../components/index';
 import {
   yearData,
   commitmentData,
@@ -40,6 +36,9 @@ import * as userActions from '../../redux/actions/user';
 const EditProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
@@ -188,14 +187,14 @@ const EditProfileScreen = ({ navigation }) => {
       dispatch(userActions.updateProfile(backgroundData));
       setBgData(backgroundData.background);
       setError(null);
-      setVisible(!visible);
+
+      setAlertMessage('Profile changes saved!');
+      setShowAlert(true);
+      setAlertStatus('success');
     } catch (err) {
       setError(err.message);
     }
-    setVisible(!visible);
   };
-
-  const [visible, setVisible] = React.useState(false); // for save modal
 
   React.useEffect(
     () =>
@@ -247,6 +246,13 @@ const EditProfileScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.parentContainer}>
         <TitleHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.inputContainer}>
             <Text style={styles.screenTitle}>Personal Information</Text>
@@ -351,7 +357,7 @@ const EditProfileScreen = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-            <Divider />
+
             <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
               Technology Experience
             </Text>
@@ -461,24 +467,6 @@ const EditProfileScreen = ({ navigation }) => {
               ))}
             </Select>
           </Layout>
-          <Layout>
-            <Modal
-              visible={visible}
-              backdropStyle={styles.backdrop}
-              onBackdropPress={() => setVisible(false)}
-            >
-              <Card disabled={true}>
-                <Text>Profile Has been saved</Text>
-                <Button
-                  style={styles.dismissBtn}
-                  size='small'
-                  onPress={() => setVisible(false)}
-                >
-                  DISMISS
-                </Button>
-              </Card>
-            </Modal>
-          </Layout>
         </ScrollView>
         <FloatingSave saveHandler={saveHandler} />
       </SafeAreaView>
@@ -525,19 +513,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     width: '70%'
-  },
-  discardAlertBtnContainer: {
-    flexDirection: 'row'
-    // flex: 1,
-    // alignItems: 'center'
-  },
-  discardAlertBtn: { marginVertical: 10, marginHorizontal: 5 },
-  discardAlertText: {
-    alignItems: 'center',
-    justifyContent: 'space-evenly'
-  },
-  dismissBtn: {
-    marginVertical: 15
   }
 });
 export default EditProfileScreen;
