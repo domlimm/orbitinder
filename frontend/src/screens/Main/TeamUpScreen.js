@@ -13,11 +13,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { InfoCard, TitleHeader } from '../../components/index';
 import Swiper from 'react-native-deck-swiper';
 import { userArrayData } from '../../constants/userData';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TeamUpScreen = ({ navigation }) => {
   // const navPrefs = () => {
   //   navigation.navigate('UserPreferences');
   // };
+  const allUserData = useSelector(state => state);
+  console.log('ALL USERS', allUserData);
   const [viewHeight, setViewHeight] = React.useState();
   const navProps = {
     title: 'Team Up',
