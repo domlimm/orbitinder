@@ -8,7 +8,7 @@ import IconBadge from 'react-native-icon-badge';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 
 const InfoCard = ({ cardData, navProps }) => {
-  console.log(cardData);
+  // console.log(cardData);
   const handleReadMore = () => {
     navProps.navigation.navigate({
       name: 'TeamUpProfile',
