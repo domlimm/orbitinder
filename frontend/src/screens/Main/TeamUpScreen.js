@@ -1,26 +1,26 @@
 import React from 'react';
-import {
-  StyleSheet,
-  RefreshControl,
-  ScrollView,
-  View,
-  Touchable,
-  TouchableOpacity
-} from 'react-native';
-import { Layout, Text, Button } from '@ui-kitten/components';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
+import { Layout } from '@ui-kitten/components';
+import Swiper from 'react-native-deck-swiper';
+import { useDispatch, useSelector } from 'react-redux';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InfoCard, TitleHeader } from '../../components/index';
-import Swiper from 'react-native-deck-swiper';
 import { userArrayData } from '../../constants/userData';
-import { useDispatch, useSelector } from 'react-redux';
+import * as usersActions from '../../redux/actions/users';
 
 const TeamUpScreen = ({ navigation }) => {
   // const navPrefs = () => {
   //   navigation.navigate('UserPreferences');
   // };
-  const allUserData = useSelector(state => state);
-  console.log('ALL USERS', allUserData);
+
+  const dispatch = useDispatch();
+
+  const { userData } = useSelector(state => state.users);
+
+  React.useEffect(() => {
+    dispatch(usersActions.getAllUserData());
+  }, []);
+
   const [viewHeight, setViewHeight] = React.useState();
   const navProps = {
     title: 'Team Up',

@@ -1,7 +1,7 @@
 import { GET_ALL_USER_DATA } from '../actions/users';
 
 const initialState = {
-  userData: {}
+  userData: []
 };
 
 export default (state = initialState, action) => {
