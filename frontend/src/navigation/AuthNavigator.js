@@ -7,6 +7,7 @@ import {
   HomeLandingScreen,
   LoginLandingScreen,
   LoginScreen,
+  InputProfilePhotoScreen,
   SignupScreen,
   ForgotPasswordScreen,
   ForgotPasswordConfirmationScreen
@@ -45,7 +46,7 @@ const AuthNavigator = () => {
       )}
       <Auth.Screen name='LoginLanding' component={LoginLandingScreen} />
       <Auth.Screen name='Login' component={LoginScreen} />
-      <Auth.Screen name='Signup' component={SignupScreen} />
+      <Auth.Screen name='Signup' component={InputProfilePhotoScreen} />
       <Auth.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
       <Auth.Screen
         name='ForgotPasswordConfirmation'

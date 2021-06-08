@@ -8,7 +8,8 @@ import {
   InputBackgroundScreen3,
   PreferencesLandingScreen,
   PrefInputScreen1,
-  PrefInputScreen2
+  PrefInputScreen2,
+  InputProfilePhotoScreen
 } from '../screens/index';
 
 const Register = createStackNavigator();
@@ -16,6 +17,10 @@ const Register = createStackNavigator();
 const RegisterNavigator = () => (
   <Register.Navigator headerMode='none' initialRouteName='ProfileLanding'>
     <Register.Screen name='ProfileLanding' component={ProfileLandingScreen} />
+    <Register.Screen
+      name='InputProfilePhoto'
+      component={InputProfilePhotoScreen}
+    />
     <Register.Screen
       name='InputBackground1'
       component={InputBackgroundScreen1}
