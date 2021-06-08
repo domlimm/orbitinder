@@ -1,6 +1,7 @@
 export { default as ExperienceSelectInputs } from './Inputs/ExperienceSelectInputs';
 export { default as LoadingIndicator } from './Inputs/LoadingIndicator';
 export { default as Toast } from './Inputs/Toast';
+export { default as ProfileImgPicker } from './Inputs/ProfileImgPicker';
 
 export { default as TechTags } from './UserProfile/TechTags';
 export { default as MainTags } from './UserProfile/MainTags';

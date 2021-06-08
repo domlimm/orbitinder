@@ -7,23 +7,25 @@ import {
   Dimensions
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Layout, Icon, Text } from '@ui-kitten/components';
+import { Button, Layout, Text, Avatar } from '@ui-kitten/components';
 import { StackActions } from '@react-navigation/native';
 
 import {
   LandingImage,
   NavHeader,
-  LoadingIndicator
+  LoadingIndicator,
+  ProfileImgPicker
 } from '../../components/index';
 
 const InputProfilePhotoScreen = ({ navigation }) => {
+  const [imagePath, setImagePath] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
   const [alertStatus, setAlertStatus] = React.useState('');
 
   const skipHandler = () => {
-    navigation.navigate('ProfileLanding');
+    navigation.navigate('InputBackground1');
   };
 
   const navProps = {
@@ -40,6 +42,20 @@ const InputProfilePhotoScreen = ({ navigation }) => {
       <SafeAreaView style={styles.parentContainer}>
         <NavHeader navProps={navProps} />
         <ScrollView>
+          <Layout
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20
+            }}
+          >
+            <Avatar
+              size='giant'
+              source={{ uri: 'https://i.pravatar.cc/150?img=48' }}
+              style={{ margin: 8, height: 80, width: 80 }}
+            />
+          </Layout>
           <Layout style={styles.landingImageContainer}>
             <LandingImage
               imgSrc={require('../../assets/images/input-profile-photo.png')}
