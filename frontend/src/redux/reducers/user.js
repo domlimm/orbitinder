@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         userData: action.userData
       };
     case CLEAR_LOG_OUT:
-      return {};
+      return initialState;
     default:
       return state;
   }

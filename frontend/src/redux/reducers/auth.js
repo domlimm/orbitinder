@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         gender: action.gender
       };
     case LOG_OUT:
-      return {};
+      return initialState;
     default:
       return state;
   }
