@@ -17,39 +17,43 @@ const InfoCard = ({ cardData, navProps }) => {
       }
     });
   };
-
+  const background = cardData.background;
+  const name = cardData.name;
+  const gender = cardData.gender;
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>
         <IconBadge
           MainElement={
-            <Image style={styles.avatarImg} source={{ uri: cardData.img }} />
+            <Image
+              style={styles.avatarImg}
+              source={{ uri: 'https://i.pravatar.cc/150?img=48' }}
+            /> // NEED TO INCLUDE ACTUAL IMAGE
           }
           BadgeElement={
             <Foundation
-              name={
-                cardData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
-              }
+              name={gender == 'Female' ? 'female-symbol' : 'male-symbol'}
               size={30}
-              color={cardData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+              color={gender == 'Female' ? '#FF59A1' : '#00C1FF'}
               style={styles.genderIcon}
             />
           }
           IconBadgeStyle={styles.genderBadge}
         />
         <Layout style={styles.headerCaptions}>
-          <Text style={styles.name}>{cardData.name}</Text>
+          <Text style={styles.name}>{name}</Text>
 
-          <Text style={styles.subCaptions}>{cardData.degree}</Text>
-          <Text style={styles.subCaptions}>{cardData.year}</Text>
+          <Text style={styles.subCaptions}>{background.degree}</Text>
+          <Text style={styles.subCaptions}>{background.year}</Text>
           <Layout style={styles.subCaptionsContainer}></Layout>
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
-        <Text style={styles.sectionText}>{cardData.biography}</Text>
+        <Text style={styles.sectionText}>{background.biography}</Text>
         <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-        <MainTags tagsData={cardData.interestedAreas} isArray={true} />
+        {/* <MainTags tagsData={cardData.interestedAreas} isArray={true} /> */}
 
+        {/* NEED TO INCLUDE INTERESTED AREAS */}
         <Layout style={{ flexDirection: 'column' }}>
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
@@ -60,8 +64,8 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <MainTags tagsData={cardData.sweExperience} />
-            <MainTags tagsData={cardData.idea} />
+            <MainTags tagsData={background.sweExperience} />
+            <MainTags tagsData={background.idea} />
           </Layout>
         </Layout>
         <Layout style={{ flexDirection: 'column' }}>
@@ -74,8 +78,8 @@ const InfoCard = ({ cardData, navProps }) => {
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <MainTags tagsData={cardData.achievement} />
-            <MainTags tagsData={cardData.commitment} firstWord={true} />
+            <MainTags tagsData={background.achievement} />
+            <MainTags tagsData={background.commitment} firstWord={true} />
           </Layout>
         </Layout>
       </Layout>
@@ -93,6 +97,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 20,
     height: 540,
+    width: '90%',
     // marginVertical: 20,
     backgroundColor: 'white',
     borderRadius: 20,

@@ -9,17 +9,13 @@ import { userArrayData } from '../../constants/userData';
 import * as usersActions from '../../redux/actions/users';
 
 const TeamUpScreen = ({ navigation }) => {
-  // const navPrefs = () => {
-  //   navigation.navigate('UserPreferences');
-  // };
-
   const dispatch = useDispatch();
-
-  const { userData } = useSelector(state => state.users);
 
   React.useEffect(() => {
     dispatch(usersActions.getAllUserData());
   }, []);
+
+  const { userData } = useSelector(state => state.users);
 
   const [viewHeight, setViewHeight] = React.useState();
   const navProps = {
@@ -58,8 +54,9 @@ const TeamUpScreen = ({ navigation }) => {
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight ? (
           <Swiper
-            cards={userArrayData}
+            cards={userData}
             renderCard={card => {
+              // console.log('carddata', card);
               return <InfoCard cardData={card} navProps={navProps} />;
             }}
             cardIndex={cardIndex}

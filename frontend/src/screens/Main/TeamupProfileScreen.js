@@ -15,7 +15,10 @@ import { ContentCard, MainTags } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
 const TeamupProfileScreen = ({ navigation, route }) => {
-  const background = route.params.profileData;
+  const userData = route.params.profileData;
+  const background = userData.background;
+  const name = userData.name;
+  const gender = userData.gender;
   const techExp = background.technologyExperience;
   const { database, game, machineLearning, mobile, web } = techExp;
   const isTechExpEmpty =
@@ -55,18 +58,14 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             MainElement={
               <Image
                 style={styles.avatarImgNoMargin}
-                source={{ uri: background.img }}
+                source={{ uri: 'https://i.pravatar.cc/150?img=48' }} //NEED TO REPLACE WITH ACTUAL IMG
               />
             }
             BadgeElement={
               <Foundation
-                name={
-                  background.gender == 'Female'
-                    ? 'female-symbol'
-                    : 'male-symbol'
-                }
+                name={gender == 'Female' ? 'female-symbol' : 'male-symbol'}
                 size={30}
-                color={background.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+                color={gender == 'Female' ? '#FF59A1' : '#00C1FF'}
                 style={styles.genderIcon}
               />
             }
@@ -74,7 +73,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
           />
 
           <Layout style={styles.headerCaptions}>
-            <Text style={styles.name}>{background.name}</Text>
+            <Text style={styles.name}>{name}</Text>
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
@@ -83,7 +82,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
           <ContentCard type={'bio'} data={background.biography} />
           <Card style={styles.contentCard} disabled>
             <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-            <MainTags tagsData={dummyUserData.interestedAreas} isArray={true} />
+            {/* <MainTags tagsData={dummyUserData.interestedAreas} isArray={true} /> */}
           </Card>
 
           <Layout style={styles.groupContainer}>
