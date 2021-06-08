@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import Svg, { G, Circle } from 'react-native-svg';
 import { AntDesign } from '@expo/vector-icons';
+import { Layout } from '@ui-kitten/components';
 
 const OnboardingButton = ({ scrollTo, percentage }) => {
   const size = 128;
@@ -46,7 +47,7 @@ const OnboardingButton = ({ scrollTo, percentage }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <Svg width={size} height={size}>
         <G rotation='-90' origin={center}>
           <Circle
@@ -75,7 +76,7 @@ const OnboardingButton = ({ scrollTo, percentage }) => {
       >
         <AntDesign name='arrowright' size={32} color='#fff' />
       </TouchableOpacity>
-    </View>
+    </Layout>
   );
 };
 

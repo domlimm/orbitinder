@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Animated, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Animated, useWindowDimensions } from 'react-native';
+import { Layout } from '@ui-kitten/components';
 
 const Paginator = ({ data, scrollX }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       {data.map((_, i) => {
         // previous, current, next
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
@@ -29,7 +30,7 @@ const Paginator = ({ data, scrollX }) => {
           />
         );
       })}
-    </View>
+    </Layout>
   );
 };
 

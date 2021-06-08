@@ -1,21 +1,21 @@
 import React from 'react';
-import { View, useWindowDimensions, Image, StyleSheet } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import { useWindowDimensions, Image, StyleSheet } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
 
 const OnboardingItem = ({ item }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <View style={[styles.container, { width }]}>
+    <Layout style={[styles.container, { width }]}>
       <Image
         source={item.image}
         style={[styles.image, { width, resizeMode: 'contain' }]}
       />
-      <View style={styles.content}>
+      <Layout style={styles.content}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
-      </View>
-    </View>
+      </Layout>
+    </Layout>
   );
 };
 

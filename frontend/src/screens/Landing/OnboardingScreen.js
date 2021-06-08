@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { FlatList, View, StyleSheet, Animated } from 'react-native';
+import { FlatList, StyleSheet, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Layout } from '@ui-kitten/components';
 
 import onboardingData from '../../constants/onboardingData';
 import {
@@ -38,8 +39,8 @@ const OnboardingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <NavHeader navProps={navProps} />
-      <View style={styles.container}>
-        <View style={styles.expanded}>
+      <Layout style={styles.container}>
+        <Layout style={styles.expanded}>
           <FlatList
             data={onboardingData}
             renderItem={({ item }) => <OnboardingItem item={item} />}
@@ -57,13 +58,13 @@ const OnboardingScreen = ({ navigation }) => {
             viewabilityConfig={viewConfig}
             ref={slidesRef}
           />
-        </View>
+        </Layout>
         <Paginator data={onboardingData} scrollX={scrollX} />
         <OnboardingButton
           scrollTo={scrollTo}
           percentage={(currentIndex + 1) * (100 / onboardingData.length)}
         />
-      </View>
+      </Layout>
     </SafeAreaView>
   );
 };
