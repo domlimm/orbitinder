@@ -3,6 +3,7 @@ export const localImages = [
   require('../assets/images/email-img.png'),
   require('../assets/images/forgot-password-img.png'),
   require('../assets/images/high-five-pana.png'),
+  require('../assets/images/input-profile-photo.png'),
   require('../assets/images/light-bulb.png'),
   require('../assets/images/login-image.png'),
   require('../assets/images/login-image-2.png'),
