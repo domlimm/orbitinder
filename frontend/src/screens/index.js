@@ -1,5 +1,6 @@
 export { default as HomeLandingScreen } from './Landing/HomeLandingScreen';
 export { default as OnboardingScreen } from './Landing/OnboardingScreen';
+export { default as InputProfilePhotoScreen } from './Registration/InputProfilePhotoScreen';
 export { default as InputBackgroundScreen1 } from './Registration/InputBackgroundScreen1';
 export { default as InputBackgroundScreen2 } from './Registration/InputBackgroundScreen2';
 export { default as InputBackgroundScreen3 } from './Registration/InputBackgroundScreen3';
