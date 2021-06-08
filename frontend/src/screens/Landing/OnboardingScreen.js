@@ -25,7 +25,7 @@ const OnboardingScreen = ({ navigation }) => {
     if (currentIndex < onboardingData.length - 1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      navigation.navigate('AuthNavigator');
+      navigation.navigate('LoginLanding');
     }
   };
 

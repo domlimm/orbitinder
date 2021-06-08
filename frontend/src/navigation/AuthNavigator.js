@@ -13,6 +13,14 @@ import {
 } from '../screens/index';
 
 const Auth = createStackNavigator();
+const Home = createStackNavigator();
+
+const HomeLandingNavigator = () => (
+  <Home.Navigator headerMode='none' initialRouteName='HomeLanding'>
+    <Home.Screen name='HomeLanding' component={HomeLandingScreen} />
+    <Home.Screen name='Onboarding' component={OnboardingScreen} />
+  </Home.Navigator>
+);
 
 const AuthNavigator = () => {
   const [hasInit, setHasInit] = React.useState(false);
@@ -30,7 +38,10 @@ const AuthNavigator = () => {
   return (
     <Auth.Navigator headerMode='none'>
       {!hasInit && (
-        <Auth.Screen name='HomeLanding' component={OnboardingScreen} />
+        <Auth.Screen
+          name='HomeLandingNavigator'
+          component={HomeLandingNavigator}
+        />
       )}
       <Auth.Screen name='LoginLanding' component={LoginLandingScreen} />
       <Auth.Screen name='Login' component={LoginScreen} />
