@@ -28,13 +28,15 @@ export const addProfile = data => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   addProfilePhoto(data.imagePath).then(imagePath => {
+    const updatedData = { ...data, imagePath: imagePath };
+
     db.collection('users')
       .doc(userId)
-      .set(data)
+      .set(updatedData)
       .then(() => {
         dispatch({
           type: ADD_USER_PROFILE,
-          userData: { ...data, imagePath: imagePath }
+          userData: updatedData
         });
       })
       .catch(err => {

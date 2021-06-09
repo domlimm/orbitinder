@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   TouchableNativeFeedback
 } from 'react-native';
 import {
@@ -16,12 +15,19 @@ import {
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 
-import { dummyUserData } from '../../constants/userData';
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
 
 const MainAppScreen = ({ navigation }) => {
+  const [image, setImage] = React.useState(null);
+
+  const defaultImage = require('../../assets/images/orbital-logo.png');
   const { name } = useSelector(state => state.auth);
+  const { userData } = useSelector(state => state.user);
+
+  React.useEffect(() => {
+    setImage(userData.imagePath);
+  }, [userData, navigation]);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
@@ -85,7 +91,7 @@ const MainAppScreen = ({ navigation }) => {
             <Avatar
               shape='rounded'
               size='giant'
-              source={{ uri: dummyUserData.img }}
+              source={image ? { uri: image } : defaultImage}
             />
           </Layout>
         </TouchableNativeFeedback>
