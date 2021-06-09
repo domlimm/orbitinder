@@ -59,6 +59,13 @@ const SignupScreen = ({ navigation }) => {
         return;
       }
 
+      if (password.length < 6) {
+        setAlertMessage('Password has to be min. 6 characters long!');
+        setShowAlert(true);
+        setAlertStatus('warning');
+        return;
+      }
+
       setLoading(true);
 
       await dispatch(authActions.signUp(email, password, name, genderValue));
