@@ -7,7 +7,7 @@ import { NavHeader, LandingImage } from '../../components/index';
 
 const ProfileLandingScreen = ({ navigation }) => {
   const navigationRegistration = () => {
-    navigation.navigate('InputBackground1');
+    navigation.navigate('InputProfilePhoto');
   };
 
   const navProps = {
