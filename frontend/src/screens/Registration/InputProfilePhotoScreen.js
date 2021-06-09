@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text, Avatar } from '@ui-kitten/components';
-import { StackActions } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 
-import { LandingImage, NavHeader } from '../../components/index';
+import { LandingImage, NavHeader, Toast } from '../../components/index';
 
 const InputProfilePhotoScreen = ({ navigation }) => {
   const [imagePath, setImagePath] = React.useState(null);
@@ -36,8 +35,11 @@ const InputProfilePhotoScreen = ({ navigation }) => {
         setGalleryPermission(galleryStatus.status === 'granted');
 
         if (galleryStatus.status !== 'granted') {
-          // Todo: toast
-          alert('Sorry, we need camera roll permissions to make this work!');
+          setAlertMessage(
+            'Sorry, we need camera roll permissions to make this work!'
+          );
+          setShowAlert(true);
+          setAlertStatus('warning');
         }
 
         const cameraStatus = await Camera.requestPermissionsAsync();
@@ -45,8 +47,11 @@ const InputProfilePhotoScreen = ({ navigation }) => {
         setCameraPermission(cameraStatus.status === 'granted');
 
         if (cameraStatus.status !== 'granted') {
-          // Todo: toast
-          alert('Sorry, we need camera permissions to make this work!');
+          setAlertMessage(
+            'Sorry, we need camera permissions to make this work!'
+          );
+          setShowAlert(true);
+          setAlertStatus('warning');
         }
       }
     })();
@@ -102,6 +107,13 @@ const InputProfilePhotoScreen = ({ navigation }) => {
     >
       <SafeAreaView style={styles.parentContainer}>
         <NavHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           {imagePath || hasAdded ? (
             <>
