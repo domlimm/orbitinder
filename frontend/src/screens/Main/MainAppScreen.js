@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 
 import { dummyUserData } from '../../constants/userData';
 import greeting from '../../utils/Greeting';
+import CountDown from '../../utils/Countdown';
 
 const MainAppScreen = ({ navigation }) => {
   const { name } = useSelector(state => state.auth);
@@ -88,6 +89,10 @@ const MainAppScreen = ({ navigation }) => {
             />
           </Layout>
         </TouchableNativeFeedback>
+        <Layout style={styles.introCard2}>
+          <Text style={styles.countDownTitle}>Time Remaining</Text>
+          <CountDown />
+        </Layout>
       </ScrollView>
     </SafeAreaView>
   );
@@ -123,10 +128,32 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
+  introCard2: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    shadowColor: 'rgba(0,0,0, .4)', // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    elevation: 3
+  },
   greetingTitle: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 24
+  },
+  countDownTitle: {
+    color: 'black',
+    // fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center'
   },
   profileAvatar: {
     width: 100,
