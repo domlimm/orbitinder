@@ -56,7 +56,7 @@ const TeamUpScreen = ({ navigation }) => {
           <Swiper
             cards={userData}
             renderCard={card => {
-              console.log('carddata', card);
+              // console.log('carddata', card);
               return <InfoCard cardData={card} navProps={navProps} />;
             }}
             cardIndex={cardIndex}
