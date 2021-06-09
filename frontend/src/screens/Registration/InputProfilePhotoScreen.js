@@ -177,7 +177,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
                 </Text>
               )}
               <Text style={styles.actionsText} onPress={skipHandler}>
-                Skip
+                {imagePath ? 'Next' : 'Skip'}
               </Text>
             </Layout>
           </Layout>
