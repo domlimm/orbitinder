@@ -19,7 +19,7 @@ import {
   degreeData
 } from '../../constants/profleCreationData';
 
-const InputBackgroundScreen1 = ({ navigation }) => {
+const InputBackgroundScreen1 = ({ navigation, route }) => {
   // const [valueDegree, setValueDegree] = React.useState('');
   // const [degrees, setDegrees] = React.useState(degreeData);
   // const filterDegree = (item, query) =>
@@ -57,7 +57,8 @@ const InputBackgroundScreen1 = ({ navigation }) => {
         degree: displayDegree,
         commitment: displayCommitment,
         achievement: displayAchievement
-      }
+      },
+      imagePath: route.params.imagePath
     });
   };
 
