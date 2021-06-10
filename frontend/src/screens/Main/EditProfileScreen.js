@@ -61,10 +61,10 @@ const EditProfileScreen = ({ navigation }) => {
   const [bgData, setBgData] = React.useState(background);
 
   React.useEffect(() => {
-    if (userData.hasOwnProperty('imagePath')) {
+    if (userData.imagePath !== undefined && userData.imagePath.length > 0) {
       setImagePath(userData.imagePath);
     }
-  }, [userData, navigation]);
+  }, [userData]);
 
   const navProps = {
     title: 'Edit Profile',

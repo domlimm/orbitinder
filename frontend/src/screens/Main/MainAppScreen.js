@@ -24,10 +24,10 @@ const MainAppScreen = ({ navigation }) => {
   const { userData } = useSelector(state => state.user);
 
   React.useEffect(() => {
-    if (userData.hasOwnProperty('imagePath')) {
+    if (userData.imagePath !== undefined && userData.imagePath.length > 0) {
       setImage(userData.imagePath);
     }
-  }, [userData, navigation]);
+  }, [userData]);
 
   const navigateActivityFeed = () => {
     navigation.navigate('ActivityFeed');
