@@ -23,7 +23,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserAvatar from 'react-native-user-avatar';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera } from 'expo-camera';
 
 import { TitleHeader, FloatingSave, Toast } from '../../components/index';
 import {
@@ -200,7 +199,8 @@ const EditProfileScreen = ({ navigation }) => {
         },
         year: currState.yearValue
       },
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      imagePath: newImagePath
     };
 
     try {
@@ -211,6 +211,7 @@ const EditProfileScreen = ({ navigation }) => {
       setAlertMessage('Profile changes saved!');
       setShowAlert(true);
       setAlertStatus('success');
+      setShowChangePhoto(false);
     } catch (err) {
       setError(err.message);
     }
@@ -323,7 +324,6 @@ const EditProfileScreen = ({ navigation }) => {
               )}
               <Feather name='edit-2' size={40} color='#407BFF' />
             </View>
-
             {showChangePhoto ? (
               <Layout style={styles.btnContainer}>
                 <Button style={styles.btn} onPress={cameraHandler}>
@@ -611,7 +611,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btn: {
-    marginVertical: 8,
+    marginVertical: 5,
     width: '70%'
   },
   inputContainer: {

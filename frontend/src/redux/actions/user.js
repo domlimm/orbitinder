@@ -26,7 +26,7 @@ export const getUserData = () => dispatch => {
 export const addProfile = data => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
-  addProfilePhoto(data.imagePath).then(imagePath => {
+  setProfilePhoto(data.imagePath).then(imagePath => {
     const updatedData = { ...data, imagePath: imagePath };
 
     db.collection('users')
@@ -58,7 +58,7 @@ export const addPreferences = data => dispatch => {
     });
 };
 
-export const addProfilePhoto = async uri => {
+export const setProfilePhoto = async uri => {
   const userId = firebase.auth().currentUser.uid;
   const metadata = {
     contentType: 'image/jpeg'
@@ -109,15 +109,21 @@ export const updatePref = data => dispatch => {
 export const updateProfile = data => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
-  db.collection('users')
-    .doc(userId)
-    .set(data, { merge: true })
-    .then(() => {
-      dispatch({ type: UPDATE_PROFILE, userData: data });
-    })
-    .catch(err => {
-      throw new Error(`Updating Profile: ${err}`);
+  if (data.imagePath !== null) {
+    setProfilePhoto(data.imagePath).then(imagePath => {
+      const updatedData = { ...data, imagePath: imagePath };
+
+      db.collection('users')
+        .doc(userId)
+        .set(updatedData, { merge: true })
+        .then(() => {
+          dispatch({ type: UPDATE_PROFILE, userData: updatedData });
+        })
+        .catch(err => {
+          throw new Error(`Updating Profile: ${err}`);
+        });
     });
+  }
 };
 
 export const clearDataLogOut = () => dispatch => {
