@@ -12,9 +12,13 @@ import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import dayjs from 'dayjs';
-import UserAvatar from 'react-native-user-avatar';
 
-import { ContentCard, MainTags, FloatingEdit } from '../../components/index';
+import {
+  ContentCard,
+  MainTags,
+  FloatingEdit,
+  UserAvatar
+} from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
@@ -84,6 +88,7 @@ const UserProfileScreen = ({ navigation, route }) => {
                   ]}
                   name={userData.name}
                   size={70}
+                  fontSize={28}
                 />
               )
             }

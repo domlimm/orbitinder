@@ -10,10 +10,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text, Avatar } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
-import UserAvatar from 'react-native-user-avatar';
 import { useSelector } from 'react-redux';
 
-import { LandingImage, NavHeader, Toast } from '../../components/index';
+import {
+  LandingImage,
+  NavHeader,
+  Toast,
+  UserAvatar
+} from '../../components/index';
 
 const InputProfilePhotoScreen = ({ navigation }) => {
   const [imagePath, setImagePath] = React.useState('');
@@ -90,7 +94,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
   };
 
   const deleteHandler = () => {
-    setImagePath(null);
+    setImagePath('');
   };
 
   const navProps = {
@@ -132,7 +136,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
                         style={[styles.avatar, { position: 'absolute' }]}
                       />
                     ) : (
-                      <UserAvatar name={name} size={120} />
+                      <UserAvatar name={name} size={120} fontSize={48} />
                     )}
                   </>
                 )}

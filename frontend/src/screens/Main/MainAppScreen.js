@@ -14,10 +14,10 @@ import {
   Avatar
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import UserAvatar from 'react-native-user-avatar';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
+import { UserAvatar } from '../../components/index';
 
 const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');
@@ -92,7 +92,7 @@ const MainAppScreen = ({ navigation }) => {
             {image.length > 0 ? (
               <Avatar shape='rounded' size='giant' source={{ uri: image }} />
             ) : (
-              <UserAvatar name={name} size={56} />
+              <UserAvatar name={name} size={56} fontSize={28} />
             )}
           </Layout>
         </TouchableNativeFeedback>

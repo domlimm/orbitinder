@@ -20,11 +20,15 @@ import {
   Button
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
-import UserAvatar from 'react-native-user-avatar';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
-import { TitleHeader, FloatingSave, Toast } from '../../components/index';
+import {
+  TitleHeader,
+  FloatingSave,
+  Toast,
+  UserAvatar
+} from '../../components/index';
 import {
   yearData,
   commitmentData,
@@ -329,6 +333,7 @@ const EditProfileScreen = ({ navigation }) => {
                   name={userData.name}
                   style={{ width: 100, height: 100, position: 'absolute' }}
                   size={100}
+                  fontSize={42}
                 />
               )}
             </View>
