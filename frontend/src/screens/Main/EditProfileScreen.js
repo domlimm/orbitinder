@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Alert,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -14,9 +15,15 @@ import {
   IndexPath,
   Select,
   SelectItem,
-  Input
+  Input,
+  Avatar,
+  Button
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
+import UserAvatar from 'react-native-user-avatar';
+import { Feather } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { Camera } from 'expo-camera';
 
 import { TitleHeader, FloatingSave, Toast } from '../../components/index';
 import {
@@ -36,6 +43,9 @@ import * as userActions from '../../redux/actions/user';
 const EditProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const [imagePath, setImagePath] = React.useState(null);
+  const [newImagePath, setNewImagePath] = React.useState(null);
+  const [showChangePhoto, setShowChangePhoto] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
   const [alertStatus, setAlertStatus] = React.useState('');
@@ -51,12 +61,19 @@ const EditProfileScreen = ({ navigation }) => {
   const background = userData.background;
   const [bgData, setBgData] = React.useState(background);
 
+  React.useEffect(() => {
+    if (userData.hasOwnProperty('imagePath')) {
+      setImagePath(userData.imagePath);
+    }
+  }, [userData, navigation]);
+
   const navProps = {
     title: 'Edit Profile',
     navigation: navigation,
     needBackNav: true,
     needMenuNav: false
   };
+
   const initialState = {
     bioValue: background.biography,
     yearValue: background.year,
@@ -95,6 +112,7 @@ const EditProfileScreen = ({ navigation }) => {
       return new IndexPath(mlData.indexOf(index));
     })
   };
+
   const myReducer = (currState, action) => {
     switch (action.type) {
       case 'changeBio':
@@ -161,7 +179,9 @@ const EditProfileScreen = ({ navigation }) => {
         };
     }
   };
+
   const [currState, currdispatch] = React.useReducer(myReducer, initialState);
+
   const saveHandler = () => {
     const backgroundData = {
       background: {
@@ -239,6 +259,40 @@ const EditProfileScreen = ({ navigation }) => {
     [navigation, currState, bgData]
   );
 
+  const galleryHandler = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
+    });
+
+    if (!result.cancelled) {
+      setNewImagePath(result.uri);
+    }
+  };
+
+  const cameraHandler = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
+    });
+
+    if (!result.cancelled) {
+      setNewImagePath(result.uri);
+    }
+  };
+
+  const showChangeHandler = () => {
+    setShowChangePhoto(true);
+  };
+
+  const removeChangeHandler = () => {
+    setShowChangePhoto(false);
+    setNewImagePath(null);
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.formContainer}
@@ -254,6 +308,46 @@ const EditProfileScreen = ({ navigation }) => {
           />
         )}
         <ScrollView>
+          <Layout style={styles.photoContainer}>
+            <View style={styles.avatarPlaceholder}>
+              {imagePath ? (
+                <Avatar
+                  size='giant'
+                  source={{
+                    uri: newImagePath === null ? imagePath : newImagePath
+                  }}
+                  style={[styles.avatar, { position: 'absolute' }]}
+                />
+              ) : (
+                <UserAvatar name={userData.name} size={100} />
+              )}
+              <Feather name='edit-2' size={40} color='black' />
+            </View>
+
+            {showChangePhoto ? (
+              <Layout style={styles.btnContainer}>
+                <Button style={styles.btn} onPress={cameraHandler}>
+                  Replace using Camera
+                </Button>
+                <Button style={styles.btn} onPress={galleryHandler}>
+                  Edit with Gallery
+                </Button>
+                <Text
+                  style={[styles.changeText, { color: '#FF3D32' }]}
+                  onPress={removeChangeHandler}
+                >
+                  Cancel
+                </Text>
+              </Layout>
+            ) : (
+              <Text
+                style={[styles.changeText, { color: '#407BFF', fontSize: 18 }]}
+                onPress={showChangeHandler}
+              >
+                Change Profile Photo
+              </Text>
+            )}
+          </Layout>
           <Layout style={styles.inputContainer}>
             <Text style={styles.screenTitle}>Personal Information</Text>
             <Select
@@ -473,6 +567,7 @@ const EditProfileScreen = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
+
 const styles = StyleSheet.create({
   formContainer: {
     flex: 1
@@ -481,19 +576,48 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
+  photoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    width: '100%'
+  },
+  avatarPlaceholder: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#E1E2E6',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  avatarContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20
+  },
+  avatar: {
+    height: 100,
+    width: 100
+  },
+  changeText: {
+    marginVertical: 10,
+    flexWrap: 'wrap'
+  },
+  btnContainer: {
+    width: '100%',
+    marginTop: 20,
+    alignItems: 'center'
+  },
+  btn: {
+    marginVertical: 8,
+    width: '70%'
+  },
   inputContainer: {
     marginVertical: 14,
     alignItems: 'center',
     justifyContent: 'flex-start'
-  },
-  btnContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical: 10
-  },
-  backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   selectInput: {
     width: '70%',
