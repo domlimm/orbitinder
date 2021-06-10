@@ -86,7 +86,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
 
   const skipHandler = () => {
     navigation.navigate('InputBackground1', {
-      imagePath: imagePath.length > 0 ? imagePath : ''
+      imagePath: imagePath !== null ? imagePath : ''
     });
   };
 

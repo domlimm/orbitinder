@@ -19,14 +19,16 @@ import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
 
 const MainAppScreen = ({ navigation }) => {
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState('');
 
   const defaultImage = require('../../assets/images/orbital-logo.png');
   const { name } = useSelector(state => state.auth);
   const { userData } = useSelector(state => state.user);
 
   React.useEffect(() => {
-    setImage(userData.imagePath);
+    if (userData.hasOwnProperty('imagePath')) {
+      setImage(userData.imagePath);
+    }
   }, [userData, navigation]);
 
   const navigateActivityFeed = () => {
@@ -91,7 +93,7 @@ const MainAppScreen = ({ navigation }) => {
             <Avatar
               shape='rounded'
               size='giant'
-              source={image ? { uri: image } : defaultImage}
+              source={image.length > 0 ? { uri: image } : defaultImage}
             />
           </Layout>
         </TouchableNativeFeedback>
