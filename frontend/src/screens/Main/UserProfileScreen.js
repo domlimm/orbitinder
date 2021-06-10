@@ -42,7 +42,6 @@ const UserProfileScreen = ({ navigation, route }) => {
   const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
   const navigateEditProfile = () => {
-    // navigation.navigate('EditProfile');
     navigation.navigate('EditNavigator', { screen: 'EditProfile' });
   };
 
@@ -74,7 +73,11 @@ const UserProfileScreen = ({ navigation, route }) => {
                 style={[
                   route.params ? styles.avatarImgNoMargin : styles.avatarImg
                 ]}
-                source={{ uri: dummyUserData.img }}
+                source={
+                  userData.imagePath.length > 0
+                    ? { uri: userData.imagePath }
+                    : require('../../assets/images/orbital-logo.png')
+                }
               />
             }
             BadgeElement={

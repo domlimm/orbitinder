@@ -20,8 +20,6 @@ import CountDown from '../../utils/Countdown';
 
 const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');
-
-  const defaultImage = require('../../assets/images/orbital-logo.png');
   const { name } = useSelector(state => state.auth);
   const { userData } = useSelector(state => state.user);
 
@@ -93,7 +91,11 @@ const MainAppScreen = ({ navigation }) => {
             <Avatar
               shape='rounded'
               size='giant'
-              source={image.length > 0 ? { uri: image } : defaultImage}
+              source={
+                image.length > 0
+                  ? { uri: image }
+                  : require('../../assets/images/orbital-logo.png')
+              }
             />
           </Layout>
         </TouchableNativeFeedback>
