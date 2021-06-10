@@ -6,6 +6,9 @@ const UserAvatar = props => {
   const size = props.size;
   const initialsSize = props.fontSize;
 
+  // Randomise Colour:
+  // '#' + ((Math.random() * (1 << 24)) | 0).toString(16)
+
   return (
     <View
       style={[
@@ -14,13 +17,13 @@ const UserAvatar = props => {
           height: size,
           width: size,
           borderRadius: size / 2,
-          backgroundColor: '#' + ((Math.random() * (1 << 24)) | 0).toString(16)
+          backgroundColor: 'lightseagreen'
         },
         props.style
       ]}
     >
       <Text style={[styles.initials, { fontSize: initialsSize }]}>
-        {initials.match(/\b(\w)/g).join('')}
+        {initials && initials.match(/\b(\w)/g).join('')}
       </Text>
     </View>
   );
