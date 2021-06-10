@@ -1,5 +1,4 @@
 import firebase from '../../firebase';
-import uuid from 'uuid';
 
 export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
@@ -64,7 +63,7 @@ export const addProfilePhoto = async uri => {
   const metadata = {
     contentType: 'image/jpeg'
   };
-  const photoName = uuid.v4() + '.jpg';
+  const photoName = 'profilePhoto.jpg';
 
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -86,7 +85,7 @@ export const addProfilePhoto = async uri => {
     .storage()
     .ref()
     .child(`/users/${userId}/${photoName}`);
-  const snapshot = await storageRef.put(blob);
+  const snapshot = await storageRef.put(blob, metadata);
 
   blob.close();
 
