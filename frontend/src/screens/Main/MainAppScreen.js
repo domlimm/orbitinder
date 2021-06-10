@@ -14,6 +14,7 @@ import {
   Avatar
 } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
+import UserAvatar from 'react-native-user-avatar';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
@@ -88,15 +89,11 @@ const MainAppScreen = ({ navigation }) => {
               <Text style={styles.greetingTitle}>{greeting()}</Text>
               <Text>{name}</Text>
             </Layout>
-            <Avatar
-              shape='rounded'
-              size='giant'
-              source={
-                image.length > 0
-                  ? { uri: image }
-                  : require('../../assets/images/orbital-logo.png')
-              }
-            />
+            {image.length > 0 ? (
+              <Avatar shape='rounded' size='giant' source={{ uri: image }} />
+            ) : (
+              <UserAvatar name={name} size={56} />
+            )}
           </Layout>
         </TouchableNativeFeedback>
         <Layout style={styles.introCard2}>

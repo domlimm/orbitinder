@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import dayjs from 'dayjs';
+import UserAvatar from 'react-native-user-avatar';
 
 import { ContentCard, MainTags, FloatingEdit } from '../../components/index';
 import { dummyUserData } from '../../constants/userData';
@@ -69,16 +70,22 @@ const UserProfileScreen = ({ navigation, route }) => {
         >
           <IconBadge
             MainElement={
-              <Image
-                style={[
-                  route.params ? styles.avatarImgNoMargin : styles.avatarImg
-                ]}
-                source={
-                  userData.imagePath.length > 0
-                    ? { uri: userData.imagePath }
-                    : require('../../assets/images/orbital-logo.png')
-                }
-              />
+              userData.imagePath.length > 0 ? (
+                <Image
+                  style={[
+                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                  ]}
+                  source={{ uri: userData.imagePath }}
+                />
+              ) : (
+                <UserAvatar
+                  style={[
+                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                  ]}
+                  name={userData.name}
+                  size={70}
+                />
+              )
             }
             BadgeElement={
               <Foundation
@@ -214,17 +221,16 @@ const styles = StyleSheet.create({
   avatarImg: {
     width: 70,
     height: 70,
-    borderRadius: 32,
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1,
     marginTop: 30,
-    borderRadius: 70 / 2
+    borderRadius: 35
   },
   avatarImgNoMargin: {
     width: 70,
     height: 70,
-    borderRadius: 32,
+    borderRadius: 35,
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1
