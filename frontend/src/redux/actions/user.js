@@ -106,10 +106,10 @@ export const updatePref = data => dispatch => {
     });
 };
 
-export const updateProfile = data => dispatch => {
+export const updateProfile = (data, updateImage) => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
-  if (data.imagePath !== null) {
+  if (updateImage) {
     setProfilePhoto(data.imagePath).then(imagePath => {
       const updatedData = { ...data, imagePath: imagePath };
 
@@ -120,9 +120,19 @@ export const updateProfile = data => dispatch => {
           dispatch({ type: UPDATE_PROFILE, userData: updatedData });
         })
         .catch(err => {
-          throw new Error(`Updating Profile: ${err}`);
+          throw new Error(`Updating Profile (Image): ${err}`);
         });
     });
+  } else {
+    db.collection('users')
+      .doc(userId)
+      .set(updatedData, { merge: true })
+      .then(() => {
+        dispatch({ type: UPDATE_PROFILE, userData: data });
+      })
+      .catch(err => {
+        throw new Error(`Updating Profile: ${err}`);
+      });
   }
 };
 

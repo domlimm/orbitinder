@@ -42,8 +42,8 @@ import * as userActions from '../../redux/actions/user';
 const EditProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [imagePath, setImagePath] = React.useState(null);
-  const [newImagePath, setNewImagePath] = React.useState(null);
+  const [imagePath, setImagePath] = React.useState('');
+  const [newImagePath, setNewImagePath] = React.useState('');
   const [showChangePhoto, setShowChangePhoto] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
@@ -200,11 +200,13 @@ const EditProfileScreen = ({ navigation }) => {
         year: currState.yearValue
       },
       updatedAt: new Date().toISOString(),
-      imagePath: newImagePath
+      imagePath: newImagePath.length > 0 ? newImagePath : imagePath
     };
 
     try {
-      dispatch(userActions.updateProfile(backgroundData));
+      dispatch(
+        userActions.updateProfile(backgroundData, newImagePath === imagePath)
+      );
       setBgData(backgroundData.background);
       setError(null);
 
@@ -311,11 +313,11 @@ const EditProfileScreen = ({ navigation }) => {
         <ScrollView>
           <Layout style={styles.photoContainer}>
             <View style={styles.avatarPlaceholder}>
-              {imagePath ? (
+              {imagePath.length > 0 ? (
                 <Avatar
                   size='giant'
                   source={{
-                    uri: newImagePath === null ? imagePath : newImagePath
+                    uri: newImagePath.length === 0 ? imagePath : newImagePath
                   }}
                   style={[styles.avatar, { position: 'absolute' }]}
                 />

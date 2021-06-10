@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { LandingImage, NavHeader, Toast } from '../../components/index';
 
 const InputProfilePhotoScreen = ({ navigation }) => {
-  const [imagePath, setImagePath] = React.useState(null);
+  const [imagePath, setImagePath] = React.useState('');
   const [hasAdded, setHasAdded] = React.useState(false);
   const [galleryPermission, setGalleryPermission] = React.useState(null);
   const [cameraPermission, setCameraPermission] = React.useState(null);
@@ -85,7 +85,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
 
   const skipHandler = () => {
     navigation.navigate('InputBackground1', {
-      imagePath: imagePath !== null ? imagePath : ''
+      imagePath: imagePath.length > 0 ? imagePath : ''
     });
   };
 
@@ -114,10 +114,10 @@ const InputProfilePhotoScreen = ({ navigation }) => {
           />
         )}
         <ScrollView>
-          {imagePath || hasAdded ? (
+          {imagePath.length > 0 || hasAdded ? (
             <>
               <Layout style={styles.avatarContainer}>
-                {imagePath ? (
+                {imagePath.length > 0 ? (
                   <Avatar
                     size='giant'
                     source={{ uri: imagePath }}
@@ -125,7 +125,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
                   />
                 ) : (
                   <>
-                    {imagePath ? (
+                    {imagePath.length > 0 ? (
                       <Avatar
                         size='giant'
                         source={{ uri: imagePath }}
@@ -139,12 +139,12 @@ const InputProfilePhotoScreen = ({ navigation }) => {
               </Layout>
               <Layout style={styles.textContainer}>
                 <Text style={styles.title}>
-                  {hasAdded && !imagePath
+                  {hasAdded && imagePath.length <= 0
                     ? 'Default Profile Photo'
                     : 'Profile Photo Added'}
                 </Text>
                 <Text style={styles.subText}>
-                  {hasAdded && !imagePath
+                  {hasAdded && imagePath.length <= 0
                     ? 'We will use this, but you can change it later!'
                     : 'Select the options below to change your photo'}
                 </Text>
@@ -162,19 +162,21 @@ const InputProfilePhotoScreen = ({ navigation }) => {
           )}
           <Layout style={styles.btnContainer}>
             <Button style={styles.btn} onPress={cameraHandler}>
-              {imagePath ? 'Replace using Camera' : 'Capture a Photo'}
+              {imagePath.length > 0
+                ? 'Replace using Camera'
+                : 'Capture a Photo'}
             </Button>
             <Button style={styles.btn} onPress={galleryHandler}>
-              {imagePath ? 'Edit with Gallery' : 'Pick from Gallery'}
+              {imagePath.length > 0 ? 'Edit with Gallery' : 'Pick from Gallery'}
             </Button>
             <Layout style={styles.miniActionsContainer}>
-              {imagePath && (
+              {imagePath.length > 0 && (
                 <Text style={styles.actionsText} onPress={deleteHandler}>
                   Remove
                 </Text>
               )}
               <Text style={styles.actionsText} onPress={skipHandler}>
-                {imagePath ? 'Next' : 'Skip'}
+                {imagePath.length > 0 ? 'Next' : 'Skip'}
               </Text>
             </Layout>
           </Layout>
