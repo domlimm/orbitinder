@@ -57,7 +57,9 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
     };
 
     try {
-      dispatch(userActions.addProfile(userData));
+      dispatch(
+        userActions.addProfile(userData, route.params.imagePath.length > 0)
+      );
 
       setError(null);
       setLoading(true);

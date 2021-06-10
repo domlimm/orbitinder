@@ -23,25 +23,40 @@ export const getUserData = () => dispatch => {
     });
 };
 
-export const addProfile = data => dispatch => {
+export const addProfile = (data, updateImage) => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
-  setProfilePhoto(data.imagePath).then(imagePath => {
-    const updatedData = { ...data, imagePath: imagePath };
+  if (updateImage) {
+    setProfilePhoto(data.imagePath).then(imagePath => {
+      const updatedData = { ...data, imagePath: imagePath };
 
+      db.collection('users')
+        .doc(userId)
+        .set(updatedData)
+        .then(() => {
+          dispatch({
+            type: ADD_USER_PROFILE,
+            userData: updatedData
+          });
+        })
+        .catch(err => {
+          throw new Error(`Adding Profile: ${err}`);
+        });
+    });
+  } else {
     db.collection('users')
       .doc(userId)
-      .set(updatedData)
+      .set(data)
       .then(() => {
         dispatch({
           type: ADD_USER_PROFILE,
-          userData: updatedData
+          userData: data
         });
       })
       .catch(err => {
         throw new Error(`Adding Profile: ${err}`);
       });
-  });
+  }
 };
 
 export const addPreferences = data => dispatch => {
@@ -56,40 +71,6 @@ export const addPreferences = data => dispatch => {
     .catch(err => {
       throw new Error(`Adding Preferences: ${err}`);
     });
-};
-
-export const setProfilePhoto = async uri => {
-  const userId = firebase.auth().currentUser.uid;
-  const metadata = {
-    contentType: 'image/jpeg'
-  };
-  const photoName = 'profilePhoto.jpg';
-
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-      resolve(xhr.response);
-    };
-
-    xhr.onerror = e => {
-      console.log(`Add Profile Photo: ${e}`);
-      reject(new TypeError('Network request failed'));
-    };
-
-    xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
-    xhr.send(null);
-  });
-
-  const storageRef = firebase
-    .storage()
-    .ref()
-    .child(`/users/${userId}/${photoName}`);
-  const snapshot = await storageRef.put(blob, metadata);
-
-  blob.close();
-
-  return await snapshot.ref.getDownloadURL();
 };
 
 export const updatePref = data => dispatch => {
@@ -126,7 +107,7 @@ export const updateProfile = (data, updateImage) => dispatch => {
   } else {
     db.collection('users')
       .doc(userId)
-      .set(updatedData, { merge: true })
+      .set(data, { merge: true })
       .then(() => {
         dispatch({ type: UPDATE_PROFILE, userData: data });
       })
@@ -134,6 +115,40 @@ export const updateProfile = (data, updateImage) => dispatch => {
         throw new Error(`Updating Profile: ${err}`);
       });
   }
+};
+
+export const setProfilePhoto = async uri => {
+  const userId = firebase.auth().currentUser.uid;
+  const metadata = {
+    contentType: 'image/jpeg'
+  };
+  const photoName = 'profilePhoto.jpg';
+
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      resolve(xhr.response);
+    };
+
+    xhr.onerror = e => {
+      console.log(`Add Profile Photo: ${e}`);
+      reject(new TypeError('Network request failed'));
+    };
+
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+
+  const storageRef = firebase
+    .storage()
+    .ref()
+    .child(`/users/${userId}/${photoName}`);
+  const snapshot = await storageRef.put(blob, metadata);
+
+  blob.close();
+
+  return await snapshot.ref.getDownloadURL();
 };
 
 export const clearDataLogOut = () => dispatch => {
