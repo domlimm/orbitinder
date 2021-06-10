@@ -15,7 +15,8 @@ const UserAvatar = props => {
           width: size,
           borderRadius: size / 2,
           backgroundColor: '#' + ((Math.random() * (1 << 24)) | 0).toString(16)
-        }
+        },
+        props.style
       ]}
     >
       <Text style={[styles.initials, { fontSize: initialsSize }]}>
