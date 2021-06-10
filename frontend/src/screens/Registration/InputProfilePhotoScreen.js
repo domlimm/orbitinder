@@ -55,7 +55,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
         }
       }
     })();
-  }, [navigation]);
+  }, []);
 
   const galleryHandler = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -86,7 +86,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
 
   const skipHandler = () => {
     navigation.navigate('InputBackground1', {
-      imagePath: imagePath ? imagePath : ''
+      imagePath: imagePath.length > 0 ? imagePath : ''
     });
   };
 
