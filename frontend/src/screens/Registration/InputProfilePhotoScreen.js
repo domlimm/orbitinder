@@ -11,7 +11,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text, Avatar } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
-import { Ionicons } from '@expo/vector-icons';
+import UserAvatar from 'react-native-user-avatar';
+import { useSelector } from 'react-redux';
 
 import { LandingImage, NavHeader, Toast } from '../../components/index';
 
@@ -23,8 +24,7 @@ const InputProfilePhotoScreen = ({ navigation }) => {
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
   const [alertStatus, setAlertStatus] = React.useState('');
-
-  const defaultImage = require('../../assets/images/orbital-logo.png');
+  const { name } = useSelector(state => state.auth);
 
   React.useEffect(() => {
     (async () => {
@@ -121,23 +121,21 @@ const InputProfilePhotoScreen = ({ navigation }) => {
                 {imagePath ? (
                   <Avatar
                     size='giant'
-                    source={imagePath ? { uri: imagePath } : defaultImage}
+                    source={{ uri: imagePath }}
                     style={styles.avatar}
                   />
                 ) : (
-                  <View style={styles.avatarPlaceholder}>
-                    <Avatar
-                      size='giant'
-                      source={imagePath ? { uri: imagePath } : defaultImage}
-                      style={[styles.avatar, { position: 'absolute' }]}
-                    />
-                    <Ionicons
-                      name='add'
-                      size={48}
-                      color='#FFF'
-                      style={styles.addIcon}
-                    />
-                  </View>
+                  <>
+                    {imagePath ? (
+                      <Avatar
+                        size='giant'
+                        source={{ uri: imagePath }}
+                        style={[styles.avatar, { position: 'absolute' }]}
+                      />
+                    ) : (
+                      <UserAvatar name={name} size={120} />
+                    )}
+                  </>
                 )}
               </Layout>
               <Layout style={styles.textContainer}>
@@ -200,14 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20
-  },
-  avatarPlaceholder: {
-    width: 120,
-    height: 120,
-    backgroundColor: '#E1E2E6',
-    borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   avatar: {
     margin: 8,
