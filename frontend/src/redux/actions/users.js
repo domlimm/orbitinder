@@ -1,6 +1,7 @@
 import firebase from '../../firebase';
 
 export const GET_ALL_USER_DATA = 'GET_ALL_USER_DATA';
+export const LOG_OUT = 'LOG_OUT';
 
 const db = firebase.firestore();
 
@@ -25,4 +26,12 @@ export const getAllUserData = () => dispatch => {
     .catch(err => {
       throw new Error(`Get all Users Data: ${err}`);
     });
+};
+
+export const logOut = () => dispatch => {
+  try {
+    dispatch({ type: LOG_OUT });
+  } catch (err) {
+    throw new Error(`Clear Users Data: ${err}`);
+  }
 };

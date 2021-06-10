@@ -2,7 +2,7 @@ import {
   ADD_USER_PROFILE,
   ADD_USER_PREFERENCES,
   GET_USER_DATA,
-  CLEAR_LOG_OUT,
+  LOG_OUT,
   UPDATE_PROFILE,
   UPDATE_PREFERENCES
 } from '../actions/user';
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       return {
         userData: action.userData
       };
-    case CLEAR_LOG_OUT:
+    case LOG_OUT:
       return initialState;
     default:
       return state;

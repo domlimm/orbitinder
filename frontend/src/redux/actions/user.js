@@ -3,7 +3,7 @@ import firebase from '../../firebase';
 export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
 export const GET_USER_DATA = 'GET_USER_DATA';
-export const CLEAR_LOG_OUT = 'CLEAR_LOG_OUT';
+export const LOG_OUT = 'LOG_OUT';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_PREFERENCES = 'UPDATE_PREFERENCES';
 
@@ -151,10 +151,10 @@ export const setProfilePhoto = async uri => {
   return await snapshot.ref.getDownloadURL();
 };
 
-export const clearDataLogOut = () => dispatch => {
+export const logOut = () => dispatch => {
   try {
-    dispatch({ type: CLEAR_LOG_OUT });
+    dispatch({ type: LOG_OUT });
   } catch (err) {
-    throw new Error(`Clear Data: ${err}`);
+    throw new Error(`Clear User Data: ${err}`);
   }
 };

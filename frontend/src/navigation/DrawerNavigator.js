@@ -13,6 +13,7 @@ import AuthNavigator from './AuthNavigator';
 import TopTabsNavigator from './TopTabsNavigator';
 import * as authActions from '../redux/actions/auth';
 import * as userActions from '../redux/actions/user';
+import * as usersActions from '../redux/actions/users';
 
 const DrawerNav = createDrawerNavigator();
 const Main = createStackNavigator();
@@ -43,7 +44,8 @@ const DrawerContent = ({ navigation, state }) => {
         onSelect={index => {
           if (index.row === 2) {
             dispatch(authActions.logOut());
-            dispatch(userActions.clearDataLogOut());
+            dispatch(userActions.logOut());
+            dispatch(usersActions.logOut());
 
             return navigation.dispatch(() => ({
               ...StackActions.popToTop(),

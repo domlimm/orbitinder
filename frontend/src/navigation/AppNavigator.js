@@ -46,7 +46,8 @@ const AppNavigator = () => {
         setAuthenticated(false);
         setIsLoading(false);
         dispatch(authActions.logOut());
-        dispatch(userActions.clearDataLogOut());
+        dispatch(userActions.logOut());
+        dispatch(usersActions.logOut());
       }
     });
   };
