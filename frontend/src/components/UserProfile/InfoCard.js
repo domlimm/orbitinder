@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { Button, Card, Layout, Text } from '@ui-kitten/components';
-import MainTags from './MainTags';
-import { dummyUserData } from '../../constants/userData';
-// import { IconBadge } from 'react-native-icon-badge';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
 import IconBadge from 'react-native-icon-badge';
-import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
+
+import MainTags from './MainTags';
 
 const InfoCard = ({ cardData, navProps }) => {
-  // console.log(cardData);
   const handleReadMore = () => {
     navProps.navigation.navigate({
       name: 'TeamUpProfile',
@@ -17,9 +15,11 @@ const InfoCard = ({ cardData, navProps }) => {
       }
     });
   };
+
   const background = cardData.background;
   const name = cardData.name;
   const gender = cardData.gender;
+
   return (
     <Layout style={styles.cardContainer}>
       <Layout style={styles.headerContainer}>

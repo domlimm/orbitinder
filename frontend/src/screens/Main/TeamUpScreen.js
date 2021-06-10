@@ -2,22 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InfoCard, TitleHeader } from '../../components/index';
 import { userArrayData } from '../../constants/userData';
-import * as usersActions from '../../redux/actions/users';
 
 const TeamUpScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(usersActions.getAllUserData());
-  }, []);
-
   const { userData } = useSelector(state => state.users);
 
   const [viewHeight, setViewHeight] = React.useState();
+
   const navProps = {
     title: 'Team Up',
     navigation: navigation,
@@ -55,10 +49,9 @@ const TeamUpScreen = ({ navigation }) => {
         {viewHeight ? (
           <Swiper
             cards={userData}
-            renderCard={card => {
-              // console.log('carddata', card);
-              return <InfoCard cardData={card} navProps={navProps} />;
-            }}
+            renderCard={card => (
+              <InfoCard cardData={card} navProps={navProps} />
+            )}
             cardIndex={cardIndex}
             backgroundColor={'transparent'}
             useViewOverflow={Platform.OS === 'ios'}
@@ -71,7 +64,7 @@ const TeamUpScreen = ({ navigation }) => {
             disableBottomSwipe
             stackScale={10}
             stackSeparation={14}
-            cardVerticalMargin={(viewHeight - 540) / 2} //size of card is 540
+            cardVerticalMargin={(viewHeight - 540) / 2} // size of card is 540
             overlayLabels={{
               left: {
                 title: 'NOPE',
@@ -112,13 +105,12 @@ const TeamUpScreen = ({ navigation }) => {
                     marginTop: 30,
                     marginLeft: 30,
                     elevation: 5
-                    //
                   }
                 }
               }
             }}
           ></Swiper>
-        ) : undefined}
+        ) : null}
       </Layout>
     </Layout>
   );

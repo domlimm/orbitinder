@@ -11,6 +11,7 @@ import AuthNavigator from './AuthNavigator';
 import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
 import * as userActions from '../redux/actions/user';
+import * as usersActions from '../redux/actions/users';
 
 const App = createStackNavigator();
 
@@ -39,6 +40,7 @@ const AppNavigator = () => {
             )
           );
           dispatch(userActions.getUserData());
+          dispatch(usersActions.getAllUserData());
         });
       } else {
         setAuthenticated(false);
