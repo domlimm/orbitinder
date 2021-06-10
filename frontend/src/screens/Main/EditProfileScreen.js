@@ -321,7 +321,7 @@ const EditProfileScreen = ({ navigation }) => {
               ) : (
                 <UserAvatar name={userData.name} size={100} />
               )}
-              <Feather name='edit-2' size={40} color='black' />
+              <Feather name='edit-2' size={40} color='#407BFF' />
             </View>
 
             {showChangePhoto ? (
