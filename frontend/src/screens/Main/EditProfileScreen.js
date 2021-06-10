@@ -293,7 +293,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   const removeChangeHandler = () => {
     setShowChangePhoto(false);
-    setNewImagePath(null);
+    setNewImagePath('');
   };
 
   return (
@@ -313,18 +313,24 @@ const EditProfileScreen = ({ navigation }) => {
         <ScrollView>
           <Layout style={styles.photoContainer}>
             <View style={styles.avatarPlaceholder}>
-              {imagePath.length > 0 ? (
-                <Avatar
-                  size='giant'
-                  source={{
-                    uri: newImagePath.length === 0 ? imagePath : newImagePath
-                  }}
-                  style={[styles.avatar, { position: 'absolute' }]}
-                />
+              {newImagePath.length > 0 || imagePath.length > 0 ? (
+                <>
+                  <Avatar
+                    size='giant'
+                    source={{
+                      uri: newImagePath.length === 0 ? imagePath : newImagePath
+                    }}
+                    style={[styles.avatar, { position: 'absolute' }]}
+                  />
+                  <Feather name='edit-2' size={40} color='#407BFF' />
+                </>
               ) : (
-                <UserAvatar name={userData.name} size={100} />
+                <UserAvatar
+                  name={userData.name}
+                  style={{ width: 100, height: 100, position: 'absolute' }}
+                  size={100}
+                />
               )}
-              <Feather name='edit-2' size={40} color='#407BFF' />
             </View>
             {showChangePhoto ? (
               <Layout style={styles.btnContainer}>
