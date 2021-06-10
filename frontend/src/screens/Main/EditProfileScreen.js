@@ -205,7 +205,7 @@ const EditProfileScreen = ({ navigation }) => {
 
     try {
       dispatch(
-        userActions.updateProfile(backgroundData, newImagePath === imagePath)
+        userActions.updateProfile(backgroundData, newImagePath !== imagePath)
       );
       setBgData(backgroundData.background);
       setError(null);
