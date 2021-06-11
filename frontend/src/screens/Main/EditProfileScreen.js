@@ -226,7 +226,6 @@ const EditProfileScreen = ({ navigation }) => {
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        //backRemove
         let finalB = {
           achievement: currState.achievementValue,
           biography: currState.bioValue,

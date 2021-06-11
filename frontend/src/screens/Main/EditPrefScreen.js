@@ -198,7 +198,6 @@ const EditPrefScreen = ({ navigation }) => {
   React.useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        //backRemove
         let finalPref = {
           commitment: currState.commitmentValue,
           degree: currState.degreeValue,
