@@ -1,5 +1,11 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Pressable
+} from 'react-native';
 import {
   Layout,
   Text,
@@ -74,23 +80,25 @@ const UserProfileScreen = ({ navigation, route }) => {
         >
           <IconBadge
             MainElement={
-              userData.imagePath.length > 0 ? (
-                <Image
-                  style={[
-                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
-                  ]}
-                  source={{ uri: userData.imagePath }}
-                />
-              ) : (
-                <UserAvatar
-                  style={[
-                    route.params ? styles.avatarImgNoMargin : styles.avatarImg
-                  ]}
-                  name={userData.name}
-                  size={70}
-                  fontSize={28}
-                />
-              )
+              <Pressable onPress={navigateEditProfile}>
+                {userData.imagePath.length > 0 ? (
+                  <Image
+                    style={[
+                      route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                    ]}
+                    source={{ uri: userData.imagePath }}
+                  />
+                ) : (
+                  <UserAvatar
+                    style={[
+                      route.params ? styles.avatarImgNoMargin : styles.avatarImg
+                    ]}
+                    name={userData.name}
+                    size={70}
+                    fontSize={28}
+                  />
+                )}
+              </Pressable>
             }
             BadgeElement={
               <Foundation
