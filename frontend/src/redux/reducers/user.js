@@ -4,7 +4,8 @@ import {
   GET_USER_DATA,
   LOG_OUT,
   UPDATE_PROFILE,
-  UPDATE_PREFERENCES
+  UPDATE_PREFERENCES,
+  REMOVE_PROFILE_PHOTO
 } from '../actions/user';
 
 const initialState = {
@@ -36,6 +37,11 @@ export default (state = initialState, action) => {
     case GET_USER_DATA:
       return {
         userData: action.userData
+      };
+    case REMOVE_PROFILE_PHOTO:
+      return {
+        ...state,
+        userData: { ...state.userData, ...action.userData }
       };
     case LOG_OUT:
       return initialState;

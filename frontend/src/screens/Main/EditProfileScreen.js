@@ -309,15 +309,16 @@ const EditProfileScreen = ({ navigation }) => {
           text: 'Remove',
           style: 'destructive',
           onPress: () => {
-            console.log('to do redux');
-
             try {
+              dispatch(userActions.removeProfilePhoto());
               setError(null);
 
               setAlertMessage('Profile photo removed!');
               setShowAlert(true);
               setAlertStatus('success');
               setShowChangePhoto(false);
+              setImagePath('');
+              setNewImagePath('');
             } catch (err) {
               setError(err.message);
             }
@@ -657,7 +658,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   changeText: {
-    marginVertical: 16,
+    marginVertical: 12,
     marginHorizontal: 40,
     flexWrap: 'wrap'
   },

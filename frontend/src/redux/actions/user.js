@@ -6,6 +6,7 @@ export const GET_USER_DATA = 'GET_USER_DATA';
 export const LOG_OUT = 'LOG_OUT';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_PREFERENCES = 'UPDATE_PREFERENCES';
+export const REMOVE_PROFILE_PHOTO = 'REMOVE_PROFILE_PHOTO';
 
 const db = firebase.firestore();
 
@@ -149,6 +150,24 @@ export const setProfilePhoto = async uri => {
   blob.close();
 
   return await snapshot.ref.getDownloadURL();
+};
+
+export const removeProfilePhoto = () => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+  const data = { imagePath: '', updatedAt: new Date().toISOString() };
+
+  db.collection('users')
+    .doc(userId)
+    .set(data, { merge: true })
+    .then(() => {
+      dispatch({
+        type: REMOVE_PROFILE_PHOTO,
+        userData: data
+      });
+    })
+    .catch(err => {
+      throw new Error(`Remove Profile Photo: ${err}`);
+    });
 };
 
 export const logOut = () => dispatch => {
