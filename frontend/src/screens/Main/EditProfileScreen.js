@@ -251,14 +251,14 @@ const EditProfileScreen = ({ navigation }) => {
             'Discard changes?',
             'You have unsaved changes. Are you sure to discard them and leave the screen?',
             [
-              { text: "Don't leave", style: 'cancel', onPress: () => {} },
               {
                 text: 'Discard',
                 style: 'destructive',
                 // If the user confirmed, then we dispatch the action we blocked earlier
                 // This will continue the action that had triggered the removal of the screen
                 onPress: () => navigation.dispatch(e.data.action)
-              }
+              },
+              { text: 'Stay', style: 'cancel', onPress: () => {} }
             ]
           );
         }
@@ -298,6 +298,34 @@ const EditProfileScreen = ({ navigation }) => {
   const removeChangeHandler = () => {
     setShowChangePhoto(false);
     setNewImagePath('');
+  };
+
+  const deleteHandler = () => {
+    Alert.alert(
+      'Remove Profile Photo?',
+      'Are you sure to remove your profile photo?',
+      [
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {
+            console.log('to do redux');
+
+            try {
+              setError(null);
+
+              setAlertMessage('Profile photo removed!');
+              setShowAlert(true);
+              setAlertStatus('success');
+              setShowChangePhoto(false);
+            } catch (err) {
+              setError(err.message);
+            }
+          }
+        },
+        { text: 'Abort', style: 'cancel', onPress: () => {} }
+      ]
+    );
   };
 
   return (
@@ -345,12 +373,20 @@ const EditProfileScreen = ({ navigation }) => {
                 <Button style={styles.btn} onPress={galleryHandler}>
                   Edit with Gallery
                 </Button>
-                <Text
-                  style={[styles.changeText, { color: '#FF3D32' }]}
-                  onPress={removeChangeHandler}
-                >
-                  Cancel
-                </Text>
+                <Layout style={styles.miniActionsContainer}>
+                  <Text
+                    style={[styles.changeText, { color: '#FF3D32' }]}
+                    onPress={deleteHandler}
+                  >
+                    Remove
+                  </Text>
+                  <Text
+                    style={[styles.changeText, { color: '#FF3D32' }]}
+                    onPress={removeChangeHandler}
+                  >
+                    Cancel
+                  </Text>
+                </Layout>
               </Layout>
             ) : (
               <Text
@@ -614,8 +650,15 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100
   },
+  miniActionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%'
+  },
   changeText: {
-    marginVertical: 10,
+    marginVertical: 16,
+    marginHorizontal: 40,
     flexWrap: 'wrap'
   },
   btnContainer: {
