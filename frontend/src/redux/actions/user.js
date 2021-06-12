@@ -41,7 +41,7 @@ export const addProfile = (data, updateImage) => dispatch => {
           });
         })
         .catch(err => {
-          throw new Error(`Adding Profile: ${err}`);
+          throw new Error(`Adding Profile (Image): ${err}`);
         });
     });
   } else {
@@ -132,7 +132,7 @@ export const setProfilePhoto = async uri => {
     };
 
     xhr.onerror = e => {
-      console.log(`Add Profile Photo: ${e}`);
+      console.log(`Set Profile Photo: ${e}`);
       reject(new TypeError('Network request failed'));
     };
 

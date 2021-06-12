@@ -13,26 +13,19 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
 import { UserAvatar } from '../../components/index';
-import * as userActions from '../../redux/actions/user';
 
 const MainAppScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
-
   const [image, setImage] = React.useState('');
   const { name } = useSelector(state => state.auth);
   const { userData } = useSelector(state => state.user);
 
   React.useEffect(() => {
-    dispatch(userActions.getUserData());
-  }, []);
-
-  React.useEffect(() => {
-    if (userData.imagePath !== undefined && userData.imagePath.length > 0) {
+    if (userData.imagePath !== undefined) {
       setImage(userData.imagePath);
     }
   }, [userData]);

@@ -65,7 +65,7 @@ const EditProfileScreen = ({ navigation }) => {
   const [bgData, setBgData] = React.useState(background);
 
   React.useEffect(() => {
-    if (userData.imagePath !== undefined && userData.imagePath.length > 0) {
+    if (userData.imagePath !== undefined) {
       setImagePath(userData.imagePath);
     }
   }, [userData]);
