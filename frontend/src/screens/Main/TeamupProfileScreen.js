@@ -11,10 +11,17 @@ import {
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 
-import { ContentCard, MainTags } from '../../components/index';
-import { dummyUserData } from '../../constants/userData';
+import { ContentCard, MainTags, UserAvatar } from '../../components/index';
 
 const TeamupProfileScreen = ({ navigation, route }) => {
+  const [image, setImage] = React.useState('');
+
+  React.useEffect(() => {
+    if (route.params.profileData.imagePath !== undefined) {
+      setImage(route.params.profileData.imagePath);
+    }
+  }, [route.params.profileData]);
+
   const userData = route.params.profileData;
   const background = userData.background;
   const name = userData.name;
@@ -56,10 +63,21 @@ const TeamupProfileScreen = ({ navigation, route }) => {
         <Layout style={styles.smallHeaderContainer}>
           <IconBadge
             MainElement={
-              <Image
-                style={styles.avatarImgNoMargin}
-                source={{ uri: 'https://i.pravatar.cc/150?img=48' }} //NEED TO REPLACE WITH ACTUAL IMG
-              />
+              <>
+                {image.length > 0 ? (
+                  <Image
+                    style={styles.avatarImgNoMargin}
+                    source={{ uri: image }}
+                  />
+                ) : (
+                  <UserAvatar
+                    style={styles.avatarImgNoMargin}
+                    name={route.params.profileData.name}
+                    size={70}
+                    fontSize={28}
+                  />
+                )}
+              </>
             }
             BadgeElement={
               <Foundation
@@ -86,7 +104,6 @@ const TeamupProfileScreen = ({ navigation, route }) => {
               <MainTags tagsData={background.interests} isArray={true} />
             </Card>
           )}
-
           <Layout style={styles.groupContainer}>
             <ContentCard
               type={'coding-exp-level'}
@@ -196,7 +213,7 @@ const styles = StyleSheet.create({
   avatarImgNoMargin: {
     width: 70,
     height: 70,
-    borderRadius: 32,
+    borderRadius: 35,
     shadowColor: 'grey',
     shadowOffset: { height: 5, width: 5 },
     shadowOpacity: 1

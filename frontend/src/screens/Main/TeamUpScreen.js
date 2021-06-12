@@ -5,7 +5,6 @@ import Swiper from 'react-native-deck-swiper';
 import { useSelector } from 'react-redux';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InfoCard, TitleHeader } from '../../components/index';
-import { userArrayData } from '../../constants/userData';
 
 const TeamUpScreen = ({ navigation }) => {
   const { userData } = useSelector(state => state.users);

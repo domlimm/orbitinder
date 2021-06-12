@@ -5,8 +5,17 @@ import IconBadge from 'react-native-icon-badge';
 import { Foundation } from '@expo/vector-icons';
 
 import MainTags from './MainTags';
+import { UserAvatar } from '..';
 
 const InfoCard = ({ cardData, navProps }) => {
+  const [image, setImage] = React.useState('');
+
+  React.useEffect(() => {
+    if (cardData.imagePath !== undefined) {
+      setImage(cardData.imagePath);
+    }
+  }, [cardData]);
+
   const handleReadMore = () => {
     navProps.navigation.navigate({
       name: 'TeamUpProfile',
@@ -25,10 +34,18 @@ const InfoCard = ({ cardData, navProps }) => {
       <Layout style={styles.headerContainer}>
         <IconBadge
           MainElement={
-            <Image
-              style={styles.avatarImg}
-              source={{ uri: 'https://i.pravatar.cc/150?img=48' }}
-            /> // NEED TO INCLUDE ACTUAL IMAGE
+            <>
+              {image.length > 0 ? (
+                <Image style={styles.avatarImg} source={{ uri: image }} />
+              ) : (
+                <UserAvatar
+                  style={styles.avatarImg}
+                  name={cardData.name}
+                  size={60}
+                  fontSize={28}
+                />
+              )}
+            </>
           }
           BadgeElement={
             <Foundation
@@ -128,7 +145,7 @@ const styles = StyleSheet.create({
   avatarImg: {
     width: 60,
     height: 60,
-    borderRadius: 32,
+    borderRadius: 30,
     // shadowColor: 'grey',
     // shadowOffset: { height: 5, width: 5 },
     // shadowOpacity: 1,
