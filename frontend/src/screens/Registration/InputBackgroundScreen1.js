@@ -16,29 +16,19 @@ import {
   yearData,
   commitmentData,
   achievementData,
-  degreeData
+  degreeData,
+  interestsData
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation, route }) => {
-  // const [valueDegree, setValueDegree] = React.useState('');
-  // const [degrees, setDegrees] = React.useState(degreeData);
-  // const filterDegree = (item, query) =>
-  //   item.title.toLowerCase().includes(query.toLowerCase());
-  // const onSelectDegree = index => {
-  //   setValueDegree(degreeData[index].title);
-  // };
-  // const onChangeDegree = query => {
-  //   setValueDegree(query);
-  //   setDegrees(degreeData.filter(deg => filterDegree(deg, query)));
-  // };
-  // const renderDegreeOption = (item, index) => (
-  //   <AutocompleteItem key={index} title={item.title} />
-  // );
   const [yearIndex, setYearIndex] = React.useState(new IndexPath(0));
   const displayYear = yearData[yearIndex.row];
 
   const [degIndex, setDegIndex] = React.useState(new IndexPath(0));
   const displayDegree = degreeData[degIndex.row];
+
+  const [interestIndex, setInterestIndex] = React.useState(new IndexPath(0));
+  const displayInterest = interestsData[interestIndex.row];
 
   const [commitIndex, setCommitIndex] = React.useState(new IndexPath(0));
   const displayCommitment = commitmentData[commitIndex.row];
@@ -56,7 +46,8 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
         year: displayYear,
         degree: displayDegree,
         commitment: displayCommitment,
-        achievement: displayAchievement
+        achievement: displayAchievement,
+        interests: displayInterest
       },
       imagePath: route.params.imagePath
     });
@@ -105,20 +96,20 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
                 if (key === 0) {
                   return <SelectItem key={key} title={value} disabled />;
                 }
-
                 return <SelectItem key={key} title={value} />;
               })}
             </Select>
-            {/* <Autocomplete
-              placeholder='Name of Degree'
-              value={valueDegree}
-              onSelect={onSelectDegree}
-              onChangeText={onChangeDegree}
-              style={styles.textInput}
-              label='Degree'
+            <Select
+              style={styles.input}
+              selectedIndex={interestIndex}
+              value={displayInterest}
+              onSelect={index => setInterestIndex(index)}
+              label='Areas of Interest'
             >
-              {degrees.map(renderDegreeOption)}
-            </Autocomplete> */}
+              {interestsData.map((value, key) => {
+                return <SelectItem key={key} title={value} />;
+              })}
+            </Select>
             <Select
               style={styles.input}
               selectedIndex={commitIndex}

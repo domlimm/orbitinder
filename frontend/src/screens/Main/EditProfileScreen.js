@@ -39,7 +39,8 @@ import {
   webDevData,
   mobileDevData,
   dbData,
-  mlData
+  mlData,
+  interestsData
 } from '../../constants/profleCreationData';
 import * as userActions from '../../redux/actions/user';
 
@@ -83,6 +84,7 @@ const EditProfileScreen = ({ navigation }) => {
     degreeValue: background.degree,
     ideaValue: background.idea,
     commitmentValue: background.commitment,
+    interestsValue: background.interests,
     achievementValue: background.achievement,
     sweValue: background.sweExperience,
     gamedevValue: background.technologyExperience.game,
@@ -92,6 +94,9 @@ const EditProfileScreen = ({ navigation }) => {
     mlValue: background.technologyExperience.machineLearning,
     yearIndex: new IndexPath(yearData.indexOf(background.year)),
     ideaIndex: new IndexPath(idea.indexOf(background.idea)),
+    interestsIndex: background.interests.map(index => {
+      return new IndexPath(interestsData.indexOf(index));
+    }),
     commitmentIndex: new IndexPath(
       commitmentData.indexOf(background.commitment)
     ),
@@ -131,6 +136,12 @@ const EditProfileScreen = ({ navigation }) => {
           ...currState,
           ideaValue: action.ideaValue,
           ideaIndex: action.ideaIndex
+        };
+      case 'changeInterests':
+        return {
+          ...currState,
+          interestsValue: action.interestsValue,
+          interestsIndex: action.interestsIndex
         };
       case 'changeCommitment':
         return {
@@ -190,6 +201,7 @@ const EditProfileScreen = ({ navigation }) => {
       background: {
         biography: currState.bioValue,
         commitment: currState.commitmentValue,
+        interests: currState.interestsValue,
         degree: currState.degreeValue,
         idea: currState.ideaValue,
         achievement: currState.achievementValue,
@@ -231,6 +243,7 @@ const EditProfileScreen = ({ navigation }) => {
           biography: currState.bioValue,
           commitment: currState.commitmentValue,
           degree: currState.degreeValue,
+          interests: currState.interestsValue,
           idea: currState.ideaValue,
           sweExperience: currState.sweValue,
           technologyExperience: {
@@ -448,7 +461,27 @@ const EditProfileScreen = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-
+            <Select
+              label='Areas of Interest'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={currState.interestsIndex}
+              onSelect={input =>
+                currdispatch({
+                  type: 'changeInterests',
+                  interestsValue: input.map(index => {
+                    return interestsData[index.row];
+                  }),
+                  interestsIndex: input
+                })
+              }
+              placeholder='Select'
+              value={currState.interestsValue.join(', ')}
+            >
+              {interestsData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
             <Select
               style={styles.selectInput}
               selectedIndex={currState.commitmentIndex}
