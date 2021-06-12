@@ -25,7 +25,6 @@ import {
   FloatingEdit,
   UserAvatar
 } from '../../components/index';
-import { dummyUserData } from '../../constants/userData';
 
 const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
@@ -124,11 +123,15 @@ const UserProfileScreen = ({ navigation, route }) => {
           </Layout>
         </Layout>
         <Layout style={styles.contentContainer}>
-          <ContentCard type={'bio'} data={background.biography} />
-          <Card style={styles.contentCard} disabled>
-            <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-            <MainTags tagsData={dummyUserData.interestedAreas} isArray={true} />
-          </Card>
+          {background.biography.length > 0 && (
+            <ContentCard type={'bio'} data={background.biography} />
+          )}
+          {background.interests.length > 0 && (
+            <Card style={styles.contentCard} disabled>
+              <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
+              <MainTags tagsData={background.interests} isArray={true} />
+            </Card>
+          )}
 
           <Layout style={styles.groupContainer}>
             <ContentCard

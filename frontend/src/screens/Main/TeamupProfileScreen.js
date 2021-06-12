@@ -80,10 +80,12 @@ const TeamupProfileScreen = ({ navigation, route }) => {
         </Layout>
         <Layout style={styles.contentContainer}>
           <ContentCard type={'bio'} data={background.biography} />
-          <Card style={styles.contentCard} disabled>
-            <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-            {/* <MainTags tagsData={dummyUserData.interestedAreas} isArray={true} /> */}
-          </Card>
+          {background.interests.length > 0 && (
+            <Card style={styles.contentCard} disabled>
+              <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
+              <MainTags tagsData={background.interests} isArray={true} />
+            </Card>
+          )}
 
           <Layout style={styles.groupContainer}>
             <ContentCard

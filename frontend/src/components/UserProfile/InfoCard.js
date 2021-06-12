@@ -49,11 +49,16 @@ const InfoCard = ({ cardData, navProps }) => {
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
-        <Text style={styles.sectionText}>{background.biography}</Text>
-        <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-        {/* <MainTags tagsData={cardData.interestedAreas} isArray={true} /> */}
+        {background.biography.length > 0 && (
+          <Text style={styles.sectionText}>{background.biography}</Text>
+        )}
+        {background.interests.length > 0 && (
+          <>
+            <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
+            <MainTags tagsData={background.interests} isArray={true} />
+          </>
+        )}
 
-        {/* NEED TO INCLUDE INTERESTED AREAS */}
         <Layout style={{ flexDirection: 'column' }}>
           <Layout
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
