@@ -5,7 +5,7 @@ import IconBadge from 'react-native-icon-badge';
 import { Foundation } from '@expo/vector-icons';
 
 import MainTags from './MainTags';
-import { UserAvatar } from '..';
+import UserAvatar from './UserAvatar';
 
 const InfoCard = ({ cardData, navProps }) => {
   const [image, setImage] = React.useState('');
