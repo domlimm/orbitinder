@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 
 const UserPreferencesScreen = ({ navigation }) => {
   const navigateEditPref = () => {
-    // navigation.navigate('EditPref');
     navigation.navigate('EditNavigator', { screen: 'EditPref' });
   };
 
@@ -61,7 +60,7 @@ const UserPreferencesScreen = ({ navigation }) => {
   const ContentCard = props => (
     <Card style={styles.contentCard} status='basic' disabled>
       <Text style={styles.cardTitle}>{props.title}</Text>
-      <MainTags tagsData={props.data} />
+      <MainTags tagsData={props.data} isArray={true} />
     </Card>
   );
 
@@ -151,7 +150,7 @@ const UserPreferencesScreen = ({ navigation }) => {
                             accessoryRight={displayIcon}
                           ></Button>
                         </Layout>
-                        <MainTags tagsData={value} />
+                        <MainTags tagsData={value} isArray={true} />
                       </Card>
                     );
                   }
