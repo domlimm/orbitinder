@@ -5,9 +5,13 @@ import Swiper from 'react-native-deck-swiper';
 import { useSelector } from 'react-redux';
 // To separate for local imports rather than installed dependencies: add below onwards
 import { InfoCard, TitleHeader } from '../../components/index';
+import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
 const TeamUpScreen = ({ navigation }) => {
   const { userData } = useSelector(state => state.users);
+  const currUser = useSelector(state => state.user.userData);
+  const [sortedUsers, setSortedUsers] = React.useState();
+  const [prefsObj, setPrefsObj] = React.useState();
 
   const [viewHeight, setViewHeight] = React.useState();
 
@@ -40,6 +44,26 @@ const TeamUpScreen = ({ navigation }) => {
       setViewHeight(event.nativeEvent.layout.height);
     }
   };
+
+  React.useEffect(() => {
+    if (currUser != undefined) {
+      setPrefsObj(processPrefs(currUser));
+    }
+  }, [currUser]);
+
+  React.useEffect(() => {
+    if (prefsObj != undefined && userData != undefined) {
+      userData.forEach((element, index) => {
+        element.score = scoreUsers(element, prefsObj);
+      });
+      // userData.sort(sortTry);
+      userData.sort(sortScores);
+      userData.forEach(element => {
+        console.log(element.score);
+      });
+      console.log(prefsObj);
+    }
+  }, [userData, prefsObj]);
 
   return (
     <Layout style={styles.swiperContainer}>
