@@ -5,7 +5,7 @@ import { Layout, Text } from '@ui-kitten/components';
 
 import { TitleHeader } from '../../components/index';
 
-const ChatScreen = () => {
+const ChatScreen = ({ navigation }) => {
   const navProps = {
     title: "User's Name",
     navigation: navigation,
