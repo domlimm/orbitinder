@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, DrawerItem, IndexPath } from '@ui-kitten/components';
+import { Drawer, DrawerItem, IndexPath, Icon } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -26,6 +26,8 @@ const MainNavigator = () => (
 );
 
 const DrawerContent = ({ navigation, state }) => {
+  const dispatch = useDispatch();
+
   const navProps = {
     navigation: navigation,
     type: 'landing',
@@ -34,7 +36,9 @@ const DrawerContent = ({ navigation, state }) => {
 
   const Header = () => <NavHeader navProps={navProps} />;
 
-  const dispatch = useDispatch();
+  const HomeIcon = props => <Icon {...props} name='home' />;
+  const ChangePWIcon = props => <Icon {...props} name='shield-outline' />;
+  const LogoutIcon = props => <Icon {...props} name='log-out-outline' />;
 
   return (
     <SafeAreaView>
@@ -61,9 +65,9 @@ const DrawerContent = ({ navigation, state }) => {
           return navigation.navigate(state.routeNames[index.row]);
         }}
       >
-        <DrawerItem title='Home' />
-        <DrawerItem title='Change Password' />
-        <DrawerItem title='Logout' />
+        <DrawerItem title='Home' accessoryLeft={HomeIcon} />
+        <DrawerItem title='Change Password' accessoryLeft={ChangePWIcon} />
+        <DrawerItem title='Logout' accessoryLeft={LogoutIcon} />
       </Drawer>
     </SafeAreaView>
   );
