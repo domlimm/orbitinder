@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   labelText: {
-    color: '#000000',
+    color: '#203E80',
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 5
   },
   box: {
-    backgroundColor: 'black',
+    backgroundColor: '#203E80',
     padding: 10
   }
 });

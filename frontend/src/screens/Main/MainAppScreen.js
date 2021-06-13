@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   countDownTitle: {
     color: 'black',
     // fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 22,
     textAlign: 'center'
   },
   profileAvatar: {
