@@ -10,8 +10,11 @@ const ChatsOverviewScreen = ({ navigation }) => {
   // Temporary
   const users = useSelector(state => state.users.userData);
 
-  const navigateChat = () => {
-    navigation.navigate('ChatStackNavigator', { screen: 'Chat' });
+  const navigateChat = data => {
+    navigation.navigate('ChatStackNavigator', {
+      screen: 'Chat',
+      params: { data: data }
+    });
   };
 
   return (
@@ -20,7 +23,11 @@ const ChatsOverviewScreen = ({ navigation }) => {
         <FlatList
           data={users}
           renderItem={({ item }) => (
-            <ChatItem name={item.name} imagePath={item.imagePath} />
+            <ChatItem
+              name={item.name}
+              imagePath={item.imagePath}
+              onPress={navigateChat}
+            />
           )}
           keyExtractor={item => item.id}
         />

@@ -4,13 +4,12 @@ import { Layout, Text } from '@ui-kitten/components';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ name, imagePath }) => {
-  const pressHandler = () => {
-    console.log('pressed', name);
-  };
-
+const ChatItem = ({ name, imagePath, onPress }) => {
   return (
-    <Pressable style={styles.cardContainer} onPress={pressHandler}>
+    <Pressable
+      style={styles.cardContainer}
+      onPress={() => onPress({ name: name, imagePath: imagePath })}
+    >
       <Layout style={styles.avatarContainer}>
         {imagePath.length > 0 ? (
           <Image source={{ uri: imagePath }} style={styles.avatar} />

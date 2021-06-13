@@ -3,14 +3,13 @@ import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
 
-import { TitleHeader } from '../../components/index';
+import { ChatHeader } from '../../components/index';
 
-const ChatScreen = ({ navigation }) => {
+const ChatScreen = ({ navigation, route }) => {
   const navProps = {
-    title: "User's Name",
     navigation: navigation,
-    needBackNav: true,
-    needMenuNav: false
+    name: route.params.data.name,
+    imagePath: route.params.data.imagePath
   };
 
   return (
@@ -19,7 +18,7 @@ const ChatScreen = ({ navigation }) => {
       behavior={Platform.OS === 'ios' ? 'padding' : null}
     >
       <SafeAreaView>
-        <TitleHeader navProps={navProps} />
+        <ChatHeader navProps={navProps} />
         <Layout>
           <Text>This will be the 1 to 1 chat screen.</Text>
         </Layout>

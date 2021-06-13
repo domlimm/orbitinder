@@ -26,8 +26,6 @@ const BottomTabBar = ({ navigation, state }) => (
     appearance='noIndicator'
     selectedIndex={state.index}
     onSelect={index => {
-      console.log(index);
-
       if (index === 2) {
         navigation.navigate('ChatsNavigator', { screen: 'ChatsOverview' });
         return;

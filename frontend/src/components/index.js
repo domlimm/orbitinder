@@ -24,3 +24,4 @@ export { default as Paginator } from './Onboarding/Paginator';
 export { default as OnboardingButton } from './Onboarding/OnboardingButton';
 
 export { default as ChatItem } from './Chats/ChatItem';
+export { default as ChatHeader } from './Chats/ChatHeader';
