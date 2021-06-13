@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import IconBadge from 'react-native-icon-badge';
 import { Foundation } from '@expo/vector-icons';
@@ -70,10 +70,12 @@ const InfoCard = ({ cardData, navProps }) => {
           <Text style={styles.sectionText}>{background.biography}</Text>
         )}
         {background.interests.length > 0 && (
-          <>
+          <Layout>
             <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-            <MainTags tagsData={background.interests} isArray={true} />
-          </>
+            <ScrollView horizontal={true}>
+              <MainTags tagsData={background.interests} isArray={true} />
+            </ScrollView>
+          </Layout>
         )}
 
         <Layout style={{ flexDirection: 'column' }}>

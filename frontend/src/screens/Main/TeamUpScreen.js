@@ -59,7 +59,7 @@ const TeamUpScreen = ({ navigation }) => {
       // userData.sort(sortTry);
       userData.sort(sortScores);
       userData.forEach(element => {
-        console.log(element.score);
+        console.log(element.name, element.score);
       });
       console.log(prefsObj);
     }
