@@ -11,6 +11,7 @@ import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
 import ProfileNavigator from './ProfileNavigator';
+import ChatsNavigator from './ChatsNavigator';
 import * as authActions from '../redux/actions/auth';
 import * as userActions from '../redux/actions/user';
 import * as usersActions from '../redux/actions/users';
@@ -22,6 +23,7 @@ const MainNavigator = () => (
   <Main.Navigator headerMode='none' initialRouteName='BottomTabsNavigator'>
     <Main.Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     <Main.Screen name='ProfileNavigator' component={ProfileNavigator} />
+    <Main.Screen name='ChatsNavigator' component={ChatsNavigator} />
   </Main.Navigator>
 );
 

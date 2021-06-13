@@ -25,7 +25,16 @@ const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
     appearance='noIndicator'
     selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}
+    onSelect={index => {
+      console.log(index);
+
+      if (index === 2) {
+        navigation.navigate('ChatsNavigator', { screen: 'ChatsOverview' });
+        return;
+      }
+
+      navigation.navigate(state.routeNames[index]);
+    }}
   >
     <BottomNavigationTab icon={HomeIcon} />
     <BottomNavigationTab icon={TeamUpBottomTab} />
@@ -40,7 +49,6 @@ const BottomTabsNavigator = () => (
   >
     <BottomTabs.Screen name='Home' component={MainAppScreen} />
     <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} />
-    <BottomTabs.Screen name='Chats' component={ChatsNavigator} />
     <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
     <BottomTabs.Screen name='TeamUpProfile' component={TeamUpProfileScreen} />
   </BottomTabs.Navigator>
