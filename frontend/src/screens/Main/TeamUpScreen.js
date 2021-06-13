@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
 import { useSelector } from 'react-redux';
@@ -135,6 +135,17 @@ const TeamUpScreen = ({ navigation }) => {
           ></Swiper>
         ) : null}
       </Layout>
+      <TouchableOpacity
+        // disabled={true}
+        activeOpacity={0.7}
+        style={styles.touchableOpacityStyle}
+        // onPress={navigate}
+      >
+        <Image
+          source={require('../../assets/images/shine.png')}
+          style={styles.floatingButtonStyle}
+        />
+      </TouchableOpacity>
     </Layout>
   );
 };
@@ -159,6 +170,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 50,
     backgroundColor: 'transparent'
+  },
+  touchableOpacityStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 20
+  },
+  floatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50
   }
 });
 
