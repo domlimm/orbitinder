@@ -33,20 +33,32 @@ const EditStackNavigator = () => (
 
 const TopTabsNavigator = () => (
   <TopTabs.Navigator
-    tabBar={props => <TopTabBar {...props} />}
+    // tabBar={props => <TopTabBar {...props} />}
     initialRouteName='UserProfile'
     backBehavior='initialRoute'
+    tabBarOptions={{
+      activeTintColor: '#407BFF'
+    }}
+    tab
   >
-    <TopTabs.Screen name='UserProfile' component={UserProfileScreen} />
-    <TopTabs.Screen name='UserPreferences' component={UserPreferencesScreen} />
+    <TopTabs.Screen
+      name='UserProfile'
+      component={UserProfileScreen}
+      options={{ tabBarLabel: 'Your Profile' }}
+    />
+    <TopTabs.Screen
+      name='UserPreferences'
+      component={UserPreferencesScreen}
+      options={{ tabBarLabel: 'Partner Preferences' }}
+    />
   </TopTabs.Navigator>
 );
 
-const TabNavigator = () => (
+const ProfileNavigator = () => (
   <TabStack.Navigator initialRouteName='TopTabsNavigator' headerMode='none'>
     <TabStack.Screen name='TopTabsNavigator' component={TopTabsNavigator} />
     <TabStack.Screen name='EditNavigator' component={EditStackNavigator} />
   </TabStack.Navigator>
 );
 
-export default TabNavigator;
+export default ProfileNavigator;

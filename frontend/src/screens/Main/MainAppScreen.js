@@ -36,7 +36,7 @@ const MainAppScreen = ({ navigation }) => {
 
   const navigateProfileScreen = () => {
     setTimeout(() => {
-      navigation.navigate('TabNavigator');
+      navigation.navigate('ProfileNavigator');
     }, 975);
   };
 

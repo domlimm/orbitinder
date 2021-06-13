@@ -10,7 +10,7 @@ import { ChangePasswordScreen } from '../screens/index';
 import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
-import TopTabsNavigator from './TopTabsNavigator';
+import ProfileNavigator from './ProfileNavigator';
 import * as authActions from '../redux/actions/auth';
 import * as userActions from '../redux/actions/user';
 import * as usersActions from '../redux/actions/users';
@@ -21,7 +21,7 @@ const Main = createStackNavigator();
 const MainNavigator = () => (
   <Main.Navigator headerMode='none' initialRouteName='BottomTabsNavigator'>
     <Main.Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
-    <Main.Screen name='TabNavigator' component={TopTabsNavigator} />
+    <Main.Screen name='ProfileNavigator' component={ProfileNavigator} />
   </Main.Navigator>
 );
 
