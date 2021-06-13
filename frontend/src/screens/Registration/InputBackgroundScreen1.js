@@ -17,7 +17,8 @@ import {
   commitmentData,
   achievementData,
   degreeData,
-  interestsData
+  interestsData,
+  gameDevData
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation, route }) => {
@@ -27,14 +28,20 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
   const [degIndex, setDegIndex] = React.useState(new IndexPath(0));
   const displayDegree = degreeData[degIndex.row];
 
-  const [interestIndex, setInterestIndex] = React.useState(new IndexPath(0));
-  const displayInterest = interestsData[interestIndex.row];
+  // const [interestIndex, setInterestIndex] = React.useState(new IndexPath(0));
+  // const displayInterest = interestsData[interestIndex.row];
 
   const [commitIndex, setCommitIndex] = React.useState(new IndexPath(0));
   const displayCommitment = commitmentData[commitIndex.row];
 
   const [achieveIndex, setAchieveIndex] = React.useState(new IndexPath(0));
   const displayAchievement = achievementData[achieveIndex.row];
+
+  const [interestIndex, setInterestIndex] = React.useState([]);
+  const displayInterest = React.useMemo(
+    () => interestIndex.map(index => interestsData[index.row]),
+    [interestIndex]
+  );
 
   const { name, gender } = useSelector(state => state.auth);
 
@@ -99,7 +106,7 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
                 return <SelectItem key={key} title={value} />;
               })}
             </Select>
-            <Select
+            {/* <Select
               style={styles.input}
               selectedIndex={interestIndex}
               value={displayInterest}
@@ -109,6 +116,19 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
               {interestsData.map((value, key) => {
                 return <SelectItem key={key} title={value} />;
               })}
+            </Select> */}
+            <Select
+              label='Areas of Interest'
+              style={styles.input}
+              multiSelect={true}
+              selectedIndex={interestIndex}
+              onSelect={index => setInterestIndex(index)}
+              placeholder='Select'
+              value={displayInterest.join(', ')}
+            >
+              {interestsData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
             </Select>
             <Select
               style={styles.input}
