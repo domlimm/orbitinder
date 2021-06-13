@@ -48,14 +48,19 @@ export function scoreUsers(user, prefsObj) {
       '|',
       weighted_score
     );
+
     return (
-      (t_score / pref_tech_count +
-        basic_score / pref_basic_count +
-        weighted_score / pref_weighted_count) /
+      (processNaN(t_score / pref_tech_count) +
+        processNaN(basic_score / pref_basic_count) +
+        processNaN(weighted_score / pref_weighted_count)) /
       4
     );
   } else {
-    return (t_score / pref_tech_count + basic_score / pref_basic_count) / 2;
+    return (
+      (processNaN(t_score / pref_tech_count) +
+        processNaN(basic_score / pref_basic_count)) /
+      2
+    );
   }
 }
 
@@ -115,6 +120,10 @@ export function processPrefs(currUser) {
     pref_basics: pref_basics,
     pref_techs: pref_techs
   };
+}
+
+function processNaN(num) {
+  return num ? num : 0;
 }
 
 export function sortScores(a, b) {
