@@ -39,7 +39,6 @@ const TopTabsNavigator = () => (
     tabBarOptions={{
       activeTintColor: '#407BFF'
     }}
-    tab
   >
     <TopTabs.Screen
       name='UserProfile'

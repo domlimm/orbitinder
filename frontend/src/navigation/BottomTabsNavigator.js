@@ -8,12 +8,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import {
   MainAppScreen,
-  ChatOverviewScreen,
   TeamUpScreen,
   ActivityFeedScreen,
   TeamUpProfileScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
+import ChatsNavigator from './ChatsNavigator';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -40,7 +40,7 @@ const BottomTabsNavigator = () => (
   >
     <BottomTabs.Screen name='Home' component={MainAppScreen} />
     <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} />
-    <BottomTabs.Screen name='ChatOverview' component={ChatOverviewScreen} />
+    <BottomTabs.Screen name='Chats' component={ChatsNavigator} />
     <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
     <BottomTabs.Screen name='TeamUpProfile' component={TeamUpProfileScreen} />
   </BottomTabs.Navigator>
