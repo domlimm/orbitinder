@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
-import { TextStyleProps } from '@ui-kitten/components/devsupport';
 
 function pad(n) {
   return n < 10 ? '0' + n : n;
@@ -15,7 +14,7 @@ function CountDown() {
     seconds: ''
   });
   React.useEffect(() => {
-    let countDownDate = new Date('June 28, 2021  13:09:00 GMT+08:00').getTime();
+    let countDownDate = new Date('June 28, 2021  00:00:00 GMT+08:00').getTime();
     //update every second
     let x = setInterval(function () {
       //Get todays date and time
@@ -93,7 +92,8 @@ const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: '#203E80',
-    padding: 10
+    padding: 10,
+    borderRadius: 4
   }
 });
 

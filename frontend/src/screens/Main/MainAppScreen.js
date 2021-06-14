@@ -97,7 +97,9 @@ const MainAppScreen = ({ navigation }) => {
           </Layout>
         </TouchableNativeFeedback>
         <Layout style={styles.introCard2}>
-          <Text style={styles.countDownTitle}>Time Remaining</Text>
+          <Text category='h5' style={styles.countDownTitle}>
+            Time Remaining
+          </Text>
           <CountDown />
         </Layout>
       </ScrollView>
@@ -157,9 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   countDownTitle: {
-    color: 'black',
-    // fontWeight: 'bold',
-    fontSize: 22,
     textAlign: 'center'
   },
   profileAvatar: {
