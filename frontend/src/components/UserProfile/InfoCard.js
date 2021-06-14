@@ -72,7 +72,10 @@ const InfoCard = ({ cardData, navProps }) => {
         {background.interests.length > 0 && (
           <Layout>
             <Text style={styles.sectionTitle}>INTERESTED AREAS</Text>
-            <ScrollView horizontal={true}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <MainTags tagsData={background.interests} isArray={true} />
             </ScrollView>
           </Layout>
