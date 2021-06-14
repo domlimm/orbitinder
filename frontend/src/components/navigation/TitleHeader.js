@@ -46,7 +46,6 @@ const TitleHeader = ({ navProps }) => {
       <TopNavigation
         accessoryLeft={BackAction}
         alignment='center'
-        style={styles.topNav}
         title={renderTitle}
       />
     );
@@ -54,20 +53,13 @@ const TitleHeader = ({ navProps }) => {
     if (navProps.needMenuNav) {
       return (
         <TopNavigation
-          style={styles.topNav}
           title={renderTitle}
           alignment='center'
           accessoryLeft={renderMenuIcon}
         />
       );
     } else {
-      return (
-        <TopNavigation
-          style={styles.topNav}
-          title={renderTitle}
-          alignment='center'
-        />
-      );
+      return <TopNavigation title={renderTitle} alignment='center' />;
     }
   }
 };

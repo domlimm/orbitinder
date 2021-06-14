@@ -22,3 +22,6 @@ export { default as YearInput } from './EditProfile/YearInput';
 export { default as OnboardingItem } from './Onboarding/OnboardingItem';
 export { default as Paginator } from './Onboarding/Paginator';
 export { default as OnboardingButton } from './Onboarding/OnboardingButton';
+
+export { default as ChatItem } from './Chats/ChatItem';
+export { default as ChatHeader } from './Chats/ChatHeader';

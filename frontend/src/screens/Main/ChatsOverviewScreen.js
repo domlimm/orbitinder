@@ -1,36 +1,47 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Layout, Text, Button } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// To separate for local imports rather than installed dependencies: add below onwards
+import { useSelector } from 'react-redux';
+
+import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
-  const navigateChat = () => {
-    navigation.navigate('ChatStackNavigator', { screen: 'Chat' });
+  // Temporary
+  const users = useSelector(state => state.users.userData);
+
+  const navigateChat = data => {
+    navigation.navigate('ChatStackNavigator', {
+      screen: 'Chat',
+      params: { data: data }
+    });
   };
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScrollView>
-        <Layout style={styles.chatsContainer}>
-          <Text>Chats Overview Screen</Text>
-          <Button style={{ marginVertical: 20 }} onPress={navigateChat}>
-            To Chat
-          </Button>
-        </Layout>
-      </ScrollView>
+      <Layout style={styles.chatsContainer}>
+        <FlatList
+          data={users}
+          renderItem={({ item }) => (
+            <ChatItem
+              name={item.name}
+              imagePath={item.imagePath}
+              onPress={navigateChat}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </Layout>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   parentContainer: {
-    flex: 1,
-    backgroundColor: '#F5F5F5'
+    flex: 1
   },
   chatsContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
   }
 });
 
