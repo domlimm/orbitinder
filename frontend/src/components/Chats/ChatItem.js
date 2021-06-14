@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 8
   },
   nameContainer: {
     flex: 0.7
