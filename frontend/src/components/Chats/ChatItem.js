@@ -18,9 +18,14 @@ const ChatItem = ({ name, imagePath, onPress }) => {
         )}
       </Layout>
       <Layout style={styles.detailsContainer}>
-        <Text category='h6' style={styles.name}>
-          {name}
-        </Text>
+        <Layout style={styles.nameContainer}>
+          <Text category='h6' style={styles.name}>
+            {name}
+          </Text>
+        </Layout>
+        <Layout style={styles.timeContainer}>
+          <Text>12:00 AM</Text>
+        </Layout>
       </Layout>
     </Pressable>
   );
@@ -44,12 +49,22 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 0.76,
+    flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    justifyContent: 'center'
+    alignItems: 'center',
+    paddingBottom: 8
+  },
+  nameContainer: {
+    flex: 0.7
   },
   name: {
     fontWeight: 'bold'
+  },
+  timeContainer: {
+    flex: 0.3,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   }
 });
 
