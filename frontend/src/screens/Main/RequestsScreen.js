@@ -1,26 +1,49 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
+import { useSelector } from 'react-redux';
+
+import { RequestItem } from '../../components/index';
 
 const RequestsScreen = () => {
+  // Temporary
+  const users = useSelector(state => state.users.userData);
+
   return (
-    <KeyboardAvoidingView
-      style={styles.kbContainer}
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-    >
-      <SafeAreaView>
-        <Layout>
-          <Text>This is the requests screen.</Text>
-        </Layout>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+    <SafeAreaView style={styles.parentContainer}>
+      <Layout style={styles.chatsContainer}>
+        <FlatList
+          style={styles.requestContainer}
+          data={users}
+          renderItem={({ item }) => (
+            <RequestItem
+              name={item.name}
+              imagePath={item.imagePath}
+              year={item.background.year}
+              degree={item.background.degree}
+              biography={item.background.biography}
+            />
+          )}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </Layout>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  kbContainer: {
+  parentContainer: {
     flex: 1
+  },
+  chatsContainer: {
+    flex: 1,
+    paddingVertical: 5
+  },
+  requestContainer: {
+    flex: 1,
+    width: '100%'
   }
 });
 
