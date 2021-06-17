@@ -4,12 +4,17 @@ import { Layout, Text } from '@ui-kitten/components';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ peer, onPress }) => {
+const ChatItem = ({ peer, chatId, onPress }) => {
   return (
     <Pressable
       style={styles.cardContainer}
       onPress={() =>
-        onPress({ id: peer.id, name: peer.name, imagePath: peer.imagePath })
+        onPress({
+          chatId: chatId,
+          id: peer.id,
+          name: peer.name,
+          imagePath: peer.imagePath
+        })
       }
     >
       <Layout style={styles.avatarContainer}>

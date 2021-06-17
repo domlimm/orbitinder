@@ -1,46 +1,62 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, View, Keyboard } from 'react-native';
-import { Layout, Divider, Text } from '@ui-kitten/components';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Layout, Divider, Text, Spinner } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import firebase from '../../firebase/index';
 
-import * as chatFunctions from '../../firebase/functions/chat';
 import { ChatHeader } from '../../components/index';
 
 const ChatScreen = ({ navigation, route }) => {
+  const db = firebase.firestore();
+  const currentUser = firebase.auth().currentUser;
+
   const [messages, setMessages] = useState([]);
 
-  const { name, imagePath } = route.params.userData;
+  const { id, name, imagePath, chatId } = route.params.userData;
 
   useEffect(() => {
-    console.log(route.params.userData);
+    const messagesListener = db
+      .collection('chats')
+      .doc(chatId)
+      .collection('messages')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(querySnapshot => {
+        const messages = querySnapshot.docs.map(doc => {
+          const singleMsg = {
+            _id: doc.id,
+            text: doc.data().message,
+            createdAt: doc.data().timestamp,
+            user: {
+              _id: doc.data().userId,
+              name: doc.data().name
+            }
+          };
 
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any'
-        }
-      }
-    ]);
+          return singleMsg;
+        });
+
+        setMessages(messages);
+      });
+
+    return () => messagesListener();
   }, []);
 
-  // const onSend = useCallback((messages = []) => {
-  //   setMessages(previousMessages =>
-  //     GiftedChat.append(previousMessages, messages)
-  //   );
-  // }, []);
-
   const onSend = message => {
-    console.log(message);
+    // console.log(`Sending to ${currentUser.uid}-${id}`);
 
-    Keyboard.dismiss();
+    // console.log(currentUser.displayName, currentUser.uid);
 
-    // chatFunctions.sendMessage()
+    db.collection('chats')
+      .doc(`${currentUser.uid}-${id}`)
+      .collection('messages')
+      .add({
+        timestamp: new Date().toISOString(),
+        message: message[0].text,
+        name: currentUser.displayName,
+        userId: currentUser.uid
+        // image: might have to add image of user sending msg if app scales
+      });
   };
 
   const scrollToBottomComponent = () => (
@@ -71,9 +87,16 @@ const ChatScreen = ({ navigation, route }) => {
 
   const renderChatEmpty = () => (
     <View style={styles.chatEmptyContainer}>
-      <Text
-        style={styles.chatEmptyText}
-      >{`${name} could be your teammate. Start saying Hi?`}</Text>
+      <Text style={styles.chatEmptyText}>
+        <Text style={styles.nameBold}>{name}</Text>
+        {' could be your teammate. Start by saying Hi?'}
+      </Text>
+    </View>
+  );
+
+  const renderLoading = () => (
+    <View style={styles.loading}>
+      <Spinner />
     </View>
   );
 
@@ -91,7 +114,8 @@ const ChatScreen = ({ navigation, route }) => {
         messages={messages}
         onSend={message => onSend(message)}
         user={{
-          _id: 1 // current user authenticated
+          _id: currentUser.uid,
+          name: currentUser.displayName
         }}
         scrollToBottom
         scrollToBottomComponent={scrollToBottomComponent}
@@ -100,6 +124,7 @@ const ChatScreen = ({ navigation, route }) => {
         renderBubble={renderBubble}
         renderAvatar={null}
         renderChatEmpty={renderChatEmpty}
+        renderLoading={renderLoading}
       />
     </Layout>
   );
@@ -119,9 +144,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     transform: [{ scaleY: -1 }]
   },
+  nameBold: {
+    fontWeight: 'bold'
+  },
   chatEmptyText: {
     textAlign: 'center',
     flexWrap: 'wrap'
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

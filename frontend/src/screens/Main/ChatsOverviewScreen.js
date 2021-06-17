@@ -28,10 +28,15 @@ const ChatsOverviewScreen = ({ navigation }) => {
             )[0];
 
             return (
-              <ChatItem key={peer.id} peer={peer} onPress={navigateChat} />
+              <ChatItem
+                key={peer.id}
+                chatId={item}
+                peer={peer}
+                onPress={navigateChat}
+              />
             );
           }}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item}
         />
       </Layout>
     </SafeAreaView>
