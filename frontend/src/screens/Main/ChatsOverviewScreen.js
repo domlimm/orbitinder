@@ -13,7 +13,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
       screen: 'Chat',
-      params: { data: data }
+      params: { userData: data }
     });
   };
 
@@ -24,6 +24,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
           data={users}
           renderItem={({ item }) => (
             <ChatItem
+              id={item.id}
               name={item.name}
               imagePath={item.imagePath}
               onPress={navigateChat}

@@ -10,6 +10,8 @@ const ChatScreen = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    console.log(route.params.userData);
+
     setMessages([
       {
         _id: 1,
@@ -58,8 +60,8 @@ const ChatScreen = ({ navigation, route }) => {
 
   const navProps = {
     navigation: navigation,
-    name: route.params.data.name,
-    imagePath: route.params.data.imagePath
+    name: route.params.userData.name,
+    imagePath: route.params.userData.imagePath
   };
 
   return (
