@@ -11,17 +11,17 @@ export const getAllUserData = () => dispatch => {
   db.collection('users')
     .get()
     .then(snapshot => {
-      let userData = [];
+      let usersData = [];
 
       snapshot.forEach(doc => {
         if (currentUserId !== doc.id) {
           let user = { id: doc.id, ...doc.data() };
 
-          userData.push(user);
+          usersData.push(user);
         }
       });
 
-      dispatch({ type: GET_ALL_USER_DATA, userData: userData });
+      dispatch({ type: GET_ALL_USER_DATA, usersData: usersData });
     })
     .catch(err => {
       throw new Error(`Get all Users Data: ${err}`);

@@ -8,7 +8,7 @@ import { RequestItem } from '../../components/index';
 
 const RequestsScreen = () => {
   // Temporary
-  const users = useSelector(state => state.users.userData);
+  const users = useSelector(state => state.users.usersData);
 
   return (
     <SafeAreaView style={styles.parentContainer}>

@@ -1,14 +1,14 @@
 import { GET_ALL_USER_DATA, LOG_OUT } from '../actions/users';
 
 const initialState = {
-  userData: []
+  usersData: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USER_DATA:
       return {
-        userData: action.userData
+        usersData: action.usersData
       };
     case LOG_OUT:
       return initialState;

@@ -8,7 +8,9 @@ import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
   // Temporary
-  const users = useSelector(state => state.users.userData);
+  const users = useSelector(state => state.users.usersData);
+
+  const userChats = useSelector(state => state.user.userData);
 
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
