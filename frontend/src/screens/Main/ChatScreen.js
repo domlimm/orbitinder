@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Layout, Divider } from '@ui-kitten/components';
+import { Layout, Divider, Text } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -8,6 +8,8 @@ import { ChatHeader } from '../../components/index';
 
 const ChatScreen = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
+
+  const { id, name, imagePath } = route.params.userData;
 
   useEffect(() => {
     console.log(route.params.userData);
@@ -58,10 +60,18 @@ const ChatScreen = ({ navigation, route }) => {
     />
   );
 
+  const renderChatEmpty = () => (
+    <View style={styles.chatEmptyContainer}>
+      <Text
+        style={styles.chatEmptyText}
+      >{`${name} could be your teammate. Start saying Hi?`}</Text>
+    </View>
+  );
+
   const navProps = {
     navigation: navigation,
-    name: route.params.userData.name,
-    imagePath: route.params.userData.imagePath
+    name: name,
+    imagePath: imagePath
   };
 
   return (
@@ -72,7 +82,7 @@ const ChatScreen = ({ navigation, route }) => {
         messages={messages}
         onSend={messages => onSend(messages)}
         user={{
-          _id: 1
+          _id: 1 // current user authenticated
         }}
         scrollToBottom
         scrollToBottomComponent={scrollToBottomComponent}
@@ -80,6 +90,7 @@ const ChatScreen = ({ navigation, route }) => {
         alwaysShowSend
         renderBubble={renderBubble}
         renderAvatar={null}
+        renderChatEmpty={renderChatEmpty}
       />
     </Layout>
   );
@@ -92,6 +103,16 @@ const styles = StyleSheet.create({
   sendIcon: {
     marginBottom: 10,
     marginRight: 5
+  },
+  chatEmptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{ scaleY: -1 }]
+  },
+  chatEmptyText: {
+    textAlign: 'center',
+    flexWrap: 'wrap'
   }
 });
 
