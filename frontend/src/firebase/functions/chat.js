@@ -10,7 +10,8 @@ export const sendMessage = data => {
     .add({
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: data.message,
-      name: currentUser.displayName
+      name: currentUser.displayName,
+      userId: currentUser.uid
       // image: might have to add image of user sending msg if app scales
     });
 };
