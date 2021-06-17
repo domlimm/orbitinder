@@ -1,15 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Keyboard } from 'react-native';
 import { Layout, Divider, Text } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import * as chatFunctions from '../../firebase/functions/chat';
 import { ChatHeader } from '../../components/index';
 
 const ChatScreen = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
 
-  const { id, name, imagePath } = route.params.userData;
+  const { name, imagePath } = route.params.userData;
 
   useEffect(() => {
     console.log(route.params.userData);
@@ -28,11 +29,19 @@ const ChatScreen = ({ navigation, route }) => {
     ]);
   }, []);
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages)
-    );
-  }, []);
+  // const onSend = useCallback((messages = []) => {
+  //   setMessages(previousMessages =>
+  //     GiftedChat.append(previousMessages, messages)
+  //   );
+  // }, []);
+
+  const onSend = message => {
+    console.log(message);
+
+    Keyboard.dismiss();
+
+    // chatFunctions.sendMessage()
+  };
 
   const scrollToBottomComponent = () => (
     <Feather name='chevrons-down' size={24} color='#333' />
@@ -80,7 +89,7 @@ const ChatScreen = ({ navigation, route }) => {
       <Divider />
       <GiftedChat
         messages={messages}
-        onSend={messages => onSend(messages)}
+        onSend={message => onSend(message)}
         user={{
           _id: 1 // current user authenticated
         }}

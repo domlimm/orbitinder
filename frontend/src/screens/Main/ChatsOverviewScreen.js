@@ -1,16 +1,14 @@
 import React from 'react';
-import { StyleSheet, ScrollView, FlatList } from 'react-native';
-import { Layout, Text, Button } from '@ui-kitten/components';
+import { StyleSheet, FlatList } from 'react-native';
+import { Layout, Spinner } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
-  // Temporary
-  const users = useSelector(state => state.users.usersData);
-
-  const userChats = useSelector(state => state.user.userData);
+  const userData = useSelector(state => state.user.userData);
+  const usersData = useSelector(state => state.users.usersData);
 
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
@@ -23,15 +21,16 @@ const ChatsOverviewScreen = ({ navigation }) => {
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
         <FlatList
-          data={users}
-          renderItem={({ item }) => (
-            <ChatItem
-              id={item.id}
-              name={item.name}
-              imagePath={item.imagePath}
-              onPress={navigateChat}
-            />
-          )}
+          data={userData.chats}
+          renderItem={({ item }) => {
+            const peer = usersData.filter(
+              field => field.id === item.split('-')[1]
+            )[0];
+
+            return (
+              <ChatItem key={peer.id} peer={peer} onPress={navigateChat} />
+            );
+          }}
           keyExtractor={item => item.id}
         />
       </Layout>

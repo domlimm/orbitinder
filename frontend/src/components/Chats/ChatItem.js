@@ -4,23 +4,25 @@ import { Layout, Text } from '@ui-kitten/components';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ id, name, imagePath, onPress }) => {
+const ChatItem = ({ peer, onPress }) => {
   return (
     <Pressable
       style={styles.cardContainer}
-      onPress={() => onPress({ id: id, name: name, imagePath: imagePath })}
+      onPress={() =>
+        onPress({ id: peer.id, name: peer.name, imagePath: peer.imagePath })
+      }
     >
       <Layout style={styles.avatarContainer}>
-        {imagePath.length > 0 ? (
-          <Image source={{ uri: imagePath }} style={styles.avatar} />
+        {peer.imagePath.length > 0 ? (
+          <Image source={{ uri: peer.imagePath }} style={styles.avatar} />
         ) : (
-          <UserAvatar name={name} size={50} fontSize={22} />
+          <UserAvatar name={peer.name} size={50} fontSize={22} />
         )}
       </Layout>
       <Layout style={styles.detailsContainer}>
         <Layout style={styles.nameContainer}>
           <Text category='h6' style={styles.name}>
-            {name}
+            {peer.name}
           </Text>
         </Layout>
         <Layout style={styles.timeContainer}>
