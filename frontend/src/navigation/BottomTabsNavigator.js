@@ -13,7 +13,6 @@ import {
   TeamUpProfileScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
-import ChatsNavigator from './ChatsNavigator';
 
 const BottomTabs = createBottomTabNavigator();
 

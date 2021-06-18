@@ -1,12 +1,33 @@
 import React, { Fragment } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
+import { useNavigation } from '@react-navigation/native';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const RequestItem = ({ name, imagePath, year, degree, biography }) => {
-  const AcceptIcon = props => <Icon {...props} name='checkmark-outline' />;
-  const RejectIcon = props => <Icon {...props} name='close-outline' />;
+const RequestItem = ({
+  userData,
+  name,
+  imagePath,
+  year,
+  degree,
+  biography
+}) => {
+  const navigation = useNavigation();
+
+  const showProfile = () => {
+    navigation.navigate('ChatStackNavigator', {
+      screen: 'UserProfile',
+      params: { profileData: userData }
+    });
+  };
+
+  const AcceptIcon = props => (
+    <Icon {...props} name='checkmark-outline' fill='#333' />
+  );
+  const RejectIcon = props => (
+    <Icon {...props} name='close-outline' fill='#333' />
+  );
 
   const Header = () => (
     <View style={styles.headerContainer}>
@@ -52,6 +73,7 @@ const RequestItem = ({ name, imagePath, year, degree, biography }) => {
         header={Header}
         footer={Footer}
         status='primary'
+        onPress={showProfile}
       >
         <Text>{biography}</Text>
       </Card>

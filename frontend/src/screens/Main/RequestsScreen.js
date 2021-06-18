@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Layout, Text } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 
 import { RequestItem } from '../../components/index';
@@ -18,6 +18,7 @@ const RequestsScreen = () => {
           data={users}
           renderItem={({ item }) => (
             <RequestItem
+              userData={item}
               name={item.name}
               imagePath={item.imagePath}
               year={item.background.year}

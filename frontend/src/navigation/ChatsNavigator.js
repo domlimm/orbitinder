@@ -5,7 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   ChatsOverviewScreen,
   ChatScreen,
-  RequestsScreen
+  RequestsScreen,
+  TeamUpProfileScreen
 } from '../screens/index';
 
 const TabStack = createStackNavigator();
@@ -15,6 +16,7 @@ const Chats = createStackNavigator();
 const ChatStackNavigator = () => (
   <Chats.Navigator headerMode='none'>
     <Chats.Screen name='Chat' component={ChatScreen} />
+    <Chats.Screen name='UserProfile' component={TeamUpProfileScreen} />
   </Chats.Navigator>
 );
 
