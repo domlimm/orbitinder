@@ -76,6 +76,10 @@ const ChatScreen = ({ navigation, route }) => {
       },
       { merge: true }
     );
+
+    dispatch(
+      userActions.updateLatestChatMessage(userData, chatId, data.latestMessage)
+    );
   };
 
   const scrollToBottomComponent = () => (

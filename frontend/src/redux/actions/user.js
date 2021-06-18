@@ -217,36 +217,23 @@ export const removeProfilePhoto = () => dispatch => {
     });
 };
 
-export const getLatestChatMessage = userData => dispatch => {
-  try {
-    // const chatsLatestMessage = userData.chatsLatestMessage.map(latest =>
-    //   latest.chatId === chatId
-    //     ? { ...latest, latestMessage: latestMessage }
-    //     : latest
-    // );
+export const updateLatestChatMessage =
+  (userData, chatId, latestMessage) => dispatch => {
+    try {
+      const chatsLatestMessage = userData.chatsLatestMessage.map(latest =>
+        latest.chatId === chatId
+          ? { ...latest, latestMessage: latestMessage }
+          : latest
+      );
 
-    const chatIds = userData.chats;
-    let chatsLatestMessage = [];
-
-    chatIds.map(id => {
-      db.collection('chats')
-        .doc(id)
-        .get()
-        .then(res => {
-          chatsLatestMessage.push(res.data());
-        });
-    });
-
-    console.log(chatsLatestMessage);
-
-    dispatch({
-      type: UPDATE_LATE_CHAT_MSG,
-      chatsLatestMessage: chatsLatestMessage
-    });
-  } catch (err) {
-    throw new Error(`Update Latest Chat Msg: ${err}`);
-  }
-};
+      dispatch({
+        type: UPDATE_LATE_CHAT_MSG,
+        chatsLatestMessage: chatsLatestMessage
+      });
+    } catch (err) {
+      throw new Error(`Update Latest Chat Msg: ${err}`);
+    }
+  };
 
 export const logOut = () => dispatch => {
   try {

@@ -66,6 +66,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
               );
             }}
             keyExtractor={item => item}
+            extraData={userData.chatsLatestMessage}
           />
         ) : (
           <Layout>

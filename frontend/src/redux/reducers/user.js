@@ -57,16 +57,12 @@ export default (state = initialState, action) => {
         userData: { ...state.userData, ...action.userData }
       };
     case UPDATE_LATE_CHAT_MSG:
-      const userData = {
-        ...state.userData,
-        chatsLatestMessage: [...action.chatsLatestMessage]
-      };
-
-      console.log('reducer', userData);
-
       return {
         ...state,
-        userData: userData
+        userData: {
+          ...state.userData,
+          chatsLatestMessage: action.chatsLatestMessage
+        }
       };
     case LOG_OUT:
       return initialState;
