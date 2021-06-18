@@ -8,8 +8,8 @@ import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
 const TeamUpScreen = ({ navigation }) => {
-  const { userData } = useSelector(state => state.users);
-  const currUser = useSelector(state => state.user.userData);
+  const { usersData } = useSelector(state => state.users);
+  const currUser = useSelector(state => state.user.usersData);
   const [sortedUsers, setSortedUsers] = React.useState();
   const [prefsObj, setPrefsObj] = React.useState();
 
@@ -52,18 +52,18 @@ const TeamUpScreen = ({ navigation }) => {
   }, [currUser]);
 
   React.useEffect(() => {
-    if (prefsObj != undefined && userData != undefined) {
-      userData.forEach((element, index) => {
+    if (prefsObj != undefined && usersData != undefined) {
+      usersData.forEach((element, index) => {
         element.score = scoreUsers(element, prefsObj);
       });
-      // userData.sort(sortTry);
-      userData.sort(sortScores);
-      userData.forEach(element => {
+      // usersData.sort(sortTry);
+      usersData.sort(sortScores);
+      usersData.forEach(element => {
         console.log(element.name, element.score);
       });
       console.log(prefsObj);
     }
-  }, [userData, prefsObj]);
+  }, [usersData, prefsObj]);
 
   return (
     <Layout style={styles.swiperContainer}>
@@ -71,9 +71,9 @@ const TeamUpScreen = ({ navigation }) => {
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight ? (
           <Swiper
-            cards={userData}
+            cards={usersData}
             renderCard={card => (
-              <InfoCard cardData={card} navProps={navProps} />
+              <InfoCard key={card.id} cardData={card} navProps={navProps} />
             )}
             cardIndex={cardIndex}
             backgroundColor={'transparent'}
