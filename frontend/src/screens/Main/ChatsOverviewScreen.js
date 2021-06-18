@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 import { ChatItem } from '../../components/index';
+import { useEffect } from 'react';
 
 const ChatsOverviewScreen = ({ navigation }) => {
   const userData = useSelector(state => state.user.userData);
@@ -16,6 +17,10 @@ const ChatsOverviewScreen = ({ navigation }) => {
       params: { userData: data }
     });
   };
+
+  useEffect(() => {
+    console.log(userData.chatslatestMessage);
+  }, []);
 
   return (
     <SafeAreaView style={styles.parentContainer}>

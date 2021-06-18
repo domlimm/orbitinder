@@ -17,9 +17,22 @@ export const getUserData = () => dispatch => {
     .doc(userId)
     .get()
     .then(res => {
+      const userData = { id: userId, ...res.data() };
+      const chatIds = userData.chats;
+      let chatsLatestMessage = [];
+
+      chatIds.map(id => {
+        db.collection('chats')
+          .doc(id)
+          .get()
+          .then(res => {
+            chatsLatestMessage.push(res.data());
+          });
+      });
+
       dispatch({
         type: GET_USER_DATA,
-        userData: { id: userId, ...res.data() }
+        userData: { ...userData, chatslatestMessage: chatsLatestMessage }
       });
     })
     .catch(err => {

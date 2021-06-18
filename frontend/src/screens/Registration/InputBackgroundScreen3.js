@@ -53,7 +53,8 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
         ...route.params.background,
         technologyExperience
       },
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      chats: []
     };
 
     try {
