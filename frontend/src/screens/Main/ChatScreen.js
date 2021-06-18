@@ -42,21 +42,31 @@ const ChatScreen = ({ navigation, route }) => {
     return () => messagesListener();
   }, []);
 
-  const onSend = message => {
-    // console.log(`Sending to ${currentUser.uid}-${id}`);
+  const onSend = async message => {
+    const msg = message[0].text;
+    const timestamp = new Date().toISOString();
 
-    // console.log(currentUser.displayName, currentUser.uid);
+    db.collection('chats').doc(chatId).collection('messages').add({
+      timestamp: timestamp,
+      message: message[0].text,
+      name: currentUser.displayName,
+      userId: currentUser.uid
+      // image: might have to add image of user sending msg if app scales
+    });
 
-    db.collection('chats')
-      .doc(`${currentUser.uid}-${id}`)
-      .collection('messages')
-      .add({
-        timestamp: new Date().toISOString(),
-        message: message[0].text,
-        name: currentUser.displayName,
-        userId: currentUser.uid
-        // image: might have to add image of user sending msg if app scales
-      });
+    await db
+      .collection('chats')
+      .doc(chatId)
+      .set(
+        {
+          latestMessage: {
+            message: msg,
+            timestamp: timestamp,
+            id: currentUser.uid
+          }
+        },
+        { merge: true }
+      );
   };
 
   const scrollToBottomComponent = () => (
