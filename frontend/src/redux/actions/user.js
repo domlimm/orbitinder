@@ -17,7 +17,10 @@ export const getUserData = () => dispatch => {
     .doc(userId)
     .get()
     .then(res => {
-      dispatch({ type: GET_USER_DATA, userData: res.data() });
+      dispatch({
+        type: GET_USER_DATA,
+        userData: { id: userId, ...res.data() }
+      });
     })
     .catch(err => {
       throw new Error(`Get User Data: ${err}`);
