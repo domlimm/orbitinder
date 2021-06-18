@@ -8,6 +8,8 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_PREFERENCES = 'UPDATE_PREFERENCES';
 export const REMOVE_PROFILE_PHOTO = 'REMOVE_PROFILE_PHOTO';
 export const UPDATE_LATE_CHAT_MSG = 'UPDATE_LATE_CHAT_MSG';
+export const ADD_LIKES = 'ADD_LIKES';
+export const ADD_DISLIKES = 'ADD_DISLIKES';
 
 const db = firebase.firestore();
 
@@ -88,6 +90,34 @@ export const addPreferences = data => dispatch => {
     })
     .catch(err => {
       throw new Error(`Adding Preferences: ${err}`);
+    });
+};
+
+export const addLikes = data => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .set(data, { merge: true })
+    .then(() => {
+      dispatch({ type: ADD_LIKES, userData: data });
+    })
+    .catch(err => {
+      throw new Error(`Adding Likes: ${err}`);
+    });
+};
+
+export const addDislikes = data => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .set(data, { merge: true })
+    .then(() => {
+      dispatch({ type: ADD_DISLIKES, userData: data });
+    })
+    .catch(err => {
+      throw new Error(`Adding Dislikes: ${err}`);
     });
 };
 

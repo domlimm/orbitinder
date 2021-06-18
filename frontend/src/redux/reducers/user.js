@@ -6,7 +6,9 @@ import {
   UPDATE_PROFILE,
   UPDATE_PREFERENCES,
   REMOVE_PROFILE_PHOTO,
-  UPDATE_LATE_CHAT_MSG
+  UPDATE_LATE_CHAT_MSG,
+  ADD_LIKES,
+  ADD_DISLIKES
 } from '../actions/user';
 
 const initialState = {
@@ -31,6 +33,16 @@ export default (state = initialState, action) => {
         userData: { ...state.userData, ...action.userData }
       };
     case ADD_USER_PREFERENCES:
+      return {
+        ...state,
+        userData: { ...state.userData, ...action.userData }
+      };
+    case ADD_LIKES:
+      return {
+        ...state,
+        userData: { ...state.userData, ...action.userData }
+      };
+    case ADD_DISLIKES:
       return {
         ...state,
         userData: { ...state.userData, ...action.userData }
