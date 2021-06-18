@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Pressable, Image } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
+import dayjs from 'dayjs';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ peer, chatId, onPress }) => {
+const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
+  const { message, timestamp, userId } = latestChat?.latestMessage;
+
   return (
     <Pressable
       style={styles.cardContainer}
@@ -25,13 +28,20 @@ const ChatItem = ({ peer, chatId, onPress }) => {
         )}
       </Layout>
       <Layout style={styles.detailsContainer}>
-        <Layout style={styles.nameContainer}>
-          <Text category='h6' style={styles.name}>
-            {peer.name}
-          </Text>
+        <Layout style={styles.topChatContainer}>
+          <Layout style={styles.nameContainer}>
+            <Text category='h6' style={styles.name}>
+              {peer.name}
+            </Text>
+          </Layout>
+          <Layout style={styles.timeContainer}>
+            <Text>{dayjs(timestamp).format('h:mm A')}</Text>
+          </Layout>
         </Layout>
-        <Layout style={styles.timeContainer}>
-          <Text>12:00 AM</Text>
+        <Layout style={styles.bottomChatContainer}>
+          <Text numberOfLines={1}>
+            {currentUid === userId ? `You: ${message}` : message}
+          </Text>
         </Layout>
       </Layout>
     </Pressable>
@@ -56,10 +66,8 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 0.76,
-    flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    alignItems: 'center',
     paddingBottom: 8
   },
   nameContainer: {
@@ -71,7 +79,12 @@ const styles = StyleSheet.create({
   timeContainer: {
     flex: 0.3,
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  topChatContainer: {
+    flex: 1,
+    flexDirection: 'row'
   }
 });
 

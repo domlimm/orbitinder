@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
-import { Layout, Spinner } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 import { ChatItem } from '../../components/index';
-import { useEffect } from 'react';
 
 const ChatsOverviewScreen = ({ navigation }) => {
   const userData = useSelector(state => state.user.userData);
@@ -18,10 +17,6 @@ const ChatsOverviewScreen = ({ navigation }) => {
     });
   };
 
-  useEffect(() => {
-    console.log(userData.chatslatestMessage);
-  }, []);
-
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
@@ -31,10 +26,19 @@ const ChatsOverviewScreen = ({ navigation }) => {
             const peer = usersData.filter(data =>
               data.chats?.includes(item)
             )[0];
+            let latestChat = {};
+
+            if (userData.chatslatestMessage.length > 0) {
+              latestChat = userData.chatslatestMessage.filter(
+                data => data.chatId === item
+              )[0];
+            }
 
             return (
               <ChatItem
                 key={peer.id}
+                currentUid={userData.id}
+                latestChat={latestChat}
                 chatId={item}
                 peer={peer}
                 onPress={navigateChat}
