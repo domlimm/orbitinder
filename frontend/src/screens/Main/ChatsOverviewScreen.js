@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
+import firebase from '../../firebase/index';
 
 import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
   const userData = useSelector(state => state.user.userData);
   const usersData = useSelector(state => state.users.usersData);
+  const [initial, setInitial] = useState(true);
+  const [chatsLatestMsg, setChatsLatestMsg] = useState([]);
 
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
@@ -16,6 +19,23 @@ const ChatsOverviewScreen = ({ navigation }) => {
       params: { userData: data }
     });
   };
+
+  useEffect(() => {
+    const latestMsgListener = firebase
+      .firestore()
+      .collection('chats')
+      .where('chatId', 'in', userData.chats)
+      .onSnapshot(querySnapshot => {
+        if (initial) {
+          setInitial(false);
+        } else {
+          const latestMsgs = querySnapshot.docs.map(doc => doc.data());
+          setChatsLatestMsg(latestMsgs);
+        }
+      });
+
+    return () => latestMsgListener();
+  }, []);
 
   return (
     <SafeAreaView style={styles.parentContainer}>
@@ -28,8 +48,15 @@ const ChatsOverviewScreen = ({ navigation }) => {
             )[0];
             let latestChat = {};
 
-            if (userData.chatslatestMessage.length > 0) {
-              latestChat = userData.chatslatestMessage.filter(
+            if (initial && userData.chatsLatestMessage.length > 0) {
+              latestChat = userData.chatsLatestMessage.filter(
+                data => data.chatId === item
+              )[0];
+            }
+
+            if (chatsLatestMsg.length !== 0) {
+              // Second refresh
+              latestChat = chatsLatestMsg.filter(
                 data => data.chatId === item
               )[0];
             }

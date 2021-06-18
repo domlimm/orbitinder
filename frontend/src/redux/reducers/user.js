@@ -5,7 +5,8 @@ import {
   LOG_OUT,
   UPDATE_PROFILE,
   UPDATE_PREFERENCES,
-  REMOVE_PROFILE_PHOTO
+  REMOVE_PROFILE_PHOTO,
+  UPDATE_LATE_CHAT_MSG
 } from '../actions/user';
 
 const initialState = {
@@ -42,6 +43,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userData: { ...state.userData, ...action.userData }
+      };
+    case UPDATE_LATE_CHAT_MSG:
+      const userData = {
+        ...state.userData,
+        chatsLatestMessage: [...action.chatsLatestMessage]
+      };
+
+      console.log('reducer', userData);
+
+      return {
+        ...state,
+        userData: userData
       };
     case LOG_OUT:
       return initialState;

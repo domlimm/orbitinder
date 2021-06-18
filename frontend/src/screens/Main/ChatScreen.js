@@ -4,16 +4,20 @@ import { Layout, Divider, Text, Spinner } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import firebase from '../../firebase/index';
+import { useDispatch, useSelector } from 'react-redux';
 
+import * as userActions from '../../redux/actions/user';
 import { ChatHeader } from '../../components/index';
 
 const ChatScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const db = firebase.firestore();
   const currentUser = firebase.auth().currentUser;
+  const userData = useSelector(state => state.user.userData);
 
   const [messages, setMessages] = useState([]);
 
-  const { id, name, imagePath, chatId } = route.params.userData;
+  const { name, imagePath, chatId } = route.params.userData;
 
   useEffect(() => {
     const messagesListener = db
@@ -46,27 +50,32 @@ const ChatScreen = ({ navigation, route }) => {
     const msg = message[0].text;
     const timestamp = new Date().toISOString();
 
-    db.collection('chats').doc(chatId).collection('messages').add({
-      timestamp: timestamp,
-      message: message[0].text,
-      name: currentUser.displayName,
-      userId: currentUser.uid
-      // image: might have to add image of user sending msg if app scales
-    });
+    const data = {
+      messages: {
+        timestamp: timestamp,
+        message: message[0].text,
+        name: currentUser.displayName,
+        userId: currentUser.uid
+        // image: might have to add image of user sending msg if app scales
+      },
+      latestMessage: {
+        message: msg,
+        timestamp: timestamp,
+        id: currentUser.uid
+      }
+    };
 
-    await db
-      .collection('chats')
+    db.collection('chats')
       .doc(chatId)
-      .set(
-        {
-          latestMessage: {
-            message: msg,
-            timestamp: timestamp,
-            id: currentUser.uid
-          }
-        },
-        { merge: true }
-      );
+      .collection('messages')
+      .add(data.messages);
+
+    await db.collection('chats').doc(chatId).set(
+      {
+        latestMessage: data.latestMessage
+      },
+      { merge: true }
+    );
   };
 
   const scrollToBottomComponent = () => (
@@ -104,11 +113,7 @@ const ChatScreen = ({ navigation, route }) => {
     </View>
   );
 
-  const renderLoading = () => (
-    <View style={styles.loading}>
-      <Spinner />
-    </View>
-  );
+  const renderLoading = () => <Spinner style={{ flex: 1 }} />;
 
   const navProps = {
     navigation: navigation,
@@ -160,11 +165,6 @@ const styles = StyleSheet.create({
   chatEmptyText: {
     textAlign: 'center',
     flexWrap: 'wrap'
-  },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
   }
 });
 

@@ -7,6 +7,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_PREFERENCES = 'UPDATE_PREFERENCES';
 export const REMOVE_PROFILE_PHOTO = 'REMOVE_PROFILE_PHOTO';
+export const UPDATE_LATE_CHAT_MSG = 'UPDATE_LATE_CHAT_MSG';
 
 const db = firebase.firestore();
 
@@ -32,7 +33,7 @@ export const getUserData = () => dispatch => {
 
       dispatch({
         type: GET_USER_DATA,
-        userData: { ...userData, chatslatestMessage: chatsLatestMessage }
+        userData: { ...userData, chatsLatestMessage: chatsLatestMessage }
       });
     })
     .catch(err => {
@@ -184,6 +185,37 @@ export const removeProfilePhoto = () => dispatch => {
     .catch(err => {
       throw new Error(`Remove Profile Photo: ${err}`);
     });
+};
+
+export const getLatestChatMessage = userData => dispatch => {
+  try {
+    // const chatsLatestMessage = userData.chatsLatestMessage.map(latest =>
+    //   latest.chatId === chatId
+    //     ? { ...latest, latestMessage: latestMessage }
+    //     : latest
+    // );
+
+    const chatIds = userData.chats;
+    let chatsLatestMessage = [];
+
+    chatIds.map(id => {
+      db.collection('chats')
+        .doc(id)
+        .get()
+        .then(res => {
+          chatsLatestMessage.push(res.data());
+        });
+    });
+
+    console.log(chatsLatestMessage);
+
+    dispatch({
+      type: UPDATE_LATE_CHAT_MSG,
+      chatsLatestMessage: chatsLatestMessage
+    });
+  } catch (err) {
+    throw new Error(`Update Latest Chat Msg: ${err}`);
+  }
 };
 
 export const logOut = () => dispatch => {

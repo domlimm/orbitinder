@@ -37,7 +37,7 @@ const fetchImages = images => {
   });
 };
 
-LogBox.ignoreLogs(['Setting a timer', "Can't per a React state"]);
+LogBox.ignoreLogs(['Setting a timer', "Warning: Can't perform a React"]);
 
 const App = () => {
   const [isAssetsLoading, setIsAssetsLoading] = React.useState(false);
