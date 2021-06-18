@@ -23,8 +23,8 @@ const ChatsOverviewScreen = ({ navigation }) => {
         <FlatList
           data={userData.chats}
           renderItem={({ item }) => {
-            const peer = usersData.filter(
-              field => field.id === item.split('-')[1]
+            const peer = usersData.filter(data =>
+              data.chats?.includes(item)
             )[0];
 
             return (
