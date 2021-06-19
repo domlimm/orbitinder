@@ -53,6 +53,10 @@ def train_model(model, corpus):
     model.min_alpha = model.alpha
   return model
 
+@app.route('/')
+def home():
+  return "hi"
+
 @app.route('/get_recommendations', methods=['POST'])
 def get_recommendations():
   final_reco_id = []
