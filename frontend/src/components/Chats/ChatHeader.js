@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 import {
   Icon,
   TopNavigation,
@@ -10,7 +10,7 @@ import {
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({ navProps }) => {
+const ChatHeader = ({ navProps, peerData }) => {
   const BackIcon = props => (
     <Icon
       {...props}
@@ -28,30 +28,39 @@ const ChatHeader = ({ navProps }) => {
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
 
-  const renderTitle = () => (
-    <View style={styles.titleContainer}>
-      {navProps.imagePath.length > 0 ? (
-        <Avatar
-          style={styles.profilePhoto}
-          source={{ uri: navProps.imagePath }}
-        />
-      ) : (
-        <UserAvatar
-          style={styles.profilePhoto}
-          name={navProps.name}
-          size={40}
-          fontSize={18}
-        />
-      )}
-      <Text style={styles.titleHeader}>{navProps.name}</Text>
-    </View>
-  );
+  const renderTitle = peerData => {
+    const navigateProfile = () => {
+      navProps.navigation.navigate('ChatStackNavigator', {
+        screen: 'UserProfile',
+        params: { profileData: peerData }
+      });
+    };
+
+    return (
+      <Pressable style={styles.titleContainer} onPress={navigateProfile}>
+        {navProps.imagePath.length > 0 ? (
+          <Avatar
+            style={styles.profilePhoto}
+            source={{ uri: navProps.imagePath }}
+          />
+        ) : (
+          <UserAvatar
+            style={styles.profilePhoto}
+            name={navProps.name}
+            size={40}
+            fontSize={18}
+          />
+        )}
+        <Text style={styles.titleHeader}>{navProps.name}</Text>
+      </Pressable>
+    );
+  };
 
   return (
     <TopNavigation
       accessoryLeft={BackAction}
       style={styles.topNav}
-      title={renderTitle}
+      title={() => renderTitle(peerData)}
     />
   );
 };

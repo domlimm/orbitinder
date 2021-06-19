@@ -13,6 +13,7 @@ const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
       style={styles.cardContainer}
       onPress={() =>
         onPress({
+          peerData: peer,
           chatId: chatId,
           id: peer.id,
           name: peer.name,
