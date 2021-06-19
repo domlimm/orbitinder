@@ -6,13 +6,14 @@ import dayjs from 'dayjs';
 import UserAvatar from '../UserProfile/UserAvatar';
 
 const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
-  const { message, timestamp, userId } = latestChat?.latestMessage;
+  const { message, timestamp, id } = latestChat?.latestMessage;
 
   return (
     <Pressable
       style={styles.cardContainer}
       onPress={() =>
         onPress({
+          peerData: peer,
           chatId: chatId,
           id: peer.id,
           name: peer.name,
@@ -40,7 +41,7 @@ const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
         </Layout>
         <Layout style={styles.bottomChatContainer}>
           <Text numberOfLines={1}>
-            {currentUid === userId ? `You: ${message}` : message}
+            {currentUid === id ? `You: ${message}` : message}
           </Text>
         </Layout>
       </Layout>

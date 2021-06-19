@@ -17,7 +17,7 @@ const ChatScreen = ({ navigation, route }) => {
 
   const [messages, setMessages] = useState([]);
 
-  const { name, imagePath, chatId } = route.params.userData;
+  const { name, imagePath, chatId, peerData } = route.params.userData;
 
   useEffect(() => {
     const messagesListener = db
@@ -127,7 +127,7 @@ const ChatScreen = ({ navigation, route }) => {
 
   return (
     <Layout style={styles.mainContainer}>
-      <ChatHeader navProps={navProps} />
+      <ChatHeader navProps={navProps} peerData={peerData} />
       <Divider />
       <GiftedChat
         messages={messages}

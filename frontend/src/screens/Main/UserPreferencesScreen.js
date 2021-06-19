@@ -66,99 +66,99 @@ const UserPreferencesScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.parentContainer}>
-      <ScrollView>
-        <Layout style={styles.contentContainer}>
-          {isPreferencesEmpty ? (
-            <Text style={styles.emptyPrefsText}>
-              {`:(\nYou have not set any preferences.\nTap on the icon at the bottom to start adding them!`}
-            </Text>
-          ) : (
-            <>
-              {!isOtherPrefsEmpty &&
-                Object.entries(partialPreferences).map(([key, value]) => {
-                  if (value.length > 0) {
-                    if (key === 'year') {
-                      return (
-                        <ContentCard
-                          key={key}
-                          title={'YEAR OF STUDY'}
-                          data={year}
-                        />
-                      );
-                    } else if (key === 'degree') {
-                      return (
-                        <ContentCard key={key} title={'MAJOR'} data={degree} />
-                      );
-                    } else if (key === 'commitment') {
-                      return (
-                        <ContentCard
-                          key={key}
-                          title={'COMMITMENT'}
-                          data={commitment.map(value => value.split(' ')[0])}
-                        />
-                      );
-                    } else if (key === 'gender') {
-                      return (
-                        <ContentCard key={key} title={'GENDER'} data={gender} />
-                      );
-                    } else if (key === 'sweExperience') {
-                      return (
-                        <ContentCard
-                          key={key}
-                          title={'SWE EXPERIENCE LEVEL'}
-                          data={sweExperience}
-                        />
-                      );
-                    }
-                  }
-                })}
-              {!isTechExpEmpty &&
-                Object.entries(techExp).map(([key, value]) => {
-                  if (value.length > 0) {
-                    let displayHeader, displayIcon;
-
-                    if (key === 'game') {
-                      displayHeader = 'GAME DEVELOPMENT';
-                      displayIcon = GameIcon;
-                    } else if (key === 'machineLearning') {
-                      displayHeader = 'MACHINE LEARNING';
-                      displayIcon = MLIcon;
-                    } else if (key === 'mobile') {
-                      displayHeader = 'MOBILE DEVELOPMENT';
-                      displayIcon = MobileIcon;
-                    } else if (key === 'web') {
-                      displayHeader = 'WEB DEVELOPMENT';
-                      displayIcon = WebIcon;
-                    } else if (key === 'database') {
-                      displayHeader = 'DATABASE';
-                      displayIcon = DBIcon;
-                    }
-
+      {isPreferencesEmpty ? (
+        <Layout style={styles.emptyPrefsContainer}>
+          <Text style={styles.emptyPrefsText}>
+            {`You have not set any preferences.\nTap on the icon at the bottom to start adding them!`}
+          </Text>
+        </Layout>
+      ) : (
+        <ScrollView>
+          <Layout style={styles.contentContainer}>
+            {!isOtherPrefsEmpty &&
+              Object.entries(partialPreferences).map(([key, value]) => {
+                if (value.length > 0) {
+                  if (key === 'year') {
                     return (
-                      <Card
-                        style={styles.contentCard}
-                        key={displayHeader}
-                        status='primary'
-                        disabled
-                      >
-                        <Layout style={{ flexDirection: 'row' }}>
-                          <Text style={styles.cardTitle}>{displayHeader}</Text>
-                          <Button
-                            size='tiny'
-                            appearance='ghost'
-                            status='basic'
-                            accessoryRight={displayIcon}
-                          ></Button>
-                        </Layout>
-                        <MainTags tagsData={value} isArray={true} />
-                      </Card>
+                      <ContentCard
+                        key={key}
+                        title={'YEAR OF STUDY'}
+                        data={year}
+                      />
+                    );
+                  } else if (key === 'degree') {
+                    return (
+                      <ContentCard key={key} title={'MAJOR'} data={degree} />
+                    );
+                  } else if (key === 'commitment') {
+                    return (
+                      <ContentCard
+                        key={key}
+                        title={'COMMITMENT'}
+                        data={commitment.map(value => value.split(' ')[0])}
+                      />
+                    );
+                  } else if (key === 'gender') {
+                    return (
+                      <ContentCard key={key} title={'GENDER'} data={gender} />
+                    );
+                  } else if (key === 'sweExperience') {
+                    return (
+                      <ContentCard
+                        key={key}
+                        title={'SWE EXPERIENCE LEVEL'}
+                        data={sweExperience}
+                      />
                     );
                   }
-                })}
-            </>
-          )}
-        </Layout>
-      </ScrollView>
+                }
+              })}
+            {!isTechExpEmpty &&
+              Object.entries(techExp).map(([key, value]) => {
+                if (value.length > 0) {
+                  let displayHeader, displayIcon;
+
+                  if (key === 'game') {
+                    displayHeader = 'GAME DEVELOPMENT';
+                    displayIcon = GameIcon;
+                  } else if (key === 'machineLearning') {
+                    displayHeader = 'MACHINE LEARNING';
+                    displayIcon = MLIcon;
+                  } else if (key === 'mobile') {
+                    displayHeader = 'MOBILE DEVELOPMENT';
+                    displayIcon = MobileIcon;
+                  } else if (key === 'web') {
+                    displayHeader = 'WEB DEVELOPMENT';
+                    displayIcon = WebIcon;
+                  } else if (key === 'database') {
+                    displayHeader = 'DATABASE';
+                    displayIcon = DBIcon;
+                  }
+
+                  return (
+                    <Card
+                      style={styles.contentCard}
+                      key={displayHeader}
+                      status='primary'
+                      disabled
+                    >
+                      <Layout style={{ flexDirection: 'row' }}>
+                        <Text style={styles.cardTitle}>{displayHeader}</Text>
+                        <Button
+                          size='tiny'
+                          appearance='ghost'
+                          status='basic'
+                          accessoryRight={displayIcon}
+                        ></Button>
+                      </Layout>
+                      <MainTags tagsData={value} isArray={true} />
+                    </Card>
+                  );
+                }
+              })}
+          </Layout>
+        </ScrollView>
+      )}
       <FloatingEdit navigate={navigateEditPref} />
     </SafeAreaView>
   );
