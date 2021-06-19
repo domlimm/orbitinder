@@ -21,6 +21,10 @@ const ChatsOverviewScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    if (userData.chats.length === 0) {
+      return;
+    }
+
     const latestMsgListener = firebase
       .firestore()
       .collection('chats')
@@ -69,8 +73,10 @@ const ChatsOverviewScreen = ({ navigation }) => {
             extraData={userData.chatsLatestMessage}
           />
         ) : (
-          <Layout>
-            <Text>TODO: Empty Chats</Text>
+          <Layout style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
+              {`Sorry, we can't find any chats.\nHead to the Team Up screen to get started!`}
+            </Text>
           </Layout>
         )}
       </Layout>
@@ -84,6 +90,16 @@ const styles = StyleSheet.create({
   },
   chatsContainer: {
     flex: 1
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emptyText: {
+    marginHorizontal: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });
 
