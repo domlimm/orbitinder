@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Pressable, Image } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import dayjs from 'dayjs';
@@ -6,7 +6,15 @@ import dayjs from 'dayjs';
 import UserAvatar from '../UserProfile/UserAvatar';
 
 const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
-  const { message, timestamp, id } = latestChat?.latestMessage;
+  let message = '',
+    timestamp = '',
+    id = '';
+
+  if (latestChat.latestMessage !== undefined) {
+    message = latestChat.latestMessage.message;
+    timestamp = latestChat.latestMessage.timestamp;
+    id = latestChat.latestMessage.id;
+  }
 
   return (
     <Pressable
@@ -36,13 +44,19 @@ const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
             </Text>
           </Layout>
           <Layout style={styles.timeContainer}>
-            <Text>{dayjs(timestamp).format('h:mm A')}</Text>
+            {timestamp.length > 0 && (
+              <Text>{dayjs(timestamp).format('h:mm A')}</Text>
+            )}
           </Layout>
         </Layout>
         <Layout style={styles.bottomChatContainer}>
-          <Text numberOfLines={1}>
-            {currentUid === id ? `You: ${message}` : message}
-          </Text>
+          {message.length > 0 ? (
+            <Text numberOfLines={1}>
+              {currentUid === id ? `You: ${message}` : message}
+            </Text>
+          ) : (
+            <Text>Click on here to start a conversation!</Text>
+          )}
         </Layout>
       </Layout>
     </Pressable>
