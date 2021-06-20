@@ -26,36 +26,6 @@ const TeamUpScreen = ({ navigation }) => {
     needMenuNav: false
   };
 
-  const fetchReco = () => {
-    fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
-        dislikes: [
-          'UXBxSVvhbyf6bhnz5wmZunFgO733',
-          'xkEv26Z4KhY0xBSomiIfM2PxFH52'
-        ]
-      })
-    })
-      .then(r => r.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-  // console.log(
-  //   JSON.stringify({
-  //     likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
-  //     dislikes: ['UXBxSVvhbyf6bhnz5wmZunFgO733', 'xkEv26Z4KhY0xBSomiIfM2PxFH52']
-  //   })
-  // );
   const [cardIndex, setCardIndex] = React.useState(0);
 
   const onSwiped = () => {
