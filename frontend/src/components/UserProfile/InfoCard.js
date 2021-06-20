@@ -50,7 +50,7 @@ const InfoCard = ({ cardData, navProps }) => {
           BadgeElement={
             <Foundation
               name={gender == 'Female' ? 'female-symbol' : 'male-symbol'}
-              size={30}
+              size={24}
               color={gender == 'Female' ? '#FF59A1' : '#00C1FF'}
               style={styles.genderIcon}
             />
@@ -240,8 +240,8 @@ const styles = StyleSheet.create({
     height: 30,
     top: 8,
     right: -8,
-    // backgroundColor: 'rgba(0, 0, 0, 0.2)'
-    backgroundColor: 'transparent'
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+    // backgroundColor: 'transparent'
   }
 });
 

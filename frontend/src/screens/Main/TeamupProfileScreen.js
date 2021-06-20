@@ -82,7 +82,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             BadgeElement={
               <Foundation
                 name={gender == 'Female' ? 'female-symbol' : 'male-symbol'}
-                size={30}
+                size={24}
                 color={gender == 'Female' ? '#FF59A1' : '#00C1FF'}
                 style={styles.genderIcon}
               />
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF'
   },
   genderIcon: {
-    marginTop: 4
+    // marginTop: 4
   },
   techContainer: {
     borderRadius: 10,
@@ -313,11 +313,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   genderBadgeViewDetails: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     top: -5,
     right: -3,
-    backgroundColor: 'transparent'
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
   },
   updatedText: {
     marginHorizontal: 15,

@@ -104,7 +104,7 @@ const UserProfileScreen = ({ navigation, route }) => {
                 name={
                   userData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
                 }
-                size={30}
+                size={24}
                 color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
                 style={styles.genderIcon}
               />
@@ -339,18 +339,18 @@ const styles = StyleSheet.create({
     marginHorizontal: -5
   },
   genderBadgeUserProfile: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     top: 20,
-    right: 5,
-    backgroundColor: 'transparent'
+    right: -3,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
   },
   genderBadgeViewDetails: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     top: -5,
     right: -3,
-    backgroundColor: 'transparent'
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
   },
   updatedText: {
     marginHorizontal: 15,
