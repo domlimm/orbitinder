@@ -16,6 +16,8 @@ const TeamUpScreen = ({ navigation }) => {
   const [prefsObj, setPrefsObj] = React.useState();
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
+  const [displayRecoBtn, setRecoBtn] = React.useState(false);
+  const [recoData, setRecoData] = React.useState([]);
 
   const navProps = {
     title: 'Team Up',
@@ -24,6 +26,36 @@ const TeamUpScreen = ({ navigation }) => {
     needMenuNav: false
   };
 
+  const fetchReco = () => {
+    fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
+        dislikes: [
+          'UXBxSVvhbyf6bhnz5wmZunFgO733',
+          'xkEv26Z4KhY0xBSomiIfM2PxFH52'
+        ]
+      })
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  // console.log(
+  //   JSON.stringify({
+  //     likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
+  //     dislikes: ['UXBxSVvhbyf6bhnz5wmZunFgO733', 'xkEv26Z4KhY0xBSomiIfM2PxFH52']
+  //   })
+  // );
   const [cardIndex, setCardIndex] = React.useState(0);
 
   const onSwiped = () => {
@@ -61,6 +93,35 @@ const TeamUpScreen = ({ navigation }) => {
       }
     }
     console.log(sortedUsers[index].name);
+    fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
+        dislikes: [
+          'UXBxSVvhbyf6bhnz5wmZunFgO733',
+          'xkEv26Z4KhY0xBSomiIfM2PxFH52'
+        ]
+      })
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.length != 0) {
+          setRecoBtn(true);
+          setRecoData(data);
+          console.log('data retreived');
+        } else {
+          setRecoBtn(false);
+          console.log('no data retreived');
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
     console.log('swiped right');
   };
 
@@ -169,17 +230,18 @@ const TeamUpScreen = ({ navigation }) => {
           ></Swiper>
         )}
       </Layout>
-      <TouchableOpacity
-        // disabled={true}
-        activeOpacity={0.7}
-        style={styles.touchableOpacityStyle}
-        // onPress={navigate}
-      >
-        <Image
-          source={require('../../assets/images/shine.png')}
-          style={styles.floatingButtonStyle}
-        />
-      </TouchableOpacity>
+      {displayRecoBtn ? (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.touchableOpacityStyle}
+          // onPress={navigate}
+        >
+          <Image
+            source={require('../../assets/images/shine.png')}
+            style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
+      ) : null}
     </Layout>
   );
 };
