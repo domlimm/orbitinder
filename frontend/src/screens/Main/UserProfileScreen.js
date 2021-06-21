@@ -4,7 +4,9 @@ import {
   ScrollView,
   StyleSheet,
   Image,
-  Pressable
+  Pressable,
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 import {
   Layout,
@@ -18,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import dayjs from 'dayjs';
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
   ContentCard,
@@ -74,7 +77,9 @@ const UserProfileScreen = ({ navigation, route }) => {
         </Layout>
         <Layout
           style={[
-            route.params ? styles.smallHeaderContainer : styles.headerContainer
+            background.github || background.linkedin
+              ? styles.headerContainer
+              : styles.smallHeaderContainer
           ]}
         >
           <IconBadge
@@ -120,6 +125,34 @@ const UserProfileScreen = ({ navigation, route }) => {
             <Text style={styles.name}>{userData.name}</Text>
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
+          </Layout>
+          <Layout style={{ flexDirection: 'row', backgroundColor: '#407bff' }}>
+            {background.linkedin && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(background.linkedin).catch(err =>
+                    console.error('An error occurred', err)
+                  );
+                }}
+              >
+                <Icon
+                  style={styles.icon}
+                  fill='white'
+                  name='linkedin-outline'
+                />
+              </TouchableOpacity>
+            )}
+            {background.github && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(background.github).catch(err =>
+                    console.error('An error occurred', err)
+                  );
+                }}
+              >
+                <Icon style={styles.icon} fill='white' name='github-outline' />
+              </TouchableOpacity>
+            )}
           </Layout>
         </Layout>
         <Layout style={styles.contentContainer}>
@@ -219,19 +252,20 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     justifyContent: 'flex-start',
-    backgroundColor: '#407BFF',
-    flex: 1
+    // backgroundColor: '#407BFF',
+    marginHorizontal: 8
+    // flex: 1
   },
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 210,
+    height: 240,
     alignItems: 'center'
   },
   smallHeaderContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 180,
+    height: 210,
     alignItems: 'center'
   },
   avatarImg: {
@@ -324,7 +358,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF'
   },
   genderIcon: {
-    marginTop: 4
+    // marginTop: 4
   },
   techContainer: {
     borderRadius: 10,
