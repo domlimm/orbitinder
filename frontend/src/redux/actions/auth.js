@@ -4,42 +4,44 @@ export const STORE_USER_DATA = 'STORE_USER_DATA';
 export const LOG_OUT = 'LOG_OUT';
 export const SET_REGISTER = 'SET_REGISTER';
 
-export const signUp = (email, password, name, gender) => async dispatch => {
-  return await firebase
-    .auth()
-    .createUserWithEmailAndPassword(email.trim().toLowerCase(), password)
-    .then(res => {
-      firebase
-        .auth()
-        .currentUser.updateProfile({ displayName: name })
-        .then(() => {
-          dispatch({
-            type: STORE_USER_DATA,
-            id: res.user.uid,
-            user: res.user.displayName
-          });
-          dispatch({
-            type: SET_REGISTER,
-            isRegistering: true,
-            gender: gender
-          });
-        })
-        .catch(err => console.log('err.message', err.message));
-    })
-    .catch(err => {
-      let message = 'An error has occured!';
-      let hasError =
-        err.code === 'auth/email-already-in-use' ||
-        err.code === 'auth/invalid-email' ||
-        err.code === 'auth/weak-password';
+export const signUp =
+  (email, password, name, gender, userPushToken) => async dispatch => {
+    return await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email.trim().toLowerCase(), password)
+      .then(res => {
+        firebase
+          .auth()
+          .currentUser.updateProfile({ displayName: name })
+          .then(() => {
+            dispatch({
+              type: STORE_USER_DATA,
+              id: res.user.uid,
+              user: res.user.displayName
+            });
+            dispatch({
+              type: SET_REGISTER,
+              isRegistering: true,
+              gender: gender,
+              userPushToken: userPushToken
+            });
+          })
+          .catch(err => console.log('err.message', err.message));
+      })
+      .catch(err => {
+        let message = 'An error has occured!';
+        let hasError =
+          err.code === 'auth/email-already-in-use' ||
+          err.code === 'auth/invalid-email' ||
+          err.code === 'auth/weak-password';
 
-      if (hasError) {
-        message = 'Invalid Credentials!';
-      }
+        if (hasError) {
+          message = 'Invalid Credentials!';
+        }
 
-      throw new Error(message);
-    });
-};
+        throw new Error(message);
+      });
+  };
 
 export const logIn = (email, password) => async dispatch => {
   return await firebase

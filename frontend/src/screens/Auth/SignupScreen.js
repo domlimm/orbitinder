@@ -3,8 +3,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback,
-  Alert
+  TouchableWithoutFeedback
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -19,6 +18,7 @@ import {
 } from '@ui-kitten/components';
 import { StackActions } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import * as Notifications from 'expo-notifications';
 
 import { NavHeader, LoadingIndicator, Toast } from '../../components/index';
 import { genderData } from '../../constants/profleCreationData';
@@ -46,6 +46,19 @@ const SignupScreen = ({ navigation }) => {
   }, [fName, lName]);
 
   const signUpHandler = async () => {
+    let userPushToken;
+    let statusObj = await Notifications.getPermissionsAsync();
+
+    if (statusObj.status !== 'granted') {
+      statusObj = await Notifications.requestPermissionsAsync();
+    }
+
+    if (statusObj.status !== 'granted') {
+      userPushToken = null;
+    } else {
+      userPushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    }
+
     try {
       if (
         fName.length === 0 ||
@@ -68,7 +81,9 @@ const SignupScreen = ({ navigation }) => {
 
       setLoading(true);
 
-      await dispatch(authActions.signUp(email, password, name, genderValue));
+      await dispatch(
+        authActions.signUp(email, password, name, genderValue, userPushToken)
+      );
 
       return {
         ...StackActions.popToTop(),

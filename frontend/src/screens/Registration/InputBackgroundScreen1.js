@@ -17,8 +17,7 @@ import {
   commitmentData,
   achievementData,
   degreeData,
-  interestsData,
-  gameDevData
+  interestsData
 } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen1 = ({ navigation, route }) => {
@@ -43,12 +42,13 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
     [interestIndex]
   );
 
-  const { name, gender } = useSelector(state => state.auth);
+  const { name, gender, userPushToken } = useSelector(state => state.auth);
 
   const navigateRegistration = () => {
     navigation.navigate('InputBackground2', {
       name: name,
       gender: gender,
+      userPushToken: userPushToken,
       background: {
         year: displayYear,
         degree: displayDegree,

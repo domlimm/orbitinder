@@ -4,7 +4,8 @@ const initialState = {
   id: '',
   name: '',
   isRegistering: false,
-  gender: ''
+  gender: '',
+  userPushToken: ''
 };
 
 export default (state = initialState, action) => {
@@ -19,7 +20,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isRegistering: action.isRegistering,
-        gender: action.gender
+        gender: action.gender,
+        userPushToken: action.userPushToken
       };
     case LOG_OUT:
       return initialState;
