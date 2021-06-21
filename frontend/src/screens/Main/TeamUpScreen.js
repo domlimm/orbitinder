@@ -14,7 +14,7 @@ const TeamUpScreen = ({ navigation }) => {
   const { usersData } = useSelector(state => state.users);
   const currUser = useSelector(state => state.user.userData);
   const currPref = useSelector(state => state.user.userData.preferences);
-  const [sortedUsers, setSortedUsers] = React.useState();
+  const [sortedUsers, setSortedUsers] = React.useState([]);
   const [prefsObj, setPrefsObj] = React.useState();
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
@@ -154,6 +154,46 @@ const TeamUpScreen = ({ navigation }) => {
     });
   };
 
+  React.useEffect(() => {
+    // Subscribe for the focus Listener
+    const unsubscribeFocus = navigation.addListener('focus', () => {
+      //get realtime data from db
+      console.log('focus');
+      firebase
+        .firestore()
+        .collection('users')
+        .doc(currUser.id)
+        .get()
+        .then(res => {
+          console.log('does res exist');
+          if (res.exists) {
+            const updatedUser = res.data();
+            console.log(updatedUser.likes);
+            console.log(updatedUser.dislikes);
+            if (sortedUsers.length != 0) {
+              console.log('sorted:', sortedUsers.length);
+            }
+
+            if (sortedUsers != undefined && sortedUsers.length != 0) {
+              setSortedUsers(
+                // only show users user has not liked/disliked
+                sortedUsers.filter(
+                  u =>
+                    !updatedUser.likes.includes(u.id) &&
+                    !updatedUser.dislikes.includes(u.id)
+                )
+              );
+            }
+            setCardIndex(0);
+          }
+        });
+    });
+    return () => {
+      // Unsubscribe for the focus Listener
+      unsubscribeFocus;
+    };
+  }, [navigation, sortedUsers]);
+
   return (
     <Layout style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
@@ -163,9 +203,12 @@ const TeamUpScreen = ({ navigation }) => {
           sortedUsers != undefined && (
             <Swiper
               cards={sortedUsers}
-              renderCard={card => (
-                <InfoCard key={card.id} cardData={card} navProps={navProps} />
-              )}
+              renderCard={card =>
+                (card && (
+                  <InfoCard key={card.id} cardData={card} navProps={navProps} />
+                )) ||
+                null
+              }
               cardIndex={cardIndex}
               backgroundColor={'transparent'}
               useViewOverflow={Platform.OS === 'ios'}
