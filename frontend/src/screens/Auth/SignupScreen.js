@@ -45,6 +45,23 @@ const SignupScreen = ({ navigation }) => {
     setName(`${fName + ' ' + lName}`);
   }, [fName, lName]);
 
+  const tempPush = async () => {
+    let userPushToken;
+    let statusObj = await Notifications.getPermissionsAsync();
+
+    if (statusObj.status !== 'granted') {
+      statusObj = await Notifications.requestPermissionsAsync();
+    }
+
+    if (statusObj.status !== 'granted') {
+      userPushToken = null;
+    } else {
+      userPushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    }
+
+    console.log(userPushToken);
+  };
+
   const signUpHandler = async () => {
     let userPushToken;
     let statusObj = await Notifications.getPermissionsAsync();
