@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 
 // To separate for local imports rather than installed dependencies: add below onwards
+import firebase from '../../firebase';
 import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
@@ -13,7 +14,7 @@ const TeamUpScreen = ({ navigation }) => {
   const { usersData } = useSelector(state => state.users);
   const currUser = useSelector(state => state.user.userData);
   const currPref = useSelector(state => state.user.userData.preferences);
-  const [sortedUsers, setSortedUsers] = React.useState([]);
+  const [sortedUsers, setSortedUsers] = React.useState();
   const [prefsObj, setPrefsObj] = React.useState();
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
@@ -63,7 +64,9 @@ const TeamUpScreen = ({ navigation }) => {
         console.log(err.message);
       }
     }
-    console.log(sortedUsers[index].name);
+    console.log([...currUser.likes, sortedUsers[index].id]);
+    // console.log()
+    console.log(currUser.likes);
     fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
       method: 'POST',
       mode: 'cors',
@@ -72,11 +75,13 @@ const TeamUpScreen = ({ navigation }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
-        dislikes: [
-          'UXBxSVvhbyf6bhnz5wmZunFgO733',
-          'xkEv26Z4KhY0xBSomiIfM2PxFH52'
-        ]
+        // likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
+        // dislikes: [
+        //   'UXBxSVvhbyf6bhnz5wmZunFgO733',
+        //   'xkEv26Z4KhY0xBSomiIfM2PxFH52'
+        // ]
+        likes: [...currUser.likes, sortedUsers[index].id],
+        dislikes: currUser.dislikes
       })
     })
       .then(r => r.json())
@@ -105,14 +110,14 @@ const TeamUpScreen = ({ navigation }) => {
   };
 
   React.useEffect(() => {
-    //
+    // starts the initial calculation of each user's score
     if (currUser != undefined && prefsObj == undefined) {
       setPrefsObj(processPrefs(currUser));
     }
   }, [currUser]);
 
   React.useEffect(() => {
-    //
+    //if user preferences change, recalculate the score of all users
     if (currUser != undefined) {
       setPrefsObj(processPrefs(currUser));
     }
@@ -139,81 +144,93 @@ const TeamUpScreen = ({ navigation }) => {
     }
   }, [usersData, prefsObj]);
 
+  const handleRecoBtn = () => {
+    setRecoBtn(false);
+    navProps.navigation.navigate({
+      name: 'RecoUser',
+      params: {
+        recoUsersData: recoData
+      }
+    });
+  };
+
   return (
     <Layout style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
-        {viewHeight != undefined && sortedUsers.length != 0 && (
-          <Swiper
-            cards={sortedUsers}
-            renderCard={card => (
-              <InfoCard key={card.id} cardData={card} navProps={navProps} />
-            )}
-            cardIndex={cardIndex}
-            backgroundColor={'transparent'}
-            useViewOverflow={Platform.OS === 'ios'}
-            onSwiped={onSwiped}
-            onSwipedLeft={onSwipedLeft}
-            onSwipedRight={onSwipedRight}
-            showSecondCard={true}
-            stackSize={2}
-            disableTopSwipe
-            disableBottomSwipe
-            stackScale={10}
-            stackSeparation={14}
-            cardVerticalMargin={(viewHeight - 540) / 2} // size of card is 540
-            overlayLabels={{
-              left: {
-                title: 'NOPE',
-                style: {
-                  label: {
-                    backgroundColor: '#FF7559',
-                    borderColor: '#FF7559',
-                    color: 'white',
-                    borderWidth: 1,
-                    fontSize: 15,
-                    borderRadius: 20
-                  },
-                  wrapper: {
-                    flexDirection: 'column',
-                    alignItems: 'flex-end',
-                    justifyContent: 'flex-start',
-                    marginTop: 30,
-                    marginLeft: -30,
-                    elevation: 5
+        {viewHeight != undefined &&
+          sortedUsers.length != 0 &&
+          sortedUsers != undefined && (
+            <Swiper
+              cards={sortedUsers}
+              renderCard={card => (
+                <InfoCard key={card.id} cardData={card} navProps={navProps} />
+              )}
+              cardIndex={cardIndex}
+              backgroundColor={'transparent'}
+              useViewOverflow={Platform.OS === 'ios'}
+              onSwiped={onSwiped}
+              onSwipedLeft={onSwipedLeft}
+              onSwipedRight={onSwipedRight}
+              showSecondCard={true}
+              stackSize={2}
+              disableTopSwipe
+              disableBottomSwipe
+              stackScale={10}
+              stackSeparation={14}
+              cardVerticalMargin={(viewHeight - 540) / 2} // size of card is 540
+              overlayLabels={{
+                left: {
+                  title: 'NOPE',
+                  style: {
+                    label: {
+                      backgroundColor: '#FF7559',
+                      borderColor: '#FF7559',
+                      color: 'white',
+                      borderWidth: 1,
+                      fontSize: 15,
+                      borderRadius: 20
+                    },
+                    wrapper: {
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      justifyContent: 'flex-start',
+                      marginTop: 30,
+                      marginLeft: -30,
+                      elevation: 5
+                    }
+                  }
+                },
+                right: {
+                  title: 'LIKE',
+                  style: {
+                    label: {
+                      backgroundColor: '#8CB1FF',
+                      borderColor: '#8CB1FF',
+                      color: 'white',
+                      borderWidth: 1,
+                      fontSize: 15,
+                      borderRadius: 20
+                    },
+                    wrapper: {
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      justifyContent: 'flex-start',
+                      marginTop: 30,
+                      marginLeft: 30,
+                      elevation: 5
+                    }
                   }
                 }
-              },
-              right: {
-                title: 'LIKE',
-                style: {
-                  label: {
-                    backgroundColor: '#8CB1FF',
-                    borderColor: '#8CB1FF',
-                    color: 'white',
-                    borderWidth: 1,
-                    fontSize: 15,
-                    borderRadius: 20
-                  },
-                  wrapper: {
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'flex-start',
-                    marginTop: 30,
-                    marginLeft: 30,
-                    elevation: 5
-                  }
-                }
-              }
-            }}
-          ></Swiper>
-        )}
+              }}
+            ></Swiper>
+          )}
       </Layout>
       {displayRecoBtn ? (
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.touchableOpacityStyle}
-          // onPress={navigate}
+          onPress={handleRecoBtn}
         >
           <Image
             source={require('../../assets/images/shine.png')}
