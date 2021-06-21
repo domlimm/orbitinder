@@ -4,6 +4,7 @@ import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
 import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
+import _ from 'lodash';
 
 // To separate for local imports rather than installed dependencies: add below onwards
 import firebase from '../../firebase';
@@ -170,21 +171,19 @@ const TeamUpScreen = ({ navigation }) => {
             const updatedUser = res.data();
             console.log(updatedUser.likes);
             console.log(updatedUser.dislikes);
-            if (sortedUsers.length != 0) {
-              console.log('sorted:', sortedUsers.length);
-            }
-
-            if (sortedUsers != undefined && sortedUsers.length != 0) {
-              setSortedUsers(
-                // only show users user has not liked/disliked
-                sortedUsers.filter(
-                  u =>
-                    !updatedUser.likes.includes(u.id) &&
-                    !updatedUser.dislikes.includes(u.id)
-                )
+            if (
+              usersData != undefined &&
+              usersData.length != 0 &&
+              (!_.isEqual(updatedUser.likes, currUser.likes) ||
+                !_.isEqual(updatedUser.dislikes, currUser.dislikes))
+            ) {
+              const meh = usersData.filter(
+                u =>
+                  !updatedUser.likes.includes(u.id) &&
+                  !updatedUser.dislikes.includes(u.id)
               );
+              setSortedUsers([meh[0], ...meh]);
             }
-            setCardIndex(0);
           }
         });
     });
@@ -192,7 +191,8 @@ const TeamUpScreen = ({ navigation }) => {
       // Unsubscribe for the focus Listener
       unsubscribeFocus;
     };
-  }, [navigation, sortedUsers]);
+  }, [navigation, usersData, currUser]);
+  // }, [navigation, sortedUsers, usersData, currUser]);
 
   return (
     <Layout style={styles.swiperContainer}>
