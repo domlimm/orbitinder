@@ -12,6 +12,7 @@ import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 const TeamUpScreen = ({ navigation }) => {
   const { usersData } = useSelector(state => state.users);
   const currUser = useSelector(state => state.user.userData);
+  const currPref = useSelector(state => state.user.userData.preferences);
   const [sortedUsers, setSortedUsers] = React.useState([]);
   const [prefsObj, setPrefsObj] = React.useState();
   const dispatch = useDispatch();
@@ -104,10 +105,18 @@ const TeamUpScreen = ({ navigation }) => {
   };
 
   React.useEffect(() => {
+    //
     if (currUser != undefined && prefsObj == undefined) {
       setPrefsObj(processPrefs(currUser));
     }
   }, [currUser]);
+
+  React.useEffect(() => {
+    //
+    if (currUser != undefined) {
+      setPrefsObj(processPrefs(currUser));
+    }
+  }, [currPref]);
 
   React.useEffect(() => {
     if (prefsObj != undefined && usersData != undefined) {
@@ -116,9 +125,9 @@ const TeamUpScreen = ({ navigation }) => {
         element.score = scoreUsers(element, prefsObj);
       });
       usersData.sort(sortScores); // sort by score
-      // usersData.forEach(element => {
-      //   console.log(element.name, element.score);
-      // });
+      usersData.forEach(element => {
+        console.log(element.name, element.score);
+      });
       // console.log(prefsObj);
       setSortedUsers(
         // only show users user has not liked/disliked
