@@ -22,6 +22,8 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
   const displaySWE = sweExperience[sweIndex.row];
 
   const [bio, setBio] = React.useState('');
+  const [github, setGithub] = React.useState('');
+  const [linkedin, setLinkedin] = React.useState('');
 
   const navigateRegistration = () => {
     navigation.navigate('InputBackground3', {
@@ -30,7 +32,9 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         ...route.params.background,
         idea: displayIdea,
         sweExperience: displaySWE,
-        biography: bio
+        biography: bio,
+        github: github,
+        linkedin: linkedin
       }
     });
   };
@@ -78,17 +82,33 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
+
             <Input
               style={styles.bioInput}
               multiline={true}
               textStyle={styles.bioText}
               placeholder='Bio'
-              label='Provide a short bio about yourself'
+              label='Provide a short bio about yourself (optional)'
               onChangeText={input => setBio(input)}
-              numberOfLines={6}
+              numberOfLines={5}
               value={bio}
             />
+            <Input
+              style={styles.bioInput}
+              placeholder='https://github.com/....'
+              label='Github link (optional)'
+              onChangeText={input => setGithub(input)}
+              value={github}
+            />
+            <Input
+              style={styles.bioInput}
+              placeholder='https://www.linkedin.com/...'
+              label='LinkedIn link (optional)'
+              onChangeText={input => setLinkedin(input)}
+              value={linkedin}
+            />
           </Layout>
+          <Layout style={styles.inputContainer}></Layout>
           <Layout style={styles.btnContainer}>
             <Button onPress={navigateRegistration} style={styles.signupBtn}>
               Next
@@ -146,7 +166,7 @@ const styles = StyleSheet.create({
   },
   bioInput: {
     width: '70%',
-    marginTop: 10
+    marginVertical: 10
   },
   bioText: {
     minHeight: 64,
