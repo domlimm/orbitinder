@@ -24,14 +24,16 @@ export const getUserData = () => dispatch => {
       const chatIds = userData.chats;
       let chatsLatestMessage = [];
 
-      chatIds.map(id => {
-        db.collection('chats')
-          .doc(id)
-          .get()
-          .then(res => {
-            chatsLatestMessage.push(res.data());
-          });
-      });
+      if (chatIds !== undefined) {
+        chatIds.map(id => {
+          db.collection('chats')
+            .doc(id)
+            .get()
+            .then(res => {
+              chatsLatestMessage.push(res.data());
+            });
+        });
+      }
 
       dispatch({
         type: GET_USER_DATA,
