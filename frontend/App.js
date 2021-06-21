@@ -8,6 +8,7 @@ import { Asset } from 'expo-asset';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
+import * as Notifications from 'expo-notifications';
 
 import { default as customTheme } from './src/constants/custom-theme.json';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -18,6 +19,12 @@ import {
   userReducer,
   usersReducer
 } from './src/redux/reducers/index';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return { shouldShowAlert: true };
+  }
+});
 
 const rootReducer = combineReducers({
   auth: authReducer,
