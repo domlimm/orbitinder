@@ -1,6 +1,11 @@
 import os, sys
 from firebase_admin import credentials, firestore, initialize_app
 import pandas as pd
+from gensim.models.doc2vec import TaggedDocument
+import nltk
+# nltk.download('punkt')
+# nltk.download('stopwords')
+from nltk.tokenize import word_tokenize
 
 #init FirestoreDB
 cred = credentials.Certificate('key.json')
@@ -44,3 +49,13 @@ def get_reco_objs(id_array):
     except Exception as e:
         print(f"An Error Occured: {e}")
         return []
+
+def tokenise(doc):
+  # split into lower case word tokens
+  tokens = word_tokenize(doc.lower())
+  # remove tokens that are not alphabetic (including punctuation) and not a stop word
+  tokens = [word for word in tokens if word.isalpha()]
+  return tokens
+
+def preprocess_corpus(mv_tags_corpus):
+  return [TaggedDocument(words=tokenise(D), tags=[str(i)]) for i, D in enumerate(mv_tags_corpus)]
