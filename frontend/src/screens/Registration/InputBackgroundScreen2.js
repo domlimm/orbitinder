@@ -33,8 +33,8 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         idea: displayIdea,
         sweExperience: displaySWE,
         biography: bio,
-        github: github,
-        linkedin: linkedin
+        github: `https://github.com/${github}`,
+        linkedin: `https://www.linkedin.com/${linkedin}`
       }
     });
   };
@@ -88,22 +88,22 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
               multiline={true}
               textStyle={styles.bioText}
               placeholder='Bio'
-              label='Provide a short bio about yourself (optional)'
+              label='Provide a short bio about yourself (Optional)'
               onChangeText={input => setBio(input)}
               numberOfLines={5}
               value={bio}
             />
             <Input
               style={styles.bioInput}
-              placeholder='https://github.com/....'
-              label='Github link (optional)'
+              placeholder='GitHub Username'
+              label='Github (Optional)'
               onChangeText={input => setGithub(input)}
               value={github}
             />
             <Input
               style={styles.bioInput}
-              placeholder='https://www.linkedin.com/...'
-              label='LinkedIn link (optional)'
+              placeholder='LinkedIn Username'
+              label='LinkedIn (Optional)'
               onChangeText={input => setLinkedin(input)}
               value={linkedin}
             />
