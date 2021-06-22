@@ -12,6 +12,7 @@ export const ADD_LIKES = 'ADD_LIKES';
 export const ADD_DISLIKES = 'ADD_DISLIKES';
 export const ADD_LIKED_BY = 'ADD_LIKED_BY';
 export const REMOVE_LIKED_BY = 'REMOVE_LIKED_BY';
+export const ACCEPT_CHAT_REQUEST = 'ACCEPT_CHAT_REQUEST';
 
 const db = firebase.firestore();
 
@@ -143,7 +144,7 @@ export const addLikedBy = receiverId => dispatch => {
     });
 };
 
-export const addAcceptChatRequest = receiverId => {
+export const addAcceptChatRequest = receiverId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('chats')
@@ -162,6 +163,7 @@ export const addAcceptChatRequest = receiverId => {
             .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
             .then(() => {
               // update redux store for current User's chats
+              dispatch({ type: ACCEPT_CHAT_REQUEST, chatId: docId });
             })
             .catch(err => {
               throw new Error(`Update User's Chats: ${err}`);

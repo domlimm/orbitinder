@@ -10,7 +10,8 @@ import {
   ADD_LIKES,
   ADD_DISLIKES,
   ADD_LIKED_BY,
-  REMOVE_LIKED_BY
+  REMOVE_LIKED_BY,
+  ACCEPT_CHAT_REQUEST
 } from '../actions/user';
 
 const initialState = {
@@ -86,6 +87,14 @@ export default (state = initialState, action) => {
         userData: {
           ...state.userData,
           chatsLatestMessage: action.chatsLatestMessage
+        }
+      };
+    case ACCEPT_CHAT_REQUEST:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          chats: [...state.userData.chats, action.chatId]
         }
       };
     case LOG_OUT:
