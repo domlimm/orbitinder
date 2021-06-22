@@ -37,13 +37,8 @@ const TeamUpScreen = ({ navigation }) => {
   };
 
   const onSwipedLeft = index => {
-    //dislike
-    const dislikes = {
-      dislikes: [...currUser.dislikes, sortedUsers[index].id]
-    };
-
     try {
-      dispatch(userActions.addDislikes(dislikes));
+      dispatch(userActions.addDislikes(sortedUsers[index].id));
     } catch (err) {
       console.log(err.message);
     }
@@ -55,19 +50,16 @@ const TeamUpScreen = ({ navigation }) => {
   const onSwipedRight = index => {
     //like
     if (sortedUsers.length != 0) {
-      const likes = {
-        likes: [...currUser.likes, sortedUsers[index].id]
-      };
-
       try {
-        dispatch(userActions.addLikes(likes));
+        dispatch(userActions.addLikes(sortedUsers[index].id));
       } catch (err) {
         console.log(err.message);
       }
     }
+
     console.log([...currUser.likes, sortedUsers[index].id]);
-    // console.log()
     console.log(currUser.likes);
+
     fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
       method: 'POST',
       mode: 'cors',

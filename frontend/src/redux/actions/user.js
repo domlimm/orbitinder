@@ -95,28 +95,32 @@ export const addPreferences = data => dispatch => {
     });
 };
 
-export const addLikes = data => dispatch => {
+export const addLikes = likeUserId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
     .doc(userId)
-    .set(data, { merge: true })
+    .update({
+      likes: firebase.firestore.FieldValue.arrayUnion(likeUserId)
+    })
     .then(() => {
-      dispatch({ type: ADD_LIKES, userData: data });
+      dispatch({ type: ADD_LIKES, likeUserId: likeUserId });
     })
     .catch(err => {
       throw new Error(`Adding Likes: ${err}`);
     });
 };
 
-export const addDislikes = data => dispatch => {
+export const addDislikes = dislikeUserId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
     .doc(userId)
-    .set(data, { merge: true })
+    .update({
+      dislikes: firebase.firestore.FieldValue.arrayUnion(dislikeUserId)
+    })
     .then(() => {
-      dispatch({ type: ADD_DISLIKES, userData: data });
+      dispatch({ type: ADD_DISLIKES, dislikeUserId: dislikeUserId });
     })
     .catch(err => {
       throw new Error(`Adding Dislikes: ${err}`);

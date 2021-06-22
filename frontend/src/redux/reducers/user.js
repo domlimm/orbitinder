@@ -40,12 +40,18 @@ export default (state = initialState, action) => {
     case ADD_LIKES:
       return {
         ...state,
-        userData: { ...state.userData, ...action.userData }
+        userData: {
+          ...state.userData,
+          likes: [...state.userData.likes, action.likeUserId]
+        }
       };
     case ADD_DISLIKES:
       return {
         ...state,
-        userData: { ...state.userData, ...action.userData }
+        userData: {
+          ...state.userData,
+          dislikes: [...state.userData.dislikes, action.dislikeUserId]
+        }
       };
     case GET_USER_DATA:
       return {
