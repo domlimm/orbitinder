@@ -37,6 +37,7 @@ const RequestsScreen = () => {
 
               return (
                 <RequestItem
+                  receiverId={senderData.id}
                   userData={senderData}
                   name={senderData.name}
                   imagePath={senderData.imagePath}
@@ -53,7 +54,7 @@ const RequestsScreen = () => {
         ) : (
           <Layout style={styles.emptyContainer}>
             <Text style={styles.emptyText}>
-              {`Sorry, we can't find any requests just yet.`}
+              {`Sorry, we can't find any requests.\nAnyone could send you one when the time is right!`}
             </Text>
           </Layout>
         )}

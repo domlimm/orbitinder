@@ -162,7 +162,6 @@ export const addAcceptChatRequest = receiverId => dispatch => {
             .doc(userId)
             .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
             .then(() => {
-              // update redux store for current User's chats
               dispatch({ type: ACCEPT_CHAT_REQUEST, chatId: docId });
             })
             .catch(err => {

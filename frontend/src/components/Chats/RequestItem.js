@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
+import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
 
 const RequestItem = ({
@@ -11,9 +13,11 @@ const RequestItem = ({
   imagePath,
   year,
   degree,
-  biography
+  biography,
+  receiverId
 }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const showProfile = () => {
     navigation.navigate('ChatStackNavigator', {
@@ -56,6 +60,7 @@ const RequestItem = ({
         accessoryLeft={AcceptIcon}
         size='small'
         status='success'
+        onPress={() => dispatch(userActions.addAcceptChatRequest(receiverId))}
       />
       <Button
         style={styles.footerControl}
