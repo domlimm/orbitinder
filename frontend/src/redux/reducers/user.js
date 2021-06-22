@@ -8,7 +8,10 @@ import {
   REMOVE_PROFILE_PHOTO,
   UPDATE_LATE_CHAT_MSG,
   ADD_LIKES,
-  ADD_DISLIKES
+  ADD_DISLIKES,
+  ADD_LIKED_BY,
+  REMOVE_LIKED_BY,
+  ACCEPT_CHAT_REQUEST
 } from '../actions/user';
 
 const initialState = {
@@ -40,12 +43,34 @@ export default (state = initialState, action) => {
     case ADD_LIKES:
       return {
         ...state,
-        userData: { ...state.userData, ...action.userData }
+        userData: {
+          ...state.userData,
+          likes: [...state.userData.likes, action.likeUserId]
+        }
       };
     case ADD_DISLIKES:
       return {
         ...state,
-        userData: { ...state.userData, ...action.userData }
+        userData: {
+          ...state.userData,
+          dislikes: [...state.userData.dislikes, action.dislikeUserId]
+        }
+      };
+    case ADD_LIKED_BY:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedBy: [...state.userData.likedBy, action.id]
+        }
+      };
+    case REMOVE_LIKED_BY:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedBy: state.userData.likedBy.filter(id => id !== action.id)
+        }
       };
     case GET_USER_DATA:
       return {
@@ -62,6 +87,14 @@ export default (state = initialState, action) => {
         userData: {
           ...state.userData,
           chatsLatestMessage: action.chatsLatestMessage
+        }
+      };
+    case ACCEPT_CHAT_REQUEST:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          chats: [...state.userData.chats, action.chatId]
         }
       };
     case LOG_OUT:

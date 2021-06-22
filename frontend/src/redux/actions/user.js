@@ -10,6 +10,9 @@ export const REMOVE_PROFILE_PHOTO = 'REMOVE_PROFILE_PHOTO';
 export const UPDATE_LATE_CHAT_MSG = 'UPDATE_LATE_CHAT_MSG';
 export const ADD_LIKES = 'ADD_LIKES';
 export const ADD_DISLIKES = 'ADD_DISLIKES';
+export const ADD_LIKED_BY = 'ADD_LIKED_BY';
+export const REMOVE_LIKED_BY = 'REMOVE_LIKED_BY';
+export const ACCEPT_CHAT_REQUEST = 'ACCEPT_CHAT_REQUEST';
 
 const db = firebase.firestore();
 
@@ -95,31 +98,106 @@ export const addPreferences = data => dispatch => {
     });
 };
 
-export const addLikes = data => dispatch => {
+export const addLikes = likeUserId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
     .doc(userId)
-    .set(data, { merge: true })
+    .update({
+      likes: firebase.firestore.FieldValue.arrayUnion(likeUserId)
+    })
     .then(() => {
-      dispatch({ type: ADD_LIKES, userData: data });
+      dispatch({ type: ADD_LIKES, likeUserId: likeUserId });
     })
     .catch(err => {
       throw new Error(`Adding Likes: ${err}`);
     });
 };
 
-export const addDislikes = data => dispatch => {
+export const addDislikes = dislikeUserId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
     .doc(userId)
-    .set(data, { merge: true })
+    .update({
+      dislikes: firebase.firestore.FieldValue.arrayUnion(dislikeUserId)
+    })
     .then(() => {
-      dispatch({ type: ADD_DISLIKES, userData: data });
+      dispatch({ type: ADD_DISLIKES, dislikeUserId: dislikeUserId });
     })
     .catch(err => {
       throw new Error(`Adding Dislikes: ${err}`);
+    });
+};
+
+export const addLikedBy = receiverId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(receiverId)
+    .update({ likedBy: firebase.firestore.FieldValue.arrayUnion(userId) })
+    .then(() => {
+      dispatch({ type: ADD_LIKED_BY, id: userId });
+    })
+    .catch(err => {
+      throw new Error(`Add Liked By: ${err}`);
+    });
+};
+
+export const addAcceptChatRequest = receiverId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('chats')
+    .add({
+      chatId: '',
+      latestMessage: {}
+    })
+    .then(docReference => {
+      const docId = docReference.id;
+
+      docReference
+        .set({ chatId: docId }, { merge: true })
+        .then(() => {
+          db.collection('users')
+            .doc(userId)
+            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
+            .then(() => {
+              dispatch({ type: ACCEPT_CHAT_REQUEST, chatId: docId });
+            })
+            .catch(err => {
+              throw new Error(`Update User's Chats: ${err}`);
+            });
+
+          db.collection('users')
+            .doc(receiverId)
+            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
+            .then(() => {
+              return;
+            })
+            .catch(err => {
+              throw new Error(`Update Receiver's Chats: ${err}`);
+            });
+        })
+        .catch(err => {
+          throw new Error(`Update Chat Room: ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Add Chat Room: ${err}`);
+    });
+};
+
+export const removeLikedBy = removeId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .update({ likedBy: firebase.firestore.FieldValue.arrayRemove(removeId) })
+    .then(() => {
+      dispatch({ type: REMOVE_LIKED_BY, id: removeId });
+    })
+    .catch(err => {
+      throw new Error(`Add Liked By: ${err}`);
     });
 };
 
