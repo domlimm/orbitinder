@@ -10,6 +10,8 @@ export const REMOVE_PROFILE_PHOTO = 'REMOVE_PROFILE_PHOTO';
 export const UPDATE_LATE_CHAT_MSG = 'UPDATE_LATE_CHAT_MSG';
 export const ADD_LIKES = 'ADD_LIKES';
 export const ADD_DISLIKES = 'ADD_DISLIKES';
+export const ADD_LIKED_BY = 'ADD_LIKED_BY';
+export const REMOVE_LIKED_BY = 'REMOVE_LIKED_BY';
 
 const db = firebase.firestore();
 
@@ -124,6 +126,34 @@ export const addDislikes = dislikeUserId => dispatch => {
     })
     .catch(err => {
       throw new Error(`Adding Dislikes: ${err}`);
+    });
+};
+
+export const addLikedBy = receiverId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(receiverId)
+    .update({ likedBy: firebase.firestore.FieldValue.arrayUnion(userId) })
+    .then(() => {
+      dispatch({ type: ADD_LIKED_BY, id: userId });
+    })
+    .catch(err => {
+      throw new Error(`Add Liked By: ${err}`);
+    });
+};
+
+export const removeLikedBy = removeId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .update({ likedBy: firebase.firestore.FieldValue.arrayRemove(removeId) })
+    .then(() => {
+      dispatch({ type: REMOVE_LIKED_BY, id: removeId });
+    })
+    .catch(err => {
+      throw new Error(`Add Liked By: ${err}`);
     });
 };
 

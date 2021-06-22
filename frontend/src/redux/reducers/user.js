@@ -8,7 +8,9 @@ import {
   REMOVE_PROFILE_PHOTO,
   UPDATE_LATE_CHAT_MSG,
   ADD_LIKES,
-  ADD_DISLIKES
+  ADD_DISLIKES,
+  ADD_LIKED_BY,
+  REMOVE_LIKED_BY
 } from '../actions/user';
 
 const initialState = {
@@ -51,6 +53,22 @@ export default (state = initialState, action) => {
         userData: {
           ...state.userData,
           dislikes: [...state.userData.dislikes, action.dislikeUserId]
+        }
+      };
+    case ADD_LIKED_BY:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedBy: [...state.userData.likedBy, action.id]
+        }
+      };
+    case REMOVE_LIKED_BY:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedBy: state.userData.likedBy.filter(id => id !== action.id)
         }
       };
     case GET_USER_DATA:
