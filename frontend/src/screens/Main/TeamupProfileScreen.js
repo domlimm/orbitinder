@@ -138,7 +138,9 @@ const TeamupProfileScreen = ({ navigation, route }) => {
           </Layout>
         </Layout>
         <Layout style={styles.contentContainer}>
-          <ContentCard type={'bio'} data={background.biography} />
+          {background.biography.length > 0 && (
+            <ContentCard type={'bio'} data={background.biography} />
+          )}
           {background.interests.length > 0 && (
             <Card style={styles.contentCard} disabled>
               <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
