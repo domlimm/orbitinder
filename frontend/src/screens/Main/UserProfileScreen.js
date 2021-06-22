@@ -20,7 +20,6 @@ import { useSelector } from 'react-redux';
 import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
 import dayjs from 'dayjs';
-import { FontAwesome } from '@expo/vector-icons';
 
 import {
   ContentCard,
