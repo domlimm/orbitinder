@@ -166,11 +166,23 @@ const TeamUpScreen = ({ navigation }) => {
         .doc(currUser.id)
         .get()
         .then(res => {
-          console.log('does res exist');
           if (res.exists) {
             const updatedUser = res.data();
-            console.log(updatedUser.likes);
-            console.log(updatedUser.dislikes);
+            const allLikesDislikes = updatedUser.likes.concat(
+              updatedUser.dislikes
+            );
+            const allrecodata = recoData.map(a => a.id);
+            if (
+              recoData.length != 0 &&
+              allrecodata.every(i => allLikesDislikes.includes(i))
+            ) {
+              setRecoBtn(false);
+            } else if (
+              recoData.length != 0 &&
+              !allrecodata.every(i => allLikesDislikes.includes(i))
+            ) {
+              setRecoBtn(true);
+            }
             if (
               usersData != undefined &&
               usersData.length != 0 &&
@@ -191,7 +203,7 @@ const TeamUpScreen = ({ navigation }) => {
       // Unsubscribe for the focus Listener
       unsubscribeFocus;
     };
-  }, [navigation, usersData, currUser]);
+  }, [navigation, usersData, currUser, recoData]);
   // }, [navigation, sortedUsers, usersData, currUser]);
 
   return (
