@@ -143,6 +143,49 @@ export const addLikedBy = receiverId => dispatch => {
     });
 };
 
+export const addAcceptChatRequest = receiverId => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('chats')
+    .add({
+      chatId: '',
+      latestMessage: {}
+    })
+    .then(docReference => {
+      const docId = docReference.id;
+
+      docReference
+        .set({ chatId: docId }, { merge: true })
+        .then(() => {
+          db.collection('users')
+            .doc(userId)
+            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
+            .then(() => {
+              // update redux store for current User's chats
+            })
+            .catch(err => {
+              throw new Error(`Update User's Chats: ${err}`);
+            });
+
+          db.collection('users')
+            .doc(receiverId)
+            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
+            .then(() => {
+              return;
+            })
+            .catch(err => {
+              throw new Error(`Update Receiver's Chats: ${err}`);
+            });
+        })
+        .catch(err => {
+          throw new Error(`Update Chat Room: ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Add Chat Room: ${err}`);
+    });
+};
+
 export const removeLikedBy = removeId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
