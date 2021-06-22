@@ -56,7 +56,8 @@ const InputBackgroundScreen3 = ({ route, navigation }) => {
       updatedAt: new Date().toISOString(),
       likes: [],
       dislikes: [],
-      chats: []
+      chats: [],
+      likedBy: []
     };
 
     try {
