@@ -34,7 +34,7 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         sweExperience: displaySWE,
         biography: bio,
         github: `https://github.com/${github}`,
-        linkedin: `https://www.linkedin.com/${linkedin}`
+        linkedin: `https://www.linkedin.com/in/${linkedin}`
       }
     });
   };
