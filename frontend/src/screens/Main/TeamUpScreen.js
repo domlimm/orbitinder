@@ -146,7 +146,7 @@ const TeamUpScreen = ({ navigation }) => {
   }, [usersData, prefsObj]);
 
   const handleRecoBtn = () => {
-    // setRecoBtn(false);
+    setRecoBtn(false);
     navProps.navigation.navigate({
       name: 'RecoUser',
       params: {
@@ -292,18 +292,7 @@ const TeamUpScreen = ({ navigation }) => {
             style={styles.floatingButtonStyle}
           />
         </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.touchableOpacityStyle}
-          disabled={true}
-        >
-          <Image
-            source={require('../../assets/images/shine-grey.png')}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
-      )}
+      ) : null}
     </Layout>
   );
 };

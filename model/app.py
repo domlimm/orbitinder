@@ -34,10 +34,10 @@ def get_recommendations():
   final_reco_id = []
   model = Doc2Vec.load("doc2vec")
   # listing space embeddings
-  mv_tags_vectors = model.docvecs.vectors
+  mv_tags_vectors = model.dv.vectors
 
-  # likesArr= ['nZP5NZdkP6QNItNUU8K7IO86dcY2','rDUMUtqVMKdC2AiQ8QEQO8pbLkM2']
-  # dislikesArr= ['UXBxSVvhbyf6bhnz5wmZunFgO733','xkEv26Z4KhY0xBSomiIfM2PxFH52']
+  # likesArr= ['nZP5NZdkP6QNItNUU8K7IO86dcY2','rDUMUtqVMKdC2AiQ8QEQO8pbLkM2','OMxShDQF4xaSatbUkgontnR03Tk1']
+  # dislikesArr= ['HIX1Dbf1g2Y5dApp2IOZaY8E1it1','xkEv26Z4KhY0xBSomiIfM2PxFH52']
   dislikesArr = request.json['dislikes']
   likesArr = request.json['likes']
 
@@ -56,15 +56,9 @@ def get_recommendations():
     if reco_uid not in likesArr and reco_uid not in dislikesArr:
       final_reco_id.append(reco_uid)
       print(i+" " +reco_uid.strip() + " "+ str(j))
+  # print((get_reco_objs(final_reco_id)))
   return jsonify(get_reco_objs(final_reco_id))
   # return json.loads(users_df.to_json())
-
-  
-
-
-
-
-
 
 if __name__ == '__main__':
   app.run(debug=True)
