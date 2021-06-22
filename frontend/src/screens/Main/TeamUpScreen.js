@@ -292,7 +292,18 @@ const TeamUpScreen = ({ navigation }) => {
             style={styles.floatingButtonStyle}
           />
         </TouchableOpacity>
-      ) : null}
+      ) : (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.touchableOpacityStyle}
+          disabled={true}
+        >
+          <Image
+            source={require('../../assets/images/shine-grey.png')}
+            style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
+      )}
     </Layout>
   );
 };
