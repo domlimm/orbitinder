@@ -45,7 +45,23 @@ const PrefInputScreen2 = ({ route, navigation }) => {
 
     try {
       dispatch(userActions.addPreferences(preferences));
-
+      // new user registers => call model to train on new set of data => save model in heroku
+      const requestOptions = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      };
+      fetch(
+        'https://orbitinder-recommend.herokuapp.com/train_model',
+        requestOptions
+      )
+        .then(r => r.toString())
+        .then(data => {
+          console.log(data);
+        });
       setError(null);
       setLoading(true);
 
