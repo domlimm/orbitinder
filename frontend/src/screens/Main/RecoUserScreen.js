@@ -31,12 +31,8 @@ const RecoUserScreen = ({ navigation, route }) => {
 
   const onSwipedLeft = index => {
     //dislike
-    const dislikes = {
-      dislikes: [...currUser.dislikes, recoData[index].id]
-    };
-
     try {
-      dispatch(userActions.addDislikes(dislikes));
+      dispatch(userActions.addDislikes(recoData[index].id));
     } catch (err) {
       console.log(err.message);
     }
@@ -48,12 +44,9 @@ const RecoUserScreen = ({ navigation, route }) => {
   const onSwipedRight = index => {
     //like
     if (recoData.length != 0) {
-      const likes = {
-        likes: [...currUser.likes, recoData[index].id]
-      };
-
       try {
-        dispatch(userActions.addLikes(likes));
+        dispatch(userActions.addLikes(recoData[index].id));
+        dispatch(userActions.addLikedBy(recoData[index].id));
       } catch (err) {
         console.log(err.message);
       }
