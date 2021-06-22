@@ -1,5 +1,12 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Image } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Linking,
+  TouchableOpacity
+} from 'react-native';
 import {
   Layout,
   Text,
@@ -60,7 +67,13 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             style={styles.backIcon}
           />
         </Layout>
-        <Layout style={styles.smallHeaderContainer}>
+        <Layout
+          style={[
+            background.github || background.linkedin
+              ? styles.headerContainer
+              : styles.smallHeaderContainer
+          ]}
+        >
           <IconBadge
             MainElement={
               <>
@@ -94,6 +107,34 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
+          </Layout>
+          <Layout style={{ flexDirection: 'row', backgroundColor: '#407bff' }}>
+            {background.linkedin && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(background.linkedin).catch(err =>
+                    console.error('An error occurred', err)
+                  );
+                }}
+              >
+                <Icon
+                  style={styles.icon}
+                  fill='white'
+                  name='linkedin-outline'
+                />
+              </TouchableOpacity>
+            )}
+            {background.github && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(background.github).catch(err =>
+                    console.error('An error occurred', err)
+                  );
+                }}
+              >
+                <Icon style={styles.icon} fill='white' name='github-outline' />
+              </TouchableOpacity>
+            )}
           </Layout>
         </Layout>
         <Layout style={styles.contentContainer}>
@@ -186,7 +227,8 @@ const styles = StyleSheet.create({
     height: 25,
     justifyContent: 'flex-start',
     backgroundColor: '#407BFF',
-    flex: 1
+    // flex: 1
+    marginHorizontal: 8
   },
   headerContainer: {
     flex: 1,
