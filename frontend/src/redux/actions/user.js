@@ -149,8 +149,7 @@ export const addAcceptChatRequest = receiverId => dispatch => {
 
   db.collection('chats')
     .add({
-      chatId: '',
-      latestMessage: {}
+      chatId: ''
     })
     .then(docReference => {
       const docId = docReference.id;
