@@ -11,6 +11,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
   const userData = useSelector(state => state.user.userData);
   const usersData = useSelector(state => state.users.usersData);
   const [initial, setInitial] = useState(true);
+  const [chats, setChats] = useState([]);
   const [chatsLatestMsg, setChatsLatestMsg] = useState([]);
 
   const navigateChat = data => {
@@ -19,6 +20,28 @@ const ChatsOverviewScreen = ({ navigation }) => {
       params: { userData: data }
     });
   };
+
+  useEffect(() => {
+    if (userData.chats.length === 0) {
+      return;
+    }
+
+    const chatsListener = firebase
+      .firestore()
+      .collection('users')
+      .doc(firebase.auth().currentUser.uid)
+      .onSnapshot(querySnapshot => {
+        if (initial) {
+          setChats(userData.chats);
+          setInitial(false);
+        } else {
+          const latestChats = querySnapshot.data().chats;
+          setChats(latestChats);
+        }
+      });
+
+    return () => chatsListener();
+  }, []);
 
   useEffect(() => {
     if (userData.chats.length === 0) {
@@ -46,7 +69,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
       <Layout style={styles.chatsContainer}>
         {userData.chatsLatestMessage?.length > 0 ? (
           <FlatList
-            data={userData.chats}
+            data={chats}
             renderItem={({ item }) => {
               const peer = usersData.filter(data =>
                 data.chats?.includes(item)
@@ -70,7 +93,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
               );
             }}
             keyExtractor={item => item}
-            extraData={userData.chatsLatestMessage}
+            extraData={chats}
           />
         ) : (
           <Layout style={styles.emptyContainer}>
