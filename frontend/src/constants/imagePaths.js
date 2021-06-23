@@ -16,5 +16,7 @@ export const localImages = [
   require('../assets/images/pref-landing-img.png'),
   require('../assets/images/profile-interface.png'),
   require('../assets/images/save-icon.png'),
+  require('../assets/images/shine-grey.png'),
+  require('../assets/images/shine.png'),
   require('../assets/images/splash.png')
 ];
