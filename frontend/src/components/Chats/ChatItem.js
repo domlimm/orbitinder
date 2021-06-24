@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Pressable, Image } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import dayjs from 'dayjs';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ currentUid, peer, chatId, onPress, latestChat }) => {
+const ChatItem = ({ peer, currentUid, chatId, onPress, latestChat }) => {
+  React.useEffect(() => {
+    console.log('chatitem peer', peer);
+  }, []);
+
   let message = '',
     timestamp = '',
     id = '';

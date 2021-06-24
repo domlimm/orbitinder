@@ -8,7 +8,6 @@ import firebase from '../../firebase/index';
 import { RequestItem } from '../../components/index';
 
 const RequestsScreen = () => {
-  const userData = useSelector(state => state.user.userData);
   const usersData = useSelector(state => state.users.usersData);
   const [requests, setRequests] = useState([]);
 

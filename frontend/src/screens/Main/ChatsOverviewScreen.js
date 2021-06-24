@@ -8,11 +8,14 @@ import firebase from '../../firebase/index';
 import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
+  const currentUid = firebase.auth().currentUser.uid;
+
   const userData = useSelector(state => state.user.userData);
-  const usersData = useSelector(state => state.users.usersData);
   const [initial, setInitial] = useState(true);
   const [chats, setChats] = useState([]);
   const [chatsLatestMsg, setChatsLatestMsg] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const [usersData, setUsersData] = useState([]);
 
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
@@ -22,41 +25,53 @@ const ChatsOverviewScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (userData.chats.length === 0) {
-      return;
-    }
+    const usersDataListener = firebase
+      .firestore()
+      .collection('users')
+      .onSnapshot(querySnapshot => {
+        let data = [];
 
+        querySnapshot.forEach(doc => {
+          if (doc.id !== currentUid) {
+            data.push({ id: doc.id, ...doc.data() });
+          }
+        });
+
+        setUsersData(data);
+      });
+
+    return () => usersDataListener();
+  }, []);
+
+  useEffect(() => {
     const chatsListener = firebase
       .firestore()
       .collection('users')
       .doc(firebase.auth().currentUser.uid)
       .onSnapshot(querySnapshot => {
-        if (initial) {
-          setChats(userData.chats);
-          setInitial(false);
-        } else {
-          const latestChats = querySnapshot.data().chats;
-          setChats(latestChats);
-        }
+        const latestChats = querySnapshot.data().chats;
+        setRefresh(true);
+        setChats(latestChats);
       });
 
     return () => chatsListener();
   }, []);
 
   useEffect(() => {
-    if (userData.chats.length === 0) {
+    if (chats.length === 0) {
       return;
     }
 
     const latestMsgListener = firebase
       .firestore()
       .collection('chats')
-      .where('chatId', 'in', userData.chats)
+      .where('chatId', 'in', chats)
       .onSnapshot(querySnapshot => {
         if (initial) {
           setInitial(false);
         } else {
           const latestMsgs = querySnapshot.docs.map(doc => doc.data());
+          setRefresh(true);
           setChatsLatestMsg(latestMsgs);
         }
       });
@@ -67,30 +82,67 @@ const ChatsOverviewScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
-        {userData.chatsLatestMessage?.length > 0 ? (
+        {chats.length > 0 ? (
           <FlatList
             data={chats}
             renderItem={({ item }) => {
-              const peer = usersData.filter(data =>
-                data.chats?.includes(item)
-              )[0];
-              let latestChat =
-                chatsLatestMsg.length > 0
-                  ? chatsLatestMsg.filter(data => data.chatId === item)[0]
-                  : userData.chatsLatestMessage?.filter(
-                      data => data.chatId === item
-                    )[0];
+              // let peer;
+              // peer = usersData.filter(data => data.chats.includes(item))[0];
+              // let latestChat =
+              //   chatsLatestMsg.length > 0
+              //     ? chatsLatestMsg.filter(data => data.chatId === item)[0]
+              //     : {};
 
-              return (
-                <ChatItem
-                  key={peer.id}
-                  currentUid={userData.id}
-                  latestChat={latestChat}
-                  chatId={item}
-                  peer={peer}
-                  onPress={navigateChat}
-                />
-              );
+              // if (peer === undefined) {
+              firebase
+                .firestore()
+                .collection('users')
+                .where('chats', 'array-contains', item)
+                .get()
+                .then(querySnapshot => {
+                  let data = [];
+
+                  let latestChat =
+                    chatsLatestMsg.length > 0
+                      ? chatsLatestMsg.filter(data => data.chatId === item)[0]
+                      : {};
+
+                  querySnapshot.forEach(doc => {
+                    if (doc.id !== currentUid) {
+                      data.push({ id: doc.id, ...doc.data() });
+                    }
+                  });
+
+                  console.log(
+                    'undefined',
+                    data.filter(user => user.chats.includes(item))[0]
+                  );
+
+                  return (
+                    <ChatItem
+                      key={item}
+                      currentUid={userData.id}
+                      latestChat={latestChat}
+                      chatId={item}
+                      peer={data.filter(user => user.chats.includes(item))[0]}
+                      onPress={navigateChat}
+                    />
+                  );
+                });
+              // }
+
+              // console.log('!undefined', peer);
+
+              // return (
+              //   <ChatItem
+              //     key={item}
+              //     currentUid={userData.id}
+              //     latestChat={latestChat}
+              //     chatId={item}
+              //     peer={peer}
+              //     onPress={navigateChat}
+              //   />
+              // );
             }}
             keyExtractor={item => item}
             extraData={chats}
