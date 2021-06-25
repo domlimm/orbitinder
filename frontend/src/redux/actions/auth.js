@@ -36,17 +36,8 @@ export const signUp =
           err.code === 'auth/weak-password';
 
         if (hasError) {
-          if (err.code === 'auth/email-already-in-use') {
-            message = message.concat('\nEmail is already in use.');
-          }
-          if (err.code === 'auth/invalid-email') {
-            message = message.concat('\nInvalid Email');
-          }
-          if (err.code === 'auth/weak-password') {
-            message = message.concat(' \nWeak Password');
-          }
+          message = 'Invalid Credentials! ';
         }
-        console.log(message);
         throw new Error(message);
       });
   };
