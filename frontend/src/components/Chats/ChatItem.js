@@ -2,49 +2,42 @@ import React from 'react';
 import { StyleSheet, Pressable, Image } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ peer, currentUid, chatId, onPress, latestChat }) => {
-  React.useEffect(() => {
-    console.log('chatitem peer', peer);
-  }, []);
+const ChatItem = ({ chatData, currentUid, onPress }) => {
+  // const usersData = useSelector(state => state.users.usersData);
+  const { name, imagePath } = chatData.participants.filter(
+    user => user.id !== currentUid
+  )[0];
+
+  console.log(name, imagePath);
 
   let message = '',
     timestamp = '',
     id = '';
 
-  if (latestChat.latestMessage !== undefined) {
-    message = latestChat.latestMessage.message;
-    timestamp = latestChat.latestMessage.timestamp;
-    id = latestChat.latestMessage.id;
+  if (chatData.latestMessage !== undefined) {
+    message = chatData.latestMessage.message;
+    timestamp = chatData.latestMessage.timestamp;
+    id = chatData.latestMessage.id;
   }
 
   return (
-    <Pressable
-      style={styles.cardContainer}
-      onPress={() =>
-        onPress({
-          peerData: peer,
-          chatId: chatId,
-          id: peer.id,
-          name: peer.name,
-          imagePath: peer.imagePath
-        })
-      }
-    >
+    <Pressable style={styles.cardContainer} onPress={() => onPress({})}>
       <Layout style={styles.avatarContainer}>
-        {peer.imagePath.length > 0 ? (
-          <Image source={{ uri: peer.imagePath }} style={styles.avatar} />
+        {imagePath.length > 0 ? (
+          <Image source={{ uri: imagePath }} style={styles.avatar} />
         ) : (
-          <UserAvatar name={peer.name} size={50} fontSize={22} />
+          <UserAvatar name={name} size={50} fontSize={22} />
         )}
       </Layout>
       <Layout style={styles.detailsContainer}>
         <Layout style={styles.topChatContainer}>
           <Layout style={styles.nameContainer}>
             <Text category='h6' style={styles.name}>
-              {peer.name}
+              {name}
             </Text>
           </Layout>
           <Layout style={styles.timeContainer}>

@@ -9,6 +9,7 @@ import { RequestItem } from '../../components/index';
 
 const RequestsScreen = () => {
   const usersData = useSelector(state => state.users.usersData);
+  const userData = useSelector(state => state.user.userData);
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -34,7 +35,9 @@ const RequestsScreen = () => {
             renderItem={({ item }) => {
               const senderData = usersData.filter(data => data.id === item)[0];
 
-              return <RequestItem senderData={senderData} />;
+              return (
+                <RequestItem receiverData={userData} senderData={senderData} />
+              );
             }}
             keyExtractor={item => item}
             showsVerticalScrollIndicator={false}

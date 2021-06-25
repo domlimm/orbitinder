@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const RequestItem = ({ senderData }) => {
+const RequestItem = ({ receiverData, senderData }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -53,7 +53,13 @@ const RequestItem = ({ senderData }) => {
         size='small'
         status='success'
         onPress={() =>
-          dispatch(userActions.addAcceptChatRequest(senderData.id))
+          dispatch(
+            userActions.addAcceptChatRequest(
+              senderData.id,
+              receiverData,
+              senderData
+            )
+          )
         }
       />
       <Button

@@ -144,48 +144,64 @@ export const addLikedBy = receiverId => dispatch => {
     });
 };
 
-export const addAcceptChatRequest = senderId => dispatch => {
-  const userId = firebase.auth().currentUser.uid;
+export const addAcceptChatRequest =
+  (senderId, receiverData, senderData) => dispatch => {
+    const userId = firebase.auth().currentUser.uid;
 
-  db.collection('chats')
-    .add({
-      chatId: '',
-      participants: [userId, senderId]
-    })
-    .then(docReference => {
-      const docId = docReference.id;
+    db.collection('chats')
+      .add({
+        chatId: '',
+        participants: [
+          {
+            id: userId,
+            name: receiverData.name,
+            imagePath: receiverData.imagePath
+          },
+          {
+            id: senderId,
+            name: senderData.name,
+            imagePath: senderData.imagePath
+          }
+        ]
+      })
+      .then(docReference => {
+        const docId = docReference.id;
 
-      docReference
-        .set({ chatId: docId }, { merge: true })
-        .then(() => {
-          db.collection('users')
-            .doc(userId)
-            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
-            .then(() => {
-              dispatch({ type: ACCEPT_CHAT_REQUEST, chatId: docId });
-            })
-            .catch(err => {
-              throw new Error(`Update User's Chats: ${err}`);
-            });
+        docReference
+          .set({ chatId: docId }, { merge: true })
+          .then(() => {
+            db.collection('users')
+              .doc(userId)
+              .update({
+                chats: firebase.firestore.FieldValue.arrayUnion(docId)
+              })
+              .then(() => {
+                dispatch({ type: ACCEPT_CHAT_REQUEST, chatId: docId });
+              })
+              .catch(err => {
+                throw new Error(`Update User's Chats: ${err}`);
+              });
 
-          db.collection('users')
-            .doc(senderId)
-            .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
-            .then(() => {
-              return;
-            })
-            .catch(err => {
-              throw new Error(`Update Sender's Chats: ${err}`);
-            });
-        })
-        .catch(err => {
-          throw new Error(`Update Chat Room: ${err}`);
-        });
-    })
-    .catch(err => {
-      throw new Error(`Add Chat Room: ${err}`);
-    });
-};
+            db.collection('users')
+              .doc(senderId)
+              .update({
+                chats: firebase.firestore.FieldValue.arrayUnion(docId)
+              })
+              .then(() => {
+                return;
+              })
+              .catch(err => {
+                throw new Error(`Update Sender's Chats: ${err}`);
+              });
+          })
+          .catch(err => {
+            throw new Error(`Update Chat Room: ${err}`);
+          });
+      })
+      .catch(err => {
+        throw new Error(`Add Chat Room: ${err}`);
+      });
+  };
 
 export const removeLikedBy = removeId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
