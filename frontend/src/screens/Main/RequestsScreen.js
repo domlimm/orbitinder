@@ -34,17 +34,7 @@ const RequestsScreen = () => {
             renderItem={({ item }) => {
               const senderData = usersData.filter(data => data.id === item)[0];
 
-              return (
-                <RequestItem
-                  receiverId={senderData.id}
-                  userData={senderData}
-                  name={senderData.name}
-                  imagePath={senderData.imagePath}
-                  year={senderData.background.year}
-                  degree={senderData.background.degree}
-                  biography={senderData.background.biography}
-                />
-              );
+              return <RequestItem senderData={senderData} />;
             }}
             keyExtractor={item => item}
             showsVerticalScrollIndicator={false}

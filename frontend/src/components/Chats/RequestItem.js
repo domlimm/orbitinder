@@ -7,22 +7,14 @@ import { useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const RequestItem = ({
-  userData,
-  name,
-  imagePath,
-  year,
-  degree,
-  biography,
-  receiverId
-}) => {
+const RequestItem = ({ senderData }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const showProfile = () => {
     navigation.navigate('ChatStackNavigator', {
       screen: 'UserProfile',
-      params: { profileData: userData }
+      params: { profileData: senderData }
     });
   };
 
@@ -36,18 +28,18 @@ const RequestItem = ({
   const Header = () => (
     <View style={styles.headerContainer}>
       <View style={styles.avatarContainer}>
-        {imagePath.length > 0 ? (
-          <Image source={{ uri: imagePath }} style={styles.avatar} />
+        {senderData.imagePath.length > 0 ? (
+          <Image source={{ uri: senderData.imagePath }} style={styles.avatar} />
         ) : (
-          <UserAvatar name={name} size={50} fontSize={22} />
+          <UserAvatar name={senderData.name} size={50} fontSize={22} />
         )}
       </View>
       <View style={styles.detailsContainer}>
         <View style={styles.details}>
           <Text category='h6' style={styles.name}>
-            {name}
+            {senderData.name}
           </Text>
-          <Text>{`${year} - ${degree}`}</Text>
+          <Text>{`${senderData.background.year} - ${senderData.background.degree}`}</Text>
         </View>
       </View>
     </View>
@@ -60,7 +52,9 @@ const RequestItem = ({
         accessoryLeft={AcceptIcon}
         size='small'
         status='success'
-        onPress={() => dispatch(userActions.addAcceptChatRequest(receiverId))}
+        onPress={() =>
+          dispatch(userActions.addAcceptChatRequest(senderData.id))
+        }
       />
       <Button
         style={styles.footerControl}
@@ -80,7 +74,7 @@ const RequestItem = ({
         status='primary'
         onPress={showProfile}
       >
-        <Text>{biography}</Text>
+        <Text>{senderData.background.biography}</Text>
       </Card>
     </Fragment>
   );

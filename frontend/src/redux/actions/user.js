@@ -144,12 +144,13 @@ export const addLikedBy = receiverId => dispatch => {
     });
 };
 
-export const addAcceptChatRequest = receiverId => dispatch => {
+export const addAcceptChatRequest = senderId => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('chats')
     .add({
-      chatId: ''
+      chatId: '',
+      participants: [userId, senderId]
     })
     .then(docReference => {
       const docId = docReference.id;
@@ -168,13 +169,13 @@ export const addAcceptChatRequest = receiverId => dispatch => {
             });
 
           db.collection('users')
-            .doc(receiverId)
+            .doc(senderId)
             .update({ chats: firebase.firestore.FieldValue.arrayUnion(docId) })
             .then(() => {
               return;
             })
             .catch(err => {
-              throw new Error(`Update Receiver's Chats: ${err}`);
+              throw new Error(`Update Sender's Chats: ${err}`);
             });
         })
         .catch(err => {
