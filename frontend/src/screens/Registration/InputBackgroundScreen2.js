@@ -33,8 +33,8 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         idea: displayIdea,
         sweExperience: displaySWE,
         biography: bio,
-        github: github ? `https://github.com/${github}` : '',
-        linkedin: linkedin ? `https://www.linkedin.com/in/${linkedin}` : ''
+        github: github ? `https://github.com/${github}` : null,
+        linkedin: linkedin ? `https://www.linkedin.com/in/${linkedin}` : null
       }
     });
   };
