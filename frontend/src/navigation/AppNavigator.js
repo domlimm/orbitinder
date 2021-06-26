@@ -12,10 +12,14 @@ import RegisterNavigator from './RegisterNavigator';
 import * as authActions from '../redux/actions/auth';
 import * as userActions from '../redux/actions/user';
 import * as usersActions from '../redux/actions/users';
+import { navigationRef } from '../navigation/RootNavigation';
+import useNotifications from '../hooks/useNotifications';
 
 const App = createStackNavigator();
 
 const AppNavigator = () => {
+  useNotifications();
+
   const [authenticated, setAuthenticated] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -58,7 +62,7 @@ const AppNavigator = () => {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <App.Navigator headerMode='none'>
         {authenticated && !isRegistering && !isLoading ? (
           <App.Screen name='DrawerNavigator' component={DrawerNavigator} />

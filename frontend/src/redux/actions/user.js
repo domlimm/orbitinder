@@ -151,7 +151,10 @@ export const addLikedBy = receiverData => dispatch => {
         body: JSON.stringify({
           to: receiverData.userPushToken,
           title: `${receiverData.name} has swiped right on you!`,
-          body: 'Click here for more information on it.'
+          body: 'Click here for more information on it.',
+          data: {
+            screen: 'RequestsOverview'
+          }
         })
       });
     })
