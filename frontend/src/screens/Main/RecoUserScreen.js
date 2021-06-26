@@ -10,6 +10,7 @@ import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
 const RecoUserScreen = ({ navigation, route }) => {
+  const usersData = useSelector(state => state.users.usersData);
   const currUser = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
@@ -46,7 +47,12 @@ const RecoUserScreen = ({ navigation, route }) => {
     if (recoData.length != 0) {
       try {
         dispatch(userActions.addLikes(recoData[index].id));
-        dispatch(userActions.addLikedBy(recoData[index].id));
+        dispatch(
+          userActions.addLikedBy(
+            usersData.filter(user => user.id === recoData[index].id)[0],
+            currUser
+          )
+        );
       } catch (err) {
         console.log(err.message);
       }

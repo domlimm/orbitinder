@@ -55,7 +55,8 @@ const TeamUpScreen = ({ navigation }) => {
         dispatch(userActions.addLikes(sortedUsers[index].id));
         dispatch(
           userActions.addLikedBy(
-            usersData.filter(user => user.id === sortedUsers[index].id)[0]
+            usersData.filter(user => user.id === sortedUsers[index].id)[0],
+            currUser
           )
         );
       } catch (err) {

@@ -132,7 +132,7 @@ export const addDislikes = dislikeUserId => dispatch => {
     });
 };
 
-export const addLikedBy = receiverData => dispatch => {
+export const addLikedBy = (receiverData, senderData) => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
@@ -150,7 +150,7 @@ export const addLikedBy = receiverData => dispatch => {
         },
         body: JSON.stringify({
           to: receiverData.userPushToken,
-          title: `${receiverData.name} has swiped right on you!`,
+          title: `${senderData.name} has swiped right on you!`,
           body: 'Click here for more information on it.',
           data: {
             screen: 'RequestsOverview'
@@ -207,7 +207,22 @@ export const addAcceptChatRequest =
                 chats: firebase.firestore.FieldValue.arrayUnion(docId)
               })
               .then(() => {
-                return;
+                fetch('https://exp.host/--/api/v2/push/send', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Accept-Encoding': 'gzip,deflate',
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    to: senderData.userPushToken,
+                    title: `${receiverData.name} has accepted your chat request!`,
+                    body: 'Click here for more information on it.',
+                    data: {
+                      screen: 'ChatsOverview'
+                    }
+                  })
+                });
               })
               .catch(err => {
                 throw new Error(`Update Sender's Chats: ${err}`);
