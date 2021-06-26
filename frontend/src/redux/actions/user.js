@@ -132,14 +132,28 @@ export const addDislikes = dislikeUserId => dispatch => {
     });
 };
 
-export const addLikedBy = receiverId => dispatch => {
+export const addLikedBy = receiverData => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
   db.collection('users')
-    .doc(receiverId)
+    .doc(receiverData.id)
     .update({ likedBy: firebase.firestore.FieldValue.arrayUnion(userId) })
     .then(() => {
       dispatch({ type: ADD_LIKED_BY, id: userId });
+
+      fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Accept-Encoding': 'gzip,deflate',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          to: receiverData.userPushToken,
+          title: `${receiverData.name} has swiped right on you!`,
+          body: 'Click here for more information on it.'
+        })
+      });
     })
     .catch(err => {
       throw new Error(`Add Liked By: ${err}`);
