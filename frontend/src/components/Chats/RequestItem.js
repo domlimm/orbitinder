@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, View, Alert } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -45,6 +45,43 @@ const RequestItem = ({ receiverData, senderData }) => {
     </View>
   );
 
+  const acceptHandler = () => {
+    Alert.alert(
+      'Are you sure of your selection?',
+      `Accepting this request creates a new chat between you and ${senderData.name}. Thereafter, it will be removed.`,
+      [
+        {
+          text: 'Confirm',
+          style: 'destructive',
+          onPress: () =>
+            dispatch(
+              userActions.addAcceptChatRequest(
+                senderData.id,
+                receiverData,
+                senderData
+              )
+            )
+        },
+        { text: 'Cancel', style: 'cancel', onPress: () => {} }
+      ]
+    );
+  };
+
+  const rejectHandler = () => {
+    Alert.alert(
+      'Are you sure of your selection?',
+      `Declining removes this request permanently. You will have to wait for ${senderData.name} to send you another one, if ever.`,
+      [
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {}
+        },
+        { text: 'Cancel', style: 'cancel', onPress: () => {} }
+      ]
+    );
+  };
+
   const Footer = props => (
     <View {...props} style={[props.style, styles.footerContainer]}>
       <Button
@@ -52,21 +89,14 @@ const RequestItem = ({ receiverData, senderData }) => {
         accessoryLeft={AcceptIcon}
         size='small'
         status='success'
-        onPress={() =>
-          dispatch(
-            userActions.addAcceptChatRequest(
-              senderData.id,
-              receiverData,
-              senderData
-            )
-          )
-        }
+        onPress={acceptHandler}
       />
       <Button
         style={styles.footerControl}
         accessoryLeft={RejectIcon}
         size='small'
         status='danger'
+        onPress={rejectHandler}
       />
     </View>
   );
