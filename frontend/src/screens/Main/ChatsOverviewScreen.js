@@ -74,6 +74,16 @@ const ChatsOverviewScreen = ({ navigation }) => {
                 id: doc.id,
                 latestMessage: doc.data().latestMessage
               });
+            } else {
+              if (
+                doc.data().participants.filter(user => user.id === currentUid)
+                  .length > 0
+              ) {
+                queryArr.push({
+                  id: doc.id,
+                  latestMessage: doc.data().latestMessage
+                });
+              }
             }
           }
         });

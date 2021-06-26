@@ -13,7 +13,6 @@ const ChatItem = ({ chatData, currentUid, latestChat, onPress }) => {
   const peerData = useSelector(
     state => state.users.usersData.filter(user => user.id === id)[0]
   );
-
   let message = '',
     timestamp = '',
     latestId = '';
