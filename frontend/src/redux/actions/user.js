@@ -1,5 +1,7 @@
 import firebase from '../../firebase';
 
+import * as usersActions from './users';
+
 export const ADD_USER_PROFILE = 'ADD_USER_PROFILE';
 export const ADD_USER_PREFERENCES = 'ADD_USER_PREFERENCES';
 export const GET_USER_DATA = 'GET_USER_DATA';
@@ -202,6 +204,33 @@ export const addAcceptChatRequest =
         throw new Error(`Add Chat Room: ${err}`);
       });
   };
+
+export const rejectChatRequest = senderId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(senderId)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayRemove(userId),
+      dislikes: firebase.firestore.FieldValue.arrayUnion(userId)
+    })
+    .then(() => {
+      db.collection('users')
+        .doc(userId)
+        .update({
+          dislikes: firebase.firestore.FieldValue.arrayUnion(senderId)
+        })
+        .then(() => {
+          dispatch(usersActions.getAllUserData());
+        })
+        .catch(err => {
+          throw new Error(`Reject Chat Req (Update receiver): ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Reject Chat Req (Update sender): ${err}`);
+    });
+};
 
 export const removeLikedBy = removeId => dispatch => {
   const userId = firebase.auth().currentUser.uid;

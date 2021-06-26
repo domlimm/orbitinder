@@ -53,14 +53,16 @@ const RequestItem = ({ receiverData, senderData }) => {
         {
           text: 'Confirm',
           style: 'destructive',
-          onPress: () =>
+          onPress: () => {
             dispatch(
               userActions.addAcceptChatRequest(
                 senderData.id,
                 receiverData,
                 senderData
               )
-            )
+            );
+            dispatch(userActions.removeLikedBy(senderData.id));
+          }
         },
         { text: 'Cancel', style: 'cancel', onPress: () => {} }
       ]
@@ -75,7 +77,10 @@ const RequestItem = ({ receiverData, senderData }) => {
         {
           text: 'Remove',
           style: 'destructive',
-          onPress: () => {}
+          onPress: () => {
+            dispatch(userActions.rejectChatRequest(senderData.id));
+            dispatch(userActions.removeLikedBy(senderData.id));
+          }
         },
         { text: 'Cancel', style: 'cancel', onPress: () => {} }
       ]
