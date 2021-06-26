@@ -1,5 +1,5 @@
 import os, sys, json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import numpy as np
 import pandas as pd
@@ -17,6 +17,8 @@ def home():
 # @app.route('/train_model')
 @app.route('/train_model', methods=['POST'])
 def save_model():
+  if (request.json) :
+    return Response(status=403, mimetype='application/json')
   users_df = get_users_df() #fetches all user data from firestore
 
   # corpus of user background tags
@@ -30,6 +32,14 @@ def save_model():
 @app.route('/get_recommendations', methods=['POST'])
 # @app.route('/get_recommendations')
 def get_recommendations():
+  if (not request.json) :
+    return Response(status=400, mimetype='application/json')
+  elif (not request.json['dislikes'] and not request.json['likes']): # no likes no dislikes
+    return Response(status=400, mimetype='application/json')
+  elif (not request.json['dislikes']) : #no dislikes
+    return Response(status=400, mimetype='application/json')
+  elif (not request.jsoh['likes']) :
+    return Response(status=400, mimetype='application/json')
   users_df = get_users_df()
   final_reco_id = []
   model = Doc2Vec.load("doc2vec")
