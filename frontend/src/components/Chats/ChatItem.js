@@ -12,8 +12,6 @@ const ChatItem = ({ chatData, currentUid, onPress }) => {
     user => user.id !== currentUid
   )[0];
 
-  console.log(name, imagePath);
-
   let message = '',
     timestamp = '',
     id = '';
