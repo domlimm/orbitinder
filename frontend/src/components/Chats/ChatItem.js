@@ -7,23 +7,35 @@ import { useSelector } from 'react-redux';
 import UserAvatar from '../UserProfile/UserAvatar';
 
 const ChatItem = ({ chatData, currentUid, onPress }) => {
-  // const usersData = useSelector(state => state.users.usersData);
-  const { name, imagePath } = chatData.participants.filter(
+  const { id, name, imagePath } = chatData.participants.filter(
     user => user.id !== currentUid
   )[0];
+  const peerData = useSelector(
+    state => state.users.usersData.filter(user => user.id === id)[0]
+  );
 
   let message = '',
     timestamp = '',
-    id = '';
+    latestId = '';
 
   if (chatData.latestMessage !== undefined) {
     message = chatData.latestMessage.message;
     timestamp = chatData.latestMessage.timestamp;
-    id = chatData.latestMessage.id;
+    latestId = chatData.latestMessage.id;
   }
 
   return (
-    <Pressable style={styles.cardContainer} onPress={() => onPress({})}>
+    <Pressable
+      style={styles.cardContainer}
+      onPress={() =>
+        onPress({
+          name: name,
+          imagePath: imagePath,
+          chatId: chatData.chatId,
+          peerData: peerData
+        })
+      }
+    >
       <Layout style={styles.avatarContainer}>
         {imagePath.length > 0 ? (
           <Image source={{ uri: imagePath }} style={styles.avatar} />
@@ -47,7 +59,7 @@ const ChatItem = ({ chatData, currentUid, onPress }) => {
         <Layout style={styles.bottomChatContainer}>
           {message.length > 0 ? (
             <Text numberOfLines={1}>
-              {currentUid === id ? `You: ${message}` : message}
+              {currentUid === latestId ? `You: ${message}` : message}
             </Text>
           ) : (
             <Text>Click on here to start a conversation!</Text>
