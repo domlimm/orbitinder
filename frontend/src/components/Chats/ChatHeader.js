@@ -7,10 +7,11 @@ import {
   Text,
   Avatar
 } from '@ui-kitten/components';
+import { FontAwesome } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({ navProps, peerData }) => {
+const ChatHeader = ({ navProps, peerData, initiateHandshake }) => {
   const BackIcon = props => (
     <Icon
       {...props}
@@ -20,12 +21,20 @@ const ChatHeader = ({ navProps, peerData }) => {
     />
   );
 
+  const HandshakeIcon = () => (
+    <FontAwesome name='handshake-o' size={28} color='#407bff' />
+  );
+
   const navigateBack = () => {
     navProps.navigation.goBack();
   };
 
   const BackAction = () => (
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
+  );
+
+  const Handshake = () => (
+    <TopNavigationAction icon={HandshakeIcon} onPress={initiateHandshake} />
   );
 
   const renderTitle = peerData => {
@@ -59,6 +68,7 @@ const ChatHeader = ({ navProps, peerData }) => {
   return (
     <TopNavigation
       accessoryLeft={BackAction}
+      accessoryRight={Handshake}
       style={styles.topNav}
       title={() => renderTitle(peerData)}
     />

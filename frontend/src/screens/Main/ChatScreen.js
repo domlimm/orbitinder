@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { Layout, Divider, Text, Spinner } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import firebase from '../../firebase/index';
 import { useDispatch, useSelector } from 'react-redux';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 import * as userActions from '../../redux/actions/user';
 import { ChatHeader } from '../../components/index';
+
+const { width, height } = Dimensions.get('window');
 
 const ChatScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -16,6 +19,7 @@ const ChatScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
 
   const [messages, setMessages] = useState([]);
+  const [confetti, setConfetti] = useState(false);
 
   const { name, imagePath, chatId, peerData } = route.params.userData;
 
@@ -119,6 +123,10 @@ const ChatScreen = ({ navigation, route }) => {
 
   const renderLoading = () => <Spinner style={{ flex: 1 }} />;
 
+  const handshakeHandler = () => {
+    setConfetti(!confetti);
+  };
+
   const navProps = {
     navigation: navigation,
     name: name,
@@ -127,7 +135,18 @@ const ChatScreen = ({ navigation, route }) => {
 
   return (
     <Layout style={styles.mainContainer}>
-      <ChatHeader navProps={navProps} peerData={peerData} />
+      {confetti && (
+        <ConfettiCannon
+          count={180}
+          origin={{ x: -10, y: 0 }}
+          onAnimationEnd={handshakeHandler}
+        />
+      )}
+      <ChatHeader
+        navProps={navProps}
+        peerData={peerData}
+        initiateHandshake={handshakeHandler}
+      />
       <Divider />
       <GiftedChat
         messages={messages}
