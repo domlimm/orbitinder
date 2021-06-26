@@ -3,14 +3,17 @@ import { StyleSheet, FlatList } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import firebase from '../../firebase/index';
+import { useSelector } from 'react-redux';
 
 import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
+  const userData = useSelector(state => state.user.userData);
   const currentUid = firebase.auth().currentUser.uid;
 
   const [chatIds, setChatIds] = useState([]);
   const [chatsData, setChatsData] = useState([]);
+  const [latestChatsMessage, setLatestChatsMessage] = useState([]);
 
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
@@ -19,6 +22,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
     });
   };
 
+  // Listen for user's new chats
   useEffect(() => {
     const chatIdsListener = firebase
       .firestore()
@@ -31,6 +35,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
     return () => chatIdsListener();
   }, []);
 
+  // Listen for all user's chats
   useEffect(() => {
     firebase
       .firestore()
@@ -49,6 +54,36 @@ const ChatsOverviewScreen = ({ navigation }) => {
       });
   }, [setChatIds, chatIds]);
 
+  // Listen for all user's chats latest message to update UI
+  useEffect(() => {
+    const latestMsgsListener = firebase
+      .firestore()
+      .collection('chats')
+      .onSnapshot(querySnapshot => {
+        let queryArr = [];
+
+        querySnapshot.forEach(doc => {
+          if (chatIds.length > 0 && chatIds.includes(doc.id)) {
+            queryArr.push({
+              id: doc.id,
+              latestMessage: doc.data().latestMessage
+            });
+          } else {
+            if (userData.chats.includes(doc.id)) {
+              queryArr.push({
+                id: doc.id,
+                latestMessage: doc.data().latestMessage
+              });
+            }
+          }
+        });
+
+        setLatestChatsMessage(queryArr);
+      });
+
+    return () => latestMsgsListener();
+  }, []);
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
@@ -60,11 +95,18 @@ const ChatsOverviewScreen = ({ navigation }) => {
                 key={item.chatId}
                 chatData={item}
                 currentUid={currentUid}
+                latestChat={
+                  latestChatsMessage.length > 0
+                    ? latestChatsMessage.filter(
+                        msg => msg.id === item.chatId
+                      )[0]
+                    : {}
+                }
                 onPress={navigateChat}
               />
             )}
             keyExtractor={item => item.chatId}
-            extraData={chatIds}
+            extraData={latestChatsMessage}
           />
         ) : (
           <Layout style={styles.emptyContainer}>

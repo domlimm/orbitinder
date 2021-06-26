@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatItem = ({ chatData, currentUid, onPress }) => {
+const ChatItem = ({ chatData, currentUid, latestChat, onPress }) => {
   const { id, name, imagePath } = chatData.participants.filter(
     user => user.id !== currentUid
   )[0];
@@ -18,10 +18,10 @@ const ChatItem = ({ chatData, currentUid, onPress }) => {
     timestamp = '',
     latestId = '';
 
-  if (chatData.latestMessage !== undefined) {
-    message = chatData.latestMessage.message;
-    timestamp = chatData.latestMessage.timestamp;
-    latestId = chatData.latestMessage.id;
+  if (latestChat.latestMessage !== undefined) {
+    message = latestChat.latestMessage.message;
+    timestamp = latestChat.latestMessage.timestamp;
+    latestId = latestChat.latestMessage.id;
   }
 
   return (
@@ -29,6 +29,7 @@ const ChatItem = ({ chatData, currentUid, onPress }) => {
       style={styles.cardContainer}
       onPress={() =>
         onPress({
+          id: peerData.id,
           name: name,
           imagePath: imagePath,
           chatId: chatData.chatId,
