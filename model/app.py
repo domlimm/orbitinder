@@ -37,14 +37,10 @@ def get_recommendations():
     return Response(status=400, mimetype='application/json')
   elif ('dislikes' not in json_dict or 'likes' not in json_dict):
     return Response(status=400, mimetype='application/json')
-  elif (not request.json['dislikes'] and not request.json['likes']): # no likes no dislikes
+  elif (not request.json['dislikes'] and not request.json['likes']): # no likes and no dislikes
     return Response(status=400, mimetype='application/json')
-  elif (not request.json['dislikes'] or not request.json['likes']): # no likes no dislikes
+  elif (not request.json['likes']) : #no likes
     return Response(status=400, mimetype='application/json')
-  elif (not request.json['dislikes']) : #no dislikes
-    return Response(status=400, mimetype='application/json')
-  elif (not request.json['likes']) :
-    return Response(status=400, mimetype='application/json') 
   users_df = get_users_df()
   final_reco_id = []
   model = Doc2Vec.load("doc2vec")
