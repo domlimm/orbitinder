@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -204,7 +205,7 @@ const TeamUpScreen = ({ navigation }) => {
   // }, [navigation, sortedUsers, usersData, currUser]);
 
   return (
-    <Layout style={styles.swiperContainer}>
+    <SafeAreaView style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight != undefined &&
@@ -301,7 +302,7 @@ const TeamUpScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
       )}
-    </Layout>
+    </SafeAreaView>
   );
 };
 

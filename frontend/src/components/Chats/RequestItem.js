@@ -115,7 +115,11 @@ const RequestItem = ({ receiverData, senderData }) => {
         status='primary'
         onPress={showProfile}
       >
-        <Text>{senderData.background.biography}</Text>
+        <Text>
+          {senderData.background.biography.length > 0
+            ? senderData.background.biography
+            : 'Apparently, this user prefers to keep an air of mystery about them.'}
+        </Text>
       </Card>
     </Fragment>
   );
