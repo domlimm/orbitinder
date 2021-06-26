@@ -11,7 +11,7 @@ const ChatsOverviewScreen = ({ navigation }) => {
   const currentUid = firebase.auth().currentUser.uid;
 
   const [chatIds, setChatIds] = useState([]);
-
+  const [chatData, setChatData] = useState([]);
   const navigateChat = data => {
     navigation.navigate('ChatStackNavigator', {
       screen: 'Chat',
@@ -28,8 +28,41 @@ const ChatsOverviewScreen = ({ navigation }) => {
         setChatIds(querySnapshot.data().chats);
       });
 
-    return () => chatIdsListener();
+    return () => {
+      chatIdsListener();
+      // chatDataListener;
+    };
   }, []);
+
+  useEffect(() => {
+    if (chatIds.length > 0) {
+      console.log('hi', chatIds);
+    }
+    firebase
+      .firestore()
+      .collection('chats')
+      // .where('chatId', '==', chatId)
+      .get()
+      .then(querySnapshot => {
+        let queryArr = [];
+        querySnapshot.forEach(doc => {
+          if (chatIds.includes(doc.id)) {
+            let chatObj = {
+              id: doc.id,
+              data: doc.data()
+            };
+            queryArr.push(chatObj);
+            setChatData(queryArr); //should be outside of this function
+            console.log('queryArr', queryArr);
+          }
+        });
+
+        // if (queryArr.length != 0) {
+        // setChatData(queryArr);
+        // console.log('queryArr PO', chatData);
+        // }
+      });
+  }, [setChatIds, chatIds]); //?
 
   const renderChatItem = async chatId => {
     const querySnapshot = await firebase
@@ -51,55 +84,19 @@ const ChatsOverviewScreen = ({ navigation }) => {
         );
       }
     });
-
-    // .then(querySnapshot => {
-    //   querySnapshot.forEach(doc => {
-    //     if (doc.id === item) {
-    //       console.log('rendering chatItem', doc.data());
-
-    //       return (
-    //         <ChatItem
-    //           key={item}
-    //           chatData={doc.data()}
-    //           currentUid={currentUid}
-    //         />
-    //       );
-    //     }
-    //   });
-    // });
   };
+  const renderItem = ({ item }) => (
+    <ChatItem key={item.id} chatData={item.data} currentUid={currentUid} />
+  );
 
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
-        {chatIds.length > 0 ? (
+        {chatData.length > 0 ? (
           <FlatList
-            data={chatIds}
-            renderItem={({ item }) => {
-              firebase
-                .firestore()
-                .collection('chats')
-                .where('chatId', '==', chatId)
-                .get()
-                .then(querySnapshot => {
-                  querySnapshot.forEach(doc => {
-                    if (doc.id === item) {
-                      console.log('rendering chatItem', doc.data());
-
-                      return (
-                        <ChatItem
-                          key={item}
-                          chatData={doc.data()}
-                          currentUid={currentUid}
-                        />
-                      );
-                    }
-                  });
-                });
-
-              //renderChatItem(item)
-            }}
-            keyExtractor={item => item}
+            data={chatData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
             extraData={chatIds}
           />
         ) : (
