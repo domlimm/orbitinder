@@ -392,6 +392,130 @@ export const updateLatestChatMessage =
     }
   };
 
+export const updateMatched = peerId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+  const updateIds = [userId, peerId];
+  const batch = db.batch();
+
+  db.collection('users')
+    .doc(peerId)
+    .set({ matched: true, matching: true }, { merge: true })
+    .then(() => {
+      db.collection('users')
+        .doc(userId)
+        .set({ matched: false, matching: false }, { merge: true })
+        .then(() => {
+          dispatch(usersActions.getAllUserData());
+          dispatch(getUserData());
+        })
+        .catch(err => {
+          throw new Error(`Update Matched (Current): ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Update Matched (Peer): ${err}`);
+    });
+
+  // db.collection('users')
+  //   .get()
+  //   .then(querySnapshot => {
+  //     querySnapshot.forEach(doc => {
+  //       if (updateIds.includes(doc.id)) {
+  //         const docRef = db.collection('users').doc(doc.id);
+  //         batch.update(docRef, { matched: true, matching: true });
+  //       }
+  //     });
+
+  //     batch
+  //       .commit()
+  //       .then(() => {
+  //         dispatch(usersActions.getAllUserData());
+  //         dispatch(getUserData());
+  //       })
+  //       .catch(err => {
+  //         throw new Error(`Update Match (batch): ${err}`);
+  //       });
+  //   })
+  //   .catch(err => {
+  //     throw new Error(`Update Matched: ${err}`);
+  //   });
+};
+
+export const reconsiderMatched = peerId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+  const updateIds = [userId, peerId];
+  const batch = db.batch();
+
+  db.collection('users')
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        if (updateIds.includes(doc.id)) {
+          const docRef = db.collection('users').doc(doc.id);
+          batch.update(docRef, { matched: false, matching: false });
+        }
+      });
+
+      batch
+        .commit()
+        .then(() => {
+          dispatch(usersActions.getAllUserData());
+          dispatch(getUserData());
+        })
+        .catch(err => {
+          throw new Error(`Confirm Match (batch): ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Confirm Matched: ${err}`);
+    });
+};
+
+export const confirmMatched = peerId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+  const updateIds = [userId, peerId];
+  const batch = db.batch();
+
+  db.collection('users')
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        if (updateIds.includes(doc.id)) {
+          const docRef = db.collection('users').doc(doc.id);
+          batch.update(docRef, { matched: true, matching: false });
+        }
+      });
+
+      batch
+        .commit()
+        .then(() => {
+          dispatch(usersActions.getAllUserData());
+          dispatch(getUserData());
+        })
+        .catch(err => {
+          throw new Error(`Confirm Match (batch): ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Confirm Matched: ${err}`);
+    });
+};
+
+export const updateMatching = status => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .set({ matching: status }, { merge: true })
+    .then(() => {
+      dispatch(usersActions.getAllUserData());
+      dispatch(getUserData());
+    })
+    .catch(err => {
+      throw new Error(`Update Matching status: ${err}`);
+    });
+};
+
 export const logOut = () => dispatch => {
   try {
     dispatch({ type: LOG_OUT });

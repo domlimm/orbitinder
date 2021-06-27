@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { Layout, Divider, Text, Spinner } from '@ui-kitten/components';
+import { StyleSheet, View, Dimensions, Keyboard } from 'react-native';
+import {
+  Layout,
+  Divider,
+  Text,
+  Spinner,
+  Modal,
+  Card,
+  Button
+} from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import firebase from '../../firebase/index';
@@ -20,8 +28,26 @@ const ChatScreen = ({ navigation, route }) => {
 
   const [messages, setMessages] = useState([]);
   const [confetti, setConfetti] = useState(false);
+  const [matched, setMatched] = useState(null);
+  const [isMatching, setIsMatching] = useState(null);
+  const [visible, setVisible] = useState(false);
 
-  const { name, imagePath, chatId, peerData } = route.params.userData;
+  const { peerId, name, imagePath, chatId, peerData } = route.params.userData;
+
+  useEffect(() => {
+    const matchingListener = db
+      .collection('users')
+      .doc(currentUser.uid)
+      .onSnapshot(doc => {
+        const uData = { id: currentUser.uid, ...doc.data() };
+        setMatched(uData.matched);
+        setIsMatching(uData.matching);
+        console.log('matched', matched);
+        console.log('matching', isMatching);
+      });
+
+    return () => matchingListener();
+  }, []);
 
   useEffect(() => {
     const messagesListener = db
@@ -121,9 +147,45 @@ const ChatScreen = ({ navigation, route }) => {
     </View>
   );
 
-  const renderLoading = () => <Spinner style={{ flex: 1 }} />;
+  const renderLoading = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: height,
+        width: width
+      }}
+    >
+      <Spinner />
+    </View>
+  );
 
   const handshakeHandler = () => {
+    Keyboard.dismiss();
+    dispatch(userActions.updateMatching(true));
+  };
+
+  const initiateHandler = () => {
+    dispatch(userActions.updateMatched(peerId));
+  };
+
+  const cancelHandler = () => {
+    dispatch(userActions.updateMatching(false));
+  };
+
+  const acceptHandler = () => {
+    dispatch(userActions.confirmMatched(peerId));
+    setVisible(false);
+    setConfetti(!confetti);
+  };
+
+  const considerHandler = () => {
+    dispatch(userActions.reconsiderMatched(peerId));
+    setVisible(false);
+  };
+
+  const resetConfetti = () => {
     setConfetti(!confetti);
   };
 
@@ -133,15 +195,38 @@ const ChatScreen = ({ navigation, route }) => {
     imagePath: imagePath
   };
 
+  let message, header;
+
+  if (isMatching && matched) {
+    // Accepted partnership request, show toast?
+
+    header = 'Partnership Request';
+    message = `${name} has sent you a partnership request!\n\nDo you wish to accept or take some more time to consider?\n\nOnce you have accepted ${
+      peerData.gender === 'Female' ? 'her' : 'his'
+    } Telegram handler will be released to you at the top right of this screen.\n\nIf you were to re-consider, please send ${name} a partnership request using the button at the top right of this screen.`;
+  } else if (isMatching && !matched) {
+    // Show Toast that partnership request sent.
+
+    header = 'Initiate Handshake';
+    message = `Do you wish to pair up with ${name} for Orbital?\n\nDoing so will send a partnership request to ${
+      peerData.gender === 'Female' ? 'her' : 'him'
+    }.\n\nIf ${
+      peerData.gender === 'Female' ? 'she' : 'he'
+    } accepts your request, ${
+      peerData.gender === 'Female' ? 'her' : 'his'
+    } Telegram handler will be released to you at the top right of this screen.`;
+  }
+
   return (
     <Layout style={styles.mainContainer}>
-      {confetti && (
-        <ConfettiCannon
-          count={180}
-          origin={{ x: -10, y: 0 }}
-          onAnimationEnd={handshakeHandler}
-        />
-      )}
+      {confetti ||
+        (matched && !isMatching && (
+          <ConfettiCannon
+            count={160}
+            origin={{ x: -10, y: 0 }}
+            onAnimationEnd={resetConfetti}
+          />
+        ))}
       <ChatHeader
         navProps={navProps}
         peerData={peerData}
@@ -164,6 +249,48 @@ const ChatScreen = ({ navigation, route }) => {
         renderChatEmpty={renderChatEmpty}
         renderLoading={renderLoading}
       />
+      <Modal
+        visible={isMatching || visible}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={() => setVisible(false)}
+      >
+        <Card disabled={true} style={styles.handshakeContainer}>
+          <Layout>
+            <Text category='h4'>{header}</Text>
+            <Text style={styles.handshakeInfo}>{message}</Text>
+          </Layout>
+          <Layout style={styles.footerContainer}>
+            <Button
+              onPress={
+                !matched && isMatching
+                  ? () => {
+                      initiateHandler();
+                      setVisible(false);
+                    }
+                  : () => {
+                      acceptHandler();
+                      setVisible(false);
+                    }
+              }
+              status='success'
+              style={[styles.actionBtn, { marginRight: 2 }]}
+            >
+              {!matched && isMatching ? 'INITIATE' : 'ACCEPT'}
+            </Button>
+            <Button
+              onPress={
+                !matched && isMatching
+                  ? () => cancelHandler()
+                  : () => considerHandler()
+              }
+              status='danger'
+              style={[styles.actionBtn, { marginLeft: 4 }]}
+            >
+              {!matched && isMatching ? 'CANCEL' : 'RECONSIDER'}
+            </Button>
+          </Layout>
+        </Card>
+      </Modal>
     </Layout>
   );
 };
@@ -188,6 +315,21 @@ const styles = StyleSheet.create({
   chatEmptyText: {
     textAlign: 'center',
     flexWrap: 'wrap'
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  handshakeContainer: {
+    width: width * 0.88
+  },
+  handshakeInfo: {
+    marginVertical: 20
+  },
+  footerContainer: {
+    flexDirection: 'row'
+  },
+  actionBtn: {
+    width: '48%'
   }
 });
 
