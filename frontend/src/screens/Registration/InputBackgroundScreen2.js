@@ -1,5 +1,10 @@
 import React from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  View
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,
@@ -8,10 +13,11 @@ import {
   Select,
   SelectItem,
   IndexPath,
-  Text
+  Text,
+  Icon
 } from '@ui-kitten/components';
 
-import { NavHeader } from '../../components/index';
+import { NavHeader, Toast } from '../../components/index';
 import { sweExperience, idea } from '../../constants/profleCreationData';
 
 const InputBackgroundScreen2 = ({ route, navigation }) => {
@@ -24,8 +30,20 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
   const [bio, setBio] = React.useState('');
   const [github, setGithub] = React.useState('');
   const [linkedin, setLinkedin] = React.useState('');
+  const [telegram, setTelegram] = React.useState('');
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
 
   const navigateRegistration = () => {
+    if (telegram.length === 0) {
+      setAlertMessage('Telegram username cannot be empty!');
+      setShowAlert(true);
+      setAlertStatus('warning');
+
+      return;
+    }
+
     navigation.navigate('InputBackground3', {
       ...route.params,
       background: {
@@ -34,10 +52,21 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         sweExperience: displaySWE,
         biography: bio,
         github: github ? `https://github.com/${github}` : null,
-        linkedin: linkedin ? `https://www.linkedin.com/in/${linkedin}` : null
+        linkedin: linkedin ? `https://www.linkedin.com/in/${linkedin}` : null,
+        telegram: telegram ? telegram : null
       }
     });
   };
+
+  const AlertIcon = props => <Icon {...props} name='alert-circle-outline' />;
+
+  const renderCaption = () => (
+    <View style={styles.captionContainer}>
+      <Text category='label' status='danger' style={{ marginVertical: 4 }}>
+        Only you or your matched partner can see this{' '}
+      </Text>
+    </View>
+  );
 
   const navProps = {
     navigation: navigation,
@@ -52,6 +81,13 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
     >
       <SafeAreaView style={styles.container}>
         <NavHeader navProps={navProps} />
+        {showAlert && (
+          <Toast
+            message={alertMessage}
+            status={alertStatus}
+            hide={show => setShowAlert(show)}
+          />
+        )}
         <ScrollView>
           <Layout style={styles.textContainer}>
             <Text style={styles.screenTitle}>Personal Background </Text>
@@ -106,6 +142,15 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
               label='LinkedIn (Optional)'
               onChangeText={input => setLinkedin(input)}
               value={linkedin}
+            />
+            <Input
+              style={styles.bioInput}
+              label='Telegram Username'
+              placeholder='Your handler'
+              onChangeText={input => setTelegram(input)}
+              value={telegram}
+              caption={renderCaption}
+              accessoryRight={AlertIcon}
             />
           </Layout>
           <Layout style={styles.inputContainer}></Layout>
@@ -172,6 +217,11 @@ const styles = StyleSheet.create({
     minHeight: 64,
     paddingVertical: 10,
     textAlignVertical: 'top'
+  },
+  captionIcon: {
+    width: 10,
+    height: 10,
+    marginRight: 5
   }
 });
 
