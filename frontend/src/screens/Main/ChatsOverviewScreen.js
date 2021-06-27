@@ -9,6 +9,7 @@ import { ChatItem } from '../../components/index';
 
 const ChatsOverviewScreen = ({ navigation }) => {
   const userData = useSelector(state => state.user.userData);
+  const db = firebase.firestore();
   const currentUid = firebase.auth().currentUser.uid;
 
   const [chatIds, setChatIds] = useState([]);
@@ -22,10 +23,8 @@ const ChatsOverviewScreen = ({ navigation }) => {
     });
   };
 
-  // Listen for user's new chats
   useEffect(() => {
-    const chatIdsListener = firebase
-      .firestore()
+    const chatIdsListener = db
       .collection('users')
       .doc(currentUid)
       .onSnapshot(querySnapshot => {
@@ -35,13 +34,10 @@ const ChatsOverviewScreen = ({ navigation }) => {
     return () => chatIdsListener();
   }, []);
 
-  // Listen for all user's chats
   useEffect(() => {
-    firebase
-      .firestore()
+    const chatDataListener = db
       .collection('chats')
-      .get()
-      .then(querySnapshot => {
+      .onSnapshot(querySnapshot => {
         let queryArr = [];
 
         querySnapshot.forEach(doc => {
@@ -52,12 +48,12 @@ const ChatsOverviewScreen = ({ navigation }) => {
 
         setChatsData(queryArr);
       });
+
+    return () => chatDataListener();
   }, [setChatIds, chatIds]);
 
-  // Listen for all user's chats latest message to update UI
   useEffect(() => {
-    const latestMsgsListener = firebase
-      .firestore()
+    const latestMsgsListener = db
       .collection('chats')
       .onSnapshot(querySnapshot => {
         let queryArr = [];
