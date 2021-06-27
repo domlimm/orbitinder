@@ -56,7 +56,9 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
         achievement: displayAchievement,
         interests: displayInterest
       },
-      imagePath: route.params.imagePath
+      imagePath: route.params.imagePath,
+      matched: false,
+      matching: false
     });
   };
 
