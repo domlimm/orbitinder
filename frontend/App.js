@@ -44,7 +44,11 @@ const fetchImages = images => {
   });
 };
 
-LogBox.ignoreLogs(['Setting a timer', "Warning: Can't perform a React"]);
+LogBox.ignoreLogs([
+  'Setting a timer',
+  "Warning: Can't perform a React",
+  'Warning: Cannot update during an existing state transition'
+]);
 
 const App = () => {
   const [isAssetsLoading, setIsAssetsLoading] = React.useState(false);
