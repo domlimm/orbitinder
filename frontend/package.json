@@ -5,7 +5,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ]
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.0",
@@ -26,8 +33,8 @@
     "expo-image-picker": "~10.1.4",
     "expo-notifications": "~0.11.6",
     "firebase": "^8.6.2",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-deck-swiper": "^2.0.5",
@@ -46,7 +53,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "jest-expo": "^41.0.0"
+    "jest-expo": "^41.0.0",
+    "react-test-renderer": "^16.11.0"
   },
   "private": true
 }

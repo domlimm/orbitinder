@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, ScrollView, TouchableNativeFeedback } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  TouchableNativeFeedback,
+  Platform
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Layout,
