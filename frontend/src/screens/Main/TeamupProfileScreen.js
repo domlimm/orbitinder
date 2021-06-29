@@ -158,7 +158,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
               type={'coding-exp-level'}
               data={background.sweExperience}
             />
-            <ContentCard type={'orbitalLevel'} data={background.commitment} />
+            <ContentCard type={'commitment'} data={background.commitment} />
           </Layout>
           <Layout style={styles.groupContainer}>
             <ContentCard type={'orbitalLevel'} data={background.achievement} />
