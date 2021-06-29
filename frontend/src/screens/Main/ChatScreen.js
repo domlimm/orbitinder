@@ -45,8 +45,6 @@ const ChatScreen = ({ navigation, route }) => {
         const uData = { id: currentUser.uid, ...doc.data() };
         setMatched(uData.matched);
         setIsMatching(uData.matching);
-        console.log('matched', matched);
-        console.log('matching', isMatching);
       });
 
     return () => matchingListener();
@@ -212,15 +210,11 @@ const ChatScreen = ({ navigation, route }) => {
   let message, header;
 
   if (isMatching && matched) {
-    // Accepted partnership request, show toast?
-
     header = 'Partnership Request';
     message = `${name} has sent you a partnership request!\n\nDo you wish to accept or take some more time to consider?\n\nOnce you have accepted ${
       peerData.gender === 'Female' ? 'her' : 'his'
     } Telegram handler will be released to you at the top right of this screen.\n\nIf you were to re-consider, please send ${name} a partnership request using the button at the top right of this screen.`;
   } else if (isMatching && !matched) {
-    // Show Toast that partnership request sent.
-
     header = 'Initiate Handshake';
     message = `Do you wish to pair up with ${name} for Orbital?\n\nDoing so will send a partnership request to ${
       peerData.gender === 'Female' ? 'her' : 'him'
@@ -244,8 +238,10 @@ const ChatScreen = ({ navigation, route }) => {
       <ChatHeader
         navProps={navProps}
         peerData={peerData}
-        initiateAction={userData.matched ? telegramHandler : handshakeHandler}
-        userMatched={userData.matched}
+        initiateAction={
+          matched && !isMatching ? telegramHandler : handshakeHandler
+        }
+        userMatched={matched && !isMatching}
       />
       {showAlert && (
         <Toast
