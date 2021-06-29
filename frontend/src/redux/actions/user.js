@@ -392,21 +392,36 @@ export const updateLatestChatMessage =
     }
   };
 
-export const updateMatched = peerId => dispatch => {
-  const userId = firebase.auth().currentUser.uid;
-  const updateIds = [userId, peerId];
-  const batch = db.batch();
+export const updateMatched = peerData => dispatch => {
+  const currentUser = firebase.auth().currentUser;
 
   db.collection('users')
-    .doc(peerId)
+    .doc(peerData.id)
     .set({ matched: true, matching: true }, { merge: true })
     .then(() => {
       db.collection('users')
-        .doc(userId)
+        .doc(currentUser.uid)
         .set({ matched: false, matching: false }, { merge: true })
         .then(() => {
           dispatch(usersActions.getAllUserData());
           dispatch(getUserData());
+
+          fetch('https://exp.host/--/api/v2/push/send', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Accept-Encoding': 'gzip,deflate',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              to: peerData.userPushToken,
+              title: `${currentUser.displayName} wants to be your teammate!`,
+              body: 'Click here for more information on it.',
+              data: {
+                screen: 'RequestsOverview'
+              }
+            })
+          });
         })
         .catch(err => {
           throw new Error(`Update Matched (Current): ${err}`);
@@ -415,30 +430,6 @@ export const updateMatched = peerId => dispatch => {
     .catch(err => {
       throw new Error(`Update Matched (Peer): ${err}`);
     });
-
-  // db.collection('users')
-  //   .get()
-  //   .then(querySnapshot => {
-  //     querySnapshot.forEach(doc => {
-  //       if (updateIds.includes(doc.id)) {
-  //         const docRef = db.collection('users').doc(doc.id);
-  //         batch.update(docRef, { matched: true, matching: true });
-  //       }
-  //     });
-
-  //     batch
-  //       .commit()
-  //       .then(() => {
-  //         dispatch(usersActions.getAllUserData());
-  //         dispatch(getUserData());
-  //       })
-  //       .catch(err => {
-  //         throw new Error(`Update Match (batch): ${err}`);
-  //       });
-  //   })
-  //   .catch(err => {
-  //     throw new Error(`Update Matched: ${err}`);
-  //   });
 };
 
 export const reconsiderMatched = peerId => dispatch => {
@@ -471,9 +462,9 @@ export const reconsiderMatched = peerId => dispatch => {
     });
 };
 
-export const confirmMatched = peerId => dispatch => {
-  const userId = firebase.auth().currentUser.uid;
-  const updateIds = [userId, peerId];
+export const confirmMatched = peerData => dispatch => {
+  const currentUser = firebase.auth().currentUser;
+  const updateIds = [currentUser.uid, peerData.id];
   const batch = db.batch();
 
   db.collection('users')
@@ -491,6 +482,23 @@ export const confirmMatched = peerId => dispatch => {
         .then(() => {
           dispatch(usersActions.getAllUserData());
           dispatch(getUserData());
+
+          fetch('https://exp.host/--/api/v2/push/send', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Accept-Encoding': 'gzip,deflate',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              to: peerData.userPushToken,
+              title: `${currentUser.displayName} has accepted your partnership request!`,
+              body: 'Click here for more information on it.',
+              data: {
+                screen: 'RequestsOverview'
+              }
+            })
+          });
         })
         .catch(err => {
           throw new Error(`Confirm Match (batch): ${err}`);

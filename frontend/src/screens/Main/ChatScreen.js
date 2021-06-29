@@ -181,7 +181,7 @@ const ChatScreen = ({ navigation, route }) => {
     setAlertMessage(`Partnership request has been sent to ${name}!`);
     setShowAlert(true);
     setAlertStatus('success');
-    dispatch(userActions.updateMatched(peerId));
+    dispatch(userActions.updateMatched(peerData));
   };
 
   const cancelHandler = () => {
@@ -189,7 +189,7 @@ const ChatScreen = ({ navigation, route }) => {
   };
 
   const acceptHandler = () => {
-    dispatch(userActions.confirmMatched(peerId));
+    dispatch(userActions.confirmMatched(peerData));
     setVisible(false);
     setConfetti(!confetti);
   };
