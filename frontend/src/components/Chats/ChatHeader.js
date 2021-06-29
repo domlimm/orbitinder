@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import {
   Icon,
   TopNavigation,
@@ -11,7 +11,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({ navProps, peerData, initiateHandshake }) => {
+const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
   const BackIcon = props => (
     <Icon
       {...props}
@@ -25,6 +25,10 @@ const ChatHeader = ({ navProps, peerData, initiateHandshake }) => {
     <FontAwesome name='handshake-o' size={28} color='#407bff' />
   );
 
+  const TelegramIcon = () => (
+    <FontAwesome name='telegram' size={30} color='#407bff' />
+  );
+
   const navigateBack = () => {
     navProps.navigation.goBack();
   };
@@ -33,8 +37,12 @@ const ChatHeader = ({ navProps, peerData, initiateHandshake }) => {
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
 
-  const Handshake = () => (
-    <TopNavigationAction icon={HandshakeIcon} onPress={initiateHandshake} />
+  const TelegramAction = () => (
+    <TopNavigationAction icon={TelegramIcon} onPress={initiateAction} />
+  );
+
+  const HandshakeAction = () => (
+    <TopNavigationAction icon={HandshakeIcon} onPress={initiateAction} />
   );
 
   const renderTitle = peerData => {
@@ -68,7 +76,7 @@ const ChatHeader = ({ navProps, peerData, initiateHandshake }) => {
   return (
     <TopNavigation
       accessoryLeft={BackAction}
-      accessoryRight={Handshake}
+      accessoryRight={userMatched ? TelegramAction : HandshakeAction}
       style={styles.topNav}
       title={() => renderTitle(peerData)}
     />

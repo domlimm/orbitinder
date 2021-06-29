@@ -161,6 +161,10 @@ const ChatScreen = ({ navigation, route }) => {
     </View>
   );
 
+  const telegramHandler = () => {
+    console.log('to telegram');
+  };
+
   const handshakeHandler = () => {
     Keyboard.dismiss();
     dispatch(userActions.updateMatching(true));
@@ -230,7 +234,8 @@ const ChatScreen = ({ navigation, route }) => {
       <ChatHeader
         navProps={navProps}
         peerData={peerData}
-        initiateHandshake={handshakeHandler}
+        initiateAction={userData.matched ? telegramHandler : handshakeHandler}
+        userMatched={userData.matched}
       />
       <Divider />
       <GiftedChat
