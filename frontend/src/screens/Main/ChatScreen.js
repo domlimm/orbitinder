@@ -45,6 +45,7 @@ const ChatScreen = ({ navigation, route }) => {
         const uData = { id: currentUser.uid, ...doc.data() };
         setMatched(uData.matched);
         setIsMatching(uData.matching);
+        setConfetti(matched && !isMatching);
       });
 
     return () => matchingListener();
@@ -176,7 +177,7 @@ const ChatScreen = ({ navigation, route }) => {
   };
 
   const initiateHandler = () => {
-    setAlertMessage(`Partnership request has been sent to ${name}!`);
+    setAlertMessage(`Your partnership request has been sent to ${name}!`);
     setShowAlert(true);
     setAlertStatus('success');
     dispatch(userActions.updateMatched(peerData));
@@ -227,14 +228,13 @@ const ChatScreen = ({ navigation, route }) => {
 
   return (
     <Layout style={styles.mainContainer}>
-      {confetti ||
-        (matched && !isMatching && peerData.matched && !peerData.isMatching && (
-          <ConfettiCannon
-            count={160}
-            origin={{ x: -10, y: 0 }}
-            onAnimationEnd={resetConfetti}
-          />
-        ))}
+      {confetti || (matched && !isMatching) ? (
+        <ConfettiCannon
+          count={160}
+          origin={{ x: -10, y: 0 }}
+          onAnimationEnd={resetConfetti}
+        />
+      ) : null}
       <ChatHeader
         navProps={navProps}
         peerData={peerData}
