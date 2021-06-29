@@ -99,7 +99,7 @@ const MainAppScreen = ({ navigation }) => {
         </TouchableNativeFeedback>
         <Layout style={styles.introCard2}>
           <Text category='h5' style={styles.countDownTitle}>
-            Time Remaining to confirm your Orbital team
+            Time Remaining for Orbital Application
           </Text>
           <CountDown />
         </Layout>
@@ -161,7 +161,9 @@ const styles = StyleSheet.create({
   },
   countDownTitle: {
     textAlign: 'center',
-    fontSize: 18
+    fontSize: 18,
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
   },
   profileAvatar: {
     width: 100,
