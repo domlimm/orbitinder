@@ -234,7 +234,7 @@ const ChatScreen = ({ navigation, route }) => {
   return (
     <Layout style={styles.mainContainer}>
       {confetti ||
-        (matched && !isMatching && (
+        (matched && !isMatching && peerData.matched && !peerData.isMatching && (
           <ConfettiCannon
             count={160}
             origin={{ x: -10, y: 0 }}
