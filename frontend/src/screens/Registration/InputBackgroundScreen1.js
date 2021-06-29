@@ -58,7 +58,8 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
       },
       imagePath: route.params.imagePath,
       matched: false,
-      matching: false
+      matching: false,
+      matchId: ''
     });
   };
 
