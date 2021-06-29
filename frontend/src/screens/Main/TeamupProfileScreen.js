@@ -113,7 +113,10 @@ const TeamupProfileScreen = ({ navigation, route }) => {
               <TouchableOpacity
                 onPress={() => {
                   Linking.openURL(background.linkedin).catch(err =>
-                    console.error('An error occurred', err)
+                    console.error(
+                      '[TeamupProfile] An error occurred opening LinkedIn',
+                      err
+                    )
                   );
                 }}
               >
@@ -128,7 +131,10 @@ const TeamupProfileScreen = ({ navigation, route }) => {
               <TouchableOpacity
                 onPress={() => {
                   Linking.openURL(background.github).catch(err =>
-                    console.error('An error occurred', err)
+                    console.error(
+                      '[TeamupProfile] An error occurred opening GitHub',
+                      err
+                    )
                   );
                 }}
               >

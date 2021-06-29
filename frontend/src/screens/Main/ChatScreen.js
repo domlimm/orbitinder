@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Keyboard } from 'react-native';
+import { StyleSheet, View, Dimensions, Keyboard, Linking } from 'react-native';
 import {
   Layout,
   Divider,
@@ -162,7 +162,11 @@ const ChatScreen = ({ navigation, route }) => {
   );
 
   const telegramHandler = () => {
-    console.log('to telegram');
+    Keyboard.dismiss();
+
+    Linking.openURL(peerData.background.telegram).catch(err => {
+      console.log('[ChatScreen] An error occurred opening Telegram', err);
+    });
   };
 
   const handshakeHandler = () => {
