@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 import * as userActions from '../../redux/actions/user';
-import { ChatHeader } from '../../components/index';
+import { ChatHeader, Toast } from '../../components/index';
 
 const { width, height } = Dimensions.get('window');
 
@@ -31,6 +31,9 @@ const ChatScreen = ({ navigation, route }) => {
   const [matched, setMatched] = useState(null);
   const [isMatching, setIsMatching] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('');
 
   const { peerId, name, imagePath, chatId, peerData } = route.params.userData;
 
@@ -175,6 +178,9 @@ const ChatScreen = ({ navigation, route }) => {
   };
 
   const initiateHandler = () => {
+    setAlertMessage(`Partnership request has been sent to ${name}!`);
+    setShowAlert(true);
+    setAlertStatus('success');
     dispatch(userActions.updateMatched(peerId));
   };
 
@@ -241,6 +247,13 @@ const ChatScreen = ({ navigation, route }) => {
         initiateAction={userData.matched ? telegramHandler : handshakeHandler}
         userMatched={userData.matched}
       />
+      {showAlert && (
+        <Toast
+          message={alertMessage}
+          status={alertStatus}
+          hide={show => setShowAlert(show)}
+        />
+      )}
       <Divider />
       <GiftedChat
         messages={messages}
