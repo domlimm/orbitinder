@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import firebase from '../../firebase/index';
+import firebase from '../../firebase/';
 import { useSelector } from 'react-redux';
 
 import { ChatItem } from '../../components/index';

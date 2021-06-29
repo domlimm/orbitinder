@@ -11,7 +11,7 @@ import {
 } from '@ui-kitten/components';
 import { GiftedChat, Send, Bubble } from 'react-native-gifted-chat';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
-import firebase from '../../firebase/index';
+import firebase from '../../firebase/';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfettiCannon from 'react-native-confetti-cannon';
 

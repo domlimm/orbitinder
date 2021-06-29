@@ -24,6 +24,8 @@ import { NavHeader, LoadingIndicator, Toast } from '../../components/index';
 import { genderData } from '../../constants/profleCreationData';
 import * as authActions from '../../redux/actions/auth';
 
+import firebase from '../../firebase/';
+
 const SignupScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
@@ -60,6 +62,21 @@ const SignupScreen = ({ navigation }) => {
     }
 
     console.log(userPushToken);
+
+    const batch = firebase.firestore().batch();
+
+    firebase
+      .firestore()
+      .collection('users')
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const docRef = firebase.firestore().collection('users').doc(doc.id);
+          batch.update(docRef, { matchId: '' });
+        });
+
+        batch.commit();
+      });
   };
 
   const signUpHandler = async () => {

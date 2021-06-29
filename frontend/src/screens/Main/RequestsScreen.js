@@ -3,9 +3,9 @@ import { StyleSheet, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import firebase from '../../firebase/index';
+import firebase from '../../firebase/';
 
-import { RequestItem } from '../../components/index';
+import { RequestItem } from '../../components/';
 
 const RequestsScreen = () => {
   const usersData = useSelector(state => state.users.usersData);
