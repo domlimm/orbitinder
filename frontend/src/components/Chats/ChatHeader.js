@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import {
   Icon,
@@ -11,7 +11,21 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
+const ChatHeader = ({
+  navProps,
+  peerData,
+  initiateAction,
+  userMatched,
+  currentUserId
+}) => {
+  const [showIcon, setShowIcon] = useState();
+
+  React.useEffect(() => {
+    setShowIcon(
+      peerData.matchId.length > 0 && peerData.matchId === currentUserId
+    );
+  }, []);
+
   const BackIcon = props => (
     <Icon
       {...props}
@@ -76,7 +90,9 @@ const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
   return (
     <TopNavigation
       accessoryLeft={BackAction}
-      accessoryRight={userMatched ? TelegramAction : HandshakeAction}
+      accessoryRight={
+        !showIcon ? null : userMatched ? TelegramAction : HandshakeAction
+      }
       style={styles.topNav}
       title={() => renderTitle(peerData)}
     />

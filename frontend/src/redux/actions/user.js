@@ -464,16 +464,26 @@ export const reconsiderMatched = peerId => dispatch => {
 
 export const confirmMatched = peerData => dispatch => {
   const currentUser = firebase.auth().currentUser;
-  const updateIds = [currentUser.uid, peerData.id];
   const batch = db.batch();
 
   db.collection('users')
     .get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        if (updateIds.includes(doc.id)) {
+        if (doc.id === currentUser.uid) {
           const docRef = db.collection('users').doc(doc.id);
-          batch.update(docRef, { matched: true, matching: false });
+          batch.update(docRef, {
+            matchId: peerData.id,
+            matched: true,
+            matching: false
+          });
+        } else if (doc.id === peerData.id) {
+          const docRef = db.collection('users').doc(doc.id);
+          batch.update(docRef, {
+            matchId: currentUser.uid,
+            matched: true,
+            matching: false
+          });
         }
       });
 

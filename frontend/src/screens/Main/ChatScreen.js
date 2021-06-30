@@ -30,6 +30,7 @@ const ChatScreen = ({ navigation, route }) => {
   const [confetti, setConfetti] = useState(false);
   const [matched, setMatched] = useState(null);
   const [isMatching, setIsMatching] = useState(null);
+  const [isPartner, setIsPartner] = useState(false);
   const [visible, setVisible] = useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
@@ -45,7 +46,15 @@ const ChatScreen = ({ navigation, route }) => {
         const uData = { id: currentUser.uid, ...doc.data() };
         setMatched(uData.matched);
         setIsMatching(uData.matching);
-        setConfetti(matched && !isMatching);
+        setIsPartner(uData.matchId === peerId);
+
+        if (
+          uData.matched === true &&
+          uData.matching === false &&
+          uData.matchId === peerId
+        ) {
+          setConfetti(true);
+        }
       });
 
     return () => matchingListener();
@@ -228,20 +237,23 @@ const ChatScreen = ({ navigation, route }) => {
 
   return (
     <Layout style={styles.mainContainer}>
-      {confetti || (matched && !isMatching) ? (
+      {confetti && (
         <ConfettiCannon
           count={160}
           origin={{ x: -10, y: 0 }}
           onAnimationEnd={resetConfetti}
         />
-      ) : null}
+      )}
       <ChatHeader
         navProps={navProps}
         peerData={peerData}
         initiateAction={
-          matched && !isMatching ? telegramHandler : handshakeHandler
+          matched && !isMatching && isPartner
+            ? telegramHandler
+            : handshakeHandler
         }
-        userMatched={matched && !isMatching}
+        userMatched={matched && !isMatching && isPartner}
+        currentUserId={userData.id}
       />
       {showAlert && (
         <Toast
