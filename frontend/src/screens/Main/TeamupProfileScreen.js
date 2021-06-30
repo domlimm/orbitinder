@@ -97,7 +97,6 @@ const TeamupProfileScreen = ({ navigation, route }) => {
                 name={gender == 'Female' ? 'female-symbol' : 'male-symbol'}
                 size={24}
                 color={gender == 'Female' ? '#FF59A1' : '#00C1FF'}
-                style={styles.genderIcon}
               />
             }
             IconBadgeStyle={styles.genderBadgeViewDetails}
@@ -108,7 +107,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
-          <Layout style={{ flexDirection: 'row', backgroundColor: '#407bff' }}>
+          <Layout style={styles.linksContainer}>
             {background.linkedin.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
@@ -235,13 +234,12 @@ const styles = StyleSheet.create({
     height: 25,
     justifyContent: 'flex-start',
     backgroundColor: '#407BFF',
-    // flex: 1
     marginHorizontal: 8
   },
   headerContainer: {
     flex: 1,
     backgroundColor: '#407BFF',
-    height: 210,
+    height: 220,
     alignItems: 'center'
   },
   smallHeaderContainer: {
@@ -249,6 +247,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF',
     height: 180,
     alignItems: 'center'
+  },
+  linksContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#407bff'
   },
   avatarImg: {
     width: 70,
@@ -339,9 +341,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '#407BFF'
-  },
-  genderIcon: {
-    // marginTop: 4
   },
   techContainer: {
     borderRadius: 10,

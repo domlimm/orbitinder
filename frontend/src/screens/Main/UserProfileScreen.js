@@ -110,7 +110,6 @@ const UserProfileScreen = ({ navigation, route }) => {
                 }
                 size={24}
                 color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
-                style={styles.genderIcon}
               />
             }
             IconBadgeStyle={[
@@ -125,7 +124,7 @@ const UserProfileScreen = ({ navigation, route }) => {
             <Text style={styles.subCaptions}>{background.degree}</Text>
             <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
-          <Layout style={{ flexDirection: 'row', backgroundColor: '#407bff' }}>
+          <Layout style={styles.linksContainer}>
             {background.linkedin.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
@@ -251,9 +250,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     justifyContent: 'flex-start',
-    // backgroundColor: '#407BFF',
     marginHorizontal: 8
-    // flex: 1
   },
   headerContainer: {
     flex: 1,
@@ -266,6 +263,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF',
     height: 210,
     alignItems: 'center'
+  },
+  linksContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#407bff'
   },
   avatarImg: {
     width: 70,
@@ -355,9 +356,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '#407BFF'
-  },
-  genderIcon: {
-    // marginTop: 4
   },
   techContainer: {
     borderRadius: 10,
