@@ -51,9 +51,12 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
         idea: displayIdea,
         sweExperience: displaySWE,
         biography: bio,
-        github: github ? `https://github.com/${github}` : null,
-        linkedin: linkedin ? `https://www.linkedin.com/in/${linkedin}` : null,
-        telegram: telegram ? `https://t.me/${telegram}` : null
+        github: github.length > 0 ? `https://github.com/${github}` : null,
+        linkedin:
+          linkedin.length > 0
+            ? `https://www.linkedin.com/in/${linkedin}`
+            : null,
+        telegram: telegram.length > 0 ? `https://t.me/${telegram}` : null
       }
     });
   };

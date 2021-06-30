@@ -48,20 +48,20 @@ const SignupScreen = ({ navigation }) => {
   }, [fName, lName]);
 
   const tempPush = async () => {
-    let userPushToken;
-    let statusObj = await Notifications.getPermissionsAsync();
+    // let userPushToken;
+    // let statusObj = await Notifications.getPermissionsAsync();
 
-    if (statusObj.status !== 'granted') {
-      statusObj = await Notifications.requestPermissionsAsync();
-    }
+    // if (statusObj.status !== 'granted') {
+    //   statusObj = await Notifications.requestPermissionsAsync();
+    // }
 
-    if (statusObj.status !== 'granted') {
-      userPushToken = null;
-    } else {
-      userPushToken = (await Notifications.getExpoPushTokenAsync()).data;
-    }
+    // if (statusObj.status !== 'granted') {
+    //   userPushToken = null;
+    // } else {
+    //   userPushToken = (await Notifications.getExpoPushTokenAsync()).data;
+    // }
 
-    console.log(userPushToken);
+    // console.log(userPushToken);
 
     const batch = firebase.firestore().batch();
 
@@ -72,10 +72,32 @@ const SignupScreen = ({ navigation }) => {
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           const docRef = firebase.firestore().collection('users').doc(doc.id);
-          batch.update(docRef, { matchId: '' });
+          docRef.update({
+            background: {
+              github: '',
+              linkedin: '',
+              year: 'Year 1',
+              degree: 'Business Analytics',
+              commitment: 'Medium Commitment',
+              achievement: 'Artemis',
+              interests: [],
+              telegram: 'https://t.me/domlimm',
+              idea: 'No',
+              sweExperience: 'Beginner',
+              biography: 'Testing Biography',
+              technologyExperience: {
+                game: [],
+                web: [],
+                mobile: [],
+                database: [],
+                machineLearning: []
+              }
+            }
+          });
+          // batch.update(docRef, { matchId: '' });
         });
 
-        batch.commit();
+        // batch.commit();
       });
   };
 

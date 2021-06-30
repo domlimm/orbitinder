@@ -69,7 +69,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
         </Layout>
         <Layout
           style={[
-            background.github || background.linkedin
+            background.github.length > 0 || background.linkedin.length > 0
               ? styles.headerContainer
               : styles.smallHeaderContainer
           ]}
@@ -109,7 +109,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
             <Text style={styles.subCaptions}>{background.year}</Text>
           </Layout>
           <Layout style={{ flexDirection: 'row', backgroundColor: '#407bff' }}>
-            {background.linkedin && (
+            {background.linkedin.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
                   Linking.openURL(background.linkedin).catch(err =>
@@ -127,7 +127,7 @@ const TeamupProfileScreen = ({ navigation, route }) => {
                 />
               </TouchableOpacity>
             )}
-            {background.github && (
+            {background.github.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
                   Linking.openURL(background.github).catch(err =>
