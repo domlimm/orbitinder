@@ -80,6 +80,14 @@ const EditProfileScreen = ({ navigation }) => {
 
   const initialState = {
     bioValue: background.biography,
+    githubValue:
+      background.github.length > 0
+        ? background.github.split('/')[3]
+        : background.github,
+    linkedinValue:
+      background.linkedin.length > 0
+        ? background.linkedin.split('/')[4]
+        : background.linkedin,
     yearValue: background.year,
     degreeValue: background.degree,
     ideaValue: background.idea,
@@ -124,7 +132,20 @@ const EditProfileScreen = ({ navigation }) => {
   const myReducer = (currState, action) => {
     switch (action.type) {
       case 'changeBio':
-        return { ...currState, bioValue: action.bioValue };
+        return {
+          ...currState,
+          bioValue: action.bioValue
+        };
+      case 'changeGithub':
+        return {
+          ...currState,
+          githubValue: action.githubValue
+        };
+      case 'changeLinkedin':
+        return {
+          ...currState,
+          linkedinValue: action.linkedinValue
+        };
       case 'changeYear':
         return {
           ...currState,
@@ -213,7 +234,15 @@ const EditProfileScreen = ({ navigation }) => {
           database: currState.dbValue,
           machineLearning: currState.mlValue
         },
-        year: currState.yearValue
+        year: currState.yearValue,
+        github:
+          currState.githubValue.length > 0
+            ? `https://github.com/${currState.githubValue}`
+            : '',
+        linkedin:
+          currState.linkedinValue.length > 0
+            ? `https://www.linkedin.com/in/${currState.linkedinValue}`
+            : ''
       },
       updatedAt: new Date().toISOString(),
       imagePath: newImagePath.length > 0 ? newImagePath : imagePath
@@ -269,7 +298,15 @@ const EditProfileScreen = ({ navigation }) => {
             mobile: currState.mobileValue,
             web: currState.webValue
           },
-          year: currState.yearValue
+          year: currState.yearValue,
+          github:
+            currState.githubValue.length > 0
+              ? `https://github.com/${currState.githubValue}`
+              : '',
+          linkedin:
+            currState.linkedinValue.length > 0
+              ? `https://www.linkedin.com/in/${currState.linkedinValue}`
+              : ''
         };
         if (_.isEqual(bgData, finalB)) {
           return;
@@ -549,6 +586,30 @@ const EditProfileScreen = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
+            <Input
+              style={styles.bioInput}
+              placeholder='Github Username'
+              label='Github'
+              onChangeText={input =>
+                currdispatch({
+                  type: 'changeGithub',
+                  githubValue: input
+                })
+              }
+              value={currState.githubValue}
+            />
+            <Input
+              style={styles.bioInput}
+              placeholder='LinkedIn Username'
+              label='LinkedIn'
+              onChangeText={input =>
+                currdispatch({
+                  type: 'changeLinkedin',
+                  linkedinValue: input
+                })
+              }
+              value={currState.linkedinValue}
+            />
 
             <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
               Technology Experience
