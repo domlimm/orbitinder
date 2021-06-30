@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { ChangePasswordScreen } from '../screens/index';
+import { ChangePasswordScreen, TeamUpProfileScreen } from '../screens/index';
 import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
@@ -18,12 +18,20 @@ import * as usersActions from '../redux/actions/users';
 
 const DrawerNav = createDrawerNavigator();
 const Main = createStackNavigator();
+const TeamUpStack = createStackNavigator();
+
+const TeamUpStackNavigator = () => (
+  <TeamUpStack.Navigator headerMode='none' initialRouteName='TeamUpProfile'>
+    <TeamUpStack.Screen name='TeamUpProfile' component={TeamUpProfileScreen} />
+  </TeamUpStack.Navigator>
+);
 
 const MainNavigator = () => (
   <Main.Navigator headerMode='none' initialRouteName='BottomTabsNavigator'>
     <Main.Screen name='BottomTabsNavigator' component={BottomTabsNavigator} />
     <Main.Screen name='ProfileNavigator' component={ProfileNavigator} />
     <Main.Screen name='ChatsNavigator' component={ChatsNavigator} />
+    <Main.Screen name='TeamUpStackNavigator' component={TeamUpStackNavigator} />
   </Main.Navigator>
 );
 

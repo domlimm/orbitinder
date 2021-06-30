@@ -10,7 +10,6 @@ import {
   MainAppScreen,
   TeamUpScreen,
   ActivityFeedScreen,
-  TeamUpProfileScreen,
   RecoUserScreen
 } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
@@ -48,7 +47,6 @@ const BottomTabsNavigator = () => (
     <BottomTabs.Screen name='Home' component={MainAppScreen} />
     <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} />
     <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
-    <BottomTabs.Screen name='TeamUpProfile' component={TeamUpProfileScreen} />
     <BottomTabs.Screen name='RecoUser' component={RecoUserScreen} />
   </BottomTabs.Navigator>
 );

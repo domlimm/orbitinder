@@ -17,8 +17,8 @@ const InfoCard = ({ cardData, navProps }) => {
   }, [cardData]);
 
   const handleReadMore = () => {
-    navProps.navigation.navigate({
-      name: 'TeamUpProfile',
+    navProps.navigation.navigate('TeamUpStackNavigator', {
+      screen: 'TeamUpProfile',
       params: {
         profileData: cardData
       }
