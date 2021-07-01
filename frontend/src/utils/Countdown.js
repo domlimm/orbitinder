@@ -38,47 +38,68 @@ function CountDown() {
     }, 1000);
   }, []);
   return (
-    <Layout style={styles.mainContainer}>
-      <Layout style={styles.container}>
-        <Layout style={styles.box}>
-          <Text style={styles.cntDownText}>{time.days}</Text>
+    <Layout style={styles.countdownCard}>
+      <Text category='h5' style={styles.countDownTitle}>
+        Time Remaining for Orbital Application
+      </Text>
+      <Layout style={styles.contentContainer}>
+        <Layout style={styles.container}>
+          <Layout style={styles.box}>
+            <Text style={styles.cntDownText}>{time.days}</Text>
+          </Layout>
+          <Text style={styles.labelText}>DAYS</Text>
         </Layout>
-        <Text style={styles.labelText}>DAYS</Text>
-      </Layout>
 
-      <Layout style={styles.container}>
-        <Layout style={styles.box}>
-          <Text style={styles.cntDownText}>{time.hours}</Text>
+        <Layout style={styles.container}>
+          <Layout style={styles.box}>
+            <Text style={styles.cntDownText}>{time.hours}</Text>
+          </Layout>
+          <Text style={styles.labelText}>HRS</Text>
         </Layout>
-        <Text style={styles.labelText}>HRS</Text>
-      </Layout>
 
-      <Layout style={styles.container}>
-        <Layout style={styles.box}>
-          <Text style={styles.cntDownText}>{time.minutes}</Text>
+        <Layout style={styles.container}>
+          <Layout style={styles.box}>
+            <Text style={styles.cntDownText}>{time.minutes}</Text>
+          </Layout>
+          <Text style={styles.labelText}>MINS</Text>
         </Layout>
-        <Text style={styles.labelText}>MINS</Text>
-      </Layout>
 
-      <Layout style={styles.container}>
-        <Layout style={styles.box}>
-          <Text style={styles.cntDownText}>{time.seconds}</Text>
+        <Layout style={styles.container}>
+          <Layout style={styles.box}>
+            <Text style={styles.cntDownText}>{time.seconds}</Text>
+          </Layout>
+          <Text style={styles.labelText}>SECS</Text>
         </Layout>
-        <Text style={styles.labelText}>SECS</Text>
       </Layout>
     </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
+  countdownCard: {
+    marginHorizontal: 20,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    shadowColor: 'rgba(0,0,0, .4)', // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    elevation: 3
+  },
+  countDownTitle: {
+    textAlign: 'center',
+    fontSize: 18,
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
+  },
+  contentContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 20
-  },
-  container: {
-    // alignItems: 'center'
   },
   cntDownText: {
     color: 'white',

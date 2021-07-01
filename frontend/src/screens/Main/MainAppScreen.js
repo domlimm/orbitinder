@@ -3,7 +3,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableNativeFeedback,
-  Platform
+  Platform,
+  Dimensions
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -19,6 +20,8 @@ import { useSelector } from 'react-redux';
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
 import { UserAvatar } from '../../components/index';
+
+const { width, height } = Dimensions.get('window');
 
 const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');
@@ -79,7 +82,7 @@ const MainAppScreen = ({ navigation }) => {
         accessoryLeft={renderSettingsIcon}
         accessoryRight={renderNotificationsIcon}
       />
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <TouchableNativeFeedback
           onPress={navigateProfileScreen}
           background={TouchableNativeFeedback.Ripple('#00000020', false)}
@@ -97,12 +100,7 @@ const MainAppScreen = ({ navigation }) => {
             )}
           </Layout>
         </TouchableNativeFeedback>
-        <Layout style={[styles.introCard, styles.countdownCard]}>
-          <Text category='h5' style={styles.countDownTitle}>
-            Time Remaining for Orbital Application
-          </Text>
-          <CountDown />
-        </Layout>
+        <CountDown />
       </ScrollView>
     </SafeAreaView>
   );
@@ -112,6 +110,9 @@ const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
     backgroundColor: '#F5F5F5'
+  },
+  scrollContainer: {
+    height: height
   },
   titleContainer: {
     flexDirection: 'row',
@@ -140,22 +141,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row'
   },
-  countdownCard: {
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 10,
-    flexDirection: 'column'
-  },
   greetingTitle: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 24
-  },
-  countDownTitle: {
-    textAlign: 'center',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    fontWeight: 'bold'
   },
   profileAvatar: {
     width: 100,
