@@ -11,8 +11,6 @@ const useNotifications = () => {
 
   useEffect(() => {
     if (lastNotificationResponse) {
-      console.log(lastNotificationResponse.notification.request);
-
       const route = JSON.stringify(
         lastNotificationResponse.notification.request.content.data.screen
       );
