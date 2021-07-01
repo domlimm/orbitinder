@@ -248,11 +248,11 @@ const ChatScreen = ({ navigation, route }) => {
         navProps={navProps}
         peerData={peerData}
         initiateAction={
-          matched && !isMatching && isPartner
+          (matched && !isMatching) || isPartner
             ? telegramHandler
             : handshakeHandler
         }
-        userMatched={matched && !isMatching && isPartner}
+        userMatched={(matched && !isMatching) || isPartner}
         currentUserId={userData.id}
       />
       {showAlert && (

@@ -418,7 +418,7 @@ export const updateMatched = peerData => dispatch => {
               title: `${currentUser.displayName} wants to be your teammate!`,
               body: 'Click here for more information on it.',
               data: {
-                screen: 'RequestsOverview'
+                screen: 'ChatsOverview'
               }
             })
           });
@@ -505,7 +505,7 @@ export const confirmMatched = peerData => dispatch => {
               title: `${currentUser.displayName} has accepted your partnership request!`,
               body: 'Click here for more information on it.',
               data: {
-                screen: 'RequestsOverview'
+                screen: 'ChatsOverview'
               }
             })
           });

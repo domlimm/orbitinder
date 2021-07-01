@@ -11,21 +11,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({
-  navProps,
-  peerData,
-  initiateAction,
-  userMatched,
-  currentUserId
-}) => {
-  const [showIcon, setShowIcon] = useState();
-
-  React.useEffect(() => {
-    setShowIcon(
-      peerData.matchId.length > 0 && peerData.matchId === currentUserId
-    );
-  }, []);
-
+const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
   const BackIcon = props => (
     <Icon
       {...props}
@@ -90,9 +76,7 @@ const ChatHeader = ({
   return (
     <TopNavigation
       accessoryLeft={BackAction}
-      accessoryRight={
-        !showIcon ? null : userMatched ? TelegramAction : HandshakeAction
-      }
+      accessoryRight={userMatched ? TelegramAction : HandshakeAction}
       style={styles.topNav}
       title={() => renderTitle(peerData)}
     />
