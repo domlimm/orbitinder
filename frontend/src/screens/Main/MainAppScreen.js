@@ -85,7 +85,7 @@ const MainAppScreen = ({ navigation }) => {
           background={TouchableNativeFeedback.Ripple('#00000020', false)}
           useForeground={true}
         >
-          <Layout style={styles.introCard}>
+          <Layout style={[styles.introCard, styles.greetingCard]}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
               <Text>{name}</Text>
@@ -97,7 +97,7 @@ const MainAppScreen = ({ navigation }) => {
             )}
           </Layout>
         </TouchableNativeFeedback>
-        <Layout style={styles.introCard2}>
+        <Layout style={[styles.introCard, styles.countdownCard]}>
           <Text category='h5' style={styles.countDownTitle}>
             Time Remaining for Orbital Application
           </Text>
@@ -124,10 +124,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   introCard: {
-    margin: 20,
-    borderRadius: 10,
     backgroundColor: 'white',
-    flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -138,21 +135,16 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
-  introCard2: {
+  greetingCard: {
+    margin: 20,
+    borderRadius: 10,
+    flexDirection: 'row'
+  },
+  countdownCard: {
     marginHorizontal: 20,
     marginVertical: 10,
     borderRadius: 10,
-    backgroundColor: 'white',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    shadowColor: 'rgba(0,0,0, .4)', // IOS
-    shadowOffset: { height: 1, width: 1 }, // IOS
-    shadowOpacity: 1, // IOS
-    shadowRadius: 1, //IOS
-    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-    elevation: 3
+    flexDirection: 'column'
   },
   greetingTitle: {
     color: 'black',
