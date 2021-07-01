@@ -19,7 +19,6 @@ const App = createStackNavigator();
 
 const AppNavigator = () => {
   useNotifications();
-
   const [authenticated, setAuthenticated] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
