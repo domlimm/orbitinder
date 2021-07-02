@@ -135,8 +135,14 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     alignSelf: 'center',
-    marginVertical: 6,
-    width: '96%'
+    marginVertical: 10,
+    width: '90%',
+    shadowColor: 'rgba(0,0,0, .4)', // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 1, // IOS
+    shadowRadius: 1, //IOS
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    elevation: 3
   },
   headerContainer: {
     flex: 1,
