@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
-import { UserAvatar, Stats } from '../../components/index';
+import { UserAvatar, Stats, LoadingIndicator } from '../../components/index';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,11 +27,14 @@ const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');
   const { name } = useSelector(state => state.auth);
   const { userData } = useSelector(state => state.user);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    setLoading(true);
     if (userData.imagePath !== undefined) {
       setImage(userData.imagePath);
     }
+    setLoading(false);
   }, [userData]);
 
   const navigateActivityFeed = () => {
@@ -74,6 +77,10 @@ const MainAppScreen = ({ navigation }) => {
     />
   );
 
+  if (loading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <TopNavigation
@@ -104,7 +111,7 @@ const MainAppScreen = ({ navigation }) => {
           </Layout>
         </TouchableNativeFeedback>
         <CountDown />
-        <Stats userData={userData} />
+        <Stats />
       </ScrollView>
     </SafeAreaView>
   );

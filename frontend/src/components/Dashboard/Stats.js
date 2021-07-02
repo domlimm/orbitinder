@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { Icon, Layout, Text } from '@ui-kitten/components';
+import { useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
 
-const Stats = ({ userData }) => {
+const Stats = () => {
+  const [likesCount, setLikesCount] = useState('');
+  const [dislikesCount, setDislikesCount] = useState('');
+  const userData = useSelector(state => state.user.userData);
+
+  useEffect(() => {
+    if (userData.likes !== undefined) {
+      setLikesCount(userData.likes.length);
+    }
+
+    if (userData.dislikes !== undefined) {
+      setDislikesCount(userData.dislikes.length);
+    }
+  }, [userData]);
+
   const LikeIcon = () => (
     <View style={styles.iconContainer}>
       <Icon style={styles.icon} fill='#224F60' name='heart-outline' />
@@ -27,9 +42,7 @@ const Stats = ({ userData }) => {
       <View style={styles.headerContainer}>
         <View style={styles.figureContainer}>
           <Text category='h1' style={styles.statFigure}>
-            {type === 'likes'
-              ? userData.likes.length
-              : userData.dislikes.length}
+            {type === 'likes' ? likesCount : dislikesCount}
           </Text>
         </View>
         <View style={styles.iconFooter}>
