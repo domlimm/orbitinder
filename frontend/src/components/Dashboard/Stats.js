@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { Icon, Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
+import { Feather } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -22,13 +23,14 @@ const Stats = () => {
 
   const LikeIcon = () => (
     <View style={styles.iconContainer}>
-      <Icon style={styles.icon} fill='#224F60' name='heart-outline' />
+      <Feather name='smile' size={32} color='#224F60' />
     </View>
   );
 
   const DislikeIcon = () => (
     <View style={styles.iconContainer}>
-      <Icon style={styles.icon} fill='#530821' name='slash-outline' />
+      <Feather name='thumbs-down' size={32} color='#530821' />
+      {/* <Icon style={styles.icon} fill='#530821' name='slash-outline' /> */}
     </View>
   );
 
@@ -77,10 +79,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 15,
     paddingHorizontal: 20,
-    shadowColor: 'rgba(0,0,0, .4)', // IOS
-    shadowOffset: { height: 1, width: 1 }, // IOS
-    shadowOpacity: 1, // IOS
-    shadowRadius: 1, //IOS
+    shadowColor: 'rgba(0,0,0, .4)',
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
@@ -109,11 +111,12 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     borderRadius: 16,
-    padding: 5,
     backgroundColor: '#FFF',
-    height: 42,
-    width: 42,
-    alignSelf: 'flex-end'
+    height: 46,
+    width: 46,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   icon: {
     height: 32,
