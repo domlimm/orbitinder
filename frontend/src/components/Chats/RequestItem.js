@@ -87,31 +87,11 @@ const RequestItem = ({ receiverData, senderData }) => {
     );
   };
 
-  const Footer = props => (
-    <View {...props} style={[props.style, styles.footerContainer]}>
-      <Button
-        style={styles.footerControl}
-        accessoryLeft={AcceptIcon}
-        size='small'
-        status='success'
-        onPress={acceptHandler}
-      />
-      <Button
-        style={styles.footerControl}
-        accessoryLeft={RejectIcon}
-        size='small'
-        status='danger'
-        onPress={rejectHandler}
-      />
-    </View>
-  );
-
   return (
     <Fragment>
       <Card
         style={styles.cardContainer}
         header={Header}
-        footer={Footer}
         status='primary'
         onPress={showProfile}
       >
@@ -120,6 +100,22 @@ const RequestItem = ({ receiverData, senderData }) => {
             ? senderData.background.biography
             : 'Apparently, this user prefers to keep an air of mystery about them.'}
         </Text>
+        <View style={styles.footerContainer}>
+          <Button
+            style={styles.footerControl}
+            accessoryLeft={AcceptIcon}
+            size='small'
+            status='success'
+            onPress={acceptHandler}
+          />
+          <Button
+            style={styles.footerControl}
+            accessoryLeft={RejectIcon}
+            size='small'
+            status='danger'
+            onPress={rejectHandler}
+          />
+        </View>
       </Card>
     </Fragment>
   );
@@ -128,7 +124,8 @@ const RequestItem = ({ receiverData, senderData }) => {
 const styles = StyleSheet.create({
   footerContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: 26
   },
   footerControl: {
     marginHorizontal: 2
@@ -137,10 +134,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 10,
     width: '90%',
-    shadowColor: 'rgba(0,0,0, .4)', // IOS
-    shadowOffset: { height: 1, width: 1 }, // IOS
-    shadowOpacity: 1, // IOS
-    shadowRadius: 1, //IOS
+    shadowColor: 'rgba(0,0,0, .4)',
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
