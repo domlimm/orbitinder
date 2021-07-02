@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
-import { UserAvatar } from '../../components/index';
+import { UserAvatar, Stats } from '../../components/index';
 
 const { width, height } = Dimensions.get('window');
 
@@ -82,13 +82,16 @@ const MainAppScreen = ({ navigation }) => {
         accessoryLeft={renderSettingsIcon}
         accessoryRight={renderNotificationsIcon}
       />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <TouchableNativeFeedback
           onPress={navigateProfileScreen}
           background={TouchableNativeFeedback.Ripple('#00000020', false)}
           useForeground={true}
         >
-          <Layout style={[styles.introCard, styles.greetingCard]}>
+          <Layout style={styles.greetingCard}>
             <Layout>
               <Text style={styles.greetingTitle}>{greeting()}</Text>
               <Text>{name}</Text>
@@ -101,6 +104,7 @@ const MainAppScreen = ({ navigation }) => {
           </Layout>
         </TouchableNativeFeedback>
         <CountDown />
+        <Stats userData={userData} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -124,7 +128,10 @@ const styles = StyleSheet.create({
     height: 40,
     resizeMode: 'contain'
   },
-  introCard: {
+  greetingCard: {
+    margin: 20,
+    borderRadius: 10,
+    flexDirection: 'row',
     backgroundColor: 'white',
     justifyContent: 'space-between',
     paddingVertical: 15,
@@ -135,11 +142,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1, //IOS
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
-  },
-  greetingCard: {
-    margin: 20,
-    borderRadius: 10,
-    flexDirection: 'row'
   },
   greetingTitle: {
     color: 'black',

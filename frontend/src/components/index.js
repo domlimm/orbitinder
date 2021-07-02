@@ -26,3 +26,5 @@ export { default as OnboardingButton } from './Onboarding/OnboardingButton';
 export { default as ChatItem } from './Chats/ChatItem';
 export { default as ChatHeader } from './Chats/ChatHeader';
 export { default as RequestItem } from './Chats/RequestItem';
+
+export { default as Stats } from './Dashboard/Stats';
