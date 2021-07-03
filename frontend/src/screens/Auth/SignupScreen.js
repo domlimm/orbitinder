@@ -3,7 +3,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {

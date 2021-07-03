@@ -1,11 +1,10 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
 import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 
-// To separate for local imports rather than installed dependencies: add below onwards
 import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 

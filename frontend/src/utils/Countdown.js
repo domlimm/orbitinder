@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 
 function pad(n) {

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { StyleSheet, Image, View, Alert } from 'react-native';
+import { StyleSheet, Image, View, Alert, Platform } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';

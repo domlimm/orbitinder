@@ -3,7 +3,8 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Layout, Text } from '@ui-kitten/components';

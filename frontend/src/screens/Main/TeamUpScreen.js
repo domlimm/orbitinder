@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 import _ from 'lodash';
 
-// To separate for local imports rather than installed dependencies: add below onwards
 import firebase from '../../firebase';
 import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';

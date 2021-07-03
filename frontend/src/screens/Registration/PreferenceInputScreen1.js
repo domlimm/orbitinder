@@ -1,5 +1,10 @@
 import React from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
+import {
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Button,

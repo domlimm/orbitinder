@@ -4,7 +4,8 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
 import { Layout, Input, Icon, Button } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';

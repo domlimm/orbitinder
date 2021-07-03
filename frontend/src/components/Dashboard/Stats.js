@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Platform } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
