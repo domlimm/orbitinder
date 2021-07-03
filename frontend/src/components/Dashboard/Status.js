@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image, Platform } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Platform,
+  TouchableNativeFeedback
+} from 'react-native';
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-import { UserAvatar } from '..';
+import UserAvatar from '../UserProfile/UserAvatar';
 
 const Status = () => {
+  const navigation = useNavigation();
+
   const [match, setMatch] = useState(false);
   const [myImage, setMyImage] = useState('');
   const [teammate, setTeammate] = useState({});
@@ -42,12 +51,17 @@ const Status = () => {
 
   const Connector = () => <View style={styles.connector} />;
 
+  const navigateProfileScreen = () => {
+    navigation.navigate('TeamUpStackNavigator', {
+      screen: 'TeamUpProfile',
+      params: { profileData: teammate }
+    });
+  };
+
   return (
-    <Layout
-      style={[styles.mainContainer, !match ? styles.notFound : styles.found]}
-    >
+    <>
       {!match ? (
-        <>
+        <Layout style={[styles.mainContainer, styles.notFound]}>
           <View style={styles.statusContainer}>
             <Text style={styles.statusText}>As of {todayDate},</Text>
             <Text category='h6' style={styles.statusText}>
@@ -60,42 +74,48 @@ const Status = () => {
               source={require('../../assets/images/orbital-logo.png')}
             />
           </View>
-        </>
+        </Layout>
       ) : (
-        <>
-          <View style={styles.matchedTextContainer}>
-            <Text category='h6' style={styles.matchedText}>
-              <Text>Teamed up with</Text>
-              {`\n${teammate.name}`}
-            </Text>
-          </View>
-          <View style={styles.matchingContainer}>
-            <View style={styles.matchedChild}>
-              {myImage.length > 0 ? (
-                <Avatar size='giant' source={{ uri: myImage }} />
-              ) : (
-                <UserAvatar name={name} size={56} fontSize={28} />
-              )}
+        <TouchableNativeFeedback
+          onPress={navigateProfileScreen}
+          background={TouchableNativeFeedback.Ripple('#00000020', false)}
+          useForeground={true}
+        >
+          <Layout style={[styles.mainContainer, styles.found]}>
+            <View style={styles.matchedTextContainer}>
+              <Text category='h6' style={styles.matchedText}>
+                <Text>Teamed up with</Text>
+                {`\n${teammate.name}`}
+              </Text>
             </View>
-            <Connector />
-            <View style={styles.statusImage}>
-              <Image
-                style={styles.logo}
-                source={require('../../assets/images/orbital-logo.png')}
-              />
+            <View style={styles.matchingContainer}>
+              <View style={styles.matchedChild}>
+                {myImage.length > 0 ? (
+                  <Avatar size='giant' source={{ uri: myImage }} />
+                ) : (
+                  <UserAvatar name={name} size={56} fontSize={28} />
+                )}
+              </View>
+              <Connector />
+              <View style={styles.statusImage}>
+                <Image
+                  style={styles.logo}
+                  source={require('../../assets/images/orbital-logo.png')}
+                />
+              </View>
+              <Connector />
+              <View style={styles.matchedChild}>
+                {teamImage.length > 0 ? (
+                  <Avatar size='giant' source={{ uri: teamImage }} />
+                ) : (
+                  <UserAvatar name={teamName} size={56} fontSize={28} />
+                )}
+              </View>
             </View>
-            <Connector />
-            <View style={styles.matchedChild}>
-              {teamImage.length > 0 ? (
-                <Avatar size='giant' source={{ uri: teamImage }} />
-              ) : (
-                <UserAvatar name={teamName} size={56} fontSize={28} />
-              )}
-            </View>
-          </View>
-        </>
+          </Layout>
+        </TouchableNativeFeedback>
       )}
-    </Layout>
+    </>
   );
 };
 
