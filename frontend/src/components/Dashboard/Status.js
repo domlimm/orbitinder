@@ -36,7 +36,9 @@ const Status = () => {
     if (userData.imagePath !== undefined) {
       setMyImage(userData.imagePath);
     }
+  }, [userData]);
 
+  useEffect(() => {
     if (userData.matchId !== undefined && usersData !== undefined) {
       const matchId = userData.matchId;
 
@@ -48,7 +50,7 @@ const Status = () => {
         setTeamImage(match.imagePath);
       }
     }
-  }, []);
+  }, [usersData]);
 
   const Connector = () => <View style={styles.connector} />;
 
