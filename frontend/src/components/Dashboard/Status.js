@@ -183,6 +183,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     alignSelf: 'center',
     marginHorizontal: 5
+  },
+  logo: {
+    width: 64,
+    height: 64
   }
 });
 
