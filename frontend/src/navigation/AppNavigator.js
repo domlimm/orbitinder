@@ -31,9 +31,6 @@ const AppNavigator = () => {
 
     return firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setAuthenticated(true);
-        setIsLoading(false);
-
         AsyncStorage.setItem('init', 'true').then(() => {
           dispatch(
             authActions.setCurrentUser(
@@ -45,12 +42,15 @@ const AppNavigator = () => {
           dispatch(userActions.getUserData());
           dispatch(usersActions.getAllUserData());
         });
-      } else {
-        setAuthenticated(false);
+
+        setAuthenticated(true);
         setIsLoading(false);
+      } else {
         dispatch(authActions.logOut());
         dispatch(userActions.logOut());
         dispatch(usersActions.logOut());
+        setAuthenticated(false);
+        setIsLoading(false);
       }
     });
   };
