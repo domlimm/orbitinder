@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { Icon, Layout, Text } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 
@@ -30,7 +30,6 @@ const Stats = () => {
   const DislikeIcon = () => (
     <View style={styles.iconContainer}>
       <Feather name='thumbs-down' size={32} color='#530821' />
-      {/* <Icon style={styles.icon} fill='#530821' name='slash-outline' /> */}
     </View>
   );
 

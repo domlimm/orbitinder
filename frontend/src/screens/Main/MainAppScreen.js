@@ -19,7 +19,12 @@ import { useSelector } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
-import { UserAvatar, Stats, LoadingIndicator } from '../../components/index';
+import {
+  UserAvatar,
+  Stats,
+  LoadingIndicator,
+  Status
+} from '../../components/index';
 
 const { width, height } = Dimensions.get('window');
 
@@ -110,6 +115,7 @@ const MainAppScreen = ({ navigation }) => {
             )}
           </Layout>
         </TouchableNativeFeedback>
+        <Status />
         <CountDown />
         <Stats />
       </ScrollView>
@@ -136,7 +142,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   greetingCard: {
-    margin: 20,
+    marginTop: 20,
+    marginHorizontal: 20,
     borderRadius: 10,
     flexDirection: 'row',
     backgroundColor: 'white',

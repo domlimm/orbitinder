@@ -28,3 +28,4 @@ export { default as ChatHeader } from './Chats/ChatHeader';
 export { default as RequestItem } from './Chats/RequestItem';
 
 export { default as Stats } from './Dashboard/Stats';
+export { default as Status } from './Dashboard/Status';
