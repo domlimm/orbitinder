@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     justifyContent: 'center',
-    width: 75,
-    height: 75,
-    borderRadius: 37.5,
-    top: -38,
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+    top: -45,
     elevation: Platform.OS === 'android' ? 5 : 0,
     shadowColor: '#407BFF',
     shadowOffset: {
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     borderColor: 'white'
   },
   logo: {
-    width: 70,
-    height: 70
+    width: 75,
+    height: 75
   }
 });
 

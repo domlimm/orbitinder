@@ -26,7 +26,7 @@ import {
   Status
 } from '../../components/index';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');
@@ -131,16 +131,6 @@ const styles = StyleSheet.create({
   scrollContainer: {
     height: height
   },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  logo: {
-    flex: 1,
-    width: 40,
-    height: 40,
-    resizeMode: 'contain'
-  },
   greetingCard: {
     marginTop: 20,
     marginHorizontal: 20,
@@ -161,18 +151,6 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 24
-  },
-  profileAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 32
-  },
-  notifCard: {
-    margin: 20,
-    borderRadius: 10,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
   },
   titleHeader: {
     textAlign: 'center',
