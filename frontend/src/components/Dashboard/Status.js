@@ -10,6 +10,7 @@ import { Layout, Text, Avatar } from '@ui-kitten/components';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
@@ -51,6 +52,10 @@ const Status = () => {
 
   const Connector = () => <View style={styles.connector} />;
 
+  const TimerIcon = () => (
+    <Ionicons name='timer-outline' size={50} color='#FFB73A' />
+  );
+
   const navigateProfileScreen = () => {
     navigation.navigate('TeamUpStackNavigator', {
       screen: 'TeamUpProfile',
@@ -68,11 +73,8 @@ const Status = () => {
               You have not found a teammate!
             </Text>
           </View>
-          <View style={styles.statusImage}>
-            <Image
-              style={styles.logo}
-              source={require('../../assets/images/orbital-logo.png')}
-            />
+          <View style={styles.statusTimer}>
+            <TimerIcon />
           </View>
         </Layout>
       ) : (
@@ -147,14 +149,15 @@ const styles = StyleSheet.create({
   statusText: {
     fontWeight: 'bold'
   },
-  statusImage: {
+  statusTimer: {
     width: '20%',
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  logo: {
-    width: 62,
-    height: 62
+    justifyContent: 'center',
+    borderRadius: 32,
+    backgroundColor: '#FFF',
+    height: 64,
+    width: 64,
+    alignSelf: 'center'
   },
   matchingContainer: {
     flexDirection: 'row',
