@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Platform, View, FlatList, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  Platform,
+  View,
+  FlatList,
+  Dimensions,
+  TouchableNativeFeedback
+} from 'react-native';
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 
@@ -39,34 +46,38 @@ const RecentLikes = () => {
   }, [userData, usersData]);
 
   const ProfileCard = ({ data }) => {
-    const { name, imagePath, degree, year, background } = data;
-
-    console.log(name, degree, year, background.achievement);
+    const { name, imagePath, background } = data;
+    const { degree, year } = background;
 
     return (
-      <Layout style={styles.profileContainer}>
-        {imagePath.length > 0 ? (
-          <Avatar
-            size='giant'
-            style={styles.avatar}
-            source={{ uri: imagePath }}
-          />
-        ) : (
-          <UserAvatar name={name} size={86} fontSize={42} />
-        )}
-        <Text category='h6' style={styles.profileName}>
-          {name}
-        </Text>
-        <Text category='p1' style={styles.profileText}>
-          {degree}
-        </Text>
-        <Text category='p1' style={styles.profileText}>
-          {year}
-        </Text>
-        <Text category='p1' style={styles.profileText}>
-          {background.achievement}
-        </Text>
-      </Layout>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple('#00000020', false)}
+        useForeground={true}
+      >
+        <Layout style={styles.profileContainer}>
+          {imagePath.length > 0 ? (
+            <Avatar
+              size='giant'
+              style={styles.avatar}
+              source={{ uri: imagePath }}
+            />
+          ) : (
+            <UserAvatar name={name} size={86} fontSize={42} />
+          )}
+          <Text category='h6' style={styles.profileName}>
+            {name}
+          </Text>
+          <Text category='s1' style={styles.profileText}>
+            {degree}
+          </Text>
+          <Text category='s1' style={styles.profileText}>
+            {year}
+          </Text>
+          <Text category='s1' style={styles.profileText}>
+            {background.achievement}
+          </Text>
+        </Layout>
+      </TouchableNativeFeedback>
     );
   };
 
@@ -82,6 +93,7 @@ const RecentLikes = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         bounces={false}
+        scrollEventThrottle={32}
         extraData={liked}
       />
     </View>
@@ -90,7 +102,8 @@ const RecentLikes = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    marginBottom: 50
   },
   headerTitle: {
     fontWeight: 'bold'
@@ -100,6 +113,7 @@ const styles = StyleSheet.create({
     height: 86
   },
   profileContainer: {
+    backgroundColor: '#407BFF',
     width: width * 0.5,
     marginRight: 12,
     marginLeft: 2,
@@ -118,10 +132,12 @@ const styles = StyleSheet.create({
   profileName: {
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 8
+    marginVertical: 8,
+    color: 'white'
   },
   profileText: {
-    marginVertical: 8
+    textAlign: 'center',
+    color: 'white'
   }
 });
 
