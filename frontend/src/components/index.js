@@ -29,3 +29,4 @@ export { default as RequestItem } from './Chats/RequestItem';
 
 export { default as Stats } from './Dashboard/Stats';
 export { default as Status } from './Dashboard/Status';
+export { default as RecentLikes } from './Dashboard/RecentLikes';

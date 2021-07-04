@@ -23,7 +23,8 @@ import {
   UserAvatar,
   Stats,
   LoadingIndicator,
-  Status
+  Status,
+  RecentLikes
 } from '../../components/index';
 
 const { height } = Dimensions.get('window');
@@ -118,6 +119,7 @@ const MainAppScreen = ({ navigation }) => {
         <Status />
         <CountDown />
         <Stats />
+        <RecentLikes />
       </ScrollView>
     </SafeAreaView>
   );
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5'
   },
   scrollContainer: {
-    height: height
+    // height: height
   },
   greetingCard: {
     marginTop: 20,
