@@ -221,7 +221,7 @@ const EditPrefScreen = ({ navigation }) => {
             'You have unsaved changes. Are you sure to discard them and leave the screen?',
             [
               {
-                text: 'Discard',
+                text: 'Leave',
                 style: 'destructive',
                 // If the user confirmed, then we dispatch the action we blocked earlier
                 // This will continue the action that had triggered the removal of the screen
