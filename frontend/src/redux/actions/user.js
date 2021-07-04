@@ -106,7 +106,11 @@ export const addLikes = likeUserId => dispatch => {
   db.collection('users')
     .doc(userId)
     .update({
-      likes: firebase.firestore.FieldValue.arrayUnion(likeUserId)
+      likes: firebase.firestore.FieldValue.arrayUnion(likeUserId),
+      recentLikes: firebase.firestore.FieldValue.arrayUnion({
+        id: likeUserId,
+        timestamp: new Date().toISOString()
+      })
     })
     .then(() => {
       dispatch({ type: ADD_LIKES, likeUserId: likeUserId });
