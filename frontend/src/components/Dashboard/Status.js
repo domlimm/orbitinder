@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     margin: 20,
     borderRadius: 10,
-    shadowColor: 'rgba(0,0,0, .4)',
+    shadowColor: 'rgba(0,0,0, 0.4)',
     shadowOffset: { height: 1, width: 1 },
     shadowOpacity: 1,
     shadowRadius: 1,
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5
   },
   logo: {
-    width: 64,
-    height: 64
+    width: 56,
+    height: 56
   }
 });
 

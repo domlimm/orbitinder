@@ -34,12 +34,7 @@ const Stats = () => {
   );
 
   const StatCard = ({ type }) => (
-    <Layout
-      style={[
-        styles.statCard,
-        type === 'likes' ? styles.likes : styles.dislikes
-      ]}
-    >
+    <Layout style={styles.statCard}>
       <View style={styles.headerContainer}>
         <View style={styles.figureContainer}>
           <Text category='h1' style={styles.statFigure}>
@@ -85,12 +80,12 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
   },
-  likes: {
-    backgroundColor: '#B2CAC8'
-  },
-  dislikes: {
-    backgroundColor: '#CD675B'
-  },
+  // likes: {
+  //   backgroundColor: '#B2CAC8'
+  // },
+  // dislikes: {
+  //   backgroundColor: '#CD675B'
+  // },
   statTitle: {
     textTransform: 'uppercase',
     marginTop: 10
