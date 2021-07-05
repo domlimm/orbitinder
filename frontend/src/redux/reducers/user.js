@@ -41,8 +41,6 @@ export default (state = initialState, action) => {
         userData: { ...state.userData, ...action.userData }
       };
     case ADD_LIKES:
-      console.log(action.timestamp);
-
       return {
         ...state,
         userData: {

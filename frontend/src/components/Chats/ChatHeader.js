@@ -11,7 +11,13 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
+const ChatHeader = ({
+  navProps,
+  peerData,
+  initiateAction,
+  userMatched,
+  isPartner
+}) => {
   const BackIcon = props => (
     <Icon
       {...props}
@@ -76,7 +82,13 @@ const ChatHeader = ({ navProps, peerData, initiateAction, userMatched }) => {
   return (
     <TopNavigation
       accessoryLeft={BackAction}
-      accessoryRight={userMatched ? TelegramAction : HandshakeAction}
+      accessoryRight={
+        isPartner && userMatched
+          ? TelegramAction
+          : !userMatched
+          ? HandshakeAction
+          : null
+      }
       style={styles.topNav}
       title={() => renderTitle(peerData)}
     />
