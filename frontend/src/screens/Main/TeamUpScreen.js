@@ -15,8 +15,8 @@ const TeamUpScreen = ({ navigation }) => {
   const { usersData } = useSelector(state => state.users);
   const currUser = useSelector(state => state.user.userData);
   const currPref = useSelector(state => state.user.userData.preferences);
-  const [sortedUsers, setSortedUsers] = React.useState([]);
-  const [prefsObj, setPrefsObj] = React.useState();
+  const [sortedUsers, setSortedUsers] = React.useState([]); //sorted according to algo
+  const [prefsObj, setPrefsObj] = React.useState(); // contains preferences set by current user
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
   const [displayRecoBtn, setRecoBtn] = React.useState(false);
@@ -66,38 +66,50 @@ const TeamUpScreen = ({ navigation }) => {
     console.log([...currUser.likes, sortedUsers[index].id]);
     console.log(currUser.likes);
 
-    fetch('https://orbitinder-recommend.herokuapp.com/get_recommendations', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        // likes: ['nZP5NZdkP6QNItNUU8K7IO86dcY2', 'rDUMUtqVMKdC2AiQ8QEQO8pbLkM2'],
-        // dislikes: [
-        //   'UXBxSVvhbyf6bhnz5wmZunFgO733',
-        //   'xkEv26Z4KhY0xBSomiIfM2PxFH52'
-        // ]
-        likes: [...currUser.likes, sortedUsers[index].id],
-        dislikes: currUser.dislikes
-      })
-    })
-      .then(r => r.json())
-      .then(data => {
-        if (data.length != 0) {
-          setRecoBtn(true);
-          setRecoData(data);
-          console.log('data retreived');
-        } else {
-          setRecoBtn(false);
-          console.log('no data retreived');
-        }
+    firebase
+      .auth()
+      .currentUser.getIdToken()
+      .then(idToken => {
+        // let bearer = 'Bearer ' + idToken; // get auth token from firestore, getIdToken will refresh the token if it is expired
+        fetch('http://10.0.2.2:5000/get_recommendations', {
+          method: 'POST',
+          withCredentials: true,
+          mode: 'cors',
+          headers: {
+            Authorization: 'Bearer ' + idToken,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            likes: [...currUser.likes, sortedUsers[index].id],
+            dislikes: currUser.dislikes
+          })
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Something went wrong');
+            }
+          })
+          .then(data => {
+            if (data.length != 0) {
+              setRecoBtn(true); // displays reco btn
+              setRecoData(data); // sets recommendation data, filters out current user
+              console.log('data retrieved from server');
+              console.log(data);
+            } else {
+              setRecoBtn(false);
+              console.log('no data retreived from server');
+            }
+          })
+          .catch(e => {
+            console.log(e);
+          });
       })
       .catch(e => {
         console.log(e);
       });
-    console.log('swiped right');
   };
 
   const viewLayoutHandler = event => {
@@ -109,7 +121,7 @@ const TeamUpScreen = ({ navigation }) => {
   };
 
   React.useEffect(() => {
-    // starts the initial calculation of each user's score
+    // starts the initial calculation of each user's score, calls the 3rd UE to execute
     if (currUser != undefined && prefsObj == undefined) {
       setPrefsObj(processPrefs(currUser));
     }

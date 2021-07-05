@@ -1,5 +1,5 @@
 import os, sys
-from firebase_admin import credentials, firestore, initialize_app
+from firebase_admin import credentials, firestore, initialize_app, auth
 import pandas as pd
 from gensim.models.doc2vec import TaggedDocument
 import nltk
@@ -12,6 +12,22 @@ cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
 db=firestore.client()
 users_ref = db.collection('users')
+
+def validate_token(id_token):
+    try:
+        return auth.verify_id_token(id_token)
+    except Exception as e:
+        print(f"An Error Occured: {e}")
+        return {}
+
+# def verify_token(id_token):
+#     try:
+#         decoded_token = auth.verify_id_token(id_token)
+#         uid = decoded_token['uid']
+#         return uid
+#     except Exception as e:
+#         print(f"An Error Occured: {e}")
+#         return ''
 
 def get_users_df():
     """
