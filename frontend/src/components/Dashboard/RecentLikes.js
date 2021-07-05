@@ -97,7 +97,10 @@ const RecentLikes = () => {
           >
             {background.achievement}
           </Text>
-          <Text category='label' style={styles.profileTime}>
+          <Text
+            category='label'
+            style={[styles.profileText, { marginTop: 24 }]}
+          >
             {`On ${data.timestamp}`}
           </Text>
         </Layout>
@@ -169,10 +172,6 @@ const styles = StyleSheet.create({
   },
   profileText: {
     textAlign: 'center',
-    color: 'white'
-  },
-  profileTime: {
-    marginTop: 24,
     color: 'white'
   },
   emptyContainer: {
