@@ -53,8 +53,13 @@ const Stats = () => {
 
   return (
     <View style={styles.parentContainer}>
-      <StatCard type='likes' />
-      <StatCard type='dislikes' />
+      <Text category='h5' style={styles.headerTitle}>
+        Your Insights
+      </Text>
+      <View style={styles.statCardsContainer}>
+        <StatCard type='likes' />
+        <StatCard type='dislikes' />
+      </View>
     </View>
   );
 };
@@ -62,9 +67,15 @@ const Stats = () => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
     margin: 20
+  },
+  headerTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  statCardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   statCard: {
     width: width * 0.5 - 28,
