@@ -90,22 +90,29 @@ const RecentLikes = () => {
       <Text category='h5' style={styles.headerTitle}>
         Recently Liked
       </Text>
-      <FlatList
-        data={liked}
-        renderItem={({ item }) => <ProfileCard key={item.id} data={item} />}
-        keyExtractor={item => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        scrollEventThrottle={32}
-        extraData={liked}
-      />
+      {liked.length > 0 ? (
+        <FlatList
+          data={liked}
+          renderItem={({ item }) => <ProfileCard key={item.id} data={item} />}
+          keyExtractor={item => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          extraData={liked}
+        />
+      ) : (
+        <Layout style={styles.emptyContainer}>
+          <Text category='p1' style={styles.emptyText}>
+            Click on the Team Up icon right below to get started!
+          </Text>
+        </Layout>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
+    width: '100%',
     marginHorizontal: 20,
     marginBottom: 50
   },
@@ -142,6 +149,23 @@ const styles = StyleSheet.create({
   profileText: {
     textAlign: 'center',
     color: 'white'
+  },
+  emptyContainer: {
+    width: width - 40,
+    marginVertical: 10,
+    borderRadius: 10,
+    shadowColor: 'rgba(0,0,0, 0.4)',
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    elevation: 3,
+    paddingVertical: 15,
+    paddingHorizontal: 20
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 });
 
