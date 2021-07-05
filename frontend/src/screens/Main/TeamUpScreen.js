@@ -71,20 +71,23 @@ const TeamUpScreen = ({ navigation }) => {
       .currentUser.getIdToken()
       .then(idToken => {
         // let bearer = 'Bearer ' + idToken; // get auth token from firestore, getIdToken will refresh the token if it is expired
-        fetch('http://10.0.2.2:5000/get_recommendations', {
-          method: 'POST',
-          withCredentials: true,
-          mode: 'cors',
-          headers: {
-            Authorization: 'Bearer ' + idToken,
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            likes: [...currUser.likes, sortedUsers[index].id],
-            dislikes: currUser.dislikes
-          })
-        })
+        fetch(
+          'https://orbitinder-recommend.herokuapp.com/get_recommendations',
+          {
+            method: 'POST',
+            withCredentials: true,
+            mode: 'cors',
+            headers: {
+              Authorization: 'Bearer ' + idToken,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              likes: [...currUser.likes, sortedUsers[index].id],
+              dislikes: currUser.dislikes
+            })
+          }
+        )
           .then(response => {
             if (response.ok) {
               return response.json();
