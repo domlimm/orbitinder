@@ -25,10 +25,6 @@ const RecentLikes = () => {
   const userData = useSelector(state => state.user.userData);
 
   useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
-  useEffect(() => {
     if (userData.recentLikes !== undefined && usersData !== undefined) {
       const recentLikes = userData.recentLikes;
 
