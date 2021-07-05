@@ -10,6 +10,7 @@ import {
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import dayjs from 'dayjs';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
@@ -37,7 +38,20 @@ const RecentLikes = () => {
         user => mappedLikes.indexOf(user.id) > -1
       );
 
-      setLiked(filteredUsers);
+      let displayData = [];
+
+      filteredUsers.forEach(user => {
+        displayData.push({
+          ...user,
+          timestamp: dayjs(
+            latestLikes.filter(likes => likes.id === user.id)[0].timestamp
+          ).format('D MMM YY, h:mm:ss A')
+        });
+      });
+
+      displayData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      setLiked(displayData);
     }
   }, [userData, usersData]);
 
@@ -77,8 +91,14 @@ const RecentLikes = () => {
           <Text category='s1' style={styles.profileText}>
             {year}
           </Text>
-          <Text category='s1' style={styles.profileText}>
+          <Text
+            category='s1'
+            style={[styles.profileText, { fontWeight: 'bold' }]}
+          >
             {background.achievement}
+          </Text>
+          <Text category='label' style={styles.profileTime}>
+            {`On ${data.timestamp}`}
           </Text>
         </Layout>
       </TouchableNativeFeedback>
@@ -98,6 +118,7 @@ const RecentLikes = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           extraData={liked}
+          style={{ marginRight: 20 }}
         />
       ) : (
         <Layout style={styles.emptyContainer}>
@@ -148,6 +169,10 @@ const styles = StyleSheet.create({
   },
   profileText: {
     textAlign: 'center',
+    color: 'white'
+  },
+  profileTime: {
+    marginTop: 24,
     color: 'white'
   },
   emptyContainer: {
