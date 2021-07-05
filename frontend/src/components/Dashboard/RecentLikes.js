@@ -9,23 +9,19 @@ import {
 } from 'react-native';
 import { Layout, Text, Avatar } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const RecentLikes = () => {
-  const [users, setUsers] = useState([]);
+  const navigation = useNavigation();
+
   const [liked, setLiked] = useState([]);
 
   const usersData = useSelector(state => state.users.usersData);
   const userData = useSelector(state => state.user.userData);
-
-  useEffect(() => {
-    if (usersData !== undefined) {
-      setUsers(usersData);
-    }
-  }, [usersData]);
 
   useEffect(() => {
     if (userData.recentLikes !== undefined && usersData !== undefined) {
@@ -45,6 +41,13 @@ const RecentLikes = () => {
     }
   }, [userData, usersData]);
 
+  const navigateProfileScreen = data => {
+    navigation.navigate('TeamUpStackNavigator', {
+      screen: 'TeamUpProfile',
+      params: { profileData: data }
+    });
+  };
+
   const ProfileCard = ({ data }) => {
     const { name, imagePath, background } = data;
     const { degree, year } = background;
@@ -53,6 +56,7 @@ const RecentLikes = () => {
       <TouchableNativeFeedback
         background={TouchableNativeFeedback.Ripple('#00000020', false)}
         useForeground={true}
+        onPress={() => navigateProfileScreen(data)}
       >
         <Layout style={styles.profileContainer}>
           {imagePath.length > 0 ? (
