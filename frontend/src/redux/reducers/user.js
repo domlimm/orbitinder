@@ -41,11 +41,17 @@ export default (state = initialState, action) => {
         userData: { ...state.userData, ...action.userData }
       };
     case ADD_LIKES:
+      console.log(action.timestamp);
+
       return {
         ...state,
         userData: {
           ...state.userData,
-          likes: [...state.userData.likes, action.likeUserId]
+          likes: [...state.userData.likes, action.likeUserId],
+          recentLikes: [
+            ...state.userData.recentLikes,
+            { id: action.likeUserId, timestamp: action.timestamp }
+          ]
         }
       };
     case ADD_DISLIKES:

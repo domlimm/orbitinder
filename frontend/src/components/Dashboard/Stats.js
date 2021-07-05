@@ -54,7 +54,7 @@ const Stats = () => {
   return (
     <View style={styles.parentContainer}>
       <Text category='h5' style={styles.headerTitle}>
-        Your Insights
+        Personal Insights
       </Text>
       <View style={styles.statCardsContainer}>
         <StatCard type='likes' />
