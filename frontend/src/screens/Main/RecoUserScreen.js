@@ -4,6 +4,7 @@ import { Layout } from '@ui-kitten/components';
 import Swiper from 'react-native-deck-swiper';
 import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
@@ -69,7 +70,7 @@ const RecoUserScreen = ({ navigation, route }) => {
   };
 
   return (
-    <Layout style={styles.swiperContainer}>
+    <SafeAreaView style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight != undefined && recoData.length != 0 && (
@@ -138,7 +139,7 @@ const RecoUserScreen = ({ navigation, route }) => {
           ></Swiper>
         )}
       </Layout>
-    </Layout>
+    </SafeAreaView>
   );
 };
 
