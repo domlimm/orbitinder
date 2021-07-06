@@ -298,7 +298,6 @@ const EditProfileScreen = ({ navigation }) => {
             mobile: currState.mobileValue,
             web: currState.webValue
           },
-          telegram: bgData.telegram,
           year: currState.yearValue,
           github:
             currState.githubValue.length > 0
