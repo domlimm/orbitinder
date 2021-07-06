@@ -32,9 +32,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const userData = useSelector(state => state.user.userData);
   const background = userData.background;
   const techExp = background.technologyExperience;
-  const updatedAt = dayjs(userData.updatedAt).format(
-    'dddd D MMM YY, h:mm:ss A'
-  );
+  const updatedAt = dayjs(userData.updatedAt).format('D MMM YY, h:mm A');
   const { database, game, machineLearning, mobile, web } = techExp;
   const isTechExpEmpty =
     database.length === 0 &&

@@ -45,7 +45,7 @@ const RecentLikes = () => {
           ...user,
           timestamp: dayjs(
             latestLikes.filter(likes => likes.id === user.id)[0].timestamp
-          ).format('D MMM YY, h:mm:ss A')
+          ).format('D MMM YY, h:mm A')
         });
       });
 
@@ -101,7 +101,7 @@ const RecentLikes = () => {
             category='label'
             style={[styles.profileText, { marginTop: 24 }]}
           >
-            {`On ${data.timestamp}`}
+            {data.timestamp}
           </Text>
         </Layout>
       </TouchableNativeFeedback>
