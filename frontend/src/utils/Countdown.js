@@ -5,7 +5,7 @@ import { Layout, Text } from '@ui-kitten/components';
 function pad(n) {
   return n < 10 ? '0' + n : n;
 }
-const vo = '#A6C2FF';
+const countdownBgColor = '#ffffff';
 
 // A6C2FF purplish blue
 //8CB1FF
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   countdownCard: {
     marginHorizontal: 20,
     borderRadius: 10,
-    backgroundColor: vo,
+    backgroundColor: countdownBgColor,
     justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 20,
