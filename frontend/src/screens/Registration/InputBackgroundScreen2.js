@@ -35,6 +35,7 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
   const [alertStatus, setAlertStatus] = React.useState('');
+  const maxLengthBio = 260;
 
   const navigateRegistration = () => {
     if (telegram.length === 0) {
@@ -63,11 +64,30 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
   const AlertIcon = props => <Icon {...props} name='alert-circle-outline' />;
 
   const renderCaption = () => (
-    <View style={styles.captionContainer}>
+    <Layout>
       <Text category='label' status='danger' style={{ marginVertical: 4 }}>
-        Only you or your matched partner can see this{' '}
+        Only you and your matched partner can see this{' '}
       </Text>
-    </View>
+    </Layout>
+  );
+
+  const renderBioCaption = () => (
+    <Layout
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 4
+      }}
+    >
+      <Text category='label' appearance='hint'>
+        Provide a short bio
+      </Text>
+      <Text category='label' appearance='hint'>
+        {bio.length == 0
+          ? 0 + ' / ' + maxLengthBio
+          : bio.length + ' / ' + maxLengthBio}
+      </Text>
+    </Layout>
   );
 
   const navProps = {
@@ -126,10 +146,12 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
               multiline={true}
               textStyle={styles.bioText}
               placeholder='Bio'
-              label='Provide a short bio about yourself (Optional)'
+              label={renderBioCaption}
               onChangeText={input => setBio(input)}
               numberOfLines={5}
               value={bio}
+              // caption={renderBioCaption}
+              maxLength={270}
             />
             <Input
               style={styles.bioInput}

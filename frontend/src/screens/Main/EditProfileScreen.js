@@ -55,6 +55,8 @@ const EditProfileScreen = ({ navigation }) => {
   const [alertStatus, setAlertStatus] = React.useState('');
   const [error, setError] = React.useState(null);
 
+  const maxLengthBio = 260;
+
   React.useEffect(() => {
     if (error) {
       Alert.alert('Error Occured', error, [{ text: 'Close' }]);
@@ -394,6 +396,25 @@ const EditProfileScreen = ({ navigation }) => {
     );
   };
 
+  const renderBioCaption = () => (
+    <Layout
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 4
+      }}
+    >
+      <Text category='label' appearance='hint'>
+        Provide a short bio
+      </Text>
+      <Text category='label' appearance='hint'>
+        {currState.bioValue.length == 0
+          ? 0 + ' / ' + maxLengthBio
+          : currState.bioValue.length + ' / ' + maxLengthBio}
+      </Text>
+    </Layout>
+  );
+
   return (
     <KeyboardAvoidingView
       style={styles.formContainer}
@@ -487,7 +508,7 @@ const EditProfileScreen = ({ navigation }) => {
               multiline={true}
               textStyle={styles.bioText}
               placeholder='Bio'
-              label='Provide a short bio about yourself'
+              label={renderBioCaption}
               onChangeText={input =>
                 currdispatch({
                   type: 'changeBio',
@@ -496,6 +517,8 @@ const EditProfileScreen = ({ navigation }) => {
               }
               numberOfLines={6}
               value={currState.bioValue}
+              // caption={renderBioCaption}
+              maxLength={maxLengthBio}
             />
             <Select
               style={styles.selectInput}
