@@ -128,7 +128,7 @@ const MainAppScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#FAFAFA' //FAFAFA //F5F5F5
   },
   scrollContainer: {
     // height: height

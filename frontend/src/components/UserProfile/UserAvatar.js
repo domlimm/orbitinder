@@ -17,7 +17,7 @@ const UserAvatar = props => {
           height: size,
           width: size,
           borderRadius: size / 2,
-          backgroundColor: 'lightseagreen'
+          backgroundColor: '#1AC9C8' //lightseagreen //1AC9C8
         },
         props.style
       ]}

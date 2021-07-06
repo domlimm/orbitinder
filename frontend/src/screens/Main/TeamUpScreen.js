@@ -186,17 +186,20 @@ const TeamUpScreen = ({ navigation }) => {
             );
             const allrecodata = recoData.map(a => a.id);
             if (
+              // if all recommended profiles have been swiped on, dont display btn
               recoData.length != 0 &&
               allrecodata.every(i => allLikesDislikes.includes(i))
             ) {
               setRecoBtn(false);
             } else if (
+              // if all reco profiles not swiped yet, display btn
               recoData.length != 0 &&
               !allrecodata.every(i => allLikesDislikes.includes(i))
             ) {
               setRecoBtn(true);
             }
             if (
+              //filter out the swiped data at reco screen from cards at team up screen (need to fix)
               usersData != undefined &&
               usersData.length != 0 &&
               (!_.isEqual(updatedUser.likes, currUser.likes) ||
@@ -323,11 +326,11 @@ const TeamUpScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   parentContainer: {
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#FAFAFA'
   },
   swiperContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#FAFAFA'
   },
   card: {
     flex: 1,
