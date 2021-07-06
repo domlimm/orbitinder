@@ -122,7 +122,7 @@ export const mlData = [
 ];
 
 export const degreeData = [
-  'Computing',
+  // 'Computing',
   'Business Analytics',
   'Computer Science',
   'Information Security',

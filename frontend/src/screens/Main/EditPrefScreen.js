@@ -274,7 +274,7 @@ const EditPrefScreen = ({ navigation }) => {
               ))}
             </Select>
             <Select
-              label='Major'
+              label='Degree'
               style={styles.selectInput}
               multiSelect={true}
               selectedIndex={currState.degreeIndex}
