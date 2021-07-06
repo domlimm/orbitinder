@@ -6,9 +6,9 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import { Layout, Text, Tooltip } from '@ui-kitten/components';
+import { Layout, Text, Popover, Icon } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import { Feather, AntDesign, Ionicons } from '@expo/vector-icons';
+import { Feather, AntDesign, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -32,6 +32,14 @@ const Stats = () => {
       setLikedByCount(userData.likedBy.length);
     }
   }, [userData]);
+
+  const TouchIcon = () => (
+    <FontAwesome5 name='hand-point-up' size={32} color='#407BFF' />
+  );
+
+  const InfoIcon = () => (
+    <Icon style={styles.icon} fill='#407BFF' name='info-outline' />
+  );
 
   const LikeIcon = () => (
     <View style={styles.iconContainer}>
@@ -70,13 +78,18 @@ const Stats = () => {
       useForeground={true}
     >
       <Layout style={styles.likedByContainer}>
-        <Text category='h6'>
-          {likedByCount.length === 0
-            ? 'No user has swiped right on you just yet!'
-            : likedByCount.length === 1
-            ? `${likedByCount} user has swiped right on you!`
-            : `${likedByCount} users have swiped right on you!`}
-        </Text>
+        <View style={styles.likedByText}>
+          <Text category='h6'>
+            {likedByCount.length === 0
+              ? 'No user has swiped right on you just yet!'
+              : likedByCount.length === 1
+              ? `${likedByCount} user has swiped right on you!`
+              : `${likedByCount} users have swiped right on you!`}
+          </Text>
+        </View>
+        <View style={styles.likedByIcon}>
+          <TouchIcon />
+        </View>
       </Layout>
     </TouchableNativeFeedback>
   );
@@ -86,14 +99,24 @@ const Stats = () => {
       <Text category='h5' style={styles.headerTitle}>
         Personal Insights
       </Text>
-      <Tooltip
+      <Popover
         anchor={LikedByCard}
         visible={visible}
         onBackdropPress={() => setVisible(false)}
         placement='bottom'
+        fullWidth={true}
       >
-        Test
-      </Tooltip>
+        <Layout style={styles.popoverContainer}>
+          <View style={styles.popoverIcon}>
+            <InfoIcon />
+          </View>
+          <View style={styles.popoverText}>
+            <Text style={styles.infoText}>
+              We hope this helps you in branding yourself!
+            </Text>
+          </View>
+        </Layout>
+      </Popover>
       <View style={styles.statCardsContainer}>
         <StatCard type='likes' />
         <StatCard type='dislikes' />
@@ -162,10 +185,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    height: 32,
-    width: 32
+    height: 24,
+    width: 24
   },
   likedByContainer: {
+    flexDirection: 'row',
     width: '100%',
     marginBottom: 16,
     borderRadius: 10,
@@ -177,6 +201,41 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3
+  },
+  likedByText: {
+    width: '90%',
+    justifyContent: 'center'
+  },
+  likedByIcon: {
+    width: '10%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  popoverContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    shadowColor: 'rgba(0,0,0, .4)',
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+    elevation: 3
+  },
+  popoverIcon: {
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  popoverText: {
+    width: '80%'
+  },
+  infoText: {
+    fontWeight: 'bold',
+    textAlign: 'left'
   }
 });
 
