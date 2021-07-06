@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Layout, Text, Popover, Icon } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import { Feather, AntDesign, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     borderRadius: 46,
-    backgroundColor: '#E8F2FB', //EBF5ED green  // FCDCDC red //E8F2FB blue
+    backgroundColor: '#E8F2FB', // EBF5ED green, // FCDCDC red, // E8F2FB blue
     height: 50,
     width: 50,
     alignSelf: 'flex-end',
