@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Layout, Text, Tooltip } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
-import { Feather } from '@expo/vector-icons';
+import { Feather, AntDesign, Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,13 +35,13 @@ const Stats = () => {
 
   const LikeIcon = () => (
     <View style={styles.iconContainer}>
-      <Feather name='smile' size={32} color='#224F60' />
+      <Feather name='smile' size={26} color='#4983C4' />
     </View>
   );
 
   const DislikeIcon = () => (
-    <View style={styles.iconContainer}>
-      <Feather name='thumbs-down' size={32} color='#530821' />
+    <View style={[styles.iconContainer, { backgroundColor: '#FCDCDC' }]}>
+      <Feather name='thumbs-down' size={26} color='#F05859' />
     </View>
   );
 
@@ -153,10 +153,10 @@ const styles = StyleSheet.create({
     width: '20%'
   },
   iconContainer: {
-    borderRadius: 16,
-    backgroundColor: '#FFF',
-    height: 46,
-    width: 46,
+    borderRadius: 46,
+    backgroundColor: '#E8F2FB', //EBF5ED green  // FCDCDC red //E8F2FB blue
+    height: 50,
+    width: 50,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center'

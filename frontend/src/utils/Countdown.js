@@ -40,7 +40,7 @@ function CountDown() {
   return (
     <Layout style={styles.countdownCard}>
       <Text category='h5' style={styles.countDownTitle}>
-        Time Remaining for Orbital Application
+        Orbital Application Deadline
       </Text>
       <Layout style={styles.contentContainer}>
         <Layout style={styles.container}>
@@ -93,26 +93,26 @@ const styles = StyleSheet.create({
   countDownTitle: {
     textAlign: 'center',
     fontSize: 18,
-    textTransform: 'uppercase',
+    // textTransform: 'uppercase',
     fontWeight: 'bold'
   },
   contentContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 20
+    marginTop: 15
   },
   cntDownText: {
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 22
   },
   labelText: {
-    color: '#203E80',
+    color: '#000000',
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 5
+    textAlign: 'center'
   },
   box: {
-    backgroundColor: '#203E80',
+    backgroundColor: '#000000', //#203E80
     padding: 10,
     borderRadius: 4
   }
