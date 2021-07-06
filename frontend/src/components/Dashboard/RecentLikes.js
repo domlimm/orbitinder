@@ -11,6 +11,7 @@ import { Layout, Text, Avatar } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
@@ -23,6 +24,10 @@ const RecentLikes = () => {
 
   const usersData = useSelector(state => state.users.usersData);
   const userData = useSelector(state => state.user.userData);
+
+  const PointIcon = () => (
+    <FontAwesome5 name='hand-point-down' size={26} color='#407BFF' />
+  );
 
   useEffect(() => {
     if (userData.recentLikes !== undefined && usersData !== undefined) {
@@ -128,6 +133,7 @@ const RecentLikes = () => {
           <Text category='p1' style={styles.emptyText}>
             Click on the Team Up icon right below to get started!
           </Text>
+          <PointIcon />
         </Layout>
       )}
     </View>
@@ -185,11 +191,13 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 3,
     paddingVertical: 15,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    alignItems: 'center'
   },
   emptyText: {
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 8
   }
 });
 
