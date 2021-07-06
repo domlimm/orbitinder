@@ -5,7 +5,13 @@ import { Layout, Text } from '@ui-kitten/components';
 function pad(n) {
   return n < 10 ? '0' + n : n;
 }
+const vo = '#A6C2FF';
 
+// A6C2FF purplish blue
+//8CB1FF
+//407BFF
+
+//E8F2FB
 function CountDown() {
   const [time, setTime] = React.useState({
     days: '',
@@ -44,30 +50,37 @@ function CountDown() {
       </Text>
       <Layout style={styles.contentContainer}>
         <Layout style={styles.container}>
-          <Layout style={styles.box}>
-            <Text style={styles.cntDownText}>{time.days}</Text>
-          </Layout>
+          {/* <Layout style={styles.box}> */}
+          <Text style={styles.cntDownText}>{time.days}</Text>
+          {/* </Layout> */}
           <Text style={styles.labelText}>DAYS</Text>
         </Layout>
+        <Layout style={styles.container}>
+          <Text style={styles.cntDownText}>:</Text>
+        </Layout>
 
         <Layout style={styles.container}>
-          <Layout style={styles.box}>
-            <Text style={styles.cntDownText}>{time.hours}</Text>
-          </Layout>
+          {/* <Layout style={styles.box}> */}
+          <Text style={styles.cntDownText}>{time.hours}</Text>
+          {/* </Layout> */}
           <Text style={styles.labelText}>HRS</Text>
         </Layout>
-
         <Layout style={styles.container}>
-          <Layout style={styles.box}>
-            <Text style={styles.cntDownText}>{time.minutes}</Text>
-          </Layout>
+          <Text style={styles.cntDownText}>:</Text>
+        </Layout>
+        <Layout style={styles.container}>
+          {/* <Layout style={styles.box}> */}
+          <Text style={styles.cntDownText}>{time.minutes}</Text>
+          {/* </Layout> */}
           <Text style={styles.labelText}>MINS</Text>
         </Layout>
-
         <Layout style={styles.container}>
-          <Layout style={styles.box}>
-            <Text style={styles.cntDownText}>{time.seconds}</Text>
-          </Layout>
+          <Text style={styles.cntDownText}>:</Text>
+        </Layout>
+        <Layout style={styles.container}>
+          {/* <Layout style={styles.box}> */}
+          <Text style={styles.cntDownText}>{time.seconds}</Text>
+          {/* </Layout> */}
           <Text style={styles.labelText}>SECS</Text>
         </Layout>
       </Layout>
@@ -79,7 +92,7 @@ const styles = StyleSheet.create({
   countdownCard: {
     marginHorizontal: 20,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: vo,
     justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -94,27 +107,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     // textTransform: 'uppercase',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'black'
   },
   contentContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 15
+    backgroundColor: 'transparent'
+    // marginTop:
   },
   cntDownText: {
-    color: 'white',
+    color: 'black',
+    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 22
+    fontSize: 40
   },
   labelText: {
-    color: '#000000',
-    fontWeight: 'bold',
-    textAlign: 'center'
+    color: 'black',
+    // fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: 'transparent'
   },
   box: {
-    backgroundColor: '#000000', //#203E80
-    padding: 10,
-    borderRadius: 4
+    backgroundColor: '#A6C2FF',
+    paddingVertical: 7
+    // backgroundColor: '#000000', //#203E80
+    // padding: 5
+    // borderRadius: 4
+  },
+  container: {
+    backgroundColor: 'transparent',
+    marginVertical: 5
   }
 });
 
