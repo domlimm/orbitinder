@@ -17,6 +17,8 @@ import firebase from '../../firebase';
 
 const Status = () => {
   const navigation = useNavigation();
+  const todayDate = dayjs(new Date()).format('D MMMM YY');
+  const uid = firebase.auth().currentUser.uid;
 
   const [match, setMatch] = useState(false);
   const [myImage, setMyImage] = useState('');
@@ -28,8 +30,6 @@ const Status = () => {
   const { name } = useSelector(state => state.auth);
   const userData = useSelector(state => state.user.userData);
   const usersData = useSelector(state => state.users.usersData);
-  const todayDate = dayjs(new Date()).format('D MMMM YY');
-  const uid = firebase.auth().currentUser.uid;
 
   useEffect(() => {
     const matchListener = firebase
