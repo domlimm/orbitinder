@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,44 @@ const RequestsScreen = () => {
   const usersData = useSelector(state => state.users.usersData);
   const userData = useSelector(state => state.user.userData);
   const [requests, setRequests] = useState([]);
+  const [typeIndex, setTypeIndex] = useState(0);
+
+  const TYPES = ['ALL', 'ACTIVE', 'SENT'];
+
+  const TypeList = () => {
+    let selectedStyle;
+
+    if (typeIndex === 0) {
+      selectedStyle = styles.typeTextAll;
+    } else if (typeIndex === 1) {
+      selectedStyle = styles.typeTextActive;
+    } else if (typeIndex === 2) {
+      selectedStyle = styles.typeTextSent;
+    }
+
+    return (
+      <Layout style={styles.typeContainer}>
+        {TYPES.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.8}
+            onPress={() => setTypeIndex(index)}
+          >
+            <Text
+              style={[
+                styles.typeText,
+                typeIndex === index && styles.typeTextSelected,
+                typeIndex === index && selectedStyle
+              ]}
+              category='h6'
+            >
+              {item}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </Layout>
+    );
+  };
 
   useEffect(() => {
     const latestReqsListener = firebase
@@ -18,7 +56,17 @@ const RequestsScreen = () => {
       .collection('users')
       .doc(firebase.auth().currentUser.uid)
       .onSnapshot(querySnapshot => {
-        const userRequests = querySnapshot.data().likedBy;
+        const likedBy = querySnapshot
+          .data()
+          .likedBy.map(id => ({ id: id, type: 'active' }));
+        const likes = querySnapshot
+          .data()
+          .likes.map(id => ({ id: id, type: 'sent' }));
+        const userRequests = [...likedBy, ...likes];
+
+        // Combine all requests (i.e. likedBy, likes)
+        // Change colour for Active and Sent cards
+
         setRequests(userRequests);
       });
 
@@ -28,18 +76,21 @@ const RequestsScreen = () => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
+        <TypeList />
         {requests?.length > 0 ? (
           <FlatList
             style={styles.requestContainer}
             data={requests}
             renderItem={({ item }) => {
-              const senderData = usersData.filter(data => data.id === item)[0];
+              const senderData = usersData.filter(
+                data => data.id === item.id
+              )[0];
 
               return (
                 <RequestItem receiverData={userData} senderData={senderData} />
               );
             }}
-            keyExtractor={item => item}
+            keyExtractor={item => item.id}
             showsVerticalScrollIndicator={false}
             extraData={requests}
           />
@@ -76,6 +127,31 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  typeContainer: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    justifyContent: 'space-around'
+  },
+  typeText: {
+    color: 'grey',
+    fontWeight: 'bold'
+  },
+  typeTextSelected: {
+    paddingBottom: 5,
+    borderBottomWidth: 2
+  },
+  typeTextAll: {
+    color: '#407BFF',
+    borderColor: '#407BFF'
+  },
+  typeTextActive: {
+    color: '#71D624',
+    borderColor: '#71D624'
+  },
+  typeTextSent: {
+    color: '#FFB73A',
+    borderColor: '#FFB73A'
   }
 });
 
