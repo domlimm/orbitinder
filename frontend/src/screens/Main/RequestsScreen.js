@@ -10,7 +10,10 @@ import { RequestItem } from '../../components/';
 const RequestsScreen = () => {
   const usersData = useSelector(state => state.users.usersData);
   const userData = useSelector(state => state.user.userData);
-  const [requests, setRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState([]);
+  const [activeRequests, setActiveRequests] = useState([]);
+  const [sentRequests, setSentRequests] = useState([]);
+
   const [typeIndex, setTypeIndex] = useState(0);
 
   const TYPES = ['ALL', 'ACTIVE', 'SENT'];
@@ -64,10 +67,9 @@ const RequestsScreen = () => {
           .likes.map(id => ({ id: id, type: 'sent' }));
         const userRequests = [...likedBy, ...likes];
 
-        // Combine all requests (i.e. likedBy, likes)
-        // Change colour for Active and Sent cards
-
-        setRequests(userRequests);
+        setActiveRequests(likedBy);
+        setSentRequests(likes);
+        setAllRequests(userRequests);
       });
 
     return () => latestReqsListener();
@@ -77,22 +79,33 @@ const RequestsScreen = () => {
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.chatsContainer}>
         <TypeList />
-        {requests?.length > 0 ? (
+        {allRequests?.length > 0 ? (
           <FlatList
             style={styles.requestContainer}
-            data={requests}
+            data={
+              typeIndex === 0
+                ? allRequests
+                : typeIndex === 1
+                ? activeRequests
+                : sentRequests
+            }
             renderItem={({ item }) => {
               const senderData = usersData.filter(
                 data => data.id === item.id
               )[0];
 
               return (
-                <RequestItem receiverData={userData} senderData={senderData} />
+                <RequestItem
+                  receiverData={userData}
+                  senderData={senderData}
+                  type={item.type}
+                  index={typeIndex}
+                />
               );
             }}
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator={false}
-            extraData={requests}
+            extraData={allRequests}
           />
         ) : (
           <Layout style={styles.emptyContainer}>
@@ -112,7 +125,7 @@ const styles = StyleSheet.create({
   },
   chatsContainer: {
     flex: 1,
-    paddingVertical: 5
+    paddingBottom: 20
   },
   requestContainer: {
     flex: 1,
