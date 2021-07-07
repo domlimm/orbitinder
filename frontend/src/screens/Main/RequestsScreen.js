@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
@@ -15,6 +15,7 @@ const RequestsScreen = () => {
   const [sentRequests, setSentRequests] = useState([]);
 
   const [typeIndex, setTypeIndex] = useState(0);
+  const flatListRef = useRef();
 
   const TYPES = ['ALL', 'ACTIVE', 'SENT'];
 
@@ -31,24 +32,42 @@ const RequestsScreen = () => {
 
     return (
       <Layout style={styles.typeContainer}>
-        {TYPES.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.8}
-            onPress={() => setTypeIndex(index)}
-          >
-            <Text
-              style={[
-                styles.typeText,
-                typeIndex === index && styles.typeTextSelected,
-                typeIndex === index && selectedStyle
-              ]}
-              category='h6'
+        {TYPES.map((item, index) => {
+          let tab;
+
+          if (index === 0) {
+            tab = `${item} (${allRequests.length})`;
+          } else if (index === 1) {
+            tab = `${item} (${activeRequests.length})`;
+          } else if (index === 2) {
+            tab = `${item} (${sentRequests.length})`;
+          }
+
+          return (
+            <TouchableOpacity
+              key={index}
+              activeOpacity={0.8}
+              onPress={() => {
+                setTypeIndex(index);
+                flatListRef.current.scrollToOffset({
+                  animated: true,
+                  offset: 0
+                });
+              }}
             >
-              {item}
-            </Text>
-          </TouchableOpacity>
-        ))}
+              <Text
+                style={[
+                  styles.typeText,
+                  typeIndex === index && styles.typeTextSelected,
+                  typeIndex === index && selectedStyle
+                ]}
+                category='h6'
+              >
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </Layout>
     );
   };
@@ -106,6 +125,9 @@ const RequestsScreen = () => {
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator={false}
             extraData={allRequests}
+            scrollEventThrottle={16}
+            bounces={false}
+            ref={flatListRef}
           />
         ) : (
           <Layout style={styles.emptyContainer}>
