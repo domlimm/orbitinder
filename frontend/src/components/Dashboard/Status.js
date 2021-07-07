@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
+import firebase from '../../firebase';
 
 const Status = () => {
   const navigation = useNavigation();
@@ -22,35 +23,60 @@ const Status = () => {
   const [teammate, setTeammate] = useState({});
   const [teamName, setTeamName] = useState('');
   const [teamImage, setTeamImage] = useState('');
+  const [initial, setInitial] = useState(true);
 
   const { name } = useSelector(state => state.auth);
   const userData = useSelector(state => state.user.userData);
   const usersData = useSelector(state => state.users.usersData);
   const todayDate = dayjs(new Date()).format('D MMMM YY');
+  const uid = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    if (userData.matchId !== undefined) {
-      setMatch(userData.matchId.length > 0);
-    }
+    const matchListener = firebase
+      .firestore()
+      .collection('users')
+      .doc(uid)
+      .onSnapshot(querySnapshot => {
+        if (initial) {
+          if (userData.matchId !== undefined) {
+            setMatch(userData.matchId.length > 0);
+          }
 
-    if (userData.imagePath !== undefined) {
-      setMyImage(userData.imagePath);
-    }
-  }, [userData]);
+          if (userData.imagePath !== undefined) {
+            setMyImage(userData.imagePath);
+          }
 
-  useEffect(() => {
-    if (userData.matchId !== undefined && usersData !== undefined) {
-      const matchId = userData.matchId;
+          if (userData.matchId !== undefined && usersData !== undefined) {
+            const matchId = userData.matchId;
 
-      if (matchId.length > 0) {
-        const match = usersData.filter(user => user.id === matchId)[0];
+            if (matchId.length > 0) {
+              const match = usersData.filter(user => user.id === matchId)[0];
 
-        setTeammate(match);
-        setTeamName(match.name);
-        setTeamImage(match.imagePath);
-      }
-    }
-  }, [usersData]);
+              setTeammate(match);
+              setTeamName(match.name);
+              setTeamImage(match.imagePath);
+            }
+          }
+
+          setInitial(false);
+        } else {
+          const data = querySnapshot.data();
+
+          setMatch(data.matchId.length > 0);
+          setMyImage(data.imagePath);
+
+          if (data.matchId.length > 0) {
+            const match = usersData.filter(user => user.id === data.matchId)[0];
+
+            setTeammate(match);
+            setTeamName(match.name);
+            setTeamImage(match.imagePath);
+          }
+        }
+      });
+
+    return () => matchListener();
+  }, [userData, usersData]);
 
   const Connector = () => <View style={styles.connector} />;
 
