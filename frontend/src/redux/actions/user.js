@@ -305,7 +305,6 @@ export const cancelRequest = (receiverId, newRecentLikes) => dispatch => {
           likedBy: firebase.firestore.FieldValue.arrayRemove(userId)
         })
         .then(() => {
-          dispatch();
           dispatch(usersActions.getAllUserData());
           dispatch(getUserData());
         })

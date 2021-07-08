@@ -5,17 +5,21 @@ import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import firebase from '../../firebase/';
 
-import { RequestItem } from '../../components/';
+import { RequestItem, Toast } from '../../components/';
 
 const RequestsScreen = () => {
   const usersData = useSelector(state => state.users.usersData);
   const userData = useSelector(state => state.user.userData);
+
   const [allRequests, setAllRequests] = useState([]);
   const [activeRequests, setActiveRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
-
   const [typeIndex, setTypeIndex] = useState(0);
   const flatListRef = useRef();
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertStatus, setAlertStatus] = useState('');
 
   const TYPES = ['ALL', 'ACTIVE', 'SENT'];
 
@@ -94,8 +98,21 @@ const RequestsScreen = () => {
     return () => latestReqsListener();
   }, []);
 
+  const cancelToastHandler = name => {
+    setAlertMessage(`Successfully cancelled your sent request to ${name}!`);
+    setShowAlert(true);
+    setAlertStatus('success');
+  };
+
   return (
     <SafeAreaView style={styles.parentContainer}>
+      {showAlert && (
+        <Toast
+          message={alertMessage}
+          status={alertStatus}
+          hide={show => setShowAlert(show)}
+        />
+      )}
       <Layout style={styles.chatsContainer}>
         <TypeList />
         {allRequests?.length > 0 ? (
@@ -119,6 +136,7 @@ const RequestsScreen = () => {
                   senderData={senderData}
                   type={item.type}
                   index={typeIndex}
+                  cancelToastHandler={name => cancelToastHandler(name)}
                 />
               );
             }}

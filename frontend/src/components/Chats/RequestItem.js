@@ -7,7 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const RequestItem = ({ receiverData, senderData, type, index }) => {
+const RequestItem = ({
+  receiverData,
+  senderData,
+  type,
+  index,
+  cancelToastHandler
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const recentLikes = useSelector(state => state.user.userData.recentLikes);
@@ -105,6 +111,7 @@ const RequestItem = ({ receiverData, senderData, type, index }) => {
             );
 
             dispatch(userActions.cancelRequest(senderData.id, newRecentLikes));
+            cancelToastHandler(senderData.name);
           }
         },
         { text: 'Cancel', style: 'cancel', onPress: () => {} }
