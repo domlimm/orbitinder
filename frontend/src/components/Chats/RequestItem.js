@@ -87,6 +87,23 @@ const RequestItem = ({ receiverData, senderData, type, index }) => {
     );
   };
 
+  const cancelHandler = () => {
+    Alert.alert(
+      'Are you sure of your selection?',
+      `Cancelling your sent request will require you to send ${senderData.name} another one in the future.`,
+      [
+        {
+          text: 'Confirm',
+          style: 'destructive',
+          onPress: () => {
+            console.log('cancelling in progress');
+          }
+        },
+        { text: 'Cancel', style: 'cancel', onPress: () => {} }
+      ]
+    );
+  };
+
   return (
     <Fragment>
       <Card
@@ -107,25 +124,34 @@ const RequestItem = ({ receiverData, senderData, type, index }) => {
             : 'Apparently, this user prefers to keep an air of mystery about them.'}
         </Text>
         {type === 'active' ? (
-          <>
-            <View style={styles.footerContainer}>
-              <Button
-                style={styles.footerControl}
-                accessoryLeft={AcceptIcon}
-                size='small'
-                status='success'
-                onPress={acceptHandler}
-              />
-              <Button
-                style={styles.footerControl}
-                accessoryLeft={RejectIcon}
-                size='small'
-                status='danger'
-                onPress={rejectHandler}
-              />
-            </View>
-          </>
-        ) : null}
+          <View style={styles.footerContainer}>
+            <Button
+              style={styles.footerControl}
+              accessoryLeft={AcceptIcon}
+              size='small'
+              status='success'
+              onPress={acceptHandler}
+            />
+            <Button
+              style={styles.footerControl}
+              accessoryLeft={RejectIcon}
+              size='small'
+              status='danger'
+              onPress={rejectHandler}
+            />
+          </View>
+        ) : (
+          <View style={styles.footerContainer}>
+            <Button
+              style={styles.footerControl}
+              size='small'
+              status='danger'
+              onPress={cancelHandler}
+            >
+              CANCEL
+            </Button>
+          </View>
+        )}
       </Card>
     </Fragment>
   );
