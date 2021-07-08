@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { StyleSheet, Image, View, Alert, Platform } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
@@ -10,6 +10,7 @@ import UserAvatar from '../UserProfile/UserAvatar';
 const RequestItem = ({ receiverData, senderData, type, index }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const recentLikes = useSelector(state => state.user.userData.recentLikes);
 
   const showProfile = () => {
     navigation.navigate('ChatStackNavigator', {
@@ -96,7 +97,14 @@ const RequestItem = ({ receiverData, senderData, type, index }) => {
           text: 'Confirm',
           style: 'destructive',
           onPress: () => {
-            console.log('cancelling in progress');
+            const newRecentLikes = recentLikes.filter(
+              user => user.id !== senderData.id
+            );
+            newRecentLikes.sort(
+              (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+            );
+
+            dispatch(userActions.cancelRequest(senderData.id, newRecentLikes));
           }
         },
         { text: 'Cancel', style: 'cancel', onPress: () => {} }
