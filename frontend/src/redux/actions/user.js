@@ -286,6 +286,37 @@ export const removeLikedBy = removeId => dispatch => {
     });
 };
 
+export const cancelRequest = (receiverId, newRecentLikes) => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+  const usersRef = db.collection('users');
+
+  // Remove from current user's recentLikes when matched
+
+  usersRef
+    .doc(userId)
+    .update({
+      likes: firebase.firestore.FieldValue.arrayRemove(receiverId),
+      recentLikes: newRecentLikes
+    })
+    .then(() => {
+      usersRef
+        .doc(receiverId)
+        .update({
+          likedBy: firebase.firestore.FieldValue.arrayRemove(userId)
+        })
+        .then(() => {
+          dispatch(usersActions.getAllUserData());
+          dispatch(getUserData());
+        })
+        .catch(err => {
+          throw new Error(`Cancel Request (Update receiver (likedBy)): ${err}`);
+        });
+    })
+    .catch(err => {
+      throw new Error(`Cancel Request (Update current user): ${err}`);
+    });
+};
+
 export const updatePref = data => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
