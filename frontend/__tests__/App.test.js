@@ -1,10 +1,15 @@
-import 'react-native';
 import React from 'react';
+import { act } from '@testing-library/react-native';
+import { create } from 'react-test-renderer';
+
 import App from '../App';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+describe('<App />', () => {
+  test('Renders correctly', () => {
+    let appComponent;
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+    act(() => {
+      appComponent = create(<App />);
+    });
+  });
 });

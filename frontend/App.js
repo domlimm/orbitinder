@@ -13,12 +13,7 @@ import * as Notifications from 'expo-notifications';
 import { default as customTheme } from './src/constants/custom-theme.json';
 import AppNavigator from './src/navigation/AppNavigator';
 import { localImages } from './src/constants/imagePaths';
-import { ErrorScreen } from './src/screens/index';
-import {
-  authReducer,
-  userReducer,
-  usersReducer
-} from './src/redux/reducers/index';
+import { authReducer, userReducer, usersReducer } from './src/redux/reducers/';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -62,7 +57,7 @@ const App = () => {
       <AppLoading
         startAsync={loadAssetsAsync}
         onFinish={() => setIsAssetsLoading(true)}
-        onError={() => <ErrorScreen />}
+        onError={console.warn}
       />
     );
   }
