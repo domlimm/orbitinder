@@ -152,7 +152,9 @@ const TeamUpScreen = ({ navigation }) => {
         // only show users user has not liked/disliked
         usersData.filter(
           u =>
-            !currUser.likes.includes(u.id) && !currUser.dislikes.includes(u.id)
+            !currUser.likes.includes(u.id) &&
+            !currUser.dislikes.includes(u.id) &&
+            !u.matched
         )
       );
     }
