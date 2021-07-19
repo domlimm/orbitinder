@@ -1,9 +1,15 @@
 import { mockCollection } from 'firestore-jest-mock/mocks/firestore';
-import { mockFirebase } from 'firestore-jest-mock';
-import { mockSet } from 'firestore-jest-mock/mocks/firestore';
+import { mockFirebase, FakeFirestore } from 'firestore-jest-mock';
+import {
+  mockGet,
+  mockGetTransaction,
+  mockSet,
+  mockSetTransaction
+} from 'firestore-jest-mock/mocks/firestore';
 
 const userId = 'orbitinder@devs.com';
 const data = {
+  id: 'orbitinder@devs.com',
   name: 'OrbiTinder Devs',
   background: {
     achievement: 'Artemis',
@@ -58,31 +64,56 @@ describe('Initialising mock users data', () => {
   });
 });
 
-describe('[user.js] getUserData', () => {
-  test('Testing getUserData', () => {
+describe('[user.js] getUserData (Retrieve)', () => {
+  test('Testing getUserData', async () => {
+    expect(mockGetTransaction).not.toHaveBeenCalled();
     const firebase = require('firebase');
     const db = firebase.firestore();
+    const ref = db.collection('users').doc(userId);
 
-    return db
-      .collection('users')
-      .get()
-      .then(userDocs => {
-        expect(mockCollection).toHaveBeenCalledWith('users');
-      });
+    await db.runTransaction(async transaction => {
+      const result = transaction.get(ref);
+      expect(result).toBeInstanceOf(Promise);
+      const doc = await result;
+
+      expect(mockGet).not.toHaveBeenCalled();
+      expect(doc).toHaveProperty('id', userId);
+    });
+    expect(mockGetTransaction).toHaveBeenCalled();
   });
 });
 
-describe('[user.js] addProfile', () => {
-  test('Testing getUserData', () => {
+describe('[user.js] addProfile (Create)', () => {
+  test('Testing addProfile', async () => {
+    expect(mockSetTransaction).not.toHaveBeenCalled();
     const firebase = require('firebase');
     const db = firebase.firestore();
+    const ref = db.collection('users').doc(userId);
 
-    return db
-      .collection('users')
-      .doc(userId)
-      .set(data)
-      .then(() => {
-        expect(mockCollection).toHaveBeenCalledWith('users');
-      });
+    await db.runTransaction(transaction => {
+      const options = { merge: true };
+      const result = transaction.set(ref, data.background, options);
+
+      expect(result).toBeInstanceOf(FakeFirestore.Transaction);
+      expect(mockSet).toHaveBeenCalledWith(data.background, options);
+    });
+    expect(mockSetTransaction).toHaveBeenCalled();
+  });
+});
+
+describe('[user.js] addPreferences (Update)', () => {
+  test('Testing addPreferences', async () => {
+    const firebase = require('firebase');
+    const db = firebase.firestore();
+    const ref = db.collection('users').doc(userId);
+
+    await db.runTransaction(transaction => {
+      const options = { merge: true };
+      const result = transaction.set(ref, data.preferences, options);
+
+      expect(result).toBeInstanceOf(FakeFirestore.Transaction);
+      expect(mockSet).toHaveBeenCalledWith(data.preferences, options);
+    });
+    expect(mockSetTransaction).toHaveBeenCalled();
   });
 });
