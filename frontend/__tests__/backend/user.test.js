@@ -1,4 +1,3 @@
-import { mockCollection } from 'firestore-jest-mock/mocks/firestore';
 import { mockFirebase, FakeFirestore } from 'firestore-jest-mock';
 import {
   mockGet,
