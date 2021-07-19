@@ -126,7 +126,9 @@ const RecentLikes = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           extraData={userData}
-          style={{ marginRight: 20 }}
+          style={{ marginRight: 20, overflow: 'visible' }}
+          scrollEventThrottle={16}
+          snapToAlignment='center'
         />
       ) : (
         <Layout style={styles.emptyContainer}>

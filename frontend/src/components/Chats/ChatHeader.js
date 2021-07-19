@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import {
   Icon,
@@ -85,7 +85,7 @@ const ChatHeader = ({
       accessoryRight={
         isPartner && userMatched
           ? TelegramAction
-          : !userMatched
+          : !userMatched && peerData.matchId.length === 0
           ? HandshakeAction
           : null
       }

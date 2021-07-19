@@ -65,6 +65,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   const userData = useSelector(state => state.user.userData);
   const background = userData.background;
+  delete background.telegram;
   const [bgData, setBgData] = React.useState(background);
 
   React.useEffect(() => {
@@ -310,6 +311,7 @@ const EditProfileScreen = ({ navigation }) => {
               ? `https://www.linkedin.com/in/${currState.linkedinValue}`
               : ''
         };
+
         if (_.isEqual(bgData, finalB)) {
           return;
         } else {

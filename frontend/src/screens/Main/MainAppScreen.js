@@ -3,8 +3,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableNativeFeedback,
-  Platform,
-  Dimensions
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -26,8 +25,6 @@ import {
   Status,
   RecentLikes
 } from '../../components/index';
-
-const { height } = Dimensions.get('window');
 
 const MainAppScreen = ({ navigation }) => {
   const [image, setImage] = React.useState('');

@@ -2,14 +2,21 @@ import React, { Fragment } from 'react';
 import { StyleSheet, Image, View, Alert, Platform } from 'react-native';
 import { Button, Card, Text, Icon } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as userActions from '../../redux/actions/user';
 import UserAvatar from '../UserProfile/UserAvatar';
 
-const RequestItem = ({ receiverData, senderData }) => {
+const RequestItem = ({
+  receiverData,
+  senderData,
+  type,
+  index,
+  cancelToastHandler
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const recentLikes = useSelector(state => state.user.userData.recentLikes);
 
   const showProfile = () => {
     navigation.navigate('ChatStackNavigator', {
@@ -19,10 +26,10 @@ const RequestItem = ({ receiverData, senderData }) => {
   };
 
   const AcceptIcon = props => (
-    <Icon {...props} name='checkmark-outline' fill='#333' />
+    <Icon {...props} name='checkmark-outline' fill='white' />
   );
   const RejectIcon = props => (
-    <Icon {...props} name='close-outline' fill='#333' />
+    <Icon {...props} name='close-outline' fill='white' />
   );
 
   const Header = () => (
@@ -87,12 +94,43 @@ const RequestItem = ({ receiverData, senderData }) => {
     );
   };
 
+  const cancelHandler = () => {
+    Alert.alert(
+      'Are you sure of your selection?',
+      `Cancelling your sent request will require you to send ${senderData.name} another one in the future.`,
+      [
+        {
+          text: 'Confirm',
+          style: 'destructive',
+          onPress: () => {
+            const newRecentLikes = recentLikes.filter(
+              user => user.id !== senderData.id
+            );
+            newRecentLikes.sort(
+              (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+            );
+
+            dispatch(userActions.cancelRequest(senderData.id, newRecentLikes));
+            cancelToastHandler(senderData.name);
+          }
+        },
+        { text: 'Cancel', style: 'cancel', onPress: () => {} }
+      ]
+    );
+  };
+
   return (
     <Fragment>
       <Card
         style={styles.cardContainer}
         header={Header}
-        status='primary'
+        status={
+          type === 'active' && index === 0
+            ? 'success'
+            : type === 'sent' && index === 0
+            ? 'warning'
+            : null
+        }
         onPress={showProfile}
       >
         <Text>
@@ -100,22 +138,35 @@ const RequestItem = ({ receiverData, senderData }) => {
             ? senderData.background.biography
             : 'Apparently, this user prefers to keep an air of mystery about them.'}
         </Text>
-        <View style={styles.footerContainer}>
-          <Button
-            style={styles.footerControl}
-            accessoryLeft={AcceptIcon}
-            size='small'
-            status='success'
-            onPress={acceptHandler}
-          />
-          <Button
-            style={styles.footerControl}
-            accessoryLeft={RejectIcon}
-            size='small'
-            status='danger'
-            onPress={rejectHandler}
-          />
-        </View>
+        {type === 'active' ? (
+          <View style={styles.footerContainer}>
+            <Button
+              style={styles.footerControl}
+              accessoryLeft={AcceptIcon}
+              size='small'
+              status='success'
+              onPress={acceptHandler}
+            />
+            <Button
+              style={styles.footerControl}
+              accessoryLeft={RejectIcon}
+              size='small'
+              status='danger'
+              onPress={rejectHandler}
+            />
+          </View>
+        ) : (
+          <View style={styles.footerContainer}>
+            <Button
+              style={styles.footerControl}
+              size='small'
+              status='danger'
+              onPress={cancelHandler}
+            >
+              CANCEL
+            </Button>
+          </View>
+        )}
       </Card>
     </Fragment>
   );

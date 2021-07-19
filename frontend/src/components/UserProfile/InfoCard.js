@@ -66,8 +66,18 @@ const InfoCard = ({ cardData, navProps }) => {
         </Layout>
       </Layout>
       <Layout style={styles.contentContainer}>
-        {background.biography.length > 0 && (
-          <Text style={styles.sectionText}>{background.biography}</Text>
+        {background.biography.length > 0 ? (
+          <Text style={styles.sectionText} numberOfLines={6}>
+            {background.biography.length > 200
+              ? `${background.biography.substring(0, 200)}...`
+              : background.biography}
+          </Text>
+        ) : (
+          <Text style={styles.sectionText}>
+            {
+              'Apparently, this user prefers to keep an air of mystery about them.'
+            }
+          </Text>
         )}
         {background.interests.length > 0 && (
           <Layout>

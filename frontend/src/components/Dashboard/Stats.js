@@ -10,27 +10,50 @@ import { Layout, Text, Popover, Icon } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
 
+import firebase from '../../firebase';
+
 const { width, height } = Dimensions.get('window');
 
 const Stats = () => {
+  const uid = firebase.auth().currentUser.uid;
+
   const [likesCount, setLikesCount] = useState('');
   const [dislikesCount, setDislikesCount] = useState('');
   const [likedByCount, setLikedByCount] = useState('');
   const [visible, setVisible] = useState(false);
   const userData = useSelector(state => state.user.userData);
+  const [initial, setInitial] = useState(true);
 
   useEffect(() => {
-    if (userData.likes !== undefined) {
-      setLikesCount(userData.likes.length);
-    }
+    const statsListener = firebase
+      .firestore()
+      .collection('users')
+      .doc(uid)
+      .onSnapshot(querySnapshot => {
+        if (initial) {
+          if (userData.likes !== undefined) {
+            setLikesCount(userData.likes.length);
+          }
 
-    if (userData.dislikes !== undefined) {
-      setDislikesCount(userData.dislikes.length);
-    }
+          if (userData.dislikes !== undefined) {
+            setDislikesCount(userData.dislikes.length);
+          }
 
-    if (userData.likedBy !== undefined) {
-      setLikedByCount(userData.likedBy.length);
-    }
+          if (userData.likedBy !== undefined) {
+            setLikedByCount(userData.likedBy.length);
+          }
+
+          setInitial(false);
+        } else {
+          const data = querySnapshot.data();
+
+          setLikesCount(data.likes.length);
+          setDislikesCount(data.dislikes.length);
+          setLikedByCount(data.likedBy.length);
+        }
+      });
+
+    return () => statsListener();
   }, [userData]);
 
   const TouchIcon = () => (

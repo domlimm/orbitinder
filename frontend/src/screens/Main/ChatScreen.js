@@ -121,6 +121,23 @@ const ChatScreen = ({ navigation, route }) => {
     dispatch(
       userActions.updateLatestChatMessage(userData, chatId, data.latestMessage)
     );
+
+    fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-Encoding': 'gzip,deflate',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        to: peerData.userPushToken,
+        title: `${userData.name} sent you a message`,
+        body: msg,
+        data: {
+          screen: 'ChatsOverview'
+        }
+      })
+    });
   };
 
   const scrollToBottomComponent = () => (
