@@ -12,13 +12,14 @@ const UserPreferencesScreen = ({ navigation }) => {
   };
 
   const userData = useSelector(state => state.user.userData);
-  const { commitment, degree, gender, sweExperience, year } =
+  const { commitment, degree, gender, sweExperience, year, interests } =
     userData.preferences;
   const partialPreferences = {
     year,
     degree,
     commitment,
     gender,
+    interests,
     sweExperience
   };
   const techExp = userData.preferences.technologyExperience;
@@ -27,6 +28,7 @@ const UserPreferencesScreen = ({ navigation }) => {
     commitment.length === 0 &&
     degree.length === 0 &&
     gender.length === 0 &&
+    interests.length === 0 &&
     sweExperience.length === 0 &&
     year.length === 0;
   const isTechExpEmpty =
@@ -39,6 +41,7 @@ const UserPreferencesScreen = ({ navigation }) => {
     commitment.length === 0 &&
     degree.length === 0 &&
     gender.length === 0 &&
+    interests.length === 0 &&
     sweExperience.length === 0 &&
     year.length === 0 &&
     database.length === 0 &&
@@ -101,6 +104,14 @@ const UserPreferencesScreen = ({ navigation }) => {
                   } else if (key === 'gender') {
                     return (
                       <ContentCard key={key} title={'GENDER'} data={gender} />
+                    );
+                  } else if (key === 'interests') {
+                    return (
+                      <ContentCard
+                        key={key}
+                        title={'AREAS OF INTERESTS'}
+                        data={interests}
+                      />
                     );
                   } else if (key === 'sweExperience') {
                     return (
