@@ -28,7 +28,8 @@ import {
   webDevData,
   mobileDevData,
   dbData,
-  mlData
+  mlData,
+  interestsData
 } from '../../constants/profleCreationData';
 import * as userActions from '../../redux/actions/user';
 
@@ -67,6 +68,7 @@ const EditPrefScreen = ({ navigation }) => {
     commitmentValue: preferences.commitment,
     genderValue: preferences.gender,
     expValue: preferences.sweExperience,
+    interestsValue: preferences.interests,
     gamedevIndex: preferences.technologyExperience.game.map(index => {
       return new IndexPath(gameDevData.indexOf(index));
     }),
@@ -96,6 +98,9 @@ const EditPrefScreen = ({ navigation }) => {
     }),
     expIndex: preferences.sweExperience.map(index => {
       return new IndexPath(sweExperience.indexOf(index));
+    }),
+    interestsIndex: preferences.interests.map(index => {
+      return new IndexPath(interestsData.indexOf(index));
     })
   };
   const myReducer = (currState, action) => {
@@ -160,6 +165,12 @@ const EditPrefScreen = ({ navigation }) => {
           expValue: action.expValue,
           expIndex: action.expIndex
         };
+      case 'changeInterests':
+        return {
+          ...currState,
+          interestsValue: action.interestsValue,
+          interestsIndex: action.interestsIndex
+        };
     }
   };
   const [currState, myDispatch] = React.useReducer(myReducer, initialState);
@@ -170,6 +181,7 @@ const EditPrefScreen = ({ navigation }) => {
         commitment: currState.commitmentValue,
         degree: currState.degreeValue,
         gender: currState.genderValue,
+        interests: currState.interestsValue,
         sweExperience: currState.expValue,
         technologyExperience: {
           game: currState.gamedevValue,
@@ -202,6 +214,7 @@ const EditPrefScreen = ({ navigation }) => {
           commitment: currState.commitmentValue,
           degree: currState.degreeValue,
           gender: currState.genderValue,
+          interests: currState.interestsValue,
           sweExperience: currState.expValue,
           technologyExperience: {
             game: currState.gamedevValue,
@@ -357,7 +370,27 @@ const EditPrefScreen = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-
+            <Select
+              label='Areas of Interest'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={currState.interestsIndex}
+              onSelect={input =>
+                myDispatch({
+                  type: 'changeInterests',
+                  interestsValue: input.map(index => {
+                    return interestsData[index.row];
+                  }),
+                  interestsIndex: input
+                })
+              }
+              placeholder='Select'
+              value={currState.interestsValue.join(', ')}
+            >
+              {interestsData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
             <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
               Technology Experience
             </Text>
