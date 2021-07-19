@@ -22,7 +22,7 @@ import {
   sweExperience,
   degreeData
 } from '../../constants/prefCreationData';
-
+import { interestsData } from '../../constants/profleCreationData';
 const PrefInputScreen1 = ({ navigation }) => {
   const [yearIndex, setYearIndex] = React.useState([]);
   const displayYear = yearIndex.map(index => {
@@ -49,12 +49,18 @@ const PrefInputScreen1 = ({ navigation }) => {
     return sweExperience[index.row];
   });
 
+  const [interestsIndex, setInterestsIndex] = React.useState([]);
+  const displayInterests = interestsIndex.map(index => {
+    return interestsData[index.row];
+  });
+
   const navigatePreference = () => {
     navigation.navigate('PrefInput2', {
       year: displayYear,
       degree: displayDegree,
       commitment: displayCommitment,
       gender: displayGender,
+      interests: displayInterests,
       sweExperience: displaySWE
     });
   };
@@ -135,7 +141,19 @@ const PrefInputScreen1 = ({ navigation }) => {
                 <SelectItem key={key} title={value} />
               ))}
             </Select>
-
+            <Select
+              label='Areas of Interest'
+              style={styles.selectInput}
+              multiSelect={true}
+              selectedIndex={interestsIndex}
+              onSelect={index => setInterestsIndex(index)}
+              placeholder='Select'
+              value={displayInterests.join(', ')}
+            >
+              {interestsData.map((value, key) => (
+                <SelectItem key={key} title={value} />
+              ))}
+            </Select>
             <Select
               label='Prefered SWE experience level '
               style={styles.selectInput}
