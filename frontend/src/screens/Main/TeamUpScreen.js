@@ -8,7 +8,7 @@ import * as userActions from '../../redux/actions/user';
 import _ from 'lodash';
 
 import firebase from '../../firebase';
-import { InfoCard, TitleHeader } from '../../components/index';
+import { InfoCard, TitleHeader, Toast } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
 const TeamUpScreen = ({ navigation }) => {
@@ -21,6 +21,10 @@ const TeamUpScreen = ({ navigation }) => {
   const [viewHeight, setViewHeight] = React.useState();
   const [displayRecoBtn, setRecoBtn] = React.useState(false);
   const [recoData, setRecoData] = React.useState([]);
+
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertStatus, setAlertStatus] = React.useState('info');
 
   const navProps = {
     title: 'Team Up',
@@ -37,19 +41,25 @@ const TeamUpScreen = ({ navigation }) => {
   };
 
   const onSwipedLeft = index => {
-    try {
-      dispatch(userActions.addDislikes(sortedUsers[index].id));
-    } catch (err) {
-      console.log(err.message);
-    }
+    if (!currUser.matched) {
+      try {
+        dispatch(userActions.addDislikes(sortedUsers[index].id));
+      } catch (err) {
+        console.log(err.message);
+      }
 
-    console.log(sortedUsers[index].name);
-    console.log('swiped left');
+      console.log(sortedUsers[index].name);
+      console.log('swiped left');
+    } else {
+      setShowAlert(true);
+      setAlertMessage(
+        'You have already found a teammate!\nHowever, you can still swipe & explore! 🔎'
+      );
+    }
   };
 
   const onSwipedRight = index => {
-    //like
-    if (sortedUsers.length != 0) {
+    if (sortedUsers.length != 0 && !currUser.matched) {
       try {
         dispatch(userActions.addLikes(sortedUsers[index].id));
         dispatch(
@@ -58,61 +68,66 @@ const TeamUpScreen = ({ navigation }) => {
             currUser
           )
         );
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
 
-    console.log([...currUser.likes, sortedUsers[index].id]);
-    console.log(currUser.likes);
+        console.log([...currUser.likes, sortedUsers[index].id]);
+        console.log(currUser.likes);
 
-    firebase
-      .auth()
-      .currentUser.getIdToken()
-      .then(idToken => {
-        // let bearer = 'Bearer ' + idToken; // get auth token from firestore, getIdToken will refresh the token if it is expired
-        fetch(
-          'https://orbitinder-recommend.herokuapp.com/get_recommendations',
-          {
-            method: 'POST',
-            withCredentials: true,
-            mode: 'cors',
-            headers: {
-              Authorization: 'Bearer ' + idToken,
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              likes: [...currUser.likes, sortedUsers[index].id],
-              dislikes: currUser.dislikes
-            })
-          }
-        )
-          .then(response => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error('Something went wrong');
-            }
-          })
-          .then(data => {
-            if (data.length != 0) {
-              setRecoBtn(true); // displays reco btn
-              setRecoData(data); // sets recommendation data, filters out current user
-              console.log('data retrieved from server');
-              console.log(data);
-            } else {
-              setRecoBtn(false);
-              console.log('no data retreived from server');
-            }
+        firebase
+          .auth()
+          .currentUser.getIdToken()
+          .then(idToken => {
+            // let bearer = 'Bearer ' + idToken; // get auth token from firestore, getIdToken will refresh the token if it is expired
+            fetch(
+              'https://orbitinder-recommend.herokuapp.com/get_recommendations',
+              {
+                method: 'POST',
+                withCredentials: true,
+                mode: 'cors',
+                headers: {
+                  Authorization: 'Bearer ' + idToken,
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  likes: [...currUser.likes, sortedUsers[index].id],
+                  dislikes: currUser.dislikes
+                })
+              }
+            )
+              .then(response => {
+                if (response.ok) {
+                  return response.json();
+                } else {
+                  throw new Error('Something went wrong');
+                }
+              })
+              .then(data => {
+                if (data.length != 0) {
+                  setRecoBtn(true); // displays reco btn
+                  setRecoData(data); // sets recommendation data, filters out current user
+                  console.log('data retrieved from server');
+                  console.log(data);
+                } else {
+                  setRecoBtn(false);
+                  console.log('no data retreived from server');
+                }
+              })
+              .catch(e => {
+                console.log(e);
+              });
           })
           .catch(e => {
             console.log(e);
           });
-      })
-      .catch(e => {
-        console.log(e);
-      });
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      setShowAlert(true);
+      setAlertMessage(
+        'You have already found a teammate!\nHowever, you can still swipe & explore! 🔎'
+      );
+    }
   };
 
   const viewLayoutHandler = event => {
@@ -227,6 +242,14 @@ const TeamUpScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
+      {showAlert && (
+        <Toast
+          message={alertMessage}
+          status={alertStatus}
+          hide={show => setShowAlert(show)}
+          stay={true}
+        />
+      )}
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight != undefined &&
           sortedUsers.length != 0 &&

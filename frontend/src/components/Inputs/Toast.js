@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { Text } from '@ui-kitten/components';
 
-const Toast = ({ message, status, hide }) => {
+const Toast = ({ message, status, hide, stay }) => {
   const opacity = useRef(new Animated.Value(0)).current;
 
   let backgroundColor;
@@ -18,6 +18,16 @@ const Toast = ({ message, status, hide }) => {
   }
 
   useEffect(() => {
+    if (stay) {
+      return Animated.sequence([
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true
+        })
+      ]).start();
+    }
+
     Animated.sequence([
       Animated.timing(opacity, {
         toValue: 1,
