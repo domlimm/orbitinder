@@ -90,11 +90,10 @@ describe('[user.js] addProfile (Create)', () => {
     const ref = db.collection('users').doc(userId);
 
     await db.runTransaction(transaction => {
-      const options = { merge: true };
-      const result = transaction.set(ref, data.background, options);
+      const result = transaction.set(ref, data.background);
 
       expect(result).toBeInstanceOf(FakeFirestore.Transaction);
-      expect(mockSet).toHaveBeenCalledWith(data.background, options);
+      expect(mockSet).toHaveBeenCalledWith(data.background);
     });
     expect(mockSetTransaction).toHaveBeenCalled();
   });

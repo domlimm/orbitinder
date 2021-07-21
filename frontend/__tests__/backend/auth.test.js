@@ -49,19 +49,19 @@ describe('[auth.js] Auth Operations', () => {
     jest.clearAllMocks();
     this.firebase = require('firebase');
     this.firebase.initializeApp({
-      apiKey: 'AIzaSyCgLJ-OgQo97_uL8vUctptQiB1krjST7GM',
-      authDomain: 'orbitinder-45e68.firebaseapp.com',
-      projectId: 'orbitinder-45e68'
+      // Removed for security reasons
+      apiKey: '### API Key ###',
+      authDomain: '### Domain ###',
+      projectId: '### Project ID ###'
     });
   });
 
-  // 'a@a.com', '123456'
   describe('Testing auth.js', () => {
     describe('[auth.js] functions', () => {
       test('signUp', async () => {
         await this.firebase
           .auth()
-          .createUserWithEmailAndPassword('a@a.com', '123456')
+          .createUserWithEmailAndPassword('test@a.com', '123456')
           .then(() => {
             expect(mockCreateUserWithEmailAndPassword);
           });
@@ -70,7 +70,7 @@ describe('[auth.js] Auth Operations', () => {
       test('logIn', async () => {
         await this.firebase
           .auth()
-          .signInWithEmailAndPassword('a@a.com', '123456')
+          .signInWithEmailAndPassword('test@a.com', '123456')
           .then(() => {
             expect(mockSignInWithEmailAndPassword);
           });
