@@ -5,15 +5,11 @@ import { create } from 'react-test-renderer';
 import App from '../../App';
 
 describe('<App />', () => {
-  test('Renders correctly', () => {});
+  test('Renders correctly', () => {
+    let appComponent;
+
+    act(() => {
+      appComponent = create(<App />);
+    });
+  });
 });
-
-// describe('<App />', () => {
-//   test('Renders correctly', () => {
-//     let appComponent;
-
-//     act(() => {
-//       appComponent = create(<App />);
-//     });
-//   });
-// });

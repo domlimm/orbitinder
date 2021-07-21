@@ -12,25 +12,21 @@ import {
 } from '../../src/redux/reducers/';
 
 describe('<MainAppScreen />', () => {
-  test('Renders correctly', () => {});
+  const rootReducer = combineReducers({
+    auth: authReducer,
+    user: userReducer,
+    users: usersReducer
+  });
+
+  const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+  test('Renders correctly', () => {
+    const component = (
+      <Provider store={store}>
+        <MainAppScreen />
+      </Provider>
+    );
+
+    render(component);
+  });
 });
-
-// describe('<MainAppScreen />', () => {
-//   const rootReducer = combineReducers({
-//     auth: authReducer,
-//     user: userReducer,
-//     users: usersReducer
-//   });
-
-//   const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-
-//   test('Renders correctly', () => {
-//     const component = (
-//       <Provider store={store}>
-//         <MainAppScreen />
-//       </Provider>
-//     );
-
-//     render(component);
-//   });
-// });

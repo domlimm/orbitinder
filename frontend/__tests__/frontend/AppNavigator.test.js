@@ -15,31 +15,27 @@ import {
 } from '../../src/redux/reducers/';
 import { default as customTheme } from '../../src/constants/custom-theme.json';
 
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+
 describe('<AppNavigator />', () => {
-  test('Renders correctly', () => {});
+  const rootReducer = combineReducers({
+    auth: authReducer,
+    user: userReducer,
+    users: usersReducer
+  });
+
+  const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+  test('Application navigation system works correctly', async () => {
+    const component = (
+      <Provider store={store}>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
+          <AppNavigator />
+        </ApplicationProvider>
+      </Provider>
+    );
+
+    render(component);
+  });
 });
-
-// jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
-
-// describe('<AppNavigator />', () => {
-//   const rootReducer = combineReducers({
-//     auth: authReducer,
-//     user: userReducer,
-//     users: usersReducer
-//   });
-
-//   const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-
-//   test('Application navigation system works correctly', async () => {
-//     const component = (
-//       <Provider store={store}>
-//         <IconRegistry icons={EvaIconsPack} />
-//         <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
-//           <AppNavigator />
-//         </ApplicationProvider>
-//       </Provider>
-//     );
-
-//     render(component);
-//   });
-// });
