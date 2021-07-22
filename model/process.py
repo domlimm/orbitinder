@@ -53,19 +53,6 @@ def get_users_df():
         print(f"An Error Occured: {e}")
         return pd.DataFrame()
 
-def get_reco_objs(id_array):
-    list_dicts = []
-    try:
-        for doc in users_ref.stream():
-            if doc.id in id_array:
-                doc_dict = doc.to_dict()
-                doc_dict["id"] = doc.id
-                list_dicts.append(doc_dict)
-        return list_dicts
-    except Exception as e:
-        print(f"An Error Occured: {e}")
-        return []
-
 def tokenise(doc):
   # split into lower case word tokens
   tokens = word_tokenize(doc.lower())
@@ -75,3 +62,7 @@ def tokenise(doc):
 
 def preprocess_corpus(mv_tags_corpus):
   return [TaggedDocument(words=tokenise(D), tags=[str(i)]) for i, D in enumerate(mv_tags_corpus)]
+
+def update_reco_field(uid, recoIDArray):
+    uRef = users_ref.document(uid)
+    uRef.update({'recommended_users':firestore.ArrayUnion(recoIDArray)})

@@ -1,3 +1,4 @@
+from model.process import update_reco_field
 import os, sys, json
 from flask import Flask, request, jsonify,Response
 from flask_cors import CORS
@@ -8,7 +9,7 @@ from gensim.models.doc2vec import Doc2Vec
 import requests
 
 
-from process import get_reco_objs, get_users_df, tokenise, preprocess_corpus, validate_token
+from process import get_users_df, tokenise, preprocess_corpus, validate_token
 from model import init_model, train_model
 #init Flask App
 app=Flask(__name__)
@@ -20,8 +21,7 @@ def home():
 
 @app.route('/test')
 def test():
-  requests.post('http://127.0.0.1:5000/get_recommendations', json={"likes":["65qESr8SFzRE4LLNsVxTyjVAiSq1", "PzgPRaBH0BWJ40gLoweTDQ5Moiv1","Y2e3W8nD55e0YExofWQtTGPSw232"], "dislikes":["3uhHLX68pgcILfb9Oor6uspPGfa2"]})
-  return "hi"
+  return "endpoint unavail"
 # @app.route('/train_model')
 @app.route('/train_model', methods=['POST'])
 def save_model():
@@ -73,9 +73,6 @@ def get_recommendations():
   model = Doc2Vec.load("doc2vec")
   # listing space embeddings
   mv_tags_vectors = model.dv.vectors
-#nZP5NZdkP6QNItNUU8K7IO86dcY2
-  # likesArr= ['rDUMUtqVMKdC2AiQ8QEQO8pbLkM2']
-  # dislikesArr= ['HIX1Dbf1g2Y5dApp2IOZaY8E1it1','xkEv26Z4KhY0xBSomiIfM2PxFH52']
   dislikesArr = request.json['dislikes']
   likesArr = request.json['likes']
 
@@ -99,11 +96,13 @@ def get_recommendations():
     final_reco_id.remove(auth_token_uid) #filter out current user from recommended users
     print("Given uid Found and removed in List")
     print(final_reco_id)
+    update_reco_field(auth_token_uid, final_reco_id)
   else:
     print("Given uid Not Found in List")
+    update_reco_field(auth_token_uid, final_reco_id)
     print(final_reco_id)
 
-  return jsonify(get_reco_objs(final_reco_id))
+  return jsonify(final_reco_id)
   # return json.loads(users_df.to_json())
 
 if __name__ == '__main__':
