@@ -1,4 +1,3 @@
-from model.process import update_reco_field
 import os, sys, json
 from flask import Flask, request, jsonify,Response
 from flask_cors import CORS
@@ -9,7 +8,7 @@ from gensim.models.doc2vec import Doc2Vec
 import requests
 
 
-from process import get_users_df, tokenise, preprocess_corpus, validate_token
+from process import get_users_df, tokenise, preprocess_corpus, validate_token,update_reco_field
 from model import init_model, train_model
 #init Flask App
 app=Flask(__name__)
