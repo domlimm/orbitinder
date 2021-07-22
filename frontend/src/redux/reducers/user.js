@@ -11,7 +11,8 @@ import {
   ADD_DISLIKES,
   ADD_LIKED_BY,
   REMOVE_LIKED_BY,
-  ACCEPT_CHAT_REQUEST
+  ACCEPT_CHAT_REQUEST,
+  REMOVE_RECOMMENDED_USERS
 } from '../actions/user';
 
 const initialState = {
@@ -99,6 +100,16 @@ export default (state = initialState, action) => {
         userData: {
           ...state.userData,
           chats: [...state.userData.chats, action.chatId]
+        }
+      };
+    case REMOVE_RECOMMENDED_USERS:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          recommended_users: state.userData.recommended_users.filter(
+            id => id !== action.id
+          )
         }
       };
     case LOG_OUT:

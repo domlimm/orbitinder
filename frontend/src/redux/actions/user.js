@@ -15,6 +15,7 @@ export const ADD_DISLIKES = 'ADD_DISLIKES';
 export const ADD_LIKED_BY = 'ADD_LIKED_BY';
 export const REMOVE_LIKED_BY = 'REMOVE_LIKED_BY';
 export const ACCEPT_CHAT_REQUEST = 'ACCEPT_CHAT_REQUEST';
+export const REMOVE_RECOMMENDED_USERS = 'REMOVE_RECOMMENDED_USERS';
 
 const db = firebase.firestore();
 
@@ -570,6 +571,22 @@ export const updateMatching = status => dispatch => {
     })
     .catch(err => {
       throw new Error(`Update Matching status: ${err}`);
+    });
+};
+
+export const removeRecommendedUser = removeId => dispatch => {
+  const userId = firebase.auth().currentUser.uid;
+
+  db.collection('users')
+    .doc(userId)
+    .update({
+      recommended_users: firebase.firestore.FieldValue.arrayRemove(removeId)
+    })
+    .then(() => {
+      dispatch({ type: REMOVE_LIKED_BY, id: removeId });
+    })
+    .catch(err => {
+      throw new Error(`Remove Recommended User (actions): ${err}`);
     });
 };
 
