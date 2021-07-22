@@ -9,7 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 env.js
-model/key.json
+# model/key.json
 
 # macOS
 .DS_Store
