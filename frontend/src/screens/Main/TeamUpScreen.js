@@ -40,6 +40,28 @@ const TeamUpScreen = ({ navigation }) => {
     console.log('swiped');
   };
 
+  React.useEffect(() => {
+    const recoUsersListener = firebase
+      .firestore()
+      .collection('users')
+      .doc(firebase.auth().currentUser.uid)
+      .onSnapshot(querySnapshot => {
+        const recoIDs = querySnapshot.data().recommended_users;
+        if (recoIDs != undefined) {
+          if (recoIDs.length != 0) {
+            setRecoBtn(true);
+            console.log('check reco');
+            setRecoData(recoIDs);
+          } else {
+            setRecoBtn(false);
+          }
+          console.log(recoIDs);
+        }
+      });
+
+    return () => recoUsersListener();
+  }, []);
+
   const onSwipedLeft = index => {
     if (!currUser.matched) {
       try {
@@ -76,6 +98,7 @@ const TeamUpScreen = ({ navigation }) => {
           .auth()
           .currentUser.getIdToken()
           .then(idToken => {
+            // console.log(idToken);
             // let bearer = 'Bearer ' + idToken; // get auth token from firestore, getIdToken will refresh the token if it is expired
             fetch(
               'https://orbitinder-recommend.herokuapp.com/get_recommendations',
@@ -93,28 +116,7 @@ const TeamUpScreen = ({ navigation }) => {
                   dislikes: currUser.dislikes
                 })
               }
-            )
-              .then(response => {
-                if (response.ok) {
-                  return response.json();
-                } else {
-                  throw new Error('Something went wrong');
-                }
-              })
-              .then(data => {
-                if (data.length != 0) {
-                  setRecoBtn(true); // displays reco btn
-                  setRecoData(data); // sets recommendation data, filters out current user
-                  console.log('data retrieved from server');
-                  console.log(data);
-                } else {
-                  setRecoBtn(false);
-                  console.log('no data retreived from server');
-                }
-              })
-              .catch(e => {
-                console.log(e);
-              });
+            );
           })
           .catch(e => {
             console.log(e);
@@ -141,6 +143,7 @@ const TeamUpScreen = ({ navigation }) => {
   React.useEffect(() => {
     // starts the initial calculation of each user's score, calls the 3rd UE to execute
     if (currUser != undefined && prefsObj == undefined) {
+      console.log('at eff1');
       setPrefsObj(processPrefs(currUser));
     }
   }, [currUser]);
@@ -148,6 +151,7 @@ const TeamUpScreen = ({ navigation }) => {
   React.useEffect(() => {
     //if user preferences change, recalculate the score of all users
     if (currUser != undefined) {
+      console.log('at eff2');
       setPrefsObj(processPrefs(currUser));
     }
   }, [currPref]);
@@ -163,20 +167,49 @@ const TeamUpScreen = ({ navigation }) => {
         console.log(element.name, element.score);
       });
       // console.log(prefsObj);
+      console.log('at eff3');
+      let fil = usersData.filter(
+        u =>
+          !currUser.likes.includes(u.id) &&
+          !currUser.dislikes.includes(u.id) &&
+          !u.matched &&
+          !recoData.includes(u.id)
+      );
+      console.log(fil[0].name);
       setSortedUsers(
         // only show users user has not liked/disliked
-        usersData.filter(
-          u =>
-            !currUser.likes.includes(u.id) &&
-            !currUser.dislikes.includes(u.id) &&
-            !u.matched
-        )
+        fil
       );
+      console.log(cardIndex);
     }
   }, [usersData, prefsObj]);
 
+  React.useEffect(() => {
+    if (sortedUsers != undefined) {
+      if (sortedUsers.length != 0) {
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(firebase.auth().currentUser.uid)
+          .get()
+          .then(snapshot => {
+            let arr_reco = snapshot.data().recommended_users;
+            let arr_dislikes = snapshot.data().dislikes;
+            let arr_likes = snapshot.data().likes;
+            console.log(sortedUsers.length);
+            if (arr_reco != undefined) {
+              console.log(arr_reco);
+              let fil = sortedUsers.filter(u => !arr_reco.includes(u.id));
+              console.log('fil: ', fil.length);
+              setSortedUsers(fil);
+            }
+          });
+      }
+    }
+  }, [recoData]);
+
   const handleRecoBtn = () => {
-    setRecoBtn(false);
+    // setRecoBtn(false);
     navProps.navigation.navigate({
       name: 'RecoUser',
       params: {
@@ -184,60 +217,6 @@ const TeamUpScreen = ({ navigation }) => {
       }
     });
   };
-
-  React.useEffect(() => {
-    // Subscribe for the focus Listener
-    const unsubscribeFocus = navigation.addListener('focus', () => {
-      //get realtime data from db
-      console.log('focus');
-      firebase
-        .firestore()
-        .collection('users')
-        .doc(currUser.id)
-        .get()
-        .then(res => {
-          if (res.exists) {
-            const updatedUser = res.data();
-            const allLikesDislikes = updatedUser.likes.concat(
-              updatedUser.dislikes
-            );
-            const allrecodata = recoData.map(a => a.id);
-            if (
-              // if all recommended profiles have been swiped on, dont display btn
-              recoData.length != 0 &&
-              allrecodata.every(i => allLikesDislikes.includes(i))
-            ) {
-              setRecoBtn(false);
-            } else if (
-              // if all reco profiles not swiped yet, display btn
-              recoData.length != 0 &&
-              !allrecodata.every(i => allLikesDislikes.includes(i))
-            ) {
-              setRecoBtn(true);
-            }
-            if (
-              //filter out the swiped data at reco screen from cards at team up screen (need to fix)
-              usersData != undefined &&
-              usersData.length != 0 &&
-              (!_.isEqual(updatedUser.likes, currUser.likes) ||
-                !_.isEqual(updatedUser.dislikes, currUser.dislikes))
-            ) {
-              const meh = usersData.filter(
-                u =>
-                  !updatedUser.likes.includes(u.id) &&
-                  !updatedUser.dislikes.includes(u.id)
-              );
-              setSortedUsers([meh[0], ...meh]);
-            }
-          }
-        });
-    });
-    return () => {
-      // Unsubscribe for the focus Listener
-      unsubscribeFocus;
-    };
-  }, [navigation, usersData, currUser, recoData]);
-  // }, [navigation, sortedUsers, usersData, currUser]);
 
   return (
     <SafeAreaView style={styles.swiperContainer}>
