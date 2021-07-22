@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as userActions from '../../redux/actions/user';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import firebase from '../../firebase';
 import { InfoCard, TitleHeader } from '../../components/index';
 import { scoreUsers, processPrefs, sortScores } from '../../utils/ScoreUsers';
 
@@ -14,7 +15,7 @@ const RecoUserScreen = ({ navigation, route }) => {
   const currUser = useSelector(state => state.user.userData);
   const dispatch = useDispatch();
   const [viewHeight, setViewHeight] = React.useState();
-  const [recoData, setRecoData] = React.useState(route.params.recoUsersData);
+  const [recoData, setRecoData] = React.useState([]);
 
   const navProps = {
     title: 'Recommended Users',
@@ -22,6 +23,30 @@ const RecoUserScreen = ({ navigation, route }) => {
     needBackNav: true,
     needMenuNav: false
   };
+
+  React.useEffect(() => {
+    console.log(route.params.recoUsersData);
+    const recoUsersListener = firebase
+      .firestore()
+      .collection('users')
+      .where(
+        firebase.firestore.FieldPath.documentId(),
+        'in',
+        route.params.recoUsersData
+      )
+      .onSnapshot(querySnapshot => {
+        let recousersData = [];
+
+        querySnapshot.forEach(doc => {
+          let user = { id: doc.id, ...doc.data() };
+
+          recousersData.push(user);
+        });
+        setRecoData(recousersData);
+      });
+
+    return () => recoUsersListener();
+  }, []);
 
   const [cardIndex, setCardIndex] = React.useState(0);
 
@@ -31,8 +56,10 @@ const RecoUserScreen = ({ navigation, route }) => {
   };
 
   const onSwipedLeft = index => {
+    //need to delete uid from recommended_users
     try {
       dispatch(userActions.addDislikes(recoData[index].id));
+      dispatch(userActions.removeRecommendedUser(recoData[index].id));
     } catch (err) {
       console.log(err.message);
     }
@@ -42,6 +69,7 @@ const RecoUserScreen = ({ navigation, route }) => {
   };
 
   const onSwipedRight = index => {
+    //need to delete uid from recommended_users
     if (recoData.length != 0) {
       try {
         dispatch(userActions.addLikes(recoData[index].id));
@@ -51,6 +79,7 @@ const RecoUserScreen = ({ navigation, route }) => {
             currUser
           )
         );
+        dispatch(userActions.removeRecommendedUser(recoData[index].id));
       } catch (err) {
         console.log(err.message);
       }
