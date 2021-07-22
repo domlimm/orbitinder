@@ -37,7 +37,19 @@ export function scoreUsers(user, prefsObj) {
       }
     });
   });
-
+  let base = 4;
+  if (pref_tech_count == 0) {
+    base -= 1;
+  }
+  if (pref_basic_count == 0) {
+    base -= 1;
+  }
+  if (pref_weighted_count == 0) {
+    base -= 2;
+  }
+  if (base == 0) {
+    return 0;
+  }
   if (pref_weighted_count != 0) {
     console.log(
       user.name,
@@ -46,14 +58,19 @@ export function scoreUsers(user, prefsObj) {
       '|',
       basic_score,
       '|',
-      weighted_score
+      weighted_score,
+      ' || ',
+      base
+      // pref_tech_count,
+      // pref_basic_count,
+      // pref_weighted_count
     );
 
     return (
       (processNaN(t_score / pref_tech_count) +
         processNaN(basic_score / pref_basic_count) +
         processNaN(weighted_score / pref_weighted_count)) /
-      4
+      base
     );
   } else {
     return (
