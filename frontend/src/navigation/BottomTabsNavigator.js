@@ -5,7 +5,7 @@ import {
   Icon
 } from '@ui-kitten/components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   MainAppScreen,
   TeamUpScreen,
@@ -19,6 +19,15 @@ const BottomTabs = createBottomTabNavigator();
 const HomeIcon = props => <Icon {...props} name='home-outline' />;
 
 const ChatIcon = props => <Icon {...props} name='message-square-outline' />;
+
+const TeamUpStack = createStackNavigator();
+
+const TeamUpStackNav = () => (
+  <TeamUpStack.Navigator headerMode='none' initialRouteName='TeamUpScreen'>
+    <TeamUpStack.Screen name='TeamUpScreen' component={TeamUpScreen} />
+    <TeamUpStack.Screen name='RecoUser' component={RecoUserScreen} />
+  </TeamUpStack.Navigator>
+);
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -45,9 +54,9 @@ const BottomTabsNavigator = () => (
     initialRouteName='Home'
   >
     <BottomTabs.Screen name='Home' component={MainAppScreen} />
-    <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} />
+    <BottomTabs.Screen name='TeamUp' component={TeamUpStackNav} />
+    {/* <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} /> */}
     <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
-    <BottomTabs.Screen name='RecoUser' component={RecoUserScreen} />
   </BottomTabs.Navigator>
 );
 

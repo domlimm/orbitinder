@@ -175,12 +175,10 @@ const TeamUpScreen = ({ navigation }) => {
           !u.matched &&
           !recoData.includes(u.id)
       );
-      console.log(fil[0].name);
       setSortedUsers(
         // only show users user has not liked/disliked
         fil
       );
-      console.log(cardIndex);
     }
   }, [usersData, prefsObj]);
 
@@ -210,12 +208,18 @@ const TeamUpScreen = ({ navigation }) => {
 
   const handleRecoBtn = () => {
     // setRecoBtn(false);
-    navProps.navigation.navigate({
-      name: 'RecoUser',
+    navProps.navigation.navigate('TeamUp', {
+      screen: 'RecoUser',
       params: {
         recoUsersData: recoData
       }
     });
+    // navProps.navigation.navigate({
+    //   name: 'TeamUpStackNav',
+    //   params: {
+    //     recoUsersData: recoData
+    //   }
+    // });
   };
 
   return (

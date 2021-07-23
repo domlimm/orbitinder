@@ -18,7 +18,13 @@ const TitleHeader = ({ navProps }) => {
   );
 
   const navigateBack = () => {
-    navProps.navigation.goBack();
+    if (navProps.replaceRoutePop != undefined) {
+      if (navProps.replaceRoutePop) {
+        navProps.navigation.pop();
+      }
+    } else {
+      navProps.navigation.goBack();
+    }
   };
 
   const BackAction = () => (
