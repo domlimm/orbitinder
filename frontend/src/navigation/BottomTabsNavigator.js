@@ -6,12 +6,7 @@ import {
 } from '@ui-kitten/components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  MainAppScreen,
-  TeamUpScreen,
-  ActivityFeedScreen,
-  RecoUserScreen
-} from '../screens/index';
+import { MainAppScreen, TeamUpScreen, RecoUserScreen } from '../screens/index';
 import { TeamUpBottomTab } from '../components/index';
 
 const BottomTabs = createBottomTabNavigator();
@@ -55,8 +50,6 @@ const BottomTabsNavigator = () => (
   >
     <BottomTabs.Screen name='Home' component={MainAppScreen} />
     <BottomTabs.Screen name='TeamUp' component={TeamUpStackNav} />
-    {/* <BottomTabs.Screen name='TeamUp' component={TeamUpScreen} /> */}
-    <BottomTabs.Screen name='ActivityFeed' component={ActivityFeedScreen} />
   </BottomTabs.Navigator>
 );
 

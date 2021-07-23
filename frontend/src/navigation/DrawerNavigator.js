@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { CommonActions, StackActions } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { ChangePasswordScreen, TeamUpProfileScreen } from '../screens/index';
 import { NavHeader } from '../components/index';
@@ -19,11 +19,33 @@ import * as usersActions from '../redux/actions/users';
 const DrawerNav = createDrawerNavigator();
 const Main = createStackNavigator();
 const TeamUpStack = createStackNavigator();
+const TopTabs = createMaterialTopTabNavigator();
 
 const TeamUpStackNavigator = () => (
   <TeamUpStack.Navigator headerMode='none' initialRouteName='TeamUpProfile'>
     <TeamUpStack.Screen name='TeamUpProfile' component={TeamUpProfileScreen} />
   </TeamUpStack.Navigator>
+);
+
+const LikeTopTabNavigator = () => (
+  <TopTabs.Navigator
+    initialRouteName='ChatsOverview'
+    backBehavior='initialRoute'
+    tabBarOptions={{
+      activeTintColor: '#407BFF'
+    }}
+  >
+    <TopTabs.Screen
+      name='RecentlyLiked'
+      component={RecentlyLikedScreen}
+      options={{ tabBarLabel: 'Likes' }}
+    />
+    <TopTabs.Screen
+      name='CompareLiked'
+      component={CompareLikedScreen}
+      options={{ tabBarLabel: 'Compare' }}
+    />
+  </TopTabs.Navigator>
 );
 
 const MainNavigator = () => (
@@ -32,6 +54,7 @@ const MainNavigator = () => (
     <Main.Screen name='ProfileNavigator' component={ProfileNavigator} />
     <Main.Screen name='ChatsNavigator' component={ChatsNavigator} />
     <Main.Screen name='TeamUpStackNavigator' component={TeamUpStackNavigator} />
+    <Main.Screen name='LikeTopTabNavigator' component={LikeTopTabNavigator} />
   </Main.Navigator>
 );
 
