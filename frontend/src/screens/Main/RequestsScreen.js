@@ -106,7 +106,7 @@ const RequestsScreen = () => {
   }, []);
 
   const cancelToastHandler = name => {
-    setAlertMessage(`Successfully cancelled your sent request to ${name}!`);
+    setAlertMessage(`Successfully cancelled your sent request to \n${name}!`);
     setShowAlert(true);
     setAlertStatus('success');
   };
