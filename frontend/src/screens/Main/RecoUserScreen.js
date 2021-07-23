@@ -21,10 +21,12 @@ const RecoUserScreen = ({ navigation, route }) => {
     title: 'Recommended Users',
     navigation: navigation,
     needBackNav: true,
-    needMenuNav: false
+    needMenuNav: false,
+    replaceRoutePop: true // unmount screen when navigating back
   };
 
   React.useEffect(() => {
+    console.log('on mount');
     console.log(route.params.recoUsersData);
     const recoUsersListener = firebase
       .firestore()
