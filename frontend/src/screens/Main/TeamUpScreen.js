@@ -22,10 +22,17 @@ const TeamUpScreen = ({ navigation }) => {
   const [displayRecoBtn, setRecoBtn] = React.useState(false);
   const [recoData, setRecoData] = React.useState([]);
 
+  const [displayUsers, setDisplayUsers] = React.useState([]);
+  const [fitPrefsUsers, setFitPrefsUsers] = React.useState([]);
+  const [displaySorted, setDisplaySorted] = React.useState(true);
+
+  const [cardIndex, setCardIndex] = React.useState(0);
+
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState('');
+  const [filterAlertMessage, setFilterAlertMessage] = React.useState('');
   const [alertStatus, setAlertStatus] = React.useState('info');
-
+  const [showFilterAlert, setShowFilterAlert] = React.useState(false);
   const navProps = {
     title: 'Team Up',
     navigation: navigation,
@@ -33,11 +40,13 @@ const TeamUpScreen = ({ navigation }) => {
     needMenuNav: false
   };
 
-  const [cardIndex, setCardIndex] = React.useState(0);
-
   const onSwiped = () => {
     setCardIndex(cardIndex + 1);
     console.log('swiped');
+  };
+  const onSwipedAll = () => {
+    // setCardIndex(cardIndex + 1);
+    console.log('swiped all');
   };
 
   React.useEffect(() => {
@@ -168,17 +177,26 @@ const TeamUpScreen = ({ navigation }) => {
       });
       // console.log(prefsObj);
       console.log('at eff3');
-      let fil = usersData.filter(
+      let filtered = usersData.filter(
         u =>
           !currUser.likes.includes(u.id) &&
           !currUser.dislikes.includes(u.id) &&
           !u.matched &&
           !recoData.includes(u.id)
       );
+      let fitPrefs_users = filtered.filter(element => {
+        return element.score == 1;
+      });
       setSortedUsers(
         // only show users user has not liked/disliked
-        fil
+        filtered
       );
+      setFitPrefsUsers(fitPrefs_users);
+      if (displaySorted) {
+        setDisplayUsers(filtered);
+      } else {
+        setDisplayUsers(fitPrefs_users);
+      }
     }
   }, [usersData, prefsObj]);
 
@@ -192,14 +210,21 @@ const TeamUpScreen = ({ navigation }) => {
           .get()
           .then(snapshot => {
             let arr_reco = snapshot.data().recommended_users;
-            let arr_dislikes = snapshot.data().dislikes;
-            let arr_likes = snapshot.data().likes;
-            console.log(sortedUsers.length);
+            // let arr_dislikes = snapshot.data().dislikes;
+            // let arr_likes = snapshot.data().likes;
+            // console.log(sortedUsers.length);
             if (arr_reco != undefined) {
-              console.log(arr_reco);
+              // console.log(arr_reco);
               let fil = sortedUsers.filter(u => !arr_reco.includes(u.id));
-              console.log('fil: ', fil.length);
+              let fil2 = fitPrefsUsers.filter(u => !arr_reco.includes(u.id));
+              // console.log('fil: ', fil.length);
               setSortedUsers(fil);
+              setFitPrefsUsers(fil2);
+              if (displaySorted) {
+                setDisplayUsers(fil);
+              } else {
+                setDisplayUsers(fil2);
+              }
             }
           });
       }
@@ -222,6 +247,25 @@ const TeamUpScreen = ({ navigation }) => {
     // });
   };
 
+  const handleFilterBtn = () => {
+    setDisplayUsers(fitPrefsUsers);
+    setDisplaySorted(false);
+    if (!currUser.matched) {
+      setShowFilterAlert(true);
+      setFilterAlertMessage(
+        'Showing only users that match your preferences fully'
+      );
+    }
+  };
+  const handleCancelFilterBtn = () => {
+    setDisplayUsers(sortedUsers);
+    setDisplaySorted(true);
+    if (!currUser.matched) {
+      setShowFilterAlert(true);
+      setFilterAlertMessage('Showing all relevant users');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.swiperContainer}>
       <TitleHeader navProps={navProps} />
@@ -233,12 +277,20 @@ const TeamUpScreen = ({ navigation }) => {
           stay={true}
         />
       )}
+      {showFilterAlert && (
+        <Toast
+          message={filterAlertMessage}
+          status={alertStatus}
+          hide={show => setShowFilterAlert(show)}
+          stay={false}
+        />
+      )}
       <Layout style={styles.swiperContainer} onLayout={viewLayoutHandler}>
         {viewHeight != undefined &&
-          sortedUsers.length != 0 &&
-          sortedUsers != undefined && (
+          displayUsers.length != 0 &&
+          displayUsers != undefined && (
             <Swiper
-              cards={sortedUsers}
+              cards={displayUsers}
               renderCard={card =>
                 (card && (
                   <InfoCard key={card.id} cardData={card} navProps={navProps} />
@@ -251,6 +303,7 @@ const TeamUpScreen = ({ navigation }) => {
               onSwiped={onSwiped}
               onSwipedLeft={onSwipedLeft}
               onSwipedRight={onSwipedRight}
+              onSwipedAll={onSwipedAll}
               showSecondCard={true}
               stackSize={2}
               disableTopSwipe
@@ -305,6 +358,29 @@ const TeamUpScreen = ({ navigation }) => {
             ></Swiper>
           )}
       </Layout>
+      {displaySorted ? (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.filterBtnStyle}
+          onPress={handleFilterBtn}
+        >
+          <Image
+            source={require('../../assets/images/filter-color.png')}
+            style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.filterBtnStyle}
+          onPress={handleCancelFilterBtn}
+        >
+          <Image
+            source={require('../../assets/images/filter-cancel-color.png')}
+            style={styles.floatingButtonStyle}
+          />
+        </TouchableOpacity>
+      )}
       {displayRecoBtn ? (
         <TouchableOpacity
           activeOpacity={0.7}
@@ -366,6 +442,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50
+  },
+  filterBtnStyle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 30,
+    bottom: 20
   }
 });
 
