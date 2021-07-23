@@ -115,9 +115,20 @@ const RecentLikes = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text category='h5' style={styles.headerTitle}>
-        Recently Liked
-      </Text>
+      <View style={styles.titleContainer}>
+        <View style={styles.headerTitleContainer}>
+          <Text category='h5' style={styles.headerTitle}>
+            Recently Liked
+          </Text>
+        </View>
+        {liked.length > 0 && (
+          <View style={styles.headerActionContainer}>
+            <Text category='h6' style={styles.headerAction}>
+              View More
+            </Text>
+          </View>
+        )}
+      </View>
       {liked.length > 0 ? (
         <FlatList
           data={liked}
@@ -126,7 +137,7 @@ const RecentLikes = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           extraData={userData}
-          style={{ marginRight: 20, overflow: 'visible' }}
+          style={{ marginRight: 30, overflow: 'visible' }}
           scrollEventThrottle={16}
           snapToAlignment='center'
         />
@@ -148,9 +159,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 50
   },
+  titleContainer: {
+    width: width - 40,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  headerTitleContainer: {
+    width: '60%'
+  },
   headerTitle: {
     fontWeight: 'bold'
   },
+  headerActionContainer: {
+    alignItems: 'flex-end',
+    width: '40%'
+  },
+  headerAction: {},
   avatar: {
     width: 86,
     height: 86
