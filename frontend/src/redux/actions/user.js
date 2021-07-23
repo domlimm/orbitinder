@@ -291,8 +291,6 @@ export const cancelRequest = (receiverId, newRecentLikes) => dispatch => {
   const userId = firebase.auth().currentUser.uid;
   const usersRef = db.collection('users');
 
-  // Remove from current user's recentLikes when matched
-
   usersRef
     .doc(userId)
     .update({
@@ -512,18 +510,42 @@ export const confirmMatched = peerData => dispatch => {
       querySnapshot.forEach(doc => {
         if (doc.id === currentUser.uid) {
           const docRef = db.collection('users').doc(doc.id);
+
           batch.update(docRef, {
             matchId: peerData.id,
             matched: true,
             matching: false
           });
+
+          docRef
+            .update({
+              likes: firebase.firestore.FieldValue.arrayRemove(peerData.id)
+            })
+            .then(() => {})
+            .catch(err => {
+              throw new Error(
+                `Confirm Matched (Remove Like = currentUser): ${err}`
+              );
+            });
         } else if (doc.id === peerData.id) {
           const docRef = db.collection('users').doc(doc.id);
+
           batch.update(docRef, {
             matchId: currentUser.uid,
             matched: true,
             matching: false
           });
+
+          docRef
+            .update({
+              likes: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
+            })
+            .then(() => {})
+            .catch(err => {
+              throw new Error(
+                `Confirm Matched (Remove Like = peerData): ${err}`
+              );
+            });
         }
       });
 
@@ -551,7 +573,7 @@ export const confirmMatched = peerData => dispatch => {
           });
         })
         .catch(err => {
-          throw new Error(`Confirm Match (batch): ${err}`);
+          throw new Error(`Confirm Matched (batch): ${err}`);
         });
     })
     .catch(err => {
