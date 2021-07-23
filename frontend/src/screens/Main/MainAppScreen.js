@@ -90,7 +90,6 @@ const MainAppScreen = ({ navigation }) => {
         title={renderTitle}
         alignment='center'
         accessoryLeft={renderSettingsIcon}
-        accessoryRight={renderNotificationsIcon}
       />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
