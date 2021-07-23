@@ -46,7 +46,7 @@ const RecentlyLikedScreen = ({ navigation, route }) => {
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.contentContainer}>
         <Text category='h5' style={styles.headerTitle}>
-          All Liked Users
+          Your Liked Users
         </Text>
         {displayLikes?.length > 0 ? (
           <FlatList

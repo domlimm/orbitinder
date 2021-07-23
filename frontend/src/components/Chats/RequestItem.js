@@ -139,7 +139,9 @@ const RequestItem = ({
       >
         <Text>
           {senderData.background.biography.length > 0
-            ? senderData.background.biography
+            ? senderData.background.biography.length > 200
+              ? `${senderData.background.biography.substring(0, 200)}...`
+              : senderData.background.biography
             : 'Apparently, this user prefers to keep an air of mystery about them.'}
         </Text>
         {viewOnly && (
