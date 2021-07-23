@@ -52,12 +52,13 @@ const RequestsScreen = () => {
               key={index}
               activeOpacity={0.8}
               onPress={() => {
+                setTypeIndex(index);
+
                 if (
                   allRequests.length > 0 ||
                   activeRequests.length > 0 ||
                   sentRequests.length > 0
                 ) {
-                  setTypeIndex(index);
                   flatListRef.current.scrollToOffset({
                     animated: true,
                     offset: 0
