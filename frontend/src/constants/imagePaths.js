@@ -1,6 +1,8 @@
 export const localImages = [
   require('../assets/images/edit.png'),
   require('../assets/images/email-img.png'),
+  require('../assets/images/filter-cancel-color.png'),
+  require('../assets/images/filter-color.png'),
   require('../assets/images/forgot-password-img.png'),
   require('../assets/images/high-five-pana.png'),
   require('../assets/images/input-profile-photo.png'),
