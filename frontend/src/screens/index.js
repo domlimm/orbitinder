@@ -28,6 +28,8 @@ export { default as UserPreferencesScreen } from './Main/UserPreferencesScreen';
 export { default as EditPrefScreen } from './Main/EditPrefScreen';
 export { default as ChatScreen } from './Main/ChatScreen';
 export { default as RequestsScreen } from './Main/RequestsScreen';
+export { default as RecentlyLikedScreen } from './Main/RecentlyLikedScreen';
+export { default as CompareLikedScreen } from './Main/CompareLikedScreen';
 
 export { default as ErrorScreen } from './Miscellaneous/ErrorScreen';
 export { default as LoadingScreen } from './Miscellaneous/LoadingScreen';

@@ -12,7 +12,9 @@ const RequestItem = ({
   senderData,
   type,
   index,
-  cancelToastHandler
+  cancelToastHandler,
+  viewOnly,
+  viewProfile
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -125,20 +127,27 @@ const RequestItem = ({
         style={styles.cardContainer}
         header={Header}
         status={
-          type === 'active' && index === 0
+          viewOnly
+            ? 'primary'
+            : type === 'active' && index === 0
             ? 'success'
             : type === 'sent' && index === 0
             ? 'warning'
             : null
         }
-        onPress={showProfile}
+        onPress={viewOnly ? () => viewProfile(senderData) : showProfile}
       >
         <Text>
           {senderData.background.biography.length > 0
             ? senderData.background.biography
             : 'Apparently, this user prefers to keep an air of mystery about them.'}
         </Text>
-        {type === 'active' ? (
+        {viewOnly && (
+          <Text category='label' style={styles.timestamp}>
+            {senderData.timestamp}
+          </Text>
+        )}
+        {type === 'active' && !viewOnly ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
@@ -155,7 +164,7 @@ const RequestItem = ({
               onPress={rejectHandler}
             />
           </View>
-        ) : (
+        ) : type === 'sent' && !viewOnly ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
@@ -166,7 +175,7 @@ const RequestItem = ({
               CANCEL
             </Button>
           </View>
-        )}
+        ) : null}
       </Card>
     </Fragment>
   );
@@ -211,6 +220,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   name: {
+    fontWeight: 'bold'
+  },
+  timestamp: {
+    alignSelf: 'flex-end',
+    marginTop: 20,
     fontWeight: 'bold'
   }
 });

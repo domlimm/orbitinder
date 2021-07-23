@@ -5,8 +5,14 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useDispatch } from 'react-redux';
 
-import { ChangePasswordScreen, TeamUpProfileScreen } from '../screens/index';
+import {
+  ChangePasswordScreen,
+  TeamUpProfileScreen,
+  RecentlyLikedScreen,
+  CompareLikedScreen
+} from '../screens/index';
 import { NavHeader } from '../components/index';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
@@ -27,9 +33,9 @@ const TeamUpStackNavigator = () => (
   </TeamUpStack.Navigator>
 );
 
-const LikeTopTabNavigator = () => (
+const LikedTopTabNavigator = () => (
   <TopTabs.Navigator
-    initialRouteName='ChatsOverview'
+    initialRouteName='RecentlyLiked'
     backBehavior='initialRoute'
     tabBarOptions={{
       activeTintColor: '#407BFF'
@@ -54,7 +60,7 @@ const MainNavigator = () => (
     <Main.Screen name='ProfileNavigator' component={ProfileNavigator} />
     <Main.Screen name='ChatsNavigator' component={ChatsNavigator} />
     <Main.Screen name='TeamUpStackNavigator' component={TeamUpStackNavigator} />
-    <Main.Screen name='LikeTopTabNavigator' component={LikeTopTabNavigator} />
+    <Main.Screen name='LikedTopTabNavigator' component={LikedTopTabNavigator} />
   </Main.Navigator>
 );
 

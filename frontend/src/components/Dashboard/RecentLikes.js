@@ -20,6 +20,7 @@ const { width } = Dimensions.get('window');
 const RecentLikes = () => {
   const navigation = useNavigation();
 
+  const [allLiked, setAllLiked] = useState([]);
   const [liked, setLiked] = useState([]);
 
   const usersData = useSelector(state => state.users.usersData);
@@ -34,6 +35,8 @@ const RecentLikes = () => {
       const recentLikes = userData.recentLikes;
 
       recentLikes.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      setAllLiked(recentLikes);
 
       const latestLikes = recentLikes.slice(0, 5);
 
@@ -64,6 +67,13 @@ const RecentLikes = () => {
     navigation.navigate('TeamUpStackNavigator', {
       screen: 'TeamUpProfile',
       params: { profileData: data }
+    });
+  };
+
+  const navigateLiked = () => {
+    navigation.navigate('LikedTopTabNavigator', {
+      screen: 'RecentlyLiked',
+      params: { likes: allLiked }
     });
   };
 
@@ -123,7 +133,11 @@ const RecentLikes = () => {
         </View>
         {liked.length > 0 && (
           <View style={styles.headerActionContainer}>
-            <Text category='h6' style={styles.headerAction}>
+            <Text
+              category='h6'
+              style={styles.headerAction}
+              onPress={navigateLiked}
+            >
               View More
             </Text>
           </View>
