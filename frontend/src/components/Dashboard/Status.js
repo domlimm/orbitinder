@@ -62,10 +62,10 @@ const Status = () => {
         } else {
           const data = querySnapshot.data();
 
-          setMatch(data.matchId.length > 0);
+          setMatch(data.matchId !== undefined && data.matchId.length > 0);
           setMyImage(data.imagePath);
 
-          if (data.matchId.length > 0) {
+          if (data.matchId !== undefined && data.matchId.length > 0) {
             const match = usersData.filter(user => user.id === data.matchId)[0];
 
             setTeammate(match);

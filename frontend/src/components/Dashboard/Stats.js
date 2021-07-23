@@ -47,9 +47,9 @@ const Stats = () => {
         } else {
           const data = querySnapshot.data();
 
-          setLikesCount(data.likes.length);
-          setDislikesCount(data.dislikes.length);
-          setLikedByCount(data.likedBy.length);
+          setLikesCount(data.likes !== undefined && data.likes.length);
+          setDislikesCount(data.dislikes !== undefined && data.dislikes.length);
+          setLikedByCount(data.likedBy !== undefined && data.likedBy.length);
         }
       });
 
