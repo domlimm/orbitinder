@@ -46,9 +46,11 @@ const CompareLikedScreen = () => {
       <Layout style={styles.contentContainer}>
         <Carousel
           data={displayLikes}
+          layout='stack'
           renderItem={({ item }) => <CompareUserCard userData={item} />}
           sliderWidth={width}
-          itemWidth={width * 0.8}
+          itemWidth={width * 0.9}
+          layoutCardOffset={18}
         />
         {/* <Layout style={styles.selectorContainer}>
           <FlatList
