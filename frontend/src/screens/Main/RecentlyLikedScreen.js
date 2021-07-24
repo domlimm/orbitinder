@@ -45,9 +45,23 @@ const RecentlyLikedScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout style={styles.contentContainer}>
-        <Text category='h5' style={styles.headerTitle}>
-          Your Liked Users
-        </Text>
+        <Layout style={styles.headerContainer}>
+          <Layout style={[styles.subHeaderContainer, { width: '80%' }]}>
+            <Text category='h5' style={styles.headerTitle}>
+              Your Liked Users
+            </Text>
+          </Layout>
+          <Layout
+            style={[
+              styles.subHeaderContainer,
+              { width: '20%', alignItems: 'flex-end' }
+            ]}
+          >
+            <Text category='h5' style={styles.headerCount}>
+              {displayLikes?.length > 0 ? displayLikes.length : 0}
+            </Text>
+          </Layout>
+        </Layout>
         {displayLikes?.length > 0 ? (
           <FlatList
             style={styles.likedContainer}
@@ -89,9 +103,21 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%'
   },
+  headerContainer: {
+    flexDirection: 'row'
+  },
+  subHeaderContainer: {
+    justifyContent: 'center'
+  },
   headerTitle: {
     fontWeight: 'bold',
     marginLeft: 20,
+    marginTop: 20,
+    marginBottom: 8
+  },
+  headerCount: {
+    fontWeight: 'bold',
+    marginRight: 30,
     marginTop: 20,
     marginBottom: 8
   },
