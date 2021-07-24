@@ -133,11 +133,7 @@ const RecentLikes = () => {
         </View>
         {liked.length > 0 && (
           <View style={styles.headerActionContainer}>
-            <Text
-              category='h6'
-              style={styles.headerAction}
-              onPress={navigateLiked}
-            >
+            <Text category='h6' onPress={navigateLiked}>
               View More
             </Text>
           </View>
@@ -188,7 +184,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     width: '40%'
   },
-  headerAction: {},
   avatar: {
     width: 86,
     height: 86
