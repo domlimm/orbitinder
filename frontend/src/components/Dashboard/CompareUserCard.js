@@ -1,18 +1,39 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Dimensions, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Dimensions, Image, Pressable } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { Foundation } from '@expo/vector-icons';
 import IconBadge from 'react-native-icon-badge';
+import { Feather } from '@expo/vector-icons';
 
 import UserAvatar from '../UserProfile/UserAvatar';
 
 const { width, height } = Dimensions.get('window');
 
-const CompareUserCard = ({ userData }) => {
+const CompareUserCard = ({ userData, index }) => {
+  const [selected, setSelected] = useState(false);
+
+  useEffect(() => {
+    console.log(index);
+  }, []);
+
+  const CheckIcon = () => <Feather name='check' size={24} color='white' />;
+
+  const SelectHandler = () => {
+    setSelected(!selected);
+  };
+
   return (
     <Layout style={styles.parentContainer}>
       <View style={styles.actionContainer}>
-        <View style={styles.checkContainer}></View>
+        <Pressable
+          style={[
+            styles.checkContainer,
+            selected && { backgroundColor: '#3D9A12' }
+          ]}
+          onPress={SelectHandler}
+        >
+          {selected && <CheckIcon />}
+        </Pressable>
       </View>
       <View style={styles.contentContainer}>
         <IconBadge
@@ -56,7 +77,7 @@ const CompareUserCard = ({ userData }) => {
 
 const styles = StyleSheet.create({
   parentContainer: {
-    height: height * 0.26,
+    height: height * 0.3,
     width: width * 0.9,
     backgroundColor: '#407BFF',
     borderRadius: 15,
@@ -69,11 +90,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   checkContainer: {
-    height: 24,
-    width: 24,
-    borderRadius: 12,
+    height: 30,
+    width: 30,
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: 'white'
+    borderColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   contentContainer: {
     flex: 1,
@@ -104,7 +127,7 @@ const styles = StyleSheet.create({
   },
   subCaptions: {
     fontWeight: '600',
-    fontSize: 12,
+    fontSize: 14,
     color: 'rgba(255,255,255,0.6)',
     textTransform: 'uppercase',
     marginTop: 5,
