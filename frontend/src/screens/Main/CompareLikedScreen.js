@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Dimensions, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import Carousel from 'react-native-snap-carousel';
 
 import { CompareUserCard, CompareUserProfile } from '../../components';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const CompareLikedScreen = () => {
   const userData = useSelector(state => state.user.userData);
@@ -36,17 +36,13 @@ const CompareLikedScreen = () => {
       return;
     }
 
-    if (selectedArr.length > 2) {
+    if (selectedArr.length > 1) {
       selectedArr.shift();
     }
 
     selectedArr.push(id);
     setSelectedUsers(selectedArr);
   };
-
-  useEffect(() => {
-    console.log(selectedUsers.length);
-  }, [selectedUsers]);
 
   return (
     <SafeAreaView style={styles.parentContainer}>
@@ -78,7 +74,8 @@ const CompareLikedScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Layout
             style={{
-              flexDirection: selectedUsers.length > 1 ? 'row' : 'column'
+              flexDirection: selectedUsers.length > 1 ? 'row' : 'column',
+              paddingHorizontal: 2
             }}
           >
             {selectedUsers.map(item =>
@@ -90,32 +87,12 @@ const CompareLikedScreen = () => {
                     userData={uData}
                     dynamicWidth={width / selectedUsers.length}
                     dynamicFlex={1 / selectedUsers.length}
+                    double={selectedUsers.length > 1}
                   />
                 ))
             )}
           </Layout>
         </ScrollView>
-        {/* <FlatList
-          style={styles.resultFlatlist}
-          data={usersData}
-          renderItem={({ item }) => {
-            if (selectedUsers.includes(item.id)) {
-              return (
-                <CompareUserProfile
-                  userData={item}
-                  dynamicWidth={width / selectedUsers.length}
-                  dynamicFlex={1 / selectedUsers.length}
-                />
-              );
-            }
-          }}
-          keyExtractor={item => item.id}
-          numColumns={3}
-          key={selectedUsers.length}
-          extraData={selectedUsers}
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
-        /> */}
       </Layout>
     </SafeAreaView>
   );
@@ -139,8 +116,7 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   resultSV: {
-    flex: 1,
-    width: '100%'
+    flex: 1
   }
 });
 

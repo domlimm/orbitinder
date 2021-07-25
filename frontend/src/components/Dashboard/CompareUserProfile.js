@@ -1,11 +1,20 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Image, Dimensions } from 'react-native';
 import { Layout, Text, Card, Button, Divider } from '@ui-kitten/components';
-import { Feather, Ionicons, Octicons } from '@expo/vector-icons';
+import { Feather, Ionicons, Octicons, Foundation } from '@expo/vector-icons';
+import IconBadge from 'react-native-icon-badge';
 
 import MainTags from '../UserProfile/MainTags';
+import UserAvatar from '../UserProfile/UserAvatar';
 
-const CompareUserProfile = ({ userData, dynamicWidth, dynamicFlex }) => {
+const { width, height } = Dimensions.get('window');
+
+const CompareUserProfile = ({
+  userData,
+  dynamicWidth,
+  dynamicFlex,
+  double
+}) => {
   const background = userData.background;
   const techExp = background.technologyExperience;
   const { database, game, machineLearning, mobile, web } = techExp;
@@ -31,12 +40,46 @@ const CompareUserProfile = ({ userData, dynamicWidth, dynamicFlex }) => {
       style={[
         styles.contentContainer,
         {
-          flex: dynamicFlex,
-          width: dynamicWidth
+          flex: dynamicFlex
         }
       ]}
     >
-      <Text>{userData.name}</Text>
+      <View style={styles.headerContainer}>
+        <IconBadge
+          MainElement={
+            <>
+              {userData.imagePath.length > 0 ? (
+                <Image
+                  style={styles.avatarImg}
+                  source={{ uri: userData.imagePath }}
+                />
+              ) : (
+                <UserAvatar
+                  style={styles.avatarImg}
+                  name={userData.name}
+                  size={70}
+                  fontSize={28}
+                />
+              )}
+            </>
+          }
+          BadgeElement={
+            <Foundation
+              name={
+                userData.gender == 'Female' ? 'female-symbol' : 'male-symbol'
+              }
+              size={24}
+              color={userData.gender == 'Female' ? '#FF59A1' : '#00C1FF'}
+            />
+          }
+          IconBadgeStyle={styles.genderBadgeUserProfile}
+        />
+        <View style={styles.headerCaptions}>
+          <Text style={styles.name}>{userData.name}</Text>
+          <Text style={styles.subCaptions}>{userData.background.degree}</Text>
+          <Text style={styles.subCaptions}>{userData.background.year}</Text>
+        </View>
+      </View>
       {userData.background.interests.length > 0 && (
         <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
@@ -80,16 +123,16 @@ const CompareUserProfile = ({ userData, dynamicWidth, dynamicFlex }) => {
               let displayHeader, displayIcon;
 
               if (key === 'game') {
-                displayHeader = 'GAME DEV.';
+                displayHeader = double ? 'GAME DEV.' : 'GAME DEVELOPMENT';
                 displayIcon = GameIcon;
               } else if (key === 'machineLearning') {
                 displayHeader = 'MACHINE LEARNING';
                 displayIcon = MLIcon;
               } else if (key === 'mobile') {
-                displayHeader = 'MOBILE DEV.';
+                displayHeader = double ? 'MOBILE DEV.' : 'MOBILE DEVELOPMENT';
                 displayIcon = MobileIcon;
               } else if (key === 'web') {
-                displayHeader = 'WEB DEV.';
+                displayHeader = double ? 'WEB DEV.' : 'WEB DEVELOPMENT';
                 displayIcon = WebIcon;
               } else if (key === 'database') {
                 displayHeader = 'DATABASE';
@@ -132,7 +175,47 @@ const CompareUserProfile = ({ userData, dynamicWidth, dynamicFlex }) => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    margin: 4
+    marginVertical: 6,
+    marginHorizontal: 4
+  },
+  headerContainer: {
+    alignItems: 'center',
+    backgroundColor: '#407BFF',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    paddingVertical: 20
+  },
+  avatarImg: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    shadowColor: 'grey',
+    shadowOffset: { height: 5, width: 5 },
+    shadowOpacity: 1
+  },
+  genderBadgeUserProfile: {
+    width: 20,
+    height: 20,
+    top: -10,
+    right: -3,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+  },
+  headerCaptions: {
+    alignItems: 'center'
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'white'
+  },
+  subCaptions: {
+    fontWeight: '600',
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.6)',
+    textTransform: 'uppercase',
+    marginTop: 5,
+    letterSpacing: 1,
+    textAlign: 'center'
   },
   contentCard: {
     marginTop: 7,
@@ -158,7 +241,7 @@ const styles = StyleSheet.create({
   },
   cardGroup: {
     marginTop: 7,
-    height: 100,
+    height: height * 0.14,
     shadowColor: 'grey',
     shadowRadius: 4
   }
