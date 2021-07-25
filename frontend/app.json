@@ -3,7 +3,7 @@
     "name": "orbitinder",
     "slug": "orbitinder",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./src/assets/images/orbital-logo.png",
     "splash": {
       "image": "./src/assets/images/splash.png",

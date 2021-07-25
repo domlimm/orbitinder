@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native';
 import { Layout, Text, Card, Button, Divider } from '@ui-kitten/components';
 import { Feather, Ionicons, Octicons } from '@expo/vector-icons';
 
-import ContentCard from '../UserProfile/ContentCard';
 import MainTags from '../UserProfile/MainTags';
 
-const CompareUserProfile = ({ userData }) => {
+const CompareUserProfile = ({ userData, dynamicWidth, dynamicFlex }) => {
   const background = userData.background;
   const techExp = background.technologyExperience;
   const { database, game, machineLearning, mobile, web } = techExp;
@@ -28,24 +27,50 @@ const CompareUserProfile = ({ userData }) => {
   const WebIcon = () => <Feather name='globe' size={20} color='#407BFF' />;
 
   return (
-    <Layout style={styles.contentContainer}>
+    <Layout
+      style={[
+        styles.contentContainer,
+        {
+          flex: dynamicFlex,
+          width: dynamicWidth
+        }
+      ]}
+    >
       <Text>{userData.name}</Text>
       {userData.background.interests.length > 0 && (
         <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>INTERESTED AREAS</Text>
-          <MainTags tagsData={userData.background.interests} isArray={true} />
+          <MainTags
+            tagsData={background.interests}
+            isArray={true}
+            isCompare={true}
+          />
         </Card>
       )}
-      <ContentCard
-        type={'coding-exp-level'}
-        data={userData.background.sweExperience}
-      />
-      <ContentCard type={'commitment'} data={userData.background.commitment} />
-      <ContentCard
-        type={'orbitalLevel'}
-        data={userData.background.achievement}
-      />
-      <ContentCard type={'hasIdea'} data={userData.background.idea} />
+      <Card style={styles.cardGroup} disabled>
+        <Text style={styles.cardTitle}>EXP. LEVEL</Text>
+        <Button size='small' appearance='outline' status='basic'>
+          {userData.background.sweExperience}
+        </Button>
+      </Card>
+      <Card style={styles.cardGroup} disabled>
+        <Text style={styles.cardTitle}>COMMITMENT</Text>
+        <Button size='small' appearance='outline' status='basic'>
+          {userData.background.commitment.split(' ')[0]}
+        </Button>
+      </Card>
+      <Card style={styles.cardGroup} disabled>
+        <Text style={styles.cardTitle}>ORBITAL LEVEL</Text>
+        <Button size='small' appearance='outline' status='basic'>
+          {userData.background.achievement}
+        </Button>
+      </Card>
+      <Card style={styles.cardGroup} disabled>
+        <Text style={styles.cardTitle}>HAS AN IDEA?</Text>
+        <Button size='small' appearance='outline' status='basic'>
+          {userData.background.idea}
+        </Button>
+      </Card>
       {!isTechExpEmpty && (
         <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>TECHNOLOGIES</Text>
@@ -55,16 +80,16 @@ const CompareUserProfile = ({ userData }) => {
               let displayHeader, displayIcon;
 
               if (key === 'game') {
-                displayHeader = 'GAME DEVELOPMENT';
+                displayHeader = 'GAME DEV.';
                 displayIcon = GameIcon;
               } else if (key === 'machineLearning') {
                 displayHeader = 'MACHINE LEARNING';
                 displayIcon = MLIcon;
               } else if (key === 'mobile') {
-                displayHeader = 'MOBILE DEVELOPMENT';
+                displayHeader = 'MOBILE DEV.';
                 displayIcon = MobileIcon;
               } else if (key === 'web') {
-                displayHeader = 'WEB DEVELOPMENT';
+                displayHeader = 'WEB DEV.';
                 displayIcon = WebIcon;
               } else if (key === 'database') {
                 displayHeader = 'DATABASE';
@@ -107,11 +132,9 @@ const CompareUserProfile = ({ userData }) => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    flex: 1,
-    marginBottom: 5
+    margin: 4
   },
   contentCard: {
-    marginHorizontal: 5,
     marginTop: 7,
     shadowColor: 'grey',
     shadowRadius: 4
@@ -126,20 +149,18 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start'
   },
-  tags: {
-    marginRight: 5
-  },
   techContainer: {
     borderRadius: 10,
     marginVertical: 5
   },
-  tagContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    borderRadius: 10
-  },
   tags: {
     marginHorizontal: -5
+  },
+  cardGroup: {
+    marginTop: 7,
+    height: 100,
+    shadowColor: 'grey',
+    shadowRadius: 4
   }
 });
 

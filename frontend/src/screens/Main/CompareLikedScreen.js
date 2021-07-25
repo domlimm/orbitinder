@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Dimensions, FlatList } from 'react-native';
+import { StyleSheet, Dimensions, FlatList, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout, Text } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
@@ -44,6 +44,10 @@ const CompareLikedScreen = () => {
     setSelectedUsers(selectedArr);
   };
 
+  useEffect(() => {
+    console.log(selectedUsers.length);
+  }, [selectedUsers]);
+
   return (
     <SafeAreaView style={styles.parentContainer}>
       <Layout>
@@ -70,18 +74,48 @@ const CompareLikedScreen = () => {
           extraData={displayLikes}
         />
       </Layout>
-      <Layout style={styles.resultContainer}>
-        <FlatList
+      <Layout style={styles.resultSV}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Layout
+            style={{
+              flexDirection: selectedUsers.length > 1 ? 'row' : 'column'
+            }}
+          >
+            {selectedUsers.map(item =>
+              usersData
+                .filter(user => user.id === item)
+                .map(uData => (
+                  <CompareUserProfile
+                    key={uData.id}
+                    userData={uData}
+                    dynamicWidth={width / selectedUsers.length}
+                    dynamicFlex={1 / selectedUsers.length}
+                  />
+                ))
+            )}
+          </Layout>
+        </ScrollView>
+        {/* <FlatList
+          style={styles.resultFlatlist}
           data={usersData}
           renderItem={({ item }) => {
             if (selectedUsers.includes(item.id)) {
-              return <CompareUserProfile userData={item} />;
+              return (
+                <CompareUserProfile
+                  userData={item}
+                  dynamicWidth={width / selectedUsers.length}
+                  dynamicFlex={1 / selectedUsers.length}
+                />
+              );
             }
           }}
           keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
           numColumns={3}
-        />
+          key={selectedUsers.length}
+          extraData={selectedUsers}
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
+        /> */}
       </Layout>
     </SafeAreaView>
   );
@@ -104,8 +138,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginVertical: 20
   },
-  resultContainer: {
-    flex: 1
+  resultSV: {
+    flex: 1,
+    width: '100%'
   }
 });
 

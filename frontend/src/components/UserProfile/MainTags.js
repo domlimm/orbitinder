@@ -1,11 +1,27 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Button, Layout } from '@ui-kitten/components';
 
-const MainTags = ({ tagsData, firstWord, isArray }) => {
+const MainTags = ({ tagsData, firstWord, isArray, isCompare }) => {
   return (
     <Layout style={styles.tagContainer}>
-      {isArray ? (
+      {isArray && isCompare ? (
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+          {tagsData.map(function (tag, index) {
+            return (
+              <Button
+                style={styles.tags}
+                size='small'
+                appearance='filled'
+                status='basic'
+                key={index}
+              >
+                {firstWord ? tag.replace(/ .*/, '') : tag}
+              </Button>
+            );
+          })}
+        </ScrollView>
+      ) : isArray ? (
         tagsData.map(function (tag, index) {
           return (
             <Button

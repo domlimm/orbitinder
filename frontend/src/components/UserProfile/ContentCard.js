@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { Button, Card, Text } from '@ui-kitten/components';
 
 import MainTags from './MainTags';
-import { dummyUserData } from '../../constants/userData';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +19,7 @@ const ContentCard = ({ type, data }) => {
       return (
         <Card style={styles.contentCard} disabled>
           <Text style={styles.cardTitle}>AREAS OF INTEREST</Text>
-          <MainTags tagsData={dummyUserData.interestedAreas} />
+          <MainTags tagsData={data} isArray={true} />
         </Card>
       );
     case 'coding-exp-level':
