@@ -149,7 +149,7 @@ const RequestItem = ({
             {senderData.timestamp}
           </Text>
         )}
-        {type === 'active' && !viewOnly ? (
+        {type === 'active' && !viewOnly && !receiverData.matched ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
@@ -166,7 +166,7 @@ const RequestItem = ({
               onPress={rejectHandler}
             />
           </View>
-        ) : type === 'sent' && !viewOnly ? (
+        ) : type === 'sent' && !viewOnly && !receiverData.matched ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
