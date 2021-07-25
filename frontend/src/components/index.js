@@ -31,3 +31,4 @@ export { default as Stats } from './Dashboard/Stats';
 export { default as Status } from './Dashboard/Status';
 export { default as RecentLikes } from './Dashboard/RecentLikes';
 export { default as CompareUserCard } from './Dashboard/CompareUserCard';
+export { default as CompareUserProfile } from './Dashboard/CompareUserProfile';

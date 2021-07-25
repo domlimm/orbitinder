@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Pressable } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { Foundation } from '@expo/vector-icons';
@@ -9,17 +9,16 @@ import UserAvatar from '../UserProfile/UserAvatar';
 
 const { width, height } = Dimensions.get('window');
 
-const CompareUserCard = ({ userData, index }) => {
-  const [selected, setSelected] = useState(false);
-
-  useEffect(() => {
-    console.log(index);
-  }, []);
-
+const CompareUserCard = ({
+  userData,
+  userId,
+  selectedUsers,
+  selectedHandler
+}) => {
   const CheckIcon = () => <Feather name='check' size={24} color='white' />;
 
-  const SelectHandler = () => {
-    setSelected(!selected);
+  const onPressHandler = () => {
+    selectedHandler(userId);
   };
 
   return (
@@ -28,11 +27,11 @@ const CompareUserCard = ({ userData, index }) => {
         <Pressable
           style={[
             styles.checkContainer,
-            selected && { backgroundColor: '#3D9A12' }
+            selectedUsers?.includes(userId) && { backgroundColor: '#3D9A12' }
           ]}
-          onPress={SelectHandler}
+          onPress={onPressHandler}
         >
-          {selected && <CheckIcon />}
+          {selectedUsers?.includes(userId) && <CheckIcon />}
         </Pressable>
       </View>
       <View style={styles.contentContainer}>
