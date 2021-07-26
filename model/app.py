@@ -89,18 +89,24 @@ def get_recommendations():
     reco_uid = users_df.loc[int(i), "uid"]
     if reco_uid not in likesArr and reco_uid not in dislikesArr:
       final_reco_id.append(reco_uid)
-      # print(i+" " +reco_uid.strip() + " "+ str(j))
+      print(i+" " +reco_uid.strip() + " "+ str(j))
   # Check if element exist in List, before removing
   print("final reco id : " , final_reco_id)
   if auth_token_uid in final_reco_id:
     final_reco_id.remove(auth_token_uid) #filter out current user from recommended users
     print("Given uid Found and removed in List")
-    print(final_reco_id)
-    update_reco_field(auth_token_uid, final_reco_id)
+    if (len(final_reco_id) == 0):
+      print('no recommendations')
+    else:
+      print(final_reco_id)
+      update_reco_field(auth_token_uid, final_reco_id)
   else:
     print("Given uid Not Found in List")
-    update_reco_field(auth_token_uid, final_reco_id)
-    print(final_reco_id)
+    if (len(final_reco_id) == 0):
+      print('no recommendations')
+    else:
+      update_reco_field(auth_token_uid, final_reco_id)
+      print(final_reco_id)
 
   return jsonify(final_reco_id)
   # return json.loads(users_df.to_json())
