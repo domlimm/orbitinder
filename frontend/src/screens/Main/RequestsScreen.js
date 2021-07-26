@@ -14,6 +14,7 @@ const RequestsScreen = () => {
   const [allRequests, setAllRequests] = useState([]);
   const [activeRequests, setActiveRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
+  const [isMatched, setIsMatched] = useState();
   const [typeIndex, setTypeIndex] = useState(0);
   const flatListRef = useRef();
 
@@ -100,6 +101,7 @@ const RequestsScreen = () => {
         setActiveRequests(likedBy);
         setSentRequests(likes);
         setAllRequests(userRequests);
+        setIsMatched(querySnapshot.data().matched);
       });
 
     return () => latestReqsListener();
@@ -144,6 +146,7 @@ const RequestsScreen = () => {
                   type={item.type}
                   index={typeIndex}
                   cancelToastHandler={name => cancelToastHandler(name)}
+                  isMatched={isMatched}
                 />
               );
             }}

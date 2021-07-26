@@ -14,7 +14,8 @@ const RequestItem = ({
   index,
   cancelToastHandler,
   viewOnly,
-  viewProfile
+  viewProfile,
+  isMatched
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -149,7 +150,7 @@ const RequestItem = ({
             {senderData.timestamp}
           </Text>
         )}
-        {type === 'active' && !viewOnly && !receiverData.matched ? (
+        {type === 'active' && !viewOnly && !isMatched ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
@@ -166,7 +167,7 @@ const RequestItem = ({
               onPress={rejectHandler}
             />
           </View>
-        ) : type === 'sent' && !viewOnly && !receiverData.matched ? (
+        ) : type === 'sent' && !viewOnly && !isMatched ? (
           <View style={styles.footerContainer}>
             <Button
               style={styles.footerControl}
