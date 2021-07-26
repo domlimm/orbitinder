@@ -64,5 +64,7 @@ def preprocess_corpus(mv_tags_corpus):
   return [TaggedDocument(words=tokenise(D), tags=[str(i)]) for i, D in enumerate(mv_tags_corpus)]
 
 def update_reco_field(uid, recoIDArray):
+    print("uid: ", uid)
+    print("recoIDaRRAY: ", recoIDArray)
     uRef = users_ref.document(uid)
     uRef.update({'recommended_users':firestore.ArrayUnion(recoIDArray)})
