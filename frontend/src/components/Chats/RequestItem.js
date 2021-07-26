@@ -116,7 +116,7 @@ const RequestItem = ({
             cancelToastHandler(senderData.name);
           }
         },
-        { text: 'Cancel', style: 'cancel', onPress: () => {} }
+        { text: 'Abort', style: 'cancel', onPress: () => {} }
       ]
     );
   };
