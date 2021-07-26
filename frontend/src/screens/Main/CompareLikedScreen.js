@@ -52,46 +52,62 @@ const CompareLikedScreen = () => {
         </Text>
       </Layout>
       <Layout style={styles.usersContainer}>
-        <Carousel
-          data={displayLikes}
-          layout='default'
-          renderItem={({ item }) => (
-            <CompareUserCard
-              userData={item}
-              userId={item.id}
-              selectedUsers={selectedUsers}
-              selectedHandler={userId => selectedHandler(userId)}
-            />
-          )}
-          keyExtractor={item => item.id}
-          sliderWidth={width}
-          itemWidth={width * 0.86}
-          extraData={displayLikes}
-        />
+        {displayLikes.length > 0 ? (
+          <Carousel
+            data={displayLikes}
+            layout='default'
+            renderItem={({ item }) => (
+              <CompareUserCard
+                userData={item}
+                userId={item.id}
+                selectedUsers={selectedUsers}
+                selectedHandler={userId => selectedHandler(userId)}
+              />
+            )}
+            keyExtractor={item => item.id}
+            sliderWidth={width}
+            itemWidth={width * 0.86}
+            extraData={displayLikes}
+          />
+        ) : (
+          <Layout style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
+              {`Sorry, we can't find any of your liked users.\nClick on the Team Up icon at the home screen to start!`}
+            </Text>
+          </Layout>
+        )}
       </Layout>
       <Layout style={styles.resultSV}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Layout
-            style={{
-              flexDirection: selectedUsers.length > 1 ? 'row' : 'column',
-              paddingHorizontal: 2
-            }}
-          >
-            {selectedUsers.map(item =>
-              usersData
-                .filter(user => user.id === item)
-                .map(uData => (
-                  <CompareUserProfile
-                    key={uData.id}
-                    userData={uData}
-                    dynamicWidth={width / selectedUsers.length}
-                    dynamicFlex={1 / selectedUsers.length}
-                    double={selectedUsers.length > 1}
-                  />
-                ))
-            )}
+        {selectedUsers.length > 0 ? (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Layout
+              style={{
+                flexDirection: selectedUsers.length > 1 ? 'row' : 'column',
+                paddingHorizontal: 2
+              }}
+            >
+              {selectedUsers.map(item =>
+                usersData
+                  .filter(user => user.id === item)
+                  .map(uData => (
+                    <CompareUserProfile
+                      key={uData.id}
+                      userData={uData}
+                      dynamicWidth={width / selectedUsers.length}
+                      dynamicFlex={1 / selectedUsers.length}
+                      double={selectedUsers.length > 1}
+                    />
+                  ))
+              )}
+            </Layout>
+          </ScrollView>
+        ) : (
+          <Layout style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
+              {`Select on your liked users to get started!`}
+            </Text>
           </Layout>
-        </ScrollView>
+        )}
       </Layout>
     </SafeAreaView>
   );
@@ -116,6 +132,17 @@ const styles = StyleSheet.create({
   },
   resultSV: {
     flex: 1
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emptyText: {
+    marginHorizontal: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16
   }
 });
 
