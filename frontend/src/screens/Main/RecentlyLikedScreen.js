@@ -117,9 +117,15 @@ const styles = StyleSheet.create({
   },
   headerCount: {
     fontWeight: 'bold',
-    marginRight: 30,
     marginTop: 20,
-    marginBottom: 8
+    marginBottom: 8,
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: 'white',
+    backgroundColor: '#407BFF',
+    height: 36,
+    width: 36,
+    borderRadius: 18
   },
   emptyContainer: {
     flex: 1,
