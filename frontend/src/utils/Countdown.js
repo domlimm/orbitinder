@@ -20,7 +20,9 @@ function CountDown() {
     seconds: ''
   });
   React.useEffect(() => {
-    let countDownDate = new Date('July 26, 2021  00:00:00 GMT+08:00').getTime();
+    let countDownDate = new Date(
+      'August 2, 2021  23:59:59 GMT+08:00'
+    ).getTime();
     //update every second
     let x = setInterval(function () {
       //Get todays date and time
