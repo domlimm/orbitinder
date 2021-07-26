@@ -54,7 +54,7 @@ const CompareLikedScreen = () => {
       <Layout style={styles.usersContainer}>
         <Carousel
           data={displayLikes}
-          layout='stack'
+          layout='default'
           renderItem={({ item }) => (
             <CompareUserCard
               userData={item}
@@ -65,8 +65,7 @@ const CompareLikedScreen = () => {
           )}
           keyExtractor={item => item.id}
           sliderWidth={width}
-          itemWidth={width * 0.9}
-          layoutCardOffset={18}
+          itemWidth={width * 0.86}
           extraData={displayLikes}
         />
       </Layout>

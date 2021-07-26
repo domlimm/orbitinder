@@ -77,7 +77,7 @@ const CompareUserCard = ({
 const styles = StyleSheet.create({
   parentContainer: {
     height: height * 0.3,
-    width: width * 0.9,
+    width: width * 0.86,
     backgroundColor: '#407BFF',
     borderRadius: 15,
     paddingVertical: 18,
