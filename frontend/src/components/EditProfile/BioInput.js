@@ -10,12 +10,9 @@ const BioInput = ({ userData, sendDataToParent }) => {
   };
 
   React.useEffect(() => {
-    // console.log('HELLOOOOO' + updateBio);
     setBio(updateBio);
     sendDataToParent(bio);
   }, [changeTextHandler]);
-
-  // console.log('Input', bio);
 
   return (
     <Input

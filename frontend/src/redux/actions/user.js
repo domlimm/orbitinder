@@ -119,6 +119,8 @@ export const addLikes = likeUserId => dispatch => {
         likeUserId: likeUserId,
         timestamp: new Date().toISOString()
       });
+      dispatch(usersActions.getAllUserData());
+      dispatch(getUserData());
     })
     .catch(err => {
       throw new Error(`Adding Likes: ${err}`);

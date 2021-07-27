@@ -42,11 +42,11 @@ const TeamUpScreen = ({ navigation }) => {
 
   const onSwiped = () => {
     setCardIndex(cardIndex + 1);
-    console.log('swiped');
+    // console.log('swiped');
   };
   const onSwipedAll = () => {
     // setCardIndex(cardIndex + 1);
-    console.log('swiped all');
+    // console.log('swiped all');
   };
 
   React.useEffect(() => {
@@ -59,12 +59,12 @@ const TeamUpScreen = ({ navigation }) => {
         if (recoIDs != undefined) {
           if (recoIDs.length != 0) {
             setRecoBtn(true);
-            console.log('check reco');
+            // console.log('check reco');
             setRecoData(recoIDs);
           } else {
             setRecoBtn(false);
           }
-          console.log(recoIDs);
+          // console.log(recoIDs);
         }
       });
 
@@ -79,8 +79,8 @@ const TeamUpScreen = ({ navigation }) => {
         console.log(err.message);
       }
 
-      console.log(sortedUsers[index].name);
-      console.log('swiped left');
+      // console.log(sortedUsers[index].name);
+      // console.log('swiped left');
     } else {
       setShowAlert(true);
       setAlertMessage(
@@ -100,8 +100,8 @@ const TeamUpScreen = ({ navigation }) => {
           )
         );
 
-        console.log([...currUser.likes, sortedUsers[index].id]);
-        console.log(currUser.likes);
+        // console.log([...currUser.likes, sortedUsers[index].id]);
+        // console.log(currUser.likes);
 
         firebase
           .auth()
@@ -152,7 +152,7 @@ const TeamUpScreen = ({ navigation }) => {
   React.useEffect(() => {
     // starts the initial calculation of each user's score, calls the 3rd UE to execute
     if (currUser != undefined && prefsObj == undefined) {
-      console.log('at eff1');
+      // console.log('at eff1');
       setPrefsObj(processPrefs(currUser));
     }
   }, [currUser]);
@@ -160,7 +160,7 @@ const TeamUpScreen = ({ navigation }) => {
   React.useEffect(() => {
     //if user preferences change, recalculate the score of all users
     if (currUser != undefined) {
-      console.log('at eff2');
+      // console.log('at eff2');
       setPrefsObj(processPrefs(currUser));
     }
   }, [currPref]);
@@ -172,11 +172,11 @@ const TeamUpScreen = ({ navigation }) => {
         element.score = scoreUsers(element, prefsObj);
       });
       usersData.sort(sortScores); // sort by score
-      usersData.forEach(element => {
-        console.log(element.name, element.score);
-      });
+      // usersData.forEach(element => {
+      //   console.log(element.name, element.score);
+      // });
       // console.log(prefsObj);
-      console.log('at eff3');
+      // console.log('at eff3');
       let filtered = usersData.filter(
         u =>
           !currUser.likes.includes(u.id) &&

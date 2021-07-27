@@ -32,9 +32,6 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
   const [degIndex, setDegIndex] = React.useState(new IndexPath(0));
   const displayDegree = degreeData[degIndex.row];
 
-  // const [interestIndex, setInterestIndex] = React.useState(new IndexPath(0));
-  // const displayInterest = interestsData[interestIndex.row];
-
   const [commitIndex, setCommitIndex] = React.useState(new IndexPath(0));
   const displayCommitment = commitmentData[commitIndex.row];
 
@@ -114,17 +111,6 @@ const InputBackgroundScreen1 = ({ navigation, route }) => {
                 return <SelectItem key={key} title={value} />;
               })}
             </Select>
-            {/* <Select
-              style={styles.input}
-              selectedIndex={interestIndex}
-              value={displayInterest}
-              onSelect={index => setInterestIndex(index)}
-              label='Areas of Interest'
-            >
-              {interestsData.map((value, key) => {
-                return <SelectItem key={key} title={value} />;
-              })}
-            </Select> */}
             <Select
               label='Areas of Interest'
               style={styles.input}

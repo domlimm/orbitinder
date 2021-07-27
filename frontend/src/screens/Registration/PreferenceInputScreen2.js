@@ -65,7 +65,7 @@ const PrefInputScreen2 = ({ route, navigation }) => {
       )
         .then(r => r.toString())
         .then(data => {
-          console.log(data);
+          // console.log(data);
         });
       setError(null);
       setLoading(true);

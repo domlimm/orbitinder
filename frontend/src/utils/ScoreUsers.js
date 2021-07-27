@@ -51,20 +51,20 @@ export function scoreUsers(user, prefsObj) {
     return 0;
   }
   if (pref_weighted_count != 0) {
-    console.log(
-      user.name,
-      '= ',
-      t_score,
-      '|',
-      basic_score,
-      '|',
-      weighted_score,
-      ' || ',
-      base
-      // pref_tech_count,
-      // pref_basic_count,
-      // pref_weighted_count
-    );
+    // console.log(
+    //   user.name,
+    //   '= ',
+    //   t_score,
+    //   '|',
+    //   basic_score,
+    //   '|',
+    //   weighted_score,
+    //   ' || ',
+    //   base
+    //   // pref_tech_count,
+    //   // pref_basic_count,
+    //   // pref_weighted_count
+    // );
 
     return (
       (processNaN(t_score / pref_tech_count) +

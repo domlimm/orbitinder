@@ -65,7 +65,6 @@ const ActivityFeedScreen = ({ navigation }) => {
   );
 
   const renderItemIcon = ({ item }) => {
-    // console.log(item);
     return <Avatar source={{ uri: 'https://i.pravatar.cc/' }} />;
   };
 

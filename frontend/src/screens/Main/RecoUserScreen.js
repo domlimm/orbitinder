@@ -26,8 +26,8 @@ const RecoUserScreen = ({ navigation, route }) => {
   };
 
   React.useEffect(() => {
-    console.log('on mount');
-    console.log(route.params.recoUsersData);
+    // console.log('on mount');
+    // console.log(route.params.recoUsersData);
     const recoUsersListener = firebase
       .firestore()
       .collection('users')
@@ -54,7 +54,7 @@ const RecoUserScreen = ({ navigation, route }) => {
 
   const onSwiped = () => {
     setCardIndex(cardIndex + 1);
-    console.log('swiped');
+    // console.log('swiped');
   };
 
   const onSwipedLeft = index => {
@@ -66,8 +66,8 @@ const RecoUserScreen = ({ navigation, route }) => {
       console.log(err.message);
     }
 
-    console.log(recoData[index].name);
-    console.log('swiped left');
+    // console.log(recoData[index].name);
+    // console.log('swiped left');
   };
 
   const onSwipedRight = index => {
@@ -86,8 +86,8 @@ const RecoUserScreen = ({ navigation, route }) => {
         console.log(err.message);
       }
     }
-    console.log(recoData[index].name);
-    console.log('swiped right');
+    // console.log(recoData[index].name);
+    // console.log('swiped right');
   };
 
   const viewLayoutHandler = event => {

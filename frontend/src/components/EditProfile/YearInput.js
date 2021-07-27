@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Select, SelectItem, IndexPath } from '@ui-kitten/components';
+
 import { yearData } from '../../constants/profleCreationData';
+
 const YearInput = ({ userData, sendDataToParent }) => {
   const [selectedYearIndex, setSelectedYearIndex] = React.useState(
     new IndexPath(yearData.indexOf(userData))
   );
-  // const displayYear = yearData[selectedYearIndex.row];
 
   const [displayYear, setDisplayYear] = React.useState(
     yearData[selectedYearIndex.row]
@@ -19,8 +20,6 @@ const YearInput = ({ userData, sendDataToParent }) => {
   React.useEffect(() => {
     setDisplayYear(yearData[selectedYearIndex.row]);
   }, [changeSelectHandler]);
-
-  // console.log(displayYear);
 
   return (
     <Select
