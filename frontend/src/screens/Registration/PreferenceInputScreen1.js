@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 50
   },
   inputContainer: {
     flex: 3,

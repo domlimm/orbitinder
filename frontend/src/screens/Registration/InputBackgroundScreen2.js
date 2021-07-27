@@ -175,6 +175,7 @@ const InputBackgroundScreen2 = ({ route, navigation }) => {
               value={telegram}
               caption={renderCaption}
               accessoryRight={AlertIcon}
+              autoCapitalize='none'
             />
           </Layout>
           <Layout style={styles.inputContainer}></Layout>
