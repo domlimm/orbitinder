@@ -26,7 +26,7 @@ describe('<AppNavigator />', () => {
 
   const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-  test('Application navigation system works correctly', async () => {
+  test('Renders correctly', async () => {
     const component = (
       <Provider store={store}>
         <IconRegistry icons={EvaIconsPack} />
