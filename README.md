@@ -10,7 +10,7 @@
 <div align="center">
   Made with 💙 using <br/><br/>
   <div align="center">
-    <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /><img src="https://img.shields.io/badge/Expo-20232A?style=for-the-badge&logo=expo&logoColor=#000020"/><img src="https://img.shields.io/badge/python-20232A?style=for-the-badge&logo=python&logoColor=3776AB"/><img src="https://img.shields.io/badge/firebase-20232A?style=for-the-badge&logo=firebase&logoColor=ffca28"/><img src="https://img.shields.io/badge/jest-20232A?style=for-the-badge&logo=jest&logoColor=C21325"/>
+    <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /><img src="https://img.shields.io/badge/Expo-20232A?style=for-the-badge&logo=expo&logoColor=#000020"/><img src="https://img.shields.io/badge/python-20232A?style=for-the-badge&logo=python&logoColor=3776AB"/><img src="https://img.shields.io/badge/heroku-20232A?style=for-the-badge&logo=heroku&logoColor=430098"/><img src="https://img.shields.io/badge/firebase-20232A?style=for-the-badge&logo=firebase&logoColor=ffca28"/><img src="https://img.shields.io/badge/jest-20232A?style=for-the-badge&logo=jest&logoColor=C21325"/><img src="https://img.shields.io/badge/postman-20232A?style=for-the-badge&logo=postman&logoColor=FF6C37"/>
     </div>
 </div>
 
