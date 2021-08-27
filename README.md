@@ -14,16 +14,24 @@
     </div>
 </div>
 
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)
+![-----------------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)
 
-<div align="left">
-  <br/>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png" width="600" height="800">
+</div>
+<br/>
+
+| Item | Link                               |
+|------------|-------------------------------------------|
+| Documentation      | [Docs Link](https://docs.google.com/document/d/1WdK4LLpTxKZ7HYpSbAl_q11wz2pZO9tW5W_opGJKOpc/edit?usp=sharing) |
+| Poster       | [Poster Link](https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png) |
+| Video Overview | [Video Link](https://youtu.be/yymiTM0NuZo) |
+
+<!--<div align="left">
+
+
   
-  You may want to view our [poster](https://i.imgur.com/89aBsEq.jpg).
-  
-  <br/>
-  
-<!--   <b>Proposed Level of Achievement:</b> Artemis
+   <b>Proposed Level of Achievement:</b> Artemis
 
   <b>Motivation: </b>
   <p>
