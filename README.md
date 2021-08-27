@@ -19,7 +19,8 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png" width="600" height="800">
 </div>
-<br/>
+
+<br/><br/>
 
 | Item | Link                               |
 |------------|-------------------------------------------|
@@ -27,9 +28,11 @@
 | Poster       | [Poster Link](https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png) |
 | Video Overview | [Video Link](https://youtu.be/yymiTM0NuZo) |
 
+<br/>
+
+<p>Developed by <a href="https://github.com/roopaniedu">Roopa Niedu</a> & <a href="https://github.com/domsterthebot">Dominic Lim</a></p>
+
 <!--<div align="left">
-
-
   
    <b>Proposed Level of Achievement:</b> Artemis
 
