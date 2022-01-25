@@ -21,7 +21,7 @@ function CountDown() {
   });
   React.useEffect(() => {
     let countDownDate = new Date(
-      'August 16, 2021  23:59:59 GMT+08:00'
+      'March 16, 2022  23:59:59 GMT+08:00'
     ).getTime();
     //update every second
     let x = setInterval(function () {
