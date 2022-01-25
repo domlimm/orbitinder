@@ -23,6 +23,7 @@ import {
   Stats,
   LoadingIndicator,
   Status,
+  Info,
   RecentLikes
 } from '../../components/index';
 
@@ -114,6 +115,7 @@ const MainAppScreen = ({ navigation }) => {
         </TouchableNativeFeedback>
         <Status />
         <CountDown />
+        <Info />
         <Stats />
         <RecentLikes />
       </ScrollView>
