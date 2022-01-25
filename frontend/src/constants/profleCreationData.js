@@ -1,37 +1,37 @@
-export const interestsData = [
-  'Art & Design',
-  'Augmented Reality',
-  'Beauty',
-  'Books & Refs',
-  'Business',
-  'Communication',
-  'Dating',
-  'Education',
-  'Entertainment',
-  'Events',
-  'Finance',
-  'Food & Drink',
-  'Games',
-  'Health & Fitness',
-  'House & Home',
-  'Lifestyle',
-  'Maps & Navigation',
-  'Medical',
-  'Music & Audio',
-  'News & Magazines',
-  'Parenting',
-  'Personalisation',
-  'Photography',
-  'Productivity',
-  'Shopping',
-  'Social',
-  'Sports',
-  'Tools',
-  'Travel & Local',
-  'Weather'
-];
+// export const interestsData = [
+//   'Art & Design',
+//   'Augmented Reality',
+//   'Beauty',
+//   'Books & Refs',
+//   'Business',
+//   'Communication',
+//   'Dating',
+//   'Education',
+//   'Entertainment',
+//   'Events',
+//   'Finance',
+//   'Food & Drink',
+//   'Games',
+//   'Health & Fitness',
+//   'House & Home',
+//   'Lifestyle',
+//   'Maps & Navigation',
+//   'Medical',
+//   'Music & Audio',
+//   'News & Magazines',
+//   'Parenting',
+//   'Personalisation',
+//   'Photography',
+//   'Productivity',
+//   'Shopping',
+//   'Social',
+//   'Sports',
+//   'Tools',
+//   'Travel & Local',
+//   'Weather'
+// ];
 
-export const yearData = ['Year 1', 'Year 2', 'Year 3', 'Year 4'];
+export const yearData = ['Year 1', 'Year 2'];
 
 export const commitmentData = [
   'High Commitment',
@@ -47,14 +47,12 @@ export const idea = ['Yes', 'No'];
 
 export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
 
-export const applicationsData = [
-  'Browser Extension',
-  'Mac Application',
-  'Mobile Application',
-  'Mobile Game',
-  'PC Game',
+export const interestsData = [
   'Web Application',
-  'Windows Application'
+  'Mobile Application',
+  'Telegram Bot',
+  'Games',
+  'Others'
 ];
 
 export const gameDevData = [
