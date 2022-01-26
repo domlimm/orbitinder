@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
 
-import getFullPath from '../utils/getNavPath';
+import getFullPath from '../utils/NavPath';
 
 const useNotifications = () => {
   const [notification, setNotification] = useState(false);
