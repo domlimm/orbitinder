@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@expo/ngrok": "^4.1.0",
     "@testing-library/react-native": "^7.2.0",
     "firestore-jest-mock": "^0.15.0",
     "jest-expo": "^41.0.0",
