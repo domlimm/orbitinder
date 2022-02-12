@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableNativeFeedback, StyleSheet, View, Dimensions, Platform } from 'react-native';
-import { Layout, Text, Popover, Icon } from '@ui-kitten/components';
+import {
+    TouchableNativeFeedback,
+    StyleSheet,
+    View,
+    Dimensions,
+    Platform
+} from 'react-native';
+import { Layout, Text, Popover } from '@ui-kitten/components';
 import { useSelector } from 'react-redux';
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
 
@@ -41,18 +47,24 @@ const Stats = () => {
                 } else {
                     const data = querySnapshot.data();
 
-                    setLikesCount(data.likes !== undefined && data.likes.length);
-                    setDislikesCount(data.dislikes !== undefined && data.dislikes.length);
-                    setLikedByCount(data.likedBy !== undefined && data.likedBy.length);
+                    setLikesCount(
+                        data.likes !== undefined && data.likes.length
+                    );
+                    setDislikesCount(
+                        data.dislikes !== undefined && data.dislikes.length
+                    );
+                    setLikedByCount(
+                        data.likedBy !== undefined && data.likedBy.length
+                    );
                 }
             });
 
         return () => statsListener();
     }, [userData]);
 
-    const TouchIcon = () => <FontAwesome5 name='hand-point-up' size={32} color='#407BFF' />;
-
-    const InfoIcon = () => <Icon style={styles.icon} fill='#407BFF' name='info-outline' />;
+    const TouchIcon = () => (
+        <FontAwesome5 name='hand-point-up' size={28} color='#407BFF' />
+    );
 
     const LikeIcon = () => (
         <View style={styles.iconContainer}>
@@ -74,7 +86,9 @@ const Stats = () => {
                         {type === 'likes' ? likesCount : dislikesCount}
                     </Text>
                 </View>
-                <View style={styles.iconFooter}>{type === 'likes' ? <LikeIcon /> : <DislikeIcon />}</View>
+                <View style={styles.iconFooter}>
+                    {type === 'likes' ? <LikeIcon /> : <DislikeIcon />}
+                </View>
             </View>
             <Text category='h6' style={styles.statTitle}>
                 {type}
@@ -118,12 +132,9 @@ const Stats = () => {
                 fullWidth={true}
             >
                 <Layout style={styles.popoverContainer}>
-                    <View style={styles.popoverIcon}>
-                        <InfoIcon />
-                    </View>
-                    <View style={styles.popoverText}>
-                        <Text style={styles.infoText}>We hope this helps you in branding yourself!</Text>
-                    </View>
+                    <Text style={styles.infoText}>
+                        We hope this helps you in branding yourself!
+                    </Text>
                 </Layout>
             </Popover>
             <View style={styles.statCardsContainer}>
@@ -187,10 +198,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    icon: {
-        height: 24,
-        width: 24
-    },
     likedByContainer: {
         flexDirection: 'row',
         width: '100%',
@@ -217,6 +224,7 @@ const styles = StyleSheet.create({
     popoverContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 15,
         paddingHorizontal: 10,
         borderBottomLeftRadius: 10,
@@ -228,17 +236,8 @@ const styles = StyleSheet.create({
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
         elevation: 3
     },
-    popoverIcon: {
-        width: '20%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    popoverText: {
-        width: '80%'
-    },
     infoText: {
-        fontWeight: 'bold',
-        textAlign: 'left'
+        fontWeight: 'bold'
     }
 });
 
