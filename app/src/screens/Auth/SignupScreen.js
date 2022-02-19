@@ -259,8 +259,10 @@ const SignupScreen = ({ navigation }) => {
                             <Text style={{ marginBottom: 20 }}>
                                 {declarationText.PREVIEW}
                             </Text>
-                            <Text style={{ fontWeight: 'bold' }}>
-                                Some data we collect includes:
+                            <Text
+                                style={{ fontWeight: 'bold', marginBottom: 4 }}
+                            >
+                                Some sensitive data we collect includes:
                             </Text>
                             <DeclarationItem
                                 data={declarationText.NUSNET_HEADER}

@@ -1,7 +1,7 @@
 const CONSENT =
     'OrbiTinder collects data for matching with others. Do you allow and consent for this?';
 
-const PREVIEW = `All data collected are and will only be used for powering OrbiTinder. We assure and ensure the confidentiality of your data. It is not used for any commerical purposes. However, these data used will be shown to others users i.e. Students using this application.`;
+const PREVIEW = `All data collected are and will only be used for powering OrbiTinder. We assure you that your data is kept privately and confidentially. It is not used for any commerical or research purposes. However, these data collected will be shown to other users i.e. Students using this application.`;
 
 const NUSNET_HEADER = `NUSNET ID & Email`;
 
