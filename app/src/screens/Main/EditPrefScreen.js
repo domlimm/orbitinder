@@ -16,6 +16,8 @@ import {
     SelectItem
 } from '@ui-kitten/components';
 import { useDispatch, useSelector } from 'react-redux';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { TitleHeader, FloatingSave, Toast } from '../../components/index';
 import {
@@ -24,12 +26,12 @@ import {
     commitmentData,
     genderData,
     sweExperience,
-    gameDevData,
-    webDevData,
-    mobileDevData,
-    dbData,
-    mlData,
-    interestsData
+    interestsData,
+    gameDevNewData,
+    webDevNewData,
+    mobileDevNewData,
+    dbNewData,
+    mlNewData
 } from '../../constants/profleCreationData';
 import * as userActions from '../../redux/actions/user';
 
@@ -58,32 +60,35 @@ const EditPrefScreen = ({ navigation }) => {
         needMenuNav: false
     };
     const initialState = {
-        gamedevValue: preferences.technologyExperience.game,
-        webValue: preferences.technologyExperience.web,
-        mobileValue: preferences.technologyExperience.mobile,
-        dbValue: preferences.technologyExperience.database,
-        mlValue: preferences.technologyExperience.machineLearning,
+        gamedevValue: preferences.technologyExperience.game.map(value => {
+            return gameDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        webValue: preferences.technologyExperience.web.map(value => {
+            return webDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        mobileValue: preferences.technologyExperience.mobile.map(value => {
+            return mobileDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        dbValue: preferences.technologyExperience.database.map(value => {
+            return dbNewData[0].children.filter(obj => obj.name === value)[0]
+                .id;
+        }),
+        mlValue: preferences.technologyExperience.machineLearning.map(value => {
+            return mlNewData[0].children.filter(obj => obj.name === value)[0]
+                .id;
+        }),
         yearValue: preferences.year,
         degreeValue: preferences.degree,
         commitmentValue: preferences.commitment,
         genderValue: preferences.gender,
         expValue: preferences.sweExperience,
         interestsValue: preferences.interests,
-        gamedevIndex: preferences.technologyExperience.game.map(index => {
-            return new IndexPath(gameDevData.indexOf(index));
-        }),
-        webIndex: preferences.technologyExperience.web.map(index => {
-            return new IndexPath(webDevData.indexOf(index));
-        }),
-        mobileIndex: preferences.technologyExperience.mobile.map(index => {
-            return new IndexPath(mobileDevData.indexOf(index));
-        }),
-        dbIndex: preferences.technologyExperience.database.map(index => {
-            return new IndexPath(dbData.indexOf(index));
-        }),
-        mlIndex: preferences.technologyExperience.machineLearning.map(index => {
-            return new IndexPath(mlData.indexOf(index));
-        }),
         yearIndex: preferences.year.map(index => {
             return new IndexPath(yearData.indexOf(index));
         }),
@@ -108,32 +113,27 @@ const EditPrefScreen = ({ navigation }) => {
             case 'changeGamedev':
                 return {
                     ...currState,
-                    gamedevValue: action.gamedevValue,
-                    gamedevIndex: action.gamedevIndex
+                    gamedevValue: action.gamedevValue
                 };
             case 'changeWebdev':
                 return {
                     ...currState,
-                    webValue: action.webValue,
-                    webIndex: action.webIndex
+                    webValue: action.webValue
                 };
             case 'changeMobiledev':
                 return {
                     ...currState,
-                    mobileValue: action.mobileValue,
-                    mobileIndex: action.mobileIndex
+                    mobileValue: action.mobileValue
                 };
             case 'changeDB':
                 return {
                     ...currState,
-                    dbValue: action.dbValue,
-                    dbIndex: action.dbIndex
+                    dbValue: action.dbValue
                 };
             case 'changeML':
                 return {
                     ...currState,
-                    mlValue: action.mlValue,
-                    mlIndex: action.mlIndex
+                    mlValue: action.mlValue
                 };
             case 'changeYear':
                 return {
@@ -174,9 +174,19 @@ const EditPrefScreen = ({ navigation }) => {
         }
     };
     const [currState, myDispatch] = React.useReducer(myReducer, initialState);
+
+    const COLOURS = {
+        primary: '#407bff',
+        chipColor: '#407bff'
+    };
+
+    const noResultsComponent = () => (
+        <Text style={styles.noResultsText}>No results found!</Text>
+    );
+
     const saveHandler = () => {
         const prefData = {
-            //idea?????
+            // To add ideas? Boolean yes or no
             preferences: {
                 commitment: currState.commitmentValue,
                 degree: currState.degreeValue,
@@ -184,11 +194,36 @@ const EditPrefScreen = ({ navigation }) => {
                 interests: currState.interestsValue,
                 sweExperience: currState.expValue,
                 technologyExperience: {
-                    game: currState.gamedevValue,
-                    web: currState.webValue,
-                    mobile: currState.mobileValue,
-                    database: currState.dbValue,
-                    machineLearning: currState.mlValue
+                    game: currState.gamedevValue.map(
+                        index =>
+                            gameDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    web: currState.webValue.map(
+                        index =>
+                            webDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    mobile: currState.mobileValue.map(
+                        index =>
+                            mobileDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    database: currState.dbValue.map(
+                        index =>
+                            dbNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    machineLearning: currState.mlValue.map(
+                        index =>
+                            mlNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    )
                 },
                 year: currState.yearValue
             }
@@ -217,11 +252,36 @@ const EditPrefScreen = ({ navigation }) => {
                     interests: currState.interestsValue,
                     sweExperience: currState.expValue,
                     technologyExperience: {
-                        game: currState.gamedevValue,
-                        web: currState.webValue,
-                        mobile: currState.mobileValue,
-                        database: currState.dbValue,
-                        machineLearning: currState.mlValue
+                        game: currState.gamedevValue.map(
+                            index =>
+                                gameDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        web: currState.webValue.map(
+                            index =>
+                                webDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        mobile: currState.mobileValue.map(
+                            index =>
+                                mobileDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        database: currState.dbValue.map(
+                            index =>
+                                dbNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        machineLearning: currState.mlValue.map(
+                            index =>
+                                mlNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        )
                     },
                     year: currState.yearValue
                 };
@@ -394,114 +454,177 @@ const EditPrefScreen = ({ navigation }) => {
                                 <SelectItem key={key} title={value} />
                             ))}
                         </Select>
+                    </Layout>
+                    <Layout style={styles.techExpContainer}>
                         <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
                             Technology Experience
                         </Text>
-                        <Select
-                            label='Game Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.gamedevIndex}
-                            onSelect={input =>
-                                myDispatch({
-                                    type: 'changeGamedev',
-                                    gamedevValue: input.map(index => {
-                                        return gameDevData[index.row];
-                                    }),
-                                    gamedevIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.gamedevValue.join(', ')}
-                        >
-                            {gameDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Web Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.webIndex}
-                            onSelect={input =>
-                                myDispatch({
-                                    type: 'changeWebdev',
-                                    webValue: input.map(index => {
-                                        return webDevData[index.row];
-                                    }),
-                                    webIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.webValue.join(', ')}
-                        >
-                            {webDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Mobile Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.mobileIndex}
-                            onSelect={input =>
-                                myDispatch({
-                                    type: 'changeMobiledev',
-                                    mobileValue: input.map(index => {
-                                        return mobileDevData[index.row];
-                                    }),
-                                    mobileIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.mobileValue.join(', ')}
-                        >
-                            {mobileDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Database'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.dbIndex}
-                            onSelect={input =>
-                                myDispatch({
-                                    type: 'changeDB',
-                                    dbValue: input.map(index => {
-                                        return dbData[index.row];
-                                    }),
-                                    dbIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.dbValue.join(', ')}
-                        >
-                            {dbData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Machine Learning'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.mlIndex}
-                            onSelect={input =>
-                                myDispatch({
-                                    type: 'changeML',
-                                    mlValue: input.map(index => {
-                                        return mlData[index.row];
-                                    }),
-                                    mlIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.mlValue.join(', ')}
-                        >
-                            {mlData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Game Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={gameDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    myDispatch({
+                                        type: 'changeGamedev',
+                                        gamedevValue: input.map(index => {
+                                            return gameDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        }),
+                                        gamedevIndex: input
+                                    })
+                                }
+                                selectedItems={currState.gamedevValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Web Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={webDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    myDispatch({
+                                        type: 'changeWebdev',
+                                        webValue: input.map(index => {
+                                            return webDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        })
+                                    })
+                                }
+                                selectedItems={currState.webValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Mobile Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={mobileDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    myDispatch({
+                                        type: 'changeMobiledev',
+                                        mobileValue: input.map(index => {
+                                            return mobileDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        }),
+                                        mobileIndex: input
+                                    })
+                                }
+                                selectedItems={currState.mobileValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Database
+                            </Text>
+                            <SectionedMultiSelect
+                                items={dbNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    myDispatch({
+                                        type: 'changeDB',
+                                        dbValue: input.map(index => {
+                                            return dbNewData[0].children[index]
+                                                .id;
+                                        }),
+                                        dbIndex: input
+                                    })
+                                }
+                                selectedItems={currState.dbValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Machine Learning
+                            </Text>
+                            <SectionedMultiSelect
+                                items={mlNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    myDispatch({
+                                        type: 'changeML',
+                                        mlValue: input.map(index => {
+                                            return mlNewData[0].children[index]
+                                                .id;
+                                        }),
+                                        mlIndex: input
+                                    })
+                                }
+                                selectedItems={currState.mlValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
                     </Layout>
                 </ScrollView>
                 <FloatingSave saveHandler={saveHandler} />
@@ -520,17 +643,58 @@ const styles = StyleSheet.create({
     inputContainer: {
         marginVertical: 14,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
+    },
+    techExpContainer: {
+        flex: 1,
+        alignItems: 'center',
         paddingBottom: 80
+    },
+    techExpChildContainer: {
+        flex: 1,
+        width: '70%'
     },
     selectInput: {
         width: '70%',
         marginVertical: 10
     },
+    inputLabel: {
+        marginTop: 10,
+        marginBottom: 4
+    },
+    noResultsText: {
+        marginTop: 20,
+        textAlign: 'center'
+    },
     screenTitle: {
         color: '#407BFF',
         fontSize: 20,
         fontWeight: 'bold',
+        width: '70%'
+    }
+});
+
+const multiStyles = StyleSheet.create({
+    container: {
+        borderRadius: 5,
+        borderColor: 'blue'
+    },
+    searchBar: {
+        width: '96%'
+    },
+    searchTextInput: {
+        width: '70%'
+    },
+    selectToggle: {
+        marginBottom: 10,
+        backgroundColor: '#F2F2F2',
+        padding: 8,
+        borderRadius: 2
+    },
+    parentChipContainer: {
+        width: '70%'
+    },
+    chipsWrapper: {
         width: '70%'
     }
 });
