@@ -22,18 +22,7 @@ export const interestsData = [
     'Others'
 ];
 
-export const gameDevData = [
-    'Amazon Lumberyard',
-    'CryEngine',
-    'Gamemaker',
-    'Godot',
-    'Phaser',
-    'pygame',
-    'Unity',
-    'Unreal Engine'
-];
-
-export const gameDevNewData = [
+export const GAMEDEV_DATA = [
     {
         name: 'Game Development',
         id: -1,
@@ -74,25 +63,7 @@ export const gameDevNewData = [
     }
 ];
 
-export const webDevData = [
-    'Angular',
-    'ASP .NET',
-    'Browser Extension',
-    'Django',
-    'Ember.js',
-    'Express.js',
-    'Flask',
-    'GraphQL',
-    'Laravel',
-    'Meteor',
-    'Rails',
-    'React',
-    'Spring',
-    'Telegram Bot',
-    'Vue.js'
-];
-
-export const webDevNewData = [
+export const WEDDEV_DATA = [
     {
         name: 'Web Development',
         id: -1,
@@ -161,19 +132,7 @@ export const webDevNewData = [
     }
 ];
 
-export const mobileDevData = [
-    'Android Development',
-    'Cordova',
-    'Corona',
-    'Flutter',
-    'iOS Development',
-    'Ionic',
-    'NativeScripts',
-    'React Native',
-    'Xamarin'
-];
-
-export const mobileDevNewData = [
+export const MOBILEDEV_DATA = [
     {
         name: 'Mobile Development',
         id: -1,
@@ -218,25 +177,7 @@ export const mobileDevNewData = [
     }
 ];
 
-export const dbData = [
-    'Cassandra',
-    'Couchbase',
-    'ElasticSearch',
-    'Firebase',
-    'H2 DB',
-    'IBM Db2',
-    'MariaDB',
-    'Microsoft SQL Server',
-    'MongoDB',
-    'MySQL',
-    'Oracle',
-    'PostgreSQL',
-    'Redis',
-    'Splunk',
-    'SQLite'
-];
-
-export const dbNewData = [
+export const DB_DATA = [
     {
         name: 'Database',
         id: -1,
@@ -305,21 +246,7 @@ export const dbNewData = [
     }
 ];
 
-export const mlData = [
-    'Amazon ML',
-    'Caffe2',
-    'Gensim',
-    'Google Cloud ML',
-    'Keras',
-    'NLTK',
-    'PyTorch',
-    'RapidMiner',
-    'scikit-learn',
-    'SpaCy',
-    'TensorFlow'
-];
-
-export const mlNewData = [
+export const ML_DATA = [
     {
         name: 'Machine Learning',
         id: -1,

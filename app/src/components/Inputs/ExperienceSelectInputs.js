@@ -5,11 +5,11 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import {
-    gameDevNewData,
-    webDevNewData,
-    mobileDevNewData,
-    dbNewData,
-    mlNewData
+    GAMEDEV_DATA,
+    WEDDEV_DATA,
+    MOBILEDEV_DATA,
+    DB_DATA,
+    ML_DATA
 } from '../../constants/profleCreationData';
 
 const ExperienceSelectInputs = ({ getSelections }) => {
@@ -18,7 +18,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
         setGameIndex(game);
     };
     const displayGameDev = React.useMemo(
-        () => gameIndex.map(index => gameDevNewData[0].children[index].name),
+        () => gameIndex.map(index => GAMEDEV_DATA[0].children[index].name),
         [gameIndex]
     );
 
@@ -27,7 +27,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
         setWebIndex(web);
     };
     const displayWebDev = React.useMemo(
-        () => webIndex.map(index => webDevNewData[0].children[index].name),
+        () => webIndex.map(index => WEDDEV_DATA[0].children[index].name),
         [webIndex]
     );
 
@@ -36,8 +36,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
         setMobileIndex(mobile);
     };
     const displayMobileDev = React.useMemo(
-        () =>
-            mobileIndex.map(index => mobileDevNewData[0].children[index].name),
+        () => mobileIndex.map(index => MOBILEDEV_DATA[0].children[index].name),
         [mobileIndex]
     );
 
@@ -46,7 +45,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
         setDBIndex(db);
     };
     const displayDb = React.useMemo(
-        () => dbIndex.map(index => dbNewData[0].children[index].name),
+        () => dbIndex.map(index => DB_DATA[0].children[index].name),
         [dbIndex]
     );
 
@@ -55,7 +54,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
         setMLIndex(ml);
     };
     const displayMl = React.useMemo(
-        () => mlIndex.map(index => mlNewData[0].children[index].name),
+        () => mlIndex.map(index => ML_DATA[0].children[index].name),
         [mlIndex]
     );
 
@@ -92,7 +91,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
                     Game Development
                 </Text>
                 <SectionedMultiSelect
-                    items={gameDevNewData}
+                    items={GAMEDEV_DATA}
                     IconRenderer={MaterialIcons}
                     uniqueKey='id'
                     subKey='children'
@@ -116,7 +115,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
                     Web Development
                 </Text>
                 <SectionedMultiSelect
-                    items={webDevNewData}
+                    items={WEDDEV_DATA}
                     IconRenderer={MaterialIcons}
                     uniqueKey='id'
                     subKey='children'
@@ -140,7 +139,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
                     Mobile Development
                 </Text>
                 <SectionedMultiSelect
-                    items={mobileDevNewData}
+                    items={MOBILEDEV_DATA}
                     IconRenderer={MaterialIcons}
                     uniqueKey='id'
                     subKey='children'
@@ -164,7 +163,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
                     Database
                 </Text>
                 <SectionedMultiSelect
-                    items={dbNewData}
+                    items={DB_DATA}
                     IconRenderer={MaterialIcons}
                     uniqueKey='id'
                     subKey='children'
@@ -188,7 +187,7 @@ const ExperienceSelectInputs = ({ getSelections }) => {
                     Machine Learning
                 </Text>
                 <SectionedMultiSelect
-                    items={mlNewData}
+                    items={ML_DATA}
                     IconRenderer={MaterialIcons}
                     uniqueKey='id'
                     subKey='children'

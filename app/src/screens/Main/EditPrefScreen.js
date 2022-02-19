@@ -27,11 +27,11 @@ import {
     genderData,
     sweExperience,
     interestsData,
-    gameDevNewData,
-    webDevNewData,
-    mobileDevNewData,
-    dbNewData,
-    mlNewData
+    GAMEDEV_DATA,
+    WEDDEV_DATA,
+    MOBILEDEV_DATA,
+    DB_DATA,
+    ML_DATA
 } from '../../constants/profleCreationData';
 import * as userActions from '../../redux/actions/user';
 
@@ -61,27 +61,23 @@ const EditPrefScreen = ({ navigation }) => {
     };
     const initialState = {
         gamedevValue: preferences.technologyExperience.game.map(value => {
-            return gameDevNewData[0].children.filter(
-                obj => obj.name === value
-            )[0].id;
+            return GAMEDEV_DATA[0].children.filter(obj => obj.name === value)[0]
+                .id;
         }),
         webValue: preferences.technologyExperience.web.map(value => {
-            return webDevNewData[0].children.filter(
-                obj => obj.name === value
-            )[0].id;
+            return WEDDEV_DATA[0].children.filter(obj => obj.name === value)[0]
+                .id;
         }),
         mobileValue: preferences.technologyExperience.mobile.map(value => {
-            return mobileDevNewData[0].children.filter(
+            return MOBILEDEV_DATA[0].children.filter(
                 obj => obj.name === value
             )[0].id;
         }),
         dbValue: preferences.technologyExperience.database.map(value => {
-            return dbNewData[0].children.filter(obj => obj.name === value)[0]
-                .id;
+            return DB_DATA[0].children.filter(obj => obj.name === value)[0].id;
         }),
         mlValue: preferences.technologyExperience.machineLearning.map(value => {
-            return mlNewData[0].children.filter(obj => obj.name === value)[0]
-                .id;
+            return ML_DATA[0].children.filter(obj => obj.name === value)[0].id;
         }),
         yearValue: preferences.year,
         degreeValue: preferences.degree,
@@ -196,31 +192,31 @@ const EditPrefScreen = ({ navigation }) => {
                 technologyExperience: {
                     game: currState.gamedevValue.map(
                         index =>
-                            gameDevNewData[0].children.filter(
+                            GAMEDEV_DATA[0].children.filter(
                                 obj => obj.id === index
                             )[0].name
                     ),
                     web: currState.webValue.map(
                         index =>
-                            webDevNewData[0].children.filter(
+                            WEDDEV_DATA[0].children.filter(
                                 obj => obj.id === index
                             )[0].name
                     ),
                     mobile: currState.mobileValue.map(
                         index =>
-                            mobileDevNewData[0].children.filter(
+                            MOBILEDEV_DATA[0].children.filter(
                                 obj => obj.id === index
                             )[0].name
                     ),
                     database: currState.dbValue.map(
                         index =>
-                            dbNewData[0].children.filter(
+                            DB_DATA[0].children.filter(
                                 obj => obj.id === index
                             )[0].name
                     ),
                     machineLearning: currState.mlValue.map(
                         index =>
-                            mlNewData[0].children.filter(
+                            ML_DATA[0].children.filter(
                                 obj => obj.id === index
                             )[0].name
                     )
@@ -254,31 +250,31 @@ const EditPrefScreen = ({ navigation }) => {
                     technologyExperience: {
                         game: currState.gamedevValue.map(
                             index =>
-                                gameDevNewData[0].children.filter(
+                                GAMEDEV_DATA[0].children.filter(
                                     obj => obj.id === index
                                 )[0].name
                         ),
                         web: currState.webValue.map(
                             index =>
-                                webDevNewData[0].children.filter(
+                                WEDDEV_DATA[0].children.filter(
                                     obj => obj.id === index
                                 )[0].name
                         ),
                         mobile: currState.mobileValue.map(
                             index =>
-                                mobileDevNewData[0].children.filter(
+                                MOBILEDEV_DATA[0].children.filter(
                                     obj => obj.id === index
                                 )[0].name
                         ),
                         database: currState.dbValue.map(
                             index =>
-                                dbNewData[0].children.filter(
+                                DB_DATA[0].children.filter(
                                     obj => obj.id === index
                                 )[0].name
                         ),
                         machineLearning: currState.mlValue.map(
                             index =>
-                                mlNewData[0].children.filter(
+                                ML_DATA[0].children.filter(
                                     obj => obj.id === index
                                 )[0].name
                         )
@@ -464,7 +460,7 @@ const EditPrefScreen = ({ navigation }) => {
                                 Game Development
                             </Text>
                             <SectionedMultiSelect
-                                items={gameDevNewData}
+                                items={GAMEDEV_DATA}
                                 IconRenderer={MaterialIcons}
                                 uniqueKey='id'
                                 subKey='children'
@@ -473,7 +469,7 @@ const EditPrefScreen = ({ navigation }) => {
                                     myDispatch({
                                         type: 'changeGamedev',
                                         gamedevValue: input.map(index => {
-                                            return gameDevNewData[0].children[
+                                            return GAMEDEV_DATA[0].children[
                                                 index
                                             ].id;
                                         }),
@@ -498,7 +494,7 @@ const EditPrefScreen = ({ navigation }) => {
                                 Web Development
                             </Text>
                             <SectionedMultiSelect
-                                items={webDevNewData}
+                                items={WEDDEV_DATA}
                                 IconRenderer={MaterialIcons}
                                 uniqueKey='id'
                                 subKey='children'
@@ -507,7 +503,7 @@ const EditPrefScreen = ({ navigation }) => {
                                     myDispatch({
                                         type: 'changeWebdev',
                                         webValue: input.map(index => {
-                                            return webDevNewData[0].children[
+                                            return WEDDEV_DATA[0].children[
                                                 index
                                             ].id;
                                         })
@@ -531,7 +527,7 @@ const EditPrefScreen = ({ navigation }) => {
                                 Mobile Development
                             </Text>
                             <SectionedMultiSelect
-                                items={mobileDevNewData}
+                                items={MOBILEDEV_DATA}
                                 IconRenderer={MaterialIcons}
                                 uniqueKey='id'
                                 subKey='children'
@@ -540,7 +536,7 @@ const EditPrefScreen = ({ navigation }) => {
                                     myDispatch({
                                         type: 'changeMobiledev',
                                         mobileValue: input.map(index => {
-                                            return mobileDevNewData[0].children[
+                                            return MOBILEDEV_DATA[0].children[
                                                 index
                                             ].id;
                                         }),
@@ -565,7 +561,7 @@ const EditPrefScreen = ({ navigation }) => {
                                 Database
                             </Text>
                             <SectionedMultiSelect
-                                items={dbNewData}
+                                items={DB_DATA}
                                 IconRenderer={MaterialIcons}
                                 uniqueKey='id'
                                 subKey='children'
@@ -574,7 +570,7 @@ const EditPrefScreen = ({ navigation }) => {
                                     myDispatch({
                                         type: 'changeDB',
                                         dbValue: input.map(index => {
-                                            return dbNewData[0].children[index]
+                                            return DB_DATA[0].children[index]
                                                 .id;
                                         }),
                                         dbIndex: input
@@ -598,7 +594,7 @@ const EditPrefScreen = ({ navigation }) => {
                                 Machine Learning
                             </Text>
                             <SectionedMultiSelect
-                                items={mlNewData}
+                                items={ML_DATA}
                                 IconRenderer={MaterialIcons}
                                 uniqueKey='id'
                                 subKey='children'
@@ -607,7 +603,7 @@ const EditPrefScreen = ({ navigation }) => {
                                     myDispatch({
                                         type: 'changeML',
                                         mlValue: input.map(index => {
-                                            return mlNewData[0].children[index]
+                                            return ML_DATA[0].children[index]
                                                 .id;
                                         }),
                                         mlIndex: input
