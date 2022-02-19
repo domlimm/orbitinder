@@ -9,7 +9,7 @@ const NUSNET_INFO = `For Authentication & Authorization into OrbiTinder. For res
 
 const TELEGRAM_HEADER = `Telegram Handler/Username`;
 
-const TELEGRAM_INFO = `After matching with another teammate, both parties can proceed to Telegram to carry on their discussion.`;
+const TELEGRAM_INFO = `Only shown to your matched teammate. After matching with another teammate, both parties can proceed to Telegram to carry on their discussion.`;
 
 const GITHUB_HEADER = `GitHub Profile`;
 
