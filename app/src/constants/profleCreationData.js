@@ -26,6 +26,7 @@ export const gameDevData = [
     'Amazon Lumberyard',
     'CryEngine',
     'Gamemaker',
+    'Godot',
     'Phaser',
     'pygame',
     'Unity',
@@ -42,7 +43,7 @@ export const webDevData = [
     'Flask',
     'GraphQL',
     'Laravel',
-    'Metero',
+    'Meteor',
     'Rails',
     'React',
     'Spring',
@@ -51,38 +52,46 @@ export const webDevData = [
 ];
 
 export const mobileDevData = [
-    'Android Studio',
+    'Android Development',
     'Cordova',
     'Corona',
     'Flutter',
+    'iOS Development',
     'Ionic',
     'NativeScripts',
     'React Native',
-    'Xamarin',
-    'Xcode'
+    'Xamarin'
 ];
 
 export const dbData = [
     'Cassandra',
+    'Couchbase',
+    'ElasticSearch',
     'Firebase',
+    'H2 DB',
     'IBM Db2',
     'MariaDB',
+    'Microsoft SQL Server',
     'MongoDB',
     'MySQL',
     'Oracle',
     'PostgreSQL',
+    'Redis',
+    'Splunk',
     'SQLite'
 ];
 
 export const mlData = [
     'Amazon ML',
     'Caffe2',
-    'Google Cloud AutoML',
+    'Gensim',
+    'Google Cloud ML',
     'Keras',
     'NLTK',
     'PyTorch',
     'RapidMiner',
     'scikit-learn',
+    'SpaCy',
     'TensorFlow'
 ];
 

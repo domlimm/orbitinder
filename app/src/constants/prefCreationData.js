@@ -1,9 +1,9 @@
 export const yearData = ['Year 1', 'Year 2'];
 
 export const commitmentData = [
-  'High Commitment',
-  'Medium Commitment',
-  'Low Commitment'
+    'High Commitment',
+    'Medium Commitment',
+    'Low Commitment'
 ];
 
 export const sweExperience = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
@@ -15,73 +15,82 @@ export const genderData = ['Male', 'Female'];
 export const achievementData = ['Artemis', 'Apollo 11', 'Gemini', 'Vostok'];
 
 export const gameDevData = [
-  'Amazon Lumberyard',
-  'CryEngine',
-  'Gamemaker',
-  'Phaser',
-  'pygame',
-  'Unity',
-  'Unreal Engine'
+    'Amazon Lumberyard',
+    'CryEngine',
+    'Gamemaker',
+    'Godot',
+    'Phaser',
+    'pygame',
+    'Unity',
+    'Unreal Engine'
 ];
 
 export const webDevData = [
-  'Angular',
-  'ASP .NET',
-  'Browser Extension',
-  'Django',
-  'Ember.js',
-  'Express.js',
-  'Flask',
-  'GraphQL',
-  'Laravel',
-  'Metero',
-  'Rails',
-  'React',
-  'Spring',
-  'Telegram Bot',
-  'Vue.js'
+    'Angular',
+    'ASP .NET',
+    'Browser Extension',
+    'Django',
+    'Ember.js',
+    'Express.js',
+    'Flask',
+    'GraphQL',
+    'Laravel',
+    'Meteor',
+    'Rails',
+    'React',
+    'Spring',
+    'Telegram Bot',
+    'Vue.js'
 ];
 
 export const mobileDevData = [
-  'Android Studio',
-  'Cordova',
-  'Corona',
-  'Flutter',
-  'Ionic',
-  'NativeScripts',
-  'React Native',
-  'Xamarin',
-  'Xcode'
+    'Android Development',
+    'Cordova',
+    'Corona',
+    'Flutter',
+    'iOS Development',
+    'Ionic',
+    'NativeScripts',
+    'React Native',
+    'Xamarin'
 ];
 
 export const dbData = [
-  'Cassandra',
-  'Firebase',
-  'IBM Db2',
-  'MariaDB',
-  'MongoDB',
-  'MySQL',
-  'Oracle',
-  'PostgreSQL',
-  'SQLite'
+    'Cassandra',
+    'Couchbase',
+    'ElasticSearch',
+    'Firebase',
+    'H2 DB',
+    'IBM Db2',
+    'MariaDB',
+    'Microsoft SQL Server',
+    'MongoDB',
+    'MySQL',
+    'Oracle',
+    'PostgreSQL',
+    'Redis',
+    'Splunk',
+    'SQLite'
 ];
 
 export const mlData = [
-  'Amazon ML',
-  'Caffe2',
-  'Google Cloud AutoML',
-  'Keras',
-  'NLTK',
-  'PyTorch',
-  'RapidMiner',
-  'scikit-learn',
-  'TensorFlow'
+    'Amazon ML',
+    'Caffe2',
+    'Gensim',
+    'Google Cloud ML',
+    'Keras',
+    'NLTK',
+    'PyTorch',
+    'RapidMiner',
+    'scikit-learn',
+    'SpaCy',
+    'TensorFlow'
 ];
 
 export const degreeData = [
-  'Business Analytics',
-  'Computer Science',
-  'Information Security',
-  'Information Systems',
-  'Computer Engineering'
+    'Business Analytics',
+    'Computer Science',
+    'Information Security',
+    'Information Systems',
+    'Computer Engineering'
 ];

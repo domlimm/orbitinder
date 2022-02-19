@@ -534,4 +534,5 @@ const styles = StyleSheet.create({
         width: '70%'
     }
 });
+
 export default EditPrefScreen;

@@ -869,4 +869,5 @@ const styles = StyleSheet.create({
         width: '70%'
     }
 });
+
 export default EditProfileScreen;
