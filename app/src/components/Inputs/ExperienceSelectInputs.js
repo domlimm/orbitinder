@@ -1,148 +1,260 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Layout, Select, SelectItem } from '@ui-kitten/components';
+import { Layout, Text } from '@ui-kitten/components';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import {
-  gameDevData,
-  webDevData,
-  mobileDevData,
-  dbData,
-  mlData
+    gameDevNewData,
+    webDevNewData,
+    mobileDevNewData,
+    dbNewData,
+    mlNewData
 } from '../../constants/profleCreationData';
 
 const ExperienceSelectInputs = ({ getSelections }) => {
-  const [gameIndex, setGameIndex] = React.useState([]);
-  const displayGameDev = React.useMemo(
-    () => gameIndex.map(index => gameDevData[index.row]),
-    [gameIndex]
-  );
+    const [gameIndex, setGameIndex] = React.useState([]);
+    const onGameChange = game => {
+        setGameIndex(game);
+    };
+    const displayGameDev = React.useMemo(
+        () => gameIndex.map(index => gameDevNewData[0].children[index].name),
+        [gameIndex]
+    );
 
-  const [webIndex, setWebIndex] = React.useState([]);
-  const displayWebDev = React.useMemo(
-    () => webIndex.map(index => webDevData[index.row]),
-    [webIndex]
-  );
+    const [webIndex, setWebIndex] = React.useState([]);
+    const onWebChange = web => {
+        setWebIndex(web);
+    };
+    const displayWebDev = React.useMemo(
+        () => webIndex.map(index => webDevNewData[0].children[index].name),
+        [webIndex]
+    );
 
-  const [mobileIndex, setMobileIndex] = React.useState([]);
-  const displayMobileDev = React.useMemo(
-    () => mobileIndex.map(index => mobileDevData[index.row]),
-    [mobileIndex]
-  );
+    const [mobileIndex, setMobileIndex] = React.useState([]);
+    const onMobileChange = mobile => {
+        setMobileIndex(mobile);
+    };
+    const displayMobileDev = React.useMemo(
+        () =>
+            mobileIndex.map(index => mobileDevNewData[0].children[index].name),
+        [mobileIndex]
+    );
 
-  const [dbIndex, setDBIndex] = React.useState([]);
-  const displayDb = React.useMemo(
-    () => dbIndex.map(index => dbData[index.row]),
-    [dbIndex]
-  );
+    const [dbIndex, setDBIndex] = React.useState([]);
+    const onDBChange = db => {
+        setDBIndex(db);
+    };
+    const displayDb = React.useMemo(
+        () => dbIndex.map(index => dbNewData[0].children[index].name),
+        [dbIndex]
+    );
 
-  const [mlIndex, setMLIndex] = React.useState([]);
-  const displayMl = React.useMemo(
-    () => mlIndex.map(index => mlData[index.row]),
-    [mlIndex]
-  );
+    const [mlIndex, setMLIndex] = React.useState([]);
+    const onMLChange = ml => {
+        setMLIndex(ml);
+    };
+    const displayMl = React.useMemo(
+        () => mlIndex.map(index => mlNewData[0].children[index].name),
+        [mlIndex]
+    );
 
-  React.useEffect(() => {
-    getSelections({
-      game: displayGameDev,
-      web: displayWebDev,
-      mobile: displayMobileDev,
-      database: displayDb,
-      machineLearning: displayMl
-    });
-  }, [
-    displayGameDev,
-    displayWebDev,
-    displayMobileDev,
-    displayDb,
-    displayMl,
-    getSelections
-  ]);
+    const COLOURS = {
+        primary: '#407bff',
+        chipColor: '#407bff'
+    };
 
-  return (
-    <Layout style={styles.inputContainer}>
-      <Select
-        label='Game Development'
-        style={styles.selectInput}
-        multiSelect={true}
-        selectedIndex={gameIndex}
-        onSelect={index => setGameIndex(index)}
-        placeholder='Select'
-        value={displayGameDev.join(', ')}
-      >
-        {gameDevData.map((value, key) => (
-          <SelectItem key={key} title={value} />
-        ))}
-      </Select>
+    const noResultsComponent = () => (
+        <Text style={styles.noResultsText}>No results found!</Text>
+    );
 
-      <Select
-        label='Web Development'
-        style={styles.selectInput}
-        multiSelect={true}
-        selectedIndex={webIndex}
-        onSelect={index => setWebIndex(index)}
-        placeholder='Select'
-        value={displayWebDev.join(', ')}
-      >
-        {webDevData.map((value, key) => (
-          <SelectItem key={key} title={value} />
-        ))}
-      </Select>
+    React.useEffect(() => {
+        getSelections({
+            game: displayGameDev,
+            web: displayWebDev,
+            mobile: displayMobileDev,
+            database: displayDb,
+            machineLearning: displayMl
+        });
+    }, [
+        displayGameDev,
+        displayWebDev,
+        displayMobileDev,
+        displayDb,
+        displayMl,
+        getSelections
+    ]);
 
-      <Select
-        label='Mobile Development'
-        style={styles.selectInput}
-        multiSelect={true}
-        selectedIndex={mobileIndex}
-        onSelect={index => setMobileIndex(index)}
-        placeholder='Select'
-        value={displayMobileDev.join(', ')}
-      >
-        {mobileDevData.map((value, key) => (
-          <SelectItem key={key} title={value} />
-        ))}
-      </Select>
+    return (
+        <Layout style={styles.mainContainer}>
+            <Layout style={styles.inputContainer}>
+                <Text category='label' style={styles.inputLabel}>
+                    Game Development
+                </Text>
+                <SectionedMultiSelect
+                    items={gameDevNewData}
+                    IconRenderer={MaterialIcons}
+                    uniqueKey='id'
+                    subKey='children'
+                    selectText='Select'
+                    onSelectedItemsChange={onGameChange}
+                    selectedItems={gameIndex}
+                    readOnlyHeadings
+                    showRemoveAll
+                    expandDropDowns
+                    showDropDowns={false}
+                    styles={multiStyles}
+                    colors={COLOURS}
+                    searchPlaceholderText='Search Technology'
+                    noResultsComponent={noResultsComponent}
+                    removeAllText='Clear All'
+                />
+            </Layout>
 
-      <Select
-        label='Database'
-        style={styles.selectInput}
-        multiSelect={true}
-        selectedIndex={dbIndex}
-        onSelect={index => setDBIndex(index)}
-        placeholder='Select'
-        value={displayDb.join(', ')}
-      >
-        {dbData.map((value, key) => (
-          <SelectItem key={key} title={value} />
-        ))}
-      </Select>
+            <Layout style={styles.inputContainer}>
+                <Text category='label' style={styles.inputLabel}>
+                    Web Development
+                </Text>
+                <SectionedMultiSelect
+                    items={webDevNewData}
+                    IconRenderer={MaterialIcons}
+                    uniqueKey='id'
+                    subKey='children'
+                    selectText='Select'
+                    onSelectedItemsChange={onWebChange}
+                    selectedItems={webIndex}
+                    readOnlyHeadings
+                    showRemoveAll
+                    expandDropDowns
+                    showDropDowns={false}
+                    styles={multiStyles}
+                    colors={COLOURS}
+                    searchPlaceholderText='Search Technology'
+                    noResultsComponent={noResultsComponent}
+                    removeAllText='Clear All'
+                />
+            </Layout>
 
-      <Select
-        label='Machine Learning'
-        style={styles.selectInput}
-        multiSelect={true}
-        selectedIndex={mlIndex}
-        onSelect={index => setMLIndex(index)}
-        placeholder='Select'
-        value={displayMl.join(', ')}
-      >
-        {mlData.map((value, key) => (
-          <SelectItem key={key} title={value} />
-        ))}
-      </Select>
-    </Layout>
-  );
+            <Layout style={styles.inputContainer}>
+                <Text category='label' style={styles.inputLabel}>
+                    Mobile Development
+                </Text>
+                <SectionedMultiSelect
+                    items={mobileDevNewData}
+                    IconRenderer={MaterialIcons}
+                    uniqueKey='id'
+                    subKey='children'
+                    selectText='Select'
+                    onSelectedItemsChange={onMobileChange}
+                    selectedItems={mobileIndex}
+                    readOnlyHeadings
+                    showRemoveAll
+                    expandDropDowns
+                    showDropDowns={false}
+                    styles={multiStyles}
+                    colors={COLOURS}
+                    searchPlaceholderText='Search Technology'
+                    noResultsComponent={noResultsComponent}
+                    removeAllText='Clear All'
+                />
+            </Layout>
+
+            <Layout style={styles.inputContainer}>
+                <Text category='label' style={styles.inputLabel}>
+                    Database
+                </Text>
+                <SectionedMultiSelect
+                    items={dbNewData}
+                    IconRenderer={MaterialIcons}
+                    uniqueKey='id'
+                    subKey='children'
+                    selectText='Select'
+                    onSelectedItemsChange={onDBChange}
+                    selectedItems={dbIndex}
+                    readOnlyHeadings
+                    showRemoveAll
+                    expandDropDowns
+                    showDropDowns={false}
+                    styles={multiStyles}
+                    colors={COLOURS}
+                    searchPlaceholderText='Search Technology'
+                    noResultsComponent={noResultsComponent}
+                    removeAllText='Clear All'
+                />
+            </Layout>
+
+            <Layout style={styles.inputContainer}>
+                <Text category='label' style={styles.inputLabel}>
+                    Machine Learning
+                </Text>
+                <SectionedMultiSelect
+                    items={mlNewData}
+                    IconRenderer={MaterialIcons}
+                    uniqueKey='id'
+                    subKey='children'
+                    selectText='Select'
+                    onSelectedItemsChange={onMLChange}
+                    selectedItems={mlIndex}
+                    readOnlyHeadings
+                    showRemoveAll
+                    expandDropDowns
+                    showDropDowns={false}
+                    styles={multiStyles}
+                    colors={COLOURS}
+                    searchPlaceholderText='Search Technology'
+                    noResultsComponent={noResultsComponent}
+                    removeAllText='Clear All'
+                />
+            </Layout>
+        </Layout>
+    );
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  selectInput: {
-    width: '70%',
-    marginVertical: 10
-  }
+    mainContainer: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    inputContainer: {
+        flex: 1,
+        width: '70%'
+    },
+    selectInput: {
+        marginVertical: 10
+    },
+    inputLabel: {
+        marginTop: 10,
+        marginBottom: 4
+    },
+    noResultsText: {
+        marginTop: 20,
+        textAlign: 'center'
+    }
+});
+
+const multiStyles = StyleSheet.create({
+    container: {
+        borderRadius: 5,
+        borderColor: 'blue'
+    },
+    searchBar: {
+        width: '96%'
+    },
+    searchTextInput: {
+        width: '70%'
+    },
+    selectToggle: {
+        marginBottom: 10,
+        backgroundColor: '#F2F2F2',
+        padding: 8,
+        borderRadius: 2
+    },
+    parentChipContainer: {
+        width: '70%'
+    },
+    chipsWrapper: {
+        width: '70%'
+    }
 });
 
 export default ExperienceSelectInputs;
