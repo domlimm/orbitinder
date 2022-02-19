@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import {
     ScrollView,
@@ -22,6 +22,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import {
     TitleHeader,
@@ -40,7 +42,12 @@ import {
     mobileDevData,
     dbData,
     mlData,
-    interestsData
+    interestsData,
+    gameDevNewData,
+    webDevNewData,
+    mobileDevNewData,
+    dbNewData,
+    mlNewData
 } from '../../constants/profleCreationData';
 import * as userActions from '../../redux/actions/user';
 
@@ -98,11 +105,29 @@ const EditProfileScreen = ({ navigation }) => {
         interestsValue: background.interests,
         achievementValue: background.achievement,
         sweValue: background.sweExperience,
-        gamedevValue: background.technologyExperience.game,
-        webValue: background.technologyExperience.web,
-        mobileValue: background.technologyExperience.mobile,
-        dbValue: background.technologyExperience.database,
-        mlValue: background.technologyExperience.machineLearning,
+        gamedevValue: background.technologyExperience.game.map(value => {
+            return gameDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        webValue: background.technologyExperience.web.map(value => {
+            return webDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        mobileValue: background.technologyExperience.mobile.map(value => {
+            return mobileDevNewData[0].children.filter(
+                obj => obj.name === value
+            )[0].id;
+        }),
+        dbValue: background.technologyExperience.database.map(value => {
+            return dbNewData[0].children.filter(obj => obj.name === value)[0]
+                .id;
+        }),
+        mlValue: background.technologyExperience.machineLearning.map(value => {
+            return mlNewData[0].children.filter(obj => obj.name === value)[0]
+                .id;
+        }),
         yearIndex: new IndexPath(yearData.indexOf(background.year)),
         ideaIndex: new IndexPath(idea.indexOf(background.idea)),
         interestsIndex: background.interests.map(index => {
@@ -114,24 +139,7 @@ const EditProfileScreen = ({ navigation }) => {
         achievementIndex: new IndexPath(
             achievementData.indexOf(background.achievement)
         ),
-        sweIndex: new IndexPath(
-            sweExperience.indexOf(background.sweExperience)
-        ),
-        gamedevIndex: background.technologyExperience.game.map(index => {
-            return new IndexPath(gameDevData.indexOf(index));
-        }),
-        webIndex: background.technologyExperience.web.map(index => {
-            return new IndexPath(webDevData.indexOf(index));
-        }),
-        mobileIndex: background.technologyExperience.mobile.map(index => {
-            return new IndexPath(mobileDevData.indexOf(index));
-        }),
-        dbIndex: background.technologyExperience.database.map(index => {
-            return new IndexPath(dbData.indexOf(index));
-        }),
-        mlIndex: background.technologyExperience.machineLearning.map(index => {
-            return new IndexPath(mlData.indexOf(index));
-        })
+        sweIndex: new IndexPath(sweExperience.indexOf(background.sweExperience))
     };
 
     const myReducer = (currState, action) => {
@@ -190,37 +198,41 @@ const EditProfileScreen = ({ navigation }) => {
             case 'changeGamedev':
                 return {
                     ...currState,
-                    gamedevValue: action.gamedevValue,
-                    gamedevIndex: action.gamedevIndex
+                    gamedevValue: action.gamedevValue
                 };
             case 'changeWebdev':
                 return {
                     ...currState,
-                    webValue: action.webValue,
-                    webIndex: action.webIndex
+                    webValue: action.webValue
                 };
             case 'changeMobiledev':
                 return {
                     ...currState,
-                    mobileValue: action.mobileValue,
-                    mobileIndex: action.mobileIndex
+                    mobileValue: action.mobileValue
                 };
             case 'changeDB':
                 return {
                     ...currState,
-                    dbValue: action.dbValue,
-                    dbIndex: action.dbIndex
+                    dbValue: action.dbValue
                 };
             case 'changeML':
                 return {
                     ...currState,
-                    mlValue: action.mlValue,
-                    mlIndex: action.mlIndex
+                    mlValue: action.mlValue
                 };
         }
     };
 
     const [currState, currdispatch] = React.useReducer(myReducer, initialState);
+
+    const COLOURS = {
+        primary: '#407bff',
+        chipColor: '#407bff'
+    };
+
+    const noResultsComponent = () => (
+        <Text style={styles.noResultsText}>No results found!</Text>
+    );
 
     const saveHandler = () => {
         const backgroundData = {
@@ -233,11 +245,36 @@ const EditProfileScreen = ({ navigation }) => {
                 achievement: currState.achievementValue,
                 sweExperience: currState.sweValue,
                 technologyExperience: {
-                    game: currState.gamedevValue,
-                    web: currState.webValue,
-                    mobile: currState.mobileValue,
-                    database: currState.dbValue,
-                    machineLearning: currState.mlValue
+                    game: currState.gamedevValue.map(
+                        index =>
+                            gameDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    web: currState.webValue.map(
+                        index =>
+                            webDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    mobile: currState.mobileValue.map(
+                        index =>
+                            mobileDevNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    database: currState.dbValue.map(
+                        index =>
+                            dbNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    ),
+                    machineLearning: currState.mlValue.map(
+                        index =>
+                            mlNewData[0].children.filter(
+                                obj => obj.id === index
+                            )[0].name
+                    )
                 },
                 year: currState.yearValue,
                 github:
@@ -300,11 +337,36 @@ const EditProfileScreen = ({ navigation }) => {
                     idea: currState.ideaValue,
                     sweExperience: currState.sweValue,
                     technologyExperience: {
-                        database: currState.dbValue,
-                        game: currState.gamedevValue,
-                        machineLearning: currState.mlValue,
-                        mobile: currState.mobileValue,
-                        web: currState.webValue
+                        game: currState.gamedevValue.map(
+                            index =>
+                                gameDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        web: currState.webValue.map(
+                            index =>
+                                webDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        mobile: currState.mobileValue.map(
+                            index =>
+                                mobileDevNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        database: currState.dbValue.map(
+                            index =>
+                                dbNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        ),
+                        machineLearning: currState.mlValue.map(
+                            index =>
+                                mlNewData[0].children.filter(
+                                    obj => obj.id === index
+                                )[0].name
+                        )
                     },
                     year: currState.yearValue,
                     github:
@@ -673,115 +735,177 @@ const EditProfileScreen = ({ navigation }) => {
                             }
                             value={currState.linkedinValue}
                         />
-
+                    </Layout>
+                    <Layout style={styles.techExpContainer}>
                         <Text style={{ ...styles.screenTitle, marginTop: 20 }}>
                             Technology Experience
                         </Text>
-                        <Select
-                            label='Game Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.gamedevIndex}
-                            onSelect={input =>
-                                currdispatch({
-                                    type: 'changeGamedev',
-                                    gamedevValue: input.map(index => {
-                                        return gameDevData[index.row];
-                                    }),
-                                    gamedevIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.gamedevValue.join(', ')}
-                        >
-                            {gameDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Web Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.webIndex}
-                            onSelect={input =>
-                                currdispatch({
-                                    type: 'changeWebdev',
-                                    webValue: input.map(index => {
-                                        return webDevData[index.row];
-                                    }),
-                                    webIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.webValue.join(', ')}
-                        >
-                            {webDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Mobile Development'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.mobileIndex}
-                            onSelect={input =>
-                                currdispatch({
-                                    type: 'changeMobiledev',
-                                    mobileValue: input.map(index => {
-                                        return mobileDevData[index.row];
-                                    }),
-                                    mobileIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.mobileValue.join(', ')}
-                        >
-                            {mobileDevData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Database'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.dbIndex}
-                            onSelect={input =>
-                                currdispatch({
-                                    type: 'changeDB',
-                                    dbValue: input.map(index => {
-                                        return dbData[index.row];
-                                    }),
-                                    dbIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.dbValue.join(', ')}
-                        >
-                            {dbData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
-                        <Select
-                            label='Machine Learning'
-                            style={styles.selectInput}
-                            multiSelect={true}
-                            selectedIndex={currState.mlIndex}
-                            onSelect={input =>
-                                currdispatch({
-                                    type: 'changeML',
-                                    mlValue: input.map(index => {
-                                        return mlData[index.row];
-                                    }),
-                                    mlIndex: input
-                                })
-                            }
-                            placeholder='Select'
-                            value={currState.mlValue.join(', ')}
-                        >
-                            {mlData.map((value, key) => (
-                                <SelectItem key={key} title={value} />
-                            ))}
-                        </Select>
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Game Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={gameDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    currdispatch({
+                                        type: 'changeGamedev',
+                                        gamedevValue: input.map(index => {
+                                            return gameDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        }),
+                                        gamedevIndex: input
+                                    })
+                                }
+                                selectedItems={currState.gamedevValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Web Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={webDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    currdispatch({
+                                        type: 'changeWebdev',
+                                        webValue: input.map(index => {
+                                            return webDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        })
+                                    })
+                                }
+                                selectedItems={currState.webValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Mobile Development
+                            </Text>
+                            <SectionedMultiSelect
+                                items={mobileDevNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    currdispatch({
+                                        type: 'changeMobiledev',
+                                        mobileValue: input.map(index => {
+                                            return mobileDevNewData[0].children[
+                                                index
+                                            ].id;
+                                        }),
+                                        mobileIndex: input
+                                    })
+                                }
+                                selectedItems={currState.mobileValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Database
+                            </Text>
+                            <SectionedMultiSelect
+                                items={dbNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    currdispatch({
+                                        type: 'changeDB',
+                                        dbValue: input.map(index => {
+                                            return dbNewData[0].children[index]
+                                                .id;
+                                        }),
+                                        dbIndex: input
+                                    })
+                                }
+                                selectedItems={currState.dbValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
+
+                        <Layout style={styles.techExpChildContainer}>
+                            <Text category='label' style={styles.inputLabel}>
+                                Machine Learning
+                            </Text>
+                            <SectionedMultiSelect
+                                items={mlNewData}
+                                IconRenderer={MaterialIcons}
+                                uniqueKey='id'
+                                subKey='children'
+                                selectText='Select'
+                                onSelectedItemsChange={input =>
+                                    currdispatch({
+                                        type: 'changeML',
+                                        mlValue: input.map(index => {
+                                            return mlNewData[0].children[index]
+                                                .id;
+                                        }),
+                                        mlIndex: input
+                                    })
+                                }
+                                selectedItems={currState.mlValue}
+                                readOnlyHeadings
+                                showRemoveAll
+                                expandDropDowns
+                                showDropDowns={false}
+                                styles={multiStyles}
+                                colors={COLOURS}
+                                searchPlaceholderText='Search Technology'
+                                noResultsComponent={noResultsComponent}
+                                removeAllText='Clear All'
+                            />
+                        </Layout>
                     </Layout>
                 </ScrollView>
                 <FloatingSave saveHandler={saveHandler} />
@@ -813,12 +937,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    avatarContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20
-    },
     avatar: {
         height: 100,
         width: 100
@@ -846,12 +964,28 @@ const styles = StyleSheet.create({
     inputContainer: {
         marginVertical: 14,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
+    },
+    techExpContainer: {
+        flex: 1,
+        alignItems: 'center',
         paddingBottom: 80
+    },
+    techExpChildContainer: {
+        flex: 1,
+        width: '70%'
     },
     selectInput: {
         width: '70%',
         marginVertical: 10
+    },
+    inputLabel: {
+        marginTop: 10,
+        marginBottom: 4
+    },
+    noResultsText: {
+        marginTop: 20,
+        textAlign: 'center'
     },
     bioText: {
         minHeight: 64,
@@ -866,6 +1000,31 @@ const styles = StyleSheet.create({
         color: '#407BFF',
         fontSize: 20,
         fontWeight: 'bold',
+        width: '70%'
+    }
+});
+
+const multiStyles = StyleSheet.create({
+    container: {
+        borderRadius: 5,
+        borderColor: 'blue'
+    },
+    searchBar: {
+        width: '96%'
+    },
+    searchTextInput: {
+        width: '70%'
+    },
+    selectToggle: {
+        marginBottom: 10,
+        backgroundColor: '#F2F2F2',
+        padding: 8,
+        borderRadius: 2
+    },
+    parentChipContainer: {
+        width: '70%'
+    },
+    chipsWrapper: {
         width: '70%'
     }
 });
