@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, ScrollView, TouchableNativeFeedback, Platform, Linking } from 'react-native';
+import {
+    StyleSheet,
+    ScrollView,
+    TouchableNativeFeedback,
+    Platform,
+    Linking
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
     Layout,
@@ -15,7 +21,13 @@ import { useSelector } from 'react-redux';
 
 import greeting from '../../utils/Greeting';
 import CountDown from '../../utils/Countdown';
-import { UserAvatar, Stats, LoadingIndicator, Status, RecentLikes } from '../../components/index';
+import {
+    UserAvatar,
+    Stats,
+    LoadingIndicator,
+    Status,
+    RecentLikes
+} from '../../components/index';
 
 const MainAppScreen = ({ navigation }) => {
     const [image, setImage] = React.useState('');
@@ -60,7 +72,7 @@ const MainAppScreen = ({ navigation }) => {
     const LinkIcon = props => (
         <Icon
             {...props}
-            name='link-2-outline'
+            name='external-link-outline'
             style={[props.style, { width: 28, height: 28 }]}
             animation='pulse'
             fill='#407BFF'
@@ -77,7 +89,9 @@ const MainAppScreen = ({ navigation }) => {
         />
     );
 
-    const renderMenuAction = () => <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />;
+    const renderMenuAction = () => (
+        <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
+    );
 
     const orbitalLinkHandler = () => {
         Linking.openURL('https://orbital.comp.nus.edu.sg/');
@@ -89,9 +103,21 @@ const MainAppScreen = ({ navigation }) => {
 
     const renderRightActions = () => (
         <React.Fragment>
-            <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
-                <MenuItem accessoryLeft={LinkIcon} title='Orbital' onPress={orbitalLinkHandler} />
-                <MenuItem accessoryLeft={LinkIcon} title='Skylab' onPress={skylabLinkHandler} />
+            <OverflowMenu
+                anchor={renderMenuAction}
+                visible={menuVisible}
+                onBackdropPress={toggleMenu}
+            >
+                <MenuItem
+                    accessoryLeft={LinkIcon}
+                    title='Orbital'
+                    onPress={orbitalLinkHandler}
+                />
+                <MenuItem
+                    accessoryLeft={LinkIcon}
+                    title='Skylab'
+                    onPress={skylabLinkHandler}
+                />
             </OverflowMenu>
         </React.Fragment>
     );
@@ -111,16 +137,25 @@ const MainAppScreen = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <TouchableNativeFeedback
                     onPress={navigateProfileScreen}
-                    background={TouchableNativeFeedback.Ripple('#00000020', false)}
+                    background={TouchableNativeFeedback.Ripple(
+                        '#00000020',
+                        false
+                    )}
                     useForeground={true}
                 >
                     <Layout style={styles.greetingCard}>
                         <Layout>
-                            <Text style={styles.greetingTitle}>{greeting()}</Text>
+                            <Text style={styles.greetingTitle}>
+                                {greeting()}
+                            </Text>
                             <Text>{name}</Text>
                         </Layout>
                         {image.length > 0 ? (
-                            <Avatar shape='rounded' size='giant' source={{ uri: image }} />
+                            <Avatar
+                                shape='rounded'
+                                size='giant'
+                                source={{ uri: image }}
+                            />
                         ) : (
                             <UserAvatar name={name} size={56} fontSize={28} />
                         )}

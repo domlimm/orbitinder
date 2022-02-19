@@ -83,11 +83,11 @@ const Stats = () => {
             <View style={styles.headerContainer}>
                 <View style={styles.figureContainer}>
                     <Text category='h1' style={styles.statFigure}>
-                        {type === 'likes' ? likesCount : dislikesCount}
+                        {type === 'interest' ? likesCount : dislikesCount}
                     </Text>
                 </View>
                 <View style={styles.iconFooter}>
-                    {type === 'likes' ? <LikeIcon /> : <DislikeIcon />}
+                    {type === 'interest' ? <LikeIcon /> : <DislikeIcon />}
                 </View>
             </View>
             <Text category='h6' style={styles.statTitle}>
@@ -138,7 +138,7 @@ const Stats = () => {
                 </Layout>
             </Popover>
             <View style={styles.statCardsContainer}>
-                <StatCard type='likes' />
+                <StatCard type='interest' />
                 <StatCard type='disinterest' />
             </View>
         </View>
