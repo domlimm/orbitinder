@@ -17,7 +17,7 @@
 ![-----------------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/water.png)
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png" width="600" height="800">
+  <img src="https://user-images.githubusercontent.com/46486515/131120606-acc73491-b4fa-4035-b1e0-dd134a3286c4.png" width="480" height="720">
 </div>
 
 <br/><br/>
