@@ -4,6 +4,7 @@
     "slug": "orbitinder",
     "version": "1.0.0",
     "orientation": "portrait",
+    "owner": "orbitinder",
     "icon": "./src/assets/images/orbital-logo.png",
     "splash": {
       "image": "./src/assets/images/splash.png",
